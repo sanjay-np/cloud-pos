@@ -26,7 +26,6 @@
         "clsx": "^2.1.1",
         "lucide-react": "^0.438.0",
         "sass": "^1.77.8",
-        "styled-icons": "^10.47.1",
         "tailwind-merge": "^2.5.2",
         "tailwindcss-animate": "^1.0.7"
     }
