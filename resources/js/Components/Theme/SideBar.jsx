@@ -1,19 +1,17 @@
 import { Link } from '@inertiajs/react'
-import { BadgeDollarSignIcon, BadgePercentIcon, BookUserIcon, ClipboardCheckIcon, GaugeIcon, LayoutGridIcon, MailIcon, PackageIcon, PercentIcon, PieChartIcon, ReceiptIcon, UserRoundIcon, UsersRoundIcon } from 'lucide-react'
+import { BadgeDollarSignIcon, BadgePercentIcon, BookUserIcon, ClipboardCheckIcon, GaugeIcon, LayoutGridIcon, MailIcon, PackageIcon, PercentIcon, PieChartIcon, ReceiptIcon, ShoppingBasketIcon, UserRoundIcon, UsersRoundIcon } from 'lucide-react'
 import React from 'react'
 
 export default function Sidebar() {
     return (
         <div className='sidebar-content'>
             <div className="top-section">
-                <div className="logo-wrapper">
-                    ERP Application
-                </div>
+                <div className="logo-wrapper">CGS-Application</div>
             </div>
             <div className="menu-wrapper">
                 <ul className='menu'>
-                    <li className='menu-item'>
-                        <Link href='/'>
+                    <li className='menu-item active'>
+                        <Link href={route('dashboard')}>
                             <span className='icon'><GaugeIcon strokeWidth={1} size={20} /></span>
                             <span className='menu-text'>Dashboard</span>
                         </Link>
@@ -35,6 +33,12 @@ export default function Sidebar() {
                         <Link href='/'>
                             <span className='icon'><BadgeDollarSignIcon strokeWidth={1} size={20} /></span>
                             <span className='menu-text'>Orders</span>
+                        </Link>
+                    </li>
+                    <li className='menu-item'>
+                        <Link href='/'>
+                            <span className='icon'><ShoppingBasketIcon strokeWidth={1} size={20} /></span>
+                            <span className='menu-text'>Inventory</span>
                         </Link>
                     </li>
                     <li className='sidebar-header'><span>Miscellaneous</span></li>

@@ -1,0 +1,47 @@
+.main-header {
+    @apply bg-white px-3 py-4 shadow-sm;
+
+    .header-wrapper {
+        @apply flex justify-between items-center;
+
+        .left-item {
+            @apply flex gap-4 items-center;
+
+            .search-section {
+                .input-wrapper {
+                    @apply flex relative;
+
+                    input {
+                        @apply rounded border-gray-300 w-96 text-sm
+                    }
+
+                    span {
+                        &.icon {
+                            @apply absolute right-2 top-1/2 -translate-y-1/2;
+                        }
+                    }
+                }
+            }
+        }
+
+        .right-item {
+            @apply flex gap-4 items-center;
+
+            .divider {
+                @apply w-[1px] bg-gray-300 h-8;
+            }
+
+            .user-section {
+                .avatar-wrapper {
+                    img {
+                        @apply rounded-full size-9;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.user-dropdown-menu {
+    @apply w-40 text-gray-600 font-medium;
+}

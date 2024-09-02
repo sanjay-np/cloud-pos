@@ -1,1 +1,10 @@
+.main-layout {
+    @apply flex;
+
+    .main-content {
+        @apply bg-[#f5f7fb] h-screen w-full;
+    }
+}
+
+@import 'inc/header';
 @import 'inc/sidebar';

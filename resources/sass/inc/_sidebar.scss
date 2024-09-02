@@ -1,14 +1,14 @@
 .sidebar {
-    @apply bg-[#222e3c] text-white min-h-screen w-[255px];
+    @apply bg-[#222e3c] text-white min-h-screen w-[240px];
 
     .sidebar-content {
-        @apply min-h-screen w-[255px];
+        @apply min-h-screen;
 
         .top-section {
             @apply pb-4;
 
             .logo-wrapper {
-                @apply text-center font-semibold text-xl py-4;
+                @apply px-4 font-semibold text-base py-4;
             }
         }
 
@@ -23,6 +23,17 @@
 
                             .menu-text {
                                 @apply text-gray-300 font-medium;
+                            }
+                        }
+                        &.active {
+                            @apply border-l-4 border-l-red-500 bg-gray-600;
+                            a{
+                                .icon{
+                                    @apply text-white;
+                                }
+                                .menu-text{
+                                    @apply text-white;
+                                }
                             }
                         }
 
