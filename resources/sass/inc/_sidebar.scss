@@ -19,7 +19,7 @@
                         @apply px-4 py-2;
 
                         a {
-                            @apply flex gap-2;
+                            @apply flex gap-2 items-center;
 
                             .menu-text {
                                 @apply text-gray-300 font-medium;

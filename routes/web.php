@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PurchaseController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,7 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('purchases', PurchaseController::class)->middleware(['auth', 'verified']);
+Route::resource('products', ProductController::class)->middleware(['auth', 'verified']);
 Route::resource('orders', OrderController::class)->middleware(['auth', 'verified']);
+Route::resource('customers', CustomerController::class)->middleware(['auth', 'verified']);
+Route::resource('employees', EmployeeController::class)->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';

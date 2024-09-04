@@ -13,7 +13,7 @@ export default {
     theme: {
     	extend: {
     		fontFamily: {
-    			sans: ['Poppins', ...defaultTheme.fontFamily.sans]
+    			sans: ['Outfit', ...defaultTheme.fontFamily.sans]
     		},    		
     	}
     },

@@ -1,7 +1,12 @@
 import React from 'react'
 
-export default function PrimaryButton() {
+export default function PrimaryButton(props) {
     return (
-        <div>PrimaryButton</div>
+        <button
+            {...props}
+            className={`primary-btn ${props?.className}`}
+        >
+            {props?.children}
+        </button>
     )
 }

@@ -1,8 +1,10 @@
+@import 'inc/globals';
+
 .main-layout {
     @apply flex;
 
     .main-content {
-        @apply bg-[#f5f7fb] h-screen w-full;
+        @apply bg-[#f5f7fb] min-h-screen w-full;
     }
 }
 
@@ -10,5 +12,5 @@
 @import 'inc/header';
 @import 'inc/sidebar';
 @import 'inc/dashboard';
-@import 'inc/purchase';
+@import 'inc/products';
 @import 'inc/order';

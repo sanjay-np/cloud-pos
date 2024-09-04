@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Purchase;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class PurchaseController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Purchases/Index');
+        return Inertia::render('Employees/Index');
     }
 
     /**
@@ -35,7 +35,7 @@ class PurchaseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Purchase $purchase)
+    public function show(Employee $employee)
     {
         //
     }
@@ -43,7 +43,7 @@ class PurchaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Purchase $purchase)
+    public function edit(Employee $employee)
     {
         //
     }
@@ -51,7 +51,7 @@ class PurchaseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Purchase $purchase)
+    public function update(Request $request, Employee $employee)
     {
         //
     }
@@ -59,7 +59,7 @@ class PurchaseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Purchase $purchase)
+    public function destroy(Employee $employee)
     {
         //
     }
