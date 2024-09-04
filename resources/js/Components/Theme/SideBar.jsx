@@ -17,59 +17,53 @@ export default function Sidebar() {
                         </Link>
                     </li>
                     <li className='sidebar-header'><span>Operations</span></li>
-                    <li className={`menu-item ${route().current('purchases.index') ? 'active' : ''}`}>
-                        <Link href={route('purchases.index')}>
-                            <span className='icon'><ShoppingBagIcon strokeWidth={1} size={20} /></span>
-                            <span className='menu-text'>Purhcases</span>
+                    <li className={`menu-item ${route().current('products.index') ? 'active' : ''}`}>
+                        <Link href={route('products.index')}>
+                            <span className='icon'><PackageIcon strokeWidth={1} size={20} /></span>
+                            <span className='menu-text'>Products</span>
                         </Link>
-                    </li>
+                    </li>                   
                     <li className={`menu-item ${route().current('orders.index') ? 'active' : ''}`}>
                         <Link href={route('orders.index')}>
                             <span className='icon'><BadgeDollarSignIcon strokeWidth={1} size={20} /></span>
                             <span className='menu-text'>Orders</span>
                         </Link>
                     </li>
-                    <li className='menu-item'>
-                        <Link href='/'>
-                            <span className='icon'><PackageIcon strokeWidth={1} size={20} /></span>
-                            <span className='menu-text'>Inventory</span>
-                        </Link>
-                    </li>
                     <li className='sidebar-header'><span>Miscellaneous</span></li>
                     <li className='menu-item'>
-                        <Link href='/'>
+                        <Link href={route('dashboard')}>
                             <span className='icon'><BadgePercentIcon strokeWidth={1} size={20} /></span>
                             <span className='menu-text'>Coupons</span>
                         </Link>
                     </li>
                     <li className='menu-item'>
-                        <Link href='/'>
+                        <Link href={route('dashboard')}>
                             <span className='icon'><MailIcon strokeWidth={1} size={20} /></span>
                             <span className='menu-text'>Messages</span>
                         </Link>
                     </li>
                     <li className='sidebar-header'><span>Analytics</span></li>
                     <li className='menu-item'>
-                        <Link href='/'>
+                        <Link href={route('dashboard')}>
                             <span className='icon'><ClipboardCheckIcon strokeWidth={1} size={20} /></span>
                             <span className='menu-text'>Reports</span>
                         </Link>
                     </li>
                     <li className='menu-item'>
-                        <Link href='/'>
+                        <Link href={route('dashboard')}>
                             <span className='icon'><PieChartIcon strokeWidth={1} size={20} /></span>
                             <span className='menu-text'>Analysis</span>
                         </Link>
                     </li>
                     <li className='sidebar-header'><span>Users</span></li>
-                    <li className='menu-item'>
-                        <Link href='/'>
+                    <li className={`menu-item ${route().current('customers.index') ? 'active' : ''}`}>
+                        <Link href={route('customers.index')}>
                             <span className='icon'><BookUserIcon strokeWidth={1} size={20} /></span>
                             <span className='menu-text'>Customers</span>
                         </Link>
                     </li>
-                    <li className='menu-item'>
-                        <Link href='/'>
+                    <li className={`menu-item ${route().current('employees.index') ? 'active' : ''}`}>
+                        <Link href={route('employees.index')}>
                             <span className='icon'><ContactRoundIcon strokeWidth={1} size={20} /></span>
                             <span className='menu-text'>Employees</span>
                         </Link>

@@ -7,19 +7,19 @@ import React from 'react'
 export default function Index({ auth }) {
     return (
         <Authenticated user={auth.user}>
-            <Head title='Purchases' />
-            <div className="page-content purchases-page">
+            <Head title='Customers' />
+            <div className="page-content orders-page">
                 <div className="top-section">
                     <div className='title-wrapper'>
-                        <h1 className='title'>Purchase</h1>
+                        <h1 className='title'>Customers</h1>
                         <ul className='breadcrumb'>
                             <li><LayoutGridIcon color='gray' size={20} /></li>
                             <li><ChevronRightIcon color='gray' size={14} /></li>
                             <li><span>Dashboard</span></li>
                             <li><ChevronRightIcon color='gray' size={14} /></li>
-                            <li><span>Purchase</span></li>
+                            <li><span>Customers</span></li>
                         </ul>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </Authenticated>

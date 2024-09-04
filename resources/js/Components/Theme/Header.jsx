@@ -1,7 +1,7 @@
-import { AlignLeftIcon, BellDotIcon, BellIcon, ChevronDownIcon, GripIcon, LanguagesIcon, LogOutIcon, MessageSquareTextIcon, SearchIcon, Settings2Icon, SunIcon, User2Icon } from 'lucide-react'
-import React, { useRef, useState } from 'react'
+import { AlignLeftIcon, BellIcon, ChevronDownIcon, GripIcon, LanguagesIcon, LogOutIcon, MessageSquareTextIcon, SearchIcon, Settings2Icon, SunIcon, User2Icon } from 'lucide-react'
+import React, { useState } from 'react'
 import { Link } from '@inertiajs/react'
-import { PopOver } from './PopOver'
+import { PopOver } from '@/Components/Theme/PopOver/PopOver'
 
 export default function Header() {
     const [open, setOpen] = useState(false);
