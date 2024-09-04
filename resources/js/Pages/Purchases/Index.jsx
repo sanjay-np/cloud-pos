@@ -1,5 +1,4 @@
 
-import { Button } from '@/Components/Ui/button'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon, SquarePlusIcon } from 'lucide-react'
@@ -20,8 +19,7 @@ export default function Index({ auth }) {
                             <li><ChevronRightIcon color='gray' size={14} /></li>
                             <li><span>Purchase</span></li>
                         </ul>
-                    </div>
-                    <Button><SquarePlusIcon className="mr-2 size-5" /><span className='font-semibold'>Add Purchase</span></Button>
+                    </div>                    
                 </div>
             </div>
         </Authenticated>

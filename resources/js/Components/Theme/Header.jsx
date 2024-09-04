@@ -1,15 +1,17 @@
 import { AlignLeftIcon, BellDotIcon, BellIcon, ChevronDownIcon, GripIcon, LanguagesIcon, LogOutIcon, MessageSquareTextIcon, SearchIcon, Settings2Icon, SunIcon, User2Icon } from 'lucide-react'
-import React from 'react'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuShortcut, DropdownMenuTrigger } from '../Ui/dropdown-menu'
+import React, { useRef, useState } from 'react'
 import { Link } from '@inertiajs/react'
+import { PopOver } from './PopOver'
 
 export default function Header() {
+    const [open, setOpen] = useState(false);
+
     return (
         <header className='main-header'>
             <div className="header-wrapper">
                 <div className="left-item">
                     <div className="toggle-section">
-                        <AlignLeftIcon color='gray'/>
+                        <AlignLeftIcon color='gray' />
                     </div>
                     <div className="search-section">
                         <div className="input-wrapper">
@@ -35,36 +37,36 @@ export default function Header() {
                     <div className="divider"></div>
                     <div className="user-section">
                         <div className="avatar-wrapper">
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <button className='flex items-center gap-1 justify-between'>
+                            <PopOver open={open} setOpen={setOpen} containerClass={'user-popover-container'}>
+                                <PopOver.Trigger>
+                                    <button className='flex gap-1 items-center'>
                                         <img src="/assets/images/avatar/2.jpg" alt="user avatar" />
                                         <ChevronDownIcon color='gray' size={20} />
                                     </button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent className="user-dropdown-menu">
-                                    <Link href={route('profile.edit')}>
-                                        <DropdownMenuItem>
-                                            <User2Icon className="mr-2 h-4 w-4" />
-                                            <span>My Account</span>
-                                        </DropdownMenuItem>
-                                    </Link>
-                                    <Link>
-                                        <DropdownMenuItem>
-                                            <Settings2Icon className="mr-2 h-4 w-4" />
-                                            <span>Settings</span>
-                                        </DropdownMenuItem>
-                                    </Link>
-                                    <Link href={route('logout')} method="post" as="button" className='w-full'>
-                                        <DropdownMenuItem>
-                                            <LogOutIcon className="mr-2 h-4 w-4" />
-                                            <span>Log Out</span>
-                                        </DropdownMenuItem>
-                                    </Link>
-
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-
+                                </PopOver.Trigger>
+                                <PopOver.Content>
+                                    <ul className='user-menu'>
+                                        <li>
+                                            <Link href={route('profile.edit')}>
+                                                <User2Icon size={20} color='gray' />
+                                                <span>My Account</span>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link>
+                                                <Settings2Icon size={20} color='gray' />
+                                                <span>Settings</span>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href={route('logout')} method="post" as="button">
+                                                <LogOutIcon size={20} color='gray' />
+                                                <span>Log Out</span>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </PopOver.Content>
+                            </PopOver>
                         </div>
                     </div>
                     <div className="divider"></div>
