@@ -1,0 +1,25 @@
+.register-page {
+    @apply min-h-screen bg-[#f5f7fb];
+
+    .register-container {
+        .left-section {
+            @apply min-h-screen bg-[#222e3c];
+        }
+
+        .right-section {
+            @apply p-8;
+
+            .register-form-wrapper {
+                @apply bg-white;
+
+                .form-item {
+                    @apply mb-4;
+
+                    a {
+                        @apply no-underline text-gray-600;
+                    }
+                }
+            }
+        }
+    }
+}
