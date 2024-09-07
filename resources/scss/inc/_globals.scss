@@ -1,5 +1,5 @@
 body {
-    font-size: 16px;
+    @apply text-base;
 }
 
 * {
@@ -7,11 +7,9 @@ body {
 }
 
 .error-msg {
-    color: red;
-    font-size: 14px;
+    @apply text-red-500 text-sm;
 }
 
 .auth-main-content {
-    background-color: #f5f7fb;
-    min-height: 100vh;
+    @apply bg-[#f5f7fb] h-screen;
 }

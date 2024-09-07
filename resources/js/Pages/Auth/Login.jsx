@@ -100,7 +100,7 @@ export default function Login({ status, canResetPassword }) {
                                     </Button>
                                 </div>
 
-                                <div className="form-item">
+                                <div className="">
                                     <Link href={route('register')}>Not registered yet?</Link>
                                 </div>
                             </form>
