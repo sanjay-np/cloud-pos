@@ -12,7 +12,7 @@ export default function EmployeTable({ data }) {
                 cellBordered
             >
                 <Column width={60} align="center" fixed>
-                    <HeaderCell>Id</HeaderCell>
+                    <HeaderCell className='text-sm'>Id</HeaderCell>
                     <Cell dataKey="id" />
                 </Column>
                 <Column flexGrow={1}>

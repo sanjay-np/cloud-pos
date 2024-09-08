@@ -23,3 +23,7 @@
         @apply rounded shadow-sm;
     }
 }
+
+.avatar-uploader input[type="file"] {
+    display: none;
+}

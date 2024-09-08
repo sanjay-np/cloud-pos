@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('phone');
+            $table->string('department');
+            $table->string('position');
             $table->string('document_type');
             $table->string('document_number');
             $table->string('avatar')->nullable();

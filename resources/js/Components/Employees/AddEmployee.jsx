@@ -14,6 +14,8 @@ export default function AddEmployee() {
     const { data, setData, post, processing, errors, reset, recentlySuccessful } = useForm({
         name: '',
         phone: '',
+        department: '',
+        position: '',
         document_type: '',
         document_number: '',
         avatar: null,
@@ -89,6 +91,7 @@ export default function AddEmployee() {
                         </div>
                         <div className="w-1/4">
                             <Uploader
+                                className='avatar-uploader'
                                 fileListVisible={false}
                                 listType="picture"
                                 action="/"
@@ -111,6 +114,48 @@ export default function AddEmployee() {
                             </Uploader>
                         </div>
                     </HStack>
+
+                    <div className="form-item mb-4">
+                        <label className='text-gray-600 font-semibold mb-1 block'>Department</label>
+                        <SelectPicker
+                            data={[
+                                { label: 'IT', value: "IT" },
+                                { label: 'HR', value: "HR" },
+                                { label: 'Finance', value: "Finance" },
+                                { label: 'Accounting', value: "Accounting" },
+                                { label: 'Marketing', value: "Marketing" },
+                                { label: 'Sales', value: "Sales" },
+                                { label: 'Admin', value: "Admin" },
+                                { label: 'Other', value: "Other" },
+                            ]}
+                            className='text-base w-full'
+                            size='lg'
+                            placeholder="Select Department"
+                            value={data.department}
+                            onChange={value => setData('department', value)}
+                        />
+                    </div>
+                    <div className="form-item mb-4">
+                        <label className='text-gray-600 font-semibold mb-1 block'>Department</label>
+                        <SelectPicker
+                            data={[
+                                { label: 'Director', value: "Director" },
+                                { label: 'Accountant', value: "Accountant" },
+                                { label: 'Clerk', value: "Clerk" },
+                                { label: 'Receptionist', value: "Receptionist" },
+                                { label: 'Supervisor', value: "Supervisor" },
+                                { label: 'Administrator', value: "Administrator" },
+                                { label: 'Manager', value: "Manager" },
+                                { label: 'Employee', value: "Employee" },
+                                { label: 'Other', value: "Other" },
+                            ]}
+                            className='text-base w-full'
+                            size='lg'
+                            placeholder="Select Position"
+                            value={data.position}
+                            onChange={value => setData('position', value)}
+                        />
+                    </div>
                     <div className="form-item mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Documnet Validation Type</label>
                         <SelectPicker
