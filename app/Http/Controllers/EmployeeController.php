@@ -37,6 +37,8 @@ class EmployeeController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:10',
+            'department' => 'required',
+            'position' => 'required',
             'document_type' => 'required',
             'document_number' => 'required|string|max:255',
         ]);
@@ -53,6 +55,8 @@ class EmployeeController extends Controller
         $employee = Employee::create([
             'name' => $request->name,
             'phone' => $request->phone,
+            'department' => $request->department,
+            'position' => $request->position,
             'document_type' => $request->document_type,
             'document_number' => $request->document_number,
             'avatar' => $avatar_path,

@@ -134,6 +134,7 @@ export default function AddEmployee() {
                             value={data.department}
                             onChange={value => setData('department', value)}
                         />
+                        <InputError message={errors.department} className="mt-2" />
                     </div>
                     <div className="form-item mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Department</label>
@@ -155,6 +156,7 @@ export default function AddEmployee() {
                             value={data.position}
                             onChange={value => setData('position', value)}
                         />
+                        <InputError message={errors.position} className="mt-2" />
                     </div>
                     <div className="form-item mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Documnet Validation Type</label>

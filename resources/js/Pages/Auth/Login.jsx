@@ -50,7 +50,6 @@ export default function Login({ status, canResetPassword }) {
                                             value={data.email}
                                             autoComplete="username"
                                             onChange={(val) => setData('email', val)}
-                                        // required
                                         />
                                     </InputGroup>
                                     <InputError message={errors.email} />
@@ -100,7 +99,7 @@ export default function Login({ status, canResetPassword }) {
                                     </Button>
                                 </div>
 
-                                <div className="">
+                                <div className="register-link">
                                     <Link href={route('register')}>Not registered yet?</Link>
                                 </div>
                             </form>

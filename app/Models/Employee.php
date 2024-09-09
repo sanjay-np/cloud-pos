@@ -10,7 +10,7 @@ class Employee extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'phone', 'document_type', 'document_number', 'avatar', 'document_files'];
+    protected $fillable = ['name', 'phone', 'department', 'position', 'document_type', 'document_number', 'avatar', 'document_files'];
 
     protected $hidden = [
         'created_at',

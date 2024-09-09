@@ -122,7 +122,7 @@ export default function Register() {
                                     </Button>
                                 </div>
 
-                                <div className="form-item">
+                                <div className="login-link">
                                     <Link href={route('login')} className="">
                                         Already registered?
                                     </Link>
