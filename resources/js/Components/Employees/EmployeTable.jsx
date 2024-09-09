@@ -1,4 +1,4 @@
-import { Edit2Icon } from 'lucide-react';
+import { Trash2Icon, UserRoundPenIcon, UserRoundSearchIcon } from 'lucide-react';
 import React from 'react'
 import { Divider, IconButton, Table } from 'rsuite'
 
@@ -11,8 +11,12 @@ export default function EmployeTable({ data }) {
         }
         return (
             <Cell {...props} className="link-group">
-                <IconButton appearance="subtle" onClick={handleAction} icon={<Edit2Icon />} />
+                <IconButton appearance="subtle" size='xs' onClick={handleAction} icon={<UserRoundPenIcon size={18} />} />
                 <Divider vertical />
+                <IconButton appearance="subtle" size='xs' onClick={handleAction} icon={<UserRoundSearchIcon size={18} />} />
+                <Divider vertical />
+                <IconButton appearance="subtle" size='xs' onClick={handleAction} icon={<Trash2Icon size={18} />} />
+
             </Cell>
         );
     }
@@ -24,7 +28,7 @@ export default function EmployeTable({ data }) {
                 bordered
                 hover
                 headerHeight={50}
-                rowHeight={100}
+                rowHeight={55}
             >
                 <Column width={60} align="center" fixed>
                     <HeaderCell><span className="text-base">Id</span></HeaderCell>

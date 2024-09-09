@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button, ButtonToolbar, Drawer, FlexboxGrid, HStack, IconButton, Input, InputGroup, Placeholder, SelectPicker, Uploader } from 'rsuite'
+import { Button, ButtonToolbar, Drawer, HStack, IconButton, Input, InputGroup, SelectPicker, Uploader } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
-import { CameraIcon, FileTextIcon, MailIcon, PhoneCallIcon, User2Icon, UserIcon } from 'lucide-react';
+import { FileTextIcon, PhoneCallIcon, User2Icon } from 'lucide-react';
 import { useForm } from '@inertiajs/react';
 import { previewFile } from '@/Lib/Utils';
 import { toast } from 'sonner';
@@ -11,7 +11,7 @@ export default function AddEmployee() {
     const [open, setOpen] = React.useState(false)
     const uploader = React.useRef();
     const [avatar, setAvatar] = React.useState(null);
-    const { data, setData, post, processing, errors, reset, recentlySuccessful } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         phone: '',
         department: '',
@@ -46,7 +46,7 @@ export default function AddEmployee() {
                 <Drawer.Header className='pe-6 items-center'>
                     <Drawer.Title className='font-semibold text-gray-600'>Add New Employee</Drawer.Title>
                     <Drawer.Actions>
-                        <Button appearance="primary" color='green' onClick={onSubmit}>
+                        <Button appearance="primary" color='green' onClick={onSubmit} loading={processing}>
                             <span className='font-semibold'>Submit</span>
                         </Button>
                     </Drawer.Actions>
