@@ -22,14 +22,6 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return to_route('employees.index');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -64,21 +56,10 @@ class EmployeeController extends Controller
         ]);
         return to_route('employees.index');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Employee $employee)
+    public function get(Employee $employee, $id)
     {
-        return to_route('employees.index');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Employee $employee)
-    {
-        return to_route('employees.index');
+        $item = $employee->findOrFail($id);
+        return $item;
     }
 
     /**

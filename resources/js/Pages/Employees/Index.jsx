@@ -1,12 +1,17 @@
 import AddEmployee from '@/Components/Employees/AddEmployee'
+import DeleteEmployee from '@/Components/Employees/DeleteEmployee'
+import EditEmployee from '@/Components/Employees/EditEmployee'
 import EmployeTable from '@/Components/Employees/EmployeTable'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function Index({ auth, employees }) {
-    console.log(employees);
+
+    const [selectedId, setSelectedId] = useState(null)
+    const [editModal, setEditModal] = useState(false)
+    const [deleteModal, setDeleteModal] = useState(false)
 
     return (
         <Authenticated user={auth.user}>
@@ -23,13 +28,30 @@ export default function Index({ auth, employees }) {
                             <li><span>Employees</span></li>
                         </ul>
                     </div>
-                    <div className="">
+                    <div className="add-employee">
                         <AddEmployee />
                     </div>
                 </div>
                 <div className="content-wrapper h-[500px] bg-white">
-                    <EmployeTable data={employees?.data} />
+                    <EmployeTable
+                        data={employees?.data}
+                        setSelectedId={setSelectedId}
+                        setEditModal={setEditModal}
+                        setDeleteModal={setDeleteModal}
+                    />
                 </div>
+                <EditEmployee
+                    selectedId={selectedId}
+                    setSelectedId={setSelectedId}
+                    open={editModal}
+                    setOpen={setEditModal}
+                />
+                <DeleteEmployee
+                    selectedId={selectedId}
+                    setSelectedId={setSelectedId}
+                    open={deleteModal}
+                    setOpen={setDeleteModal}
+                />
             </div>
         </Authenticated>
     )
