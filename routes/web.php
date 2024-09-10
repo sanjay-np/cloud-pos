@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SalesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::resource('products', ProductController::class)->only(['index', 'store'])->middleware(['auth', 'verified']);
-Route::resource('orders', OrderController::class)->middleware(['auth', 'verified']);
+Route::resource('sales', SalesController::class)->middleware(['auth', 'verified']);
 Route::resource('customers', CustomerController::class)->middleware(['auth', 'verified']);
 
 Route::resource('employees', EmployeeController::class)->only(['index', 'store', 'update', 'destroy'])->middleware(['auth', 'verified']);

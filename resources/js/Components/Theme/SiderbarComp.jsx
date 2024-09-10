@@ -22,7 +22,7 @@ export default function SiderbarComp() {
                         </Nav.Item>
 
                         <Nav.Item icon={<BadgeDollarSignIcon strokeWidth={1.5} size={20} />} as={'div'}>
-                            <Link href={route('orders.index')}>Orders</Link>
+                            <Link href={route('sales.index')}>Sales</Link>
                         </Nav.Item>
 
                         <Nav.Item panel>Miscellaneous</Nav.Item>
