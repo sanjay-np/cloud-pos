@@ -1,10 +1,10 @@
 import React from 'react'
 import { Button, Modal } from 'rsuite'
 
-export default function DeleteEmployee(props) {
-    const { selectedId, setSelectedId, open, setOpen } = props
+export default function EmployeeAlert(props) {
+    const { open, setOpen, selectedEmployee, setSelectedEmployee } = props
     const handleClose = () => {
-        setSelectedId(null)
+        setSelectedEmployee(null)
         setOpen(false)
     }
     return (

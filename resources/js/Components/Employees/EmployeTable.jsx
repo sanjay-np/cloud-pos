@@ -1,20 +1,21 @@
-import { FilePenIcon, FilePenLineIcon, Trash2Icon, UserRoundPenIcon, UserRoundSearchIcon } from 'lucide-react';
+import { FilePenLineIcon, Trash2Icon } from 'lucide-react';
 import React from 'react'
 import { Divider, IconButton, Table } from 'rsuite'
 
 export default function EmployeTable(props) {
 
-    const { data, setSelectedId, setEditModal, setDeleteModal } = props
+    const { data, setTitle, setSelectedEmployee, setDrawerState, setAlertState } = props
     const { Column, HeaderCell, Cell } = Table;
 
     const ActionCell = ({ rowData, dataKey, ...props }) => {
         const handleEditAction = () => {
-            setSelectedId(rowData[dataKey]);
-            setEditModal(true);
+            setTitle('Edit')
+            setSelectedEmployee(rowData[dataKey])
+            setDrawerState(true)
         }
         const handleDeleteAction = () => {
-            setSelectedId(rowData[dataKey]);
-            setDeleteModal(true);
+            setSelectedEmployee(rowData[dataKey])
+            setAlertState(true)
         }
         return (
             <Cell {...props} className="link-group">
@@ -27,13 +28,7 @@ export default function EmployeTable(props) {
 
     return (
         <React.Fragment>
-            <Table
-                data={data}
-                bordered
-                hover
-                headerHeight={50}
-                rowHeight={55}
-            >
+            <Table data={data} bordered hover headerHeight={50} rowHeight={55}>
                 <Column width={60} align="center" fixed>
                     <HeaderCell><span className="text-base">Id</span></HeaderCell>
                     <Cell dataKey="id" />

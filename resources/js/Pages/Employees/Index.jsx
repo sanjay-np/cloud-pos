@@ -1,17 +1,22 @@
-import AddEmployee from '@/Components/Employees/AddEmployee'
-import DeleteEmployee from '@/Components/Employees/DeleteEmployee'
-import EditEmployee from '@/Components/Employees/EditEmployee'
 import EmployeTable from '@/Components/Employees/EmployeTable'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import React, { useState } from 'react'
-
+import { useState } from 'react'
+import { ButtonToolbar, IconButton } from 'rsuite'
+import AddOutlineIcon from '@rsuite/icons/AddOutline';
+import EmployeeDrawer from '@/Components/Employees/EmployeeDrawer'
+import EmployeeAlert from '@/Components/Employees/EmployeeAlert'
 export default function Index({ auth, employees }) {
+    const [selectedEmployee, setSelectedEmployee] = useState(null)
+    const [drawerState, setDrawerState] = useState(false)
+    const [title, setTitle] = useState('Add')
+    const [alertState, setAlertState] = useState(false)
 
-    const [selectedId, setSelectedId] = useState(null)
-    const [editModal, setEditModal] = useState(false)
-    const [deleteModal, setDeleteModal] = useState(false)
+    const handleAddState = () => {
+        setTitle('Add')
+        setDrawerState(true)
+    }
 
     return (
         <Authenticated user={auth.user}>
@@ -29,28 +34,34 @@ export default function Index({ auth, employees }) {
                         </ul>
                     </div>
                     <div className="add-employee">
-                        <AddEmployee />
+                        <ButtonToolbar>
+                            <IconButton size='lg' color='green' icon={<AddOutlineIcon />} appearance='primary' onClick={handleAddState}>
+                                <span className='font-semibold'>Add New</span>
+                            </IconButton>
+                        </ButtonToolbar>
                     </div>
                 </div>
                 <div className="content-wrapper h-[500px] bg-white">
                     <EmployeTable
                         data={employees?.data}
-                        setSelectedId={setSelectedId}
-                        setEditModal={setEditModal}
-                        setDeleteModal={setDeleteModal}
+                        setTitle={setTitle}
+                        setSelectedEmployee={setSelectedEmployee}
+                        setDrawerState={setDrawerState}
+                        setAlertState={setAlertState}
                     />
                 </div>
-                <EditEmployee
-                    selectedId={selectedId}
-                    setSelectedId={setSelectedId}
-                    open={editModal}
-                    setOpen={setEditModal}
+                <EmployeeDrawer
+                    title={title}
+                    selectedEmployee={selectedEmployee}
+                    setSelectedEmployee={setSelectedEmployee}
+                    open={drawerState}
+                    setOpen={setDrawerState}
                 />
-                <DeleteEmployee
-                    selectedId={selectedId}
-                    setSelectedId={setSelectedId}
-                    open={deleteModal}
-                    setOpen={setDeleteModal}
+                <EmployeeAlert
+                    open={alertState}
+                    setOpen={setAlertState}
+                    selectedEmployee={selectedEmployee}
+                    setSelectedEmployee={setSelectedEmployee}
                 />
             </div>
         </Authenticated>
