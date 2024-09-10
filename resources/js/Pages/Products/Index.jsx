@@ -2,10 +2,14 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import React from 'react'
-import AddProduct from '@/Components/Products/AddProduct'
-
+import React, { useState } from 'react'
+import { ButtonToolbar, IconButton } from 'rsuite'
+import AddOutlineIcon from '@rsuite/icons/AddOutline';
+import ProductDrawer from '@/Components/Products/ProductDrawer'
 export default function Index({ auth }) {
+
+    const [open, setOpen] = useState(false)
+
     return (
         <Authenticated user={auth.user}>
             <Head title='Products' />
@@ -21,10 +25,24 @@ export default function Index({ auth }) {
                             <li><span>Products</span></li>
                         </ul>
                     </div>
-                    <div>
-                        <AddProduct />
+                    <div className='add-product'>
+                        <ButtonToolbar>
+                            <IconButton
+                                size='lg'
+                                color='green'
+                                icon={<AddOutlineIcon />}
+                                appearance='primary'
+                                onClick={() => setOpen(true)}
+                            >
+                                <span className='font-semibold'>Add New</span>
+                            </IconButton>
+                        </ButtonToolbar>
                     </div>
                 </div>
+                <ProductDrawer
+                    open={open}
+                    setOpen={setOpen}
+                />
             </div>
         </Authenticated>
     )
