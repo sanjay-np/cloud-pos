@@ -19,6 +19,12 @@
                         @apply no-underline text-gray-600;
                     }
                 }
+
+                .login-link {
+                    a {
+                        @apply no-underline text-gray-600;
+                    }
+                }
             }
         }
     }

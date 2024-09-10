@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { AlignLeft, AlignLeftIcon, BellIcon, GridIcon, GripIcon, LanguagesIcon, MessageSquareTextIcon, PowerIcon, PowerOffIcon, SearchIcon, SettingsIcon, SunIcon, User2Icon } from 'lucide-react'
+import { AlignLeftIcon, BellIcon, GripIcon, LanguagesIcon, MessageSquareTextIcon, PowerIcon, SearchIcon, SettingsIcon, SunIcon, User2Icon } from 'lucide-react'
 import React from 'react'
 import { Avatar, Badge, Divider, Dropdown, FlexboxGrid, HStack, IconButton, Input, InputGroup, Popover, Stack, Whisper } from 'rsuite'
 

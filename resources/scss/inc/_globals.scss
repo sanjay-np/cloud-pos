@@ -1,5 +1,5 @@
 body {
-    font-size: 16px;
+    @apply text-base;
 }
 
 * {
@@ -7,11 +7,30 @@ body {
 }
 
 .error-msg {
-    color: red;
-    font-size: 14px;
+    @apply text-red-500 text-sm;
 }
 
 .auth-main-content {
-    background-color: #f5f7fb;
-    min-height: 100vh;
+    @apply bg-[#f5f7fb] h-screen;
+}
+
+.rs-picker-has-value .rs-btn .rs-picker-toggle-value,
+.rs-picker-has-value .rs-picker-toggle .rs-picker-toggle-value {
+    @apply text-gray-600;
+}
+
+.breadcrumb {
+    @apply flex items-center gap-2 py-2;
+
+    li {
+        @apply font-medium text-gray-400 text-sm cursor-pointer;
+
+        a {
+            @apply transition-all ease-in-out duration-300;
+
+            &:hover {
+                @apply text-gray-600 no-underline;
+            }
+        }
+    }
 }

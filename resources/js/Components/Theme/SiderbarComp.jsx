@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react'
-import { BadgeDollarSignIcon, BadgePercentIcon, BookUserIcon, ClipboardCheckIcon, ContactRoundIcon, GaugeIcon, MailIcon, Package2Icon, PackageIcon, PieChartIcon, ShoppingBagIcon } from 'lucide-react'
+import { BadgeDollarSignIcon, BadgePercentIcon, BookUserIcon, ClipboardCheckIcon, ContactRoundIcon, GaugeIcon, MailIcon, PackageIcon, PieChartIcon } from 'lucide-react'
 import React from 'react'
 import { Nav, Sidenav } from 'rsuite'
 

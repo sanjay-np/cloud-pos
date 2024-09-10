@@ -27,6 +27,12 @@
                         @apply no-underline text-gray-600;
                     }
                 }
+
+                .register-link {
+                    a {
+                        @apply no-underline text-gray-600;
+                    }
+                }
             }
         }
     }
