@@ -28,29 +28,29 @@ export default function EmployeTable(props) {
 
     return (
         <React.Fragment>
-            <Table data={data} bordered hover headerHeight={50} rowHeight={55}>
+            <Table data={data} bordered hover headerHeight={50} rowHeight={55} cellBordered autoHeight={true}>
                 <Column width={60} align="center" fixed>
-                    <HeaderCell><span className="text-base">Id</span></HeaderCell>
+                    <HeaderCell><span className="text-base text-gray-700">Id</span></HeaderCell>
                     <Cell dataKey="id" />
                 </Column>
                 <Column flexGrow={1}>
-                    <HeaderCell><span className='text-base'>Employee Name</span></HeaderCell>
+                    <HeaderCell><span className='text-base text-gray-700'>Employee Name</span></HeaderCell>
                     <Cell dataKey="name" />
                 </Column>
                 <Column flexGrow={1}>
-                    <HeaderCell><span className="text-base">Phone No.</span></HeaderCell>
+                    <HeaderCell><span className="text-base text-gray-700">Phone No.</span></HeaderCell>
                     <Cell dataKey="phone" />
                 </Column>
                 <Column flexGrow={1}>
-                    <HeaderCell><span className="text-base">Department</span></HeaderCell>
+                    <HeaderCell><span className="text-base text-gray-700">Department</span></HeaderCell>
                     <Cell dataKey="department" />
                 </Column>
                 <Column flexGrow={1}>
-                    <HeaderCell><span className="text-base">Position</span></HeaderCell>
+                    <HeaderCell><span className="text-base text-gray-700">Position</span></HeaderCell>
                     <Cell dataKey="position" />
                 </Column>
                 <Column flexGrow={1}>
-                    <HeaderCell><span className="text-base">Actions</span></HeaderCell>
+                    <HeaderCell><span className="text-base text-gray-700">Actions</span></HeaderCell>
                     <ActionCell dataKey="id" />
                 </Column>
             </Table>

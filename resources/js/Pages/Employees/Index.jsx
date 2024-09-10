@@ -1,6 +1,6 @@
 import EmployeTable from '@/Components/Employees/EmployeTable'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import { useState } from 'react'
 import { ButtonToolbar, IconButton } from 'rsuite'
@@ -28,9 +28,9 @@ export default function Index({ auth, employees }) {
                         <ul className='breadcrumb'>
                             <li><LayoutGridIcon color='gray' size={20} /></li>
                             <li><ChevronRightIcon color='gray' size={14} /></li>
-                            <li><span>Dashboard</span></li>
+                            <li><Link href={route('dashboard')}><span>Dashboard</span></Link></li>
                             <li><ChevronRightIcon color='gray' size={14} /></li>
-                            <li><span>Employees</span></li>
+                            <li><Link href={route('employees.index')}><span>Employees</span></Link></li>
                         </ul>
                     </div>
                     <div className="add-employee">

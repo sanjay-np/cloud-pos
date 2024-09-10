@@ -9,14 +9,6 @@
                 @apply font-semibold text-3xl tracking-tight text-gray-600;
             }
         }
-
-        .breadcrumb {
-            @apply flex items-center gap-2 py-2;
-
-            li {
-                @apply font-medium text-gray-400 text-sm cursor-pointer;
-            }
-        }
     }
 
     .content-wrapper {
