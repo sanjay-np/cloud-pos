@@ -1,4 +1,4 @@
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 import { FileTextIcon, PhoneCallIcon, User2Icon } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Drawer, HStack, Input, InputGroup, Loader, SelectPicker, Uploader } from 'rsuite'
@@ -13,7 +13,7 @@ export default function EmployeeDrawer(props) {
     const [loading, setLoading] = useState(false)
     const [avatar, setAvatar] = useState(null);
     const [documentFiles, setDocumentFiles] = useState([]);
-    const { data, setData, patch, put, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         phone: '',
         department: '',
@@ -66,9 +66,10 @@ export default function EmployeeDrawer(props) {
                 },
             })
         } else if (title === 'Edit') {
-            console.log(data);
-
-            put(route('employees.update', selectedEmployee), {
+            router.post(route('employees.update', selectedEmployee), {
+                _method: 'put',
+                ...data
+            }, {
                 onSuccess: () => {
                     setOpen(false)
                     setSelectedEmployee(null)
