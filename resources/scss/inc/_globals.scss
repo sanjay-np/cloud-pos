@@ -19,6 +19,21 @@ body {
     @apply text-gray-600;
 }
 
+.auth-main-content .page-content {
+    @apply p-4;
+
+    .top-section {
+        @apply flex items-center justify-between;
+
+        .title-wrapper {
+            .title {
+                @apply font-semibold text-3xl tracking-tight;
+                color: rgba(37, 43, 54, 0.95);
+            }
+        }
+    }
+}
+
 .breadcrumb {
     @apply flex items-center gap-2 py-2;
 

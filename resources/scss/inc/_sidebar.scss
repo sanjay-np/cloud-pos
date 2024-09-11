@@ -1,6 +1,7 @@
 .auth-main-content {
     .sidebar {
-        @apply min-h-screen bg-[#222e3c];
+        @apply min-h-screen max-h-screen bg-[#222e3c] overflow-scroll;
+        scrollbar-width: none;
 
         .side-nav {
             @apply text-white;
@@ -38,6 +39,38 @@
                             margin-left: 5px;
                             @apply border-gray-600 border-t;
                         }
+                    }
+
+                    .product-sub-menu {
+                        @apply relative;
+
+                        &::after {
+                            content: "";
+                            display: block;
+                            width: 1px;
+                            height: 88%;
+                            display: block;
+                            position: absolute;
+                            bottom: 12%;
+                            left: 20px;
+                            @apply bg-gray-600;
+                        }
+
+                        .rs-sidenav-item {
+                            @apply relative ps-10;
+
+                            &::before {
+                                content: '';
+                                display: block;
+                                width: 12px;
+                                height: 1px;
+                                position: absolute;
+                                top: 50%;
+                                left: 20px;
+                                @apply bg-gray-600;
+                            }
+                        }
+
                     }
                 }
             }

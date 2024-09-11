@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,6 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::resource('products', ProductController::class)->only(['index', 'store'])->middleware(['auth', 'verified']);
+Route::resource('product/attributes', AttributeController::class)->only(['index', 'store'])->middleware(['auth', 'verified']);
+Route::resource('product/brands', BrandController::class)->only(['index', 'store'])->middleware(['auth', 'verified']);
+Route::resource('product/categories', CategoryController::class)->only(['index', 'store'])->middleware(['auth', 'verified']);
+Route::resource('product/suppliers', SupplierController::class)->only(['index', 'store'])->middleware(['auth', 'verified']);
 Route::resource('sales', SalesController::class)->middleware(['auth', 'verified']);
 Route::resource('customers', CustomerController::class)->middleware(['auth', 'verified']);
 

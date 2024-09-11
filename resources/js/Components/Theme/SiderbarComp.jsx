@@ -20,6 +20,20 @@ export default function SiderbarComp() {
                         <Nav.Item icon={<PackageIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('products.index')}>Products</Link>
                         </Nav.Item>
+                        <div className="product-sub-menu">
+                            <Nav.Item as={'div'}>
+                                <Link href={route('attributes.index')}>Attributes</Link>
+                            </Nav.Item>
+                            <Nav.Item as={'div'}>
+                                <Link href={route('brands.index')}>Brands</Link>
+                            </Nav.Item>
+                            <Nav.Item as={'div'}>
+                                <Link href={route('categories.index')}>Categories</Link>
+                            </Nav.Item>
+                            <Nav.Item as={'div'}>
+                                <Link href={route('suppliers.index')}>Suppliers</Link>
+                            </Nav.Item>
+                        </div>
 
                         <Nav.Item icon={<BadgeDollarSignIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('sales.index')}>Sales</Link>
