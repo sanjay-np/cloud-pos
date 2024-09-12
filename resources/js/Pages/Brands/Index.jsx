@@ -1,11 +1,16 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 import { ButtonToolbar, IconButton } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
+import BrandrDrawer from '@/Components/Brands/BrandDrawer'
 
 export default function Index({ auth }) {
+
+    const [open, setOpen] = useState(false)
+    const [title, setTitle] = useState('Add')
+
     return (
         <Authenticated user={auth.user}>
             <Head title="Brands" />
@@ -38,6 +43,11 @@ export default function Index({ auth }) {
                     </div>
                 </div>
             </div>
+            <BrandrDrawer
+                open={open}
+                title={title}
+                setOpen={setOpen}
+            />
         </Authenticated>
     )
 }
