@@ -6,12 +6,12 @@ export default function BrandAlert(props) {
     const { open, setOpen, selectedBrand, setSelectedBrand } = props
     const { delete: destroy } = useForm()
     const handleClose = () => {
-        setSelectedEmployee(null)
+        setSelectedBrand(null)
         setOpen(false)
     }
 
     const handleDelete = () => {
-        destroy(route('employees.destroy', selectedBrand), {
+        destroy(route('brands.destroy', selectedBrand), {
             onSuccess: () => {
                 setOpen(false)
                 setSelectedBrand(null)

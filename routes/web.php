@@ -39,9 +39,10 @@ Route::resource('product/attributes', AttributeController::class)
     ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
-Route::resource('product/brands', BrandController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']);
+Route::controller(BrandController::class)->group(function () {
+    Route::resource('product/brands', BrandController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::get('/product/brands/{id}', 'get')->name('brands.get');
+});
 
 Route::resource('product/categories', CategoryController::class)
     ->only(['index', 'store', 'update', 'destroy'])
@@ -57,12 +58,10 @@ Route::resource('sales', SalesController::class)
 Route::resource('customers', CustomerController::class)
     ->middleware(['auth', 'verified']);
 
-Route::resource('employees', EmployeeController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']);
+Route::controller(EmployeeController::class)->group(function () {
+    Route::resource('employees', EmployeeController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::get('/employees/{id}', 'get')->name('employees.get');
+})->middleware(['auth', 'verified']);
 
-Route::get('/employees/{id}', [EmployeeController::class, 'get'])
-    ->name('employees.get')
-    ->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';

@@ -4,7 +4,7 @@ namespace App\Traits;
 
 trait ImageUpload
 {
-    public function uploadImage($image, $path)
+    public function uploadImage($image, $path): mixed
     {
         if (!$image) {
             return null;
@@ -13,7 +13,7 @@ trait ImageUpload
         return $image_path;
     }
 
-    public function uploadMultipleImages($images, $file_path)
+    public function uploadMultipleImages($images, $file_path): array
     {
         if (!$images) {
             return [];

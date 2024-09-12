@@ -1,14 +1,16 @@
 import { previewFile } from '@/Lib/Utils'
-import { useForm } from '@inertiajs/react'
+import { router, useForm } from '@inertiajs/react'
 import { AirplayIcon } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Drawer, Input, InputGroup, Uploader } from 'rsuite'
 import InputError from '@/Components/InputError'
 import { toast } from 'sonner'
+import axios from 'axios'
 
 export default function BrandrDrawer(props) {
-    const { open, setOpen, title, selectedBrand, setSelectedBrand } = props
 
+    const { open, setOpen, title, selectedBrand, setSelectedBrand } = props
+    const [loading, setLoading] = useState(false)
     const handleClose = () => {
         setOpen(false)
     }
@@ -19,6 +21,24 @@ export default function BrandrDrawer(props) {
         description: '',
         image: null
     })
+
+    useEffect(() => {
+        if (!selectedBrand) return;
+        if (title !== 'Edit') return
+        const fetchData = async () => {
+            setLoading(true)
+            try {
+                const res = await axios.get(route('brands.get', selectedBrand));
+                setData(res?.data);
+                setLogo(res?.data?.image_url);
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setLoading(false)
+            }
+        };
+        fetchData();
+    }, [selectedBrand])
 
     const onSubmit = () => {
         if (title === 'Add') {

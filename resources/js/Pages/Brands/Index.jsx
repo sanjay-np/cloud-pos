@@ -6,8 +6,9 @@ import { ButtonToolbar, IconButton } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
 import BrandrDrawer from '@/Components/Brands/BrandDrawer'
 import BrandAlert from '@/Components/Brands/BrandAlert'
+import BrandTable from '@/Components/Brands/BrandTable'
 
-export default function Index({ auth }) {
+export default function Index({ auth, brands }) {
 
     const [selectedBrand, setSelectedBrand] = useState(null)
     const [drawerState, setDrawerState] = useState(false)
@@ -48,6 +49,15 @@ export default function Index({ auth }) {
                             </IconButton>
                         </ButtonToolbar>
                     </div>
+                </div>
+                <div className="content-wrapper h-[500px] bg-white">
+                    <BrandTable
+                        data={brands?.data}
+                        setTitle={setTitle}
+                        setSelectedBrand={setSelectedBrand}
+                        setDrawerState={setDrawerState}
+                        setAlertState={setAlertState}
+                    />
                 </div>
             </div>
             <BrandrDrawer
