@@ -5,12 +5,19 @@ import React, { useState } from 'react'
 import { ButtonToolbar, IconButton } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
 import BrandrDrawer from '@/Components/Brands/BrandDrawer'
+import BrandAlert from '@/Components/Brands/BrandAlert'
 
 export default function Index({ auth }) {
 
-    const [open, setOpen] = useState(false)
+    const [selectedBrand, setSelectedBrand] = useState(null)
+    const [drawerState, setDrawerState] = useState(false)
     const [title, setTitle] = useState('Add')
+    const [alertState, setAlertState] = useState(false)
 
+    const handleAddState = () => {
+        setTitle('Add')
+        setDrawerState(true)
+    }
     return (
         <Authenticated user={auth.user}>
             <Head title="Brands" />
@@ -35,7 +42,7 @@ export default function Index({ auth }) {
                                 color='green'
                                 icon={<AddOutlineIcon />}
                                 appearance='primary'
-                                onClick={() => setOpen(true)}
+                                onClick={handleAddState}
                             >
                                 <span className='font-semibold'>Add New</span>
                             </IconButton>
@@ -44,9 +51,17 @@ export default function Index({ auth }) {
                 </div>
             </div>
             <BrandrDrawer
-                open={open}
+                selectedBrand={selectedBrand}
+                setSelectedBrand={setSelectedBrand}
                 title={title}
-                setOpen={setOpen}
+                open={drawerState}
+                setOpen={setDrawerState}
+            />
+            <BrandAlert
+                open={alertState}
+                setOpen={setAlertState}
+                selectedBrand={selectedBrand}
+                setSelectedBrand={setSelectedBrand}
             />
         </Authenticated>
     )

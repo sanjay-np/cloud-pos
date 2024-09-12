@@ -7,7 +7,7 @@ import InputError from '@/Components/InputError'
 import { toast } from 'sonner'
 
 export default function BrandrDrawer(props) {
-    const { open, setOpen, title } = props
+    const { open, setOpen, title, selectedBrand, setSelectedBrand } = props
 
     const handleClose = () => {
         setOpen(false)
@@ -33,7 +33,20 @@ export default function BrandrDrawer(props) {
                 }
             })
         } else if (title === 'Edit') {
-
+            router.post(route('brands.update', selectedBrand), {
+                _method: 'put',
+                ...data
+            }, {
+                onSuccess: () => {
+                    setOpen(false)
+                    setSelectedBrand(null)
+                    setLogo(null)
+                    reset()
+                    toast.success('Success', {
+                        description: 'Brand updated successfully',
+                    })
+                },
+            })
         }
     }
 
