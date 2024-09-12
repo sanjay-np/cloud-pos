@@ -31,15 +31,38 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::resource('products', ProductController::class)->only(['index', 'store'])->middleware(['auth', 'verified']);
-Route::resource('product/attributes', AttributeController::class)->only(['index', 'store'])->middleware(['auth', 'verified']);
-Route::resource('product/brands', BrandController::class)->only(['index', 'store'])->middleware(['auth', 'verified']);
-Route::resource('product/categories', CategoryController::class)->only(['index', 'store'])->middleware(['auth', 'verified']);
-Route::resource('product/suppliers', SupplierController::class)->only(['index', 'store'])->middleware(['auth', 'verified']);
-Route::resource('sales', SalesController::class)->middleware(['auth', 'verified']);
-Route::resource('customers', CustomerController::class)->middleware(['auth', 'verified']);
+Route::resource('products', ProductController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
 
-Route::resource('employees', EmployeeController::class)->only(['index', 'store', 'update', 'destroy'])->middleware(['auth', 'verified']);
-Route::get('/employees/{id}', [EmployeeController::class, 'get'])->name('employees.get')->middleware(['auth', 'verified']);
+Route::resource('product/attributes', AttributeController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('product/brands', BrandController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('product/categories', CategoryController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('product/suppliers', SupplierController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('sales', SalesController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('customers', CustomerController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('employees', EmployeeController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::get('/employees/{id}', [EmployeeController::class, 'get'])
+    ->name('employees.get')
+    ->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';

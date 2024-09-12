@@ -20,8 +20,7 @@ return new class extends Migration {
             $table->string('price');
             $table->string('stock');
             $table->integer('category_id')->nullable();
-            $table->integer('attribute_id')->nullable();
-            $table->json('attribute_values')->nullable();
+            $table->json('product_attributes')->nullable();
             $table->integer('brand_id')->nullable();
             $table->integer('supplier_id')->nullable();
             $table->string('type');
