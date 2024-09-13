@@ -41,36 +41,55 @@
                         }
                     }
 
-                    .product-sub-menu {
-                        @apply relative;
+                    .dropdown-menu {
+                        .rs-dropdown-toggle {
+                            @apply text-gray-400 font-semibold flex items-center gap-3 p-3 text-base cursor-pointer;
 
-                        &::after {
-                            content: "";
-                            display: block;
-                            width: 1px;
-                            height: 88%;
-                            display: block;
-                            position: absolute;
-                            bottom: 12%;
-                            left: 20px;
-                            @apply bg-gray-600;
-                        }
-
-                        .rs-sidenav-item {
-                            @apply relative ps-10;
-
-                            &::before {
-                                content: '';
-                                display: block;
-                                width: 12px;
-                                height: 1px;
-                                position: absolute;
-                                top: 50%;
-                                left: 20px;
-                                @apply bg-gray-600;
+                            &:hover {
+                                @apply bg-gray-500 text-white;
                             }
                         }
 
+                        .rs-dropdown-menu {
+                            @apply relative;
+
+                            &::after {
+                                content: "";
+                                display: block;
+                                width: 1px;
+                                height: 88%;
+                                display: block;
+                                position: absolute;
+                                bottom: 12%;
+                                left: 20px;
+                                @apply bg-gray-600;
+                            }
+
+                            li {
+                                .rs-dropdown-item {
+                                    @apply text-gray-400 font-semibold flex items-center gap-3 px-12 py-3 text-sm cursor-pointer relative;
+
+                                    &:hover {
+                                        @apply bg-gray-500 text-white;
+
+                                        a {
+                                            @apply text-white no-underline;
+                                        }
+                                    }
+
+                                    &::before {
+                                        content: '';
+                                        display: block;
+                                        width: 16px;
+                                        height: 1px;
+                                        position: absolute;
+                                        top: 50%;
+                                        left: 20px;
+                                        @apply bg-gray-600;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

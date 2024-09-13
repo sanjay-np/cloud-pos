@@ -17,7 +17,22 @@ export default function SiderbarComp() {
                         </Nav.Item>
 
                         <Nav.Item panel>Operations</Nav.Item>
-                        <Nav.Item icon={<PackageIcon strokeWidth={1.5} size={20} />} as={'div'}>
+                        <Nav.Menu title="Products" icon={<PackageIcon strokeWidth={1.5} size={20} />} className='dropdown-menu'>
+                            <Nav.Item as={'div'}>
+                                <Link href={route('products.index')}>All Products</Link>
+                            </Nav.Item>
+                            <Nav.Item as={'div'}>
+                                <Link href={route('brands.index')}>Brands</Link>
+                            </Nav.Item>
+                            <Nav.Item as={'div'}>
+                                <Link href={route('categories.index')}>Categories</Link>
+                            </Nav.Item>
+                            <Nav.Item as={'div'}>
+                                <Link href={route('suppliers.index')}>Suppliers</Link>
+                            </Nav.Item>
+
+                        </Nav.Menu>
+                        {/* <Nav.Item icon={<PackageIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('products.index')}>Products</Link>
                         </Nav.Item>
                         <div className="product-sub-menu">
@@ -33,7 +48,7 @@ export default function SiderbarComp() {
                             <Nav.Item as={'div'}>
                                 <Link href={route('suppliers.index')}>Suppliers</Link>
                             </Nav.Item>
-                        </div>
+                        </div> */}
                         <Nav.Item icon={<ReceiptIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('sales.index')}>Purchase</Link>
                         </Nav.Item>
