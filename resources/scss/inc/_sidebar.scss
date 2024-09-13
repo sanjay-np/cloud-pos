@@ -51,20 +51,6 @@
                         }
 
                         .rs-dropdown-menu {
-                            @apply relative;
-
-                            &::after {
-                                content: "";
-                                display: block;
-                                width: 1px;
-                                height: 88%;
-                                display: block;
-                                position: absolute;
-                                bottom: 12%;
-                                left: 20px;
-                                @apply bg-gray-600;
-                            }
-
                             li {
                                 .rs-dropdown-item {
                                     @apply text-gray-400 font-semibold flex items-center gap-3 px-12 py-3 text-sm cursor-pointer relative;
@@ -80,12 +66,31 @@
                                     &::before {
                                         content: '';
                                         display: block;
-                                        width: 16px;
+                                        width: 20px;
                                         height: 1px;
                                         position: absolute;
                                         top: 50%;
                                         left: 20px;
                                         @apply bg-gray-600;
+                                    }
+
+                                    &::after {
+                                        content: "";
+                                        width: 1px;
+                                        height: 100%;
+                                        display: block;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 20px;
+                                        @apply bg-gray-600;
+                                    }
+                                }
+
+                                &:last-of-type {
+                                    .rs-dropdown-item {
+                                        &::after {
+                                            height: 50%;
+                                        }
                                     }
                                 }
                             }

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Button, Drawer, Input, InputGroup, Placeholder } from 'rsuite'
+import { Button, Drawer, Input, InputGroup, TagPicker } from 'rsuite'
 
 export default function SupplierDrawer(props) {
-    const { open, setOpen, title } = props
+    const { open, setOpen, title, brands } = props
     const handleClose = () => setOpen(false)
     return (
         <React.Fragment>
@@ -48,9 +48,11 @@ export default function SupplierDrawer(props) {
                     </div>
                     <div className="mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Supplying Brands </label>
-                        <InputGroup>
-                            <Input placeholder="Firm Address..." />
-                        </InputGroup>
+                        <TagPicker
+                            creatable
+                            data={brands}
+                            style={{ width: '100%' }}
+                        />
                     </div>
 
                 </Drawer.Body>

@@ -6,7 +6,7 @@ import { ButtonToolbar, IconButton } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
 import SupplierDrawer from '@/Components/Suppliers/SupplierDrawer'
 
-export default function Index({ auth }) {
+export default function Index({ auth, brands }) {
 
     const [open, setOpen] = useState(false)
     const [title, setTitle] = useState('Add')
@@ -48,6 +48,7 @@ export default function Index({ auth }) {
                 open={open}
                 title={title}
                 setOpen={setOpen}
+                brands={brands}
             />
         </Authenticated>
     )
