@@ -4,17 +4,17 @@ import { Button, Modal } from 'rsuite'
 import { toast } from 'sonner'
 
 export default function EmployeeAlert(props) {
-    const { open, setOpen, selectedEmployee, setSelectedEmployee } = props
+    const { open, setOpen, selected, setSelected } = props
     const { delete: destroy } = useForm()
     const handleClose = () => {
-        setSelectedEmployee(null)
+        setSelected(null)
         setOpen(false)
     }
     const handleDelete = () => {
-        destroy(route('employees.destroy', selectedEmployee), {
+        destroy(route('employees.destroy', selected), {
             onSuccess: () => {
                 setOpen(false)
-                setSelectedEmployee(null)
+                setSelected(null)
                 toast.success('Success', {
                     description: 'Employee deleted successfully',
                 })

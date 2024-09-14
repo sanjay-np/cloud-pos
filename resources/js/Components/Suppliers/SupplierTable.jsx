@@ -1,10 +1,10 @@
 import { FilePenLineIcon, Trash2Icon } from 'lucide-react';
 import React from 'react'
-import { Divider, IconButton, Table } from 'rsuite'
+import { Divider, IconButton, Table } from 'rsuite';
 
-export default function EmployeTable(props) {
-
+export default function SupplierTable(props) {
     const { data, setTitle, setSelected, setDrawerState, setAlertState } = props
+
     const { Column, HeaderCell, Cell } = Table;
 
     const ActionCell = ({ rowData, dataKey, ...props }) => {
@@ -25,7 +25,6 @@ export default function EmployeTable(props) {
             </Cell>
         );
     }
-
     return (
         <React.Fragment>
             <Table data={data} bordered hover headerHeight={50} rowHeight={55} cellBordered autoHeight={true}>
@@ -33,23 +32,19 @@ export default function EmployeTable(props) {
                     <HeaderCell><span className="text-base text-gray-700">Id</span></HeaderCell>
                     <Cell dataKey="id" />
                 </Column>
-                <Column flexGrow={1}>
-                    <HeaderCell><span className='text-base text-gray-700'>Employee Name</span></HeaderCell>
+                <Column flexGrow={2}>
+                    <HeaderCell><span className='text-base text-gray-700'>Supplier Name</span></HeaderCell>
                     <Cell dataKey="name" />
                 </Column>
-                <Column flexGrow={1}>
-                    <HeaderCell><span className="text-base text-gray-700">Phone No.</span></HeaderCell>
+                <Column flexGrow={2}>
+                    <HeaderCell><span className='text-base text-gray-700'>Supplier Phone</span></HeaderCell>
                     <Cell dataKey="phone" />
                 </Column>
-                <Column flexGrow={1}>
-                    <HeaderCell><span className="text-base text-gray-700">Department</span></HeaderCell>
-                    <Cell dataKey="department" />
+                <Column flexGrow={2}>
+                    <HeaderCell><span className='text-base text-gray-700'>Supplier PAN No.</span></HeaderCell>
+                    <Cell dataKey="pan" />
                 </Column>
-                <Column flexGrow={1}>
-                    <HeaderCell><span className="text-base text-gray-700">Position</span></HeaderCell>
-                    <Cell dataKey="position" />
-                </Column>
-                <Column flexGrow={1}>
+                <Column width={120}>
                     <HeaderCell><span className="text-base text-gray-700">Actions</span></HeaderCell>
                     <ActionCell dataKey="id" />
                 </Column>

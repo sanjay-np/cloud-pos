@@ -8,7 +8,7 @@ import { previewFile } from '@/Lib/Utils';
 import { toast } from 'sonner';
 
 export default function EmployeeDrawer(props) {
-    const { title, selectedEmployee, setSelectedEmployee, open, setOpen } = props
+    const { title, selected, setSelected, open, setOpen } = props
     const uploader = useRef();
     const [loading, setLoading] = useState(false)
     const [avatar, setAvatar] = useState(null);
@@ -25,12 +25,12 @@ export default function EmployeeDrawer(props) {
     });
 
     useEffect(() => {
-        if (!selectedEmployee) return;
+        if (!selected) return;
         if (title !== 'Edit') return
         const fetchData = async () => {
             setLoading(true)
             try {
-                const res = await axios.get(route('employees.get', selectedEmployee));
+                const res = await axios.get(route('employees.get', selected));
                 setData(res?.data);
                 setAvatar(res?.data?.avatar_url);
                 setDocumentFiles(res?.data?.document_list);
@@ -43,10 +43,10 @@ export default function EmployeeDrawer(props) {
         };
 
         fetchData();
-    }, [selectedEmployee])
+    }, [selected])
 
     const handleClose = () => {
-        setSelectedEmployee(null)
+        setSelected(null)
         setAvatar(null)
         setDocumentFiles([])
         reset()
@@ -66,13 +66,13 @@ export default function EmployeeDrawer(props) {
                 },
             })
         } else if (title === 'Edit') {
-            router.post(route('employees.update', selectedEmployee), {
+            router.post(route('employees.update', selected), {
                 _method: 'put',
                 ...data
             }, {
                 onSuccess: () => {
                     setOpen(false)
-                    setSelectedEmployee(null)
+                    setSelected(null)
                     setAvatar(null)
                     setDocumentFiles([])
                     reset()

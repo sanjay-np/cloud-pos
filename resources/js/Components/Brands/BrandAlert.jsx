@@ -3,18 +3,18 @@ import React from 'react'
 import { Button, Modal } from 'rsuite'
 import { toast } from 'sonner'
 export default function BrandAlert(props) {
-    const { open, setOpen, selectedBrand, setSelectedBrand } = props
+    const { open, setOpen, selected, setSelected } = props
     const { delete: destroy } = useForm()
     const handleClose = () => {
-        setSelectedBrand(null)
+        setSelected(null)
         setOpen(false)
     }
 
     const handleDelete = () => {
-        destroy(route('brands.destroy', selectedBrand), {
+        destroy(route('brands.destroy', selected), {
             onSuccess: () => {
                 setOpen(false)
-                setSelectedBrand(null)
+                setSelected(null)
                 toast.success('Success', {
                     description: 'Brand deleted successfully',
                 })

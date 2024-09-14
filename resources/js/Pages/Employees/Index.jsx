@@ -8,7 +8,7 @@ import AddOutlineIcon from '@rsuite/icons/AddOutline';
 import EmployeeDrawer from '@/Components/Employees/EmployeeDrawer'
 import EmployeeAlert from '@/Components/Employees/EmployeeAlert'
 export default function Index({ auth, employees }) {
-    const [selectedEmployee, setSelectedEmployee] = useState(null)
+    const [selected, setSelected] = useState(null)
     const [drawerState, setDrawerState] = useState(false)
     const [title, setTitle] = useState('Add')
     const [alertState, setAlertState] = useState(false)
@@ -45,23 +45,23 @@ export default function Index({ auth, employees }) {
                     <EmployeTable
                         data={employees?.data}
                         setTitle={setTitle}
-                        setSelectedEmployee={setSelectedEmployee}
+                        setSelected={setSelected}
                         setDrawerState={setDrawerState}
                         setAlertState={setAlertState}
                     />
                 </div>
                 <EmployeeDrawer
                     title={title}
-                    selectedEmployee={selectedEmployee}
-                    setSelectedEmployee={setSelectedEmployee}
+                    selected={selected}
+                    setSelected={setSelected}
                     open={drawerState}
                     setOpen={setDrawerState}
                 />
                 <EmployeeAlert
                     open={alertState}
                     setOpen={setAlertState}
-                    selectedEmployee={selectedEmployee}
-                    setSelectedEmployee={setSelectedEmployee}
+                    selected={selected}
+                    setSelected={setSelected}
                 />
             </div>
         </Authenticated>

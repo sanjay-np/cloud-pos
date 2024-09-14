@@ -4,18 +4,18 @@ import { Divider, IconButton, Table } from 'rsuite'
 
 export default function BrandTable(props) {
 
-    const { data, setTitle, setSelectedBrand, setDrawerState, setAlertState } = props
+    const { data, setTitle, setSelected, setDrawerState, setAlertState } = props
 
     const { Column, HeaderCell, Cell } = Table;
 
     const ActionCell = ({ rowData, dataKey, ...props }) => {
         const handleEditAction = () => {
             setTitle('Edit')
-            setSelectedBrand(rowData[dataKey])
+            setSelected(rowData[dataKey])
             setDrawerState(true)
         }
         const handleDeleteAction = () => {
-            setSelectedBrand(rowData[dataKey])
+            setSelected(rowData[dataKey])
             setAlertState(true)
         }
         return (

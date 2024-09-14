@@ -13,7 +13,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
+Route::get(uri: '/', action: function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -39,9 +39,10 @@ Route::resource('product/attributes', AttributeController::class)
     ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+// Brands
 Route::controller(BrandController::class)->group(function () {
     Route::resource('product/brands', BrandController::class)->only(['index', 'store', 'update', 'destroy']);
-    Route::get('/product/brands/{id}', 'get')->name('brands.get');
+    Route::get('/product/brands/{id}', 'find')->name('brands.find');
 });
 
 Route::resource('product/categories', CategoryController::class)

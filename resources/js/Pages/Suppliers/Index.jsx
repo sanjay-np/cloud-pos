@@ -5,11 +5,14 @@ import React, { useState } from 'react'
 import { ButtonToolbar, IconButton } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
 import SupplierDrawer from '@/Components/Suppliers/SupplierDrawer'
+import SupplierTable from '@/Components/Suppliers/SupplierTable'
 
-export default function Index({ auth, brands }) {
+export default function Index({ auth, brands, suppliers }) {
 
-    const [open, setOpen] = useState(false)
+    const [selected, setSelected] = useState(null)
+    const [drawerState, setDrawerState] = useState(false)
     const [title, setTitle] = useState('Add')
+    const [alertState, setAlertState] = useState(false)
 
 
     return (
@@ -36,18 +39,29 @@ export default function Index({ auth, brands }) {
                                 color='green'
                                 icon={<AddOutlineIcon />}
                                 appearance='primary'
-                                onClick={() => setOpen(true)}
+                                onClick={() => setDrawerState(true)}
                             >
                                 <span className='font-semibold'>Add New</span>
                             </IconButton>
                         </ButtonToolbar>
                     </div>
                 </div>
+                <div className="content-wrapper h-[500px] bg-white">
+                    <SupplierTable
+                        data={suppliers?.data}
+                        setTitle={setTitle}
+                        setSelected={setSelected}
+                        setDrawerState={setDrawerState}
+                        setAlertState={setAlertState}
+                    />
+                </div>
             </div>
             <SupplierDrawer
-                open={open}
+                selected={selected}
+                setSelected={setSelected}
                 title={title}
-                setOpen={setOpen}
+                open={drawerState}
+                setOpen={setDrawerState}
                 brands={brands}
             />
         </Authenticated>

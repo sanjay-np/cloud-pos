@@ -7,11 +7,12 @@ import InputError from '@/Components/InputError'
 import { toast } from 'sonner'
 import axios from 'axios'
 
-export default function BrandrDrawer(props) {
+export default function BrandDrawer(props) {
 
-    const { open, setOpen, title, selectedBrand, setSelectedBrand } = props
+    const { open, setOpen, title, selected, setSelected } = props
     const [loading, setLoading] = useState(false)
     const handleClose = () => {
+        reset()
         setOpen(false)
     }
 
@@ -23,12 +24,12 @@ export default function BrandrDrawer(props) {
     })
 
     useEffect(() => {
-        if (!selectedBrand) return;
+        if (!selected) return;
         if (title !== 'Edit') return
         const fetchData = async () => {
             setLoading(true)
             try {
-                const res = await axios.get(route('brands.get', selectedBrand));
+                const res = await axios.get(route('brands.find', selected));
                 setData(res?.data);
                 setLogo(res?.data?.image_url);
             } catch (err) {
@@ -38,7 +39,7 @@ export default function BrandrDrawer(props) {
             }
         };
         fetchData();
-    }, [selectedBrand])
+    }, [selected])
 
     const onSubmit = () => {
         if (title === 'Add') {
@@ -53,13 +54,13 @@ export default function BrandrDrawer(props) {
                 }
             })
         } else if (title === 'Edit') {
-            router.post(route('brands.update', selectedBrand), {
+            router.post(route('brands.update', selected), {
                 _method: 'put',
                 ...data
             }, {
                 onSuccess: () => {
                     setOpen(false)
-                    setSelectedBrand(null)
+                    setSelected(null)
                     setLogo(null)
                     reset()
                     toast.success('Success', {

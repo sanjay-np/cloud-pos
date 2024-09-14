@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Product\BrandServiceInterface;
 use App\Models\Brand;
 use App\Traits\ImageUpload;
 use Illuminate\Http\RedirectResponse;
@@ -13,9 +14,17 @@ class BrandController extends Controller
 {
     use ImageUpload;
 
+    protected $brandService;
+
+    public function __construct(BrandServiceInterface $brandService)
+    {
+        $this->brandService = $brandService;
+
+    }
+
     public function index(): Response
     {
-        $brands = Brand::paginate(perPage: 10);
+        $brands = $this->brandService->get(type: 'paginate');
         return Inertia::render(component: 'Brands/Index', props: [
             'brands' => $brands
         ]);
@@ -60,16 +69,13 @@ class BrandController extends Controller
 
     public function destroy($id): RedirectResponse
     {
-        $brand = Brand::findOrFail(id: $id);
-        $brand->delete();
+        $this->brandService->destroy(id: $id);
         return to_route(route: 'brands.index');
     }
 
-    public function get($id)
+    public function find($id)
     {
-        $item = Brand::findOrFail(id: $id);
-        $item->image_url = $item->image ? asset(path: $item->image) : null;
-        $item->makeHidden(attributes: ['image']);
+        $item = $this->brandService->find(id: $id);
         return $item;
     }
 }

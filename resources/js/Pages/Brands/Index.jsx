@@ -4,13 +4,13 @@ import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import React, { useState } from 'react'
 import { ButtonToolbar, IconButton } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
-import BrandrDrawer from '@/Components/Brands/BrandDrawer'
 import BrandAlert from '@/Components/Brands/BrandAlert'
 import BrandTable from '@/Components/Brands/BrandTable'
+import BrandDrawer from '@/Components/Brands/BrandDrawer'
 
 export default function Index({ auth, brands }) {
 
-    const [selectedBrand, setSelectedBrand] = useState(null)
+    const [selected, setSelected] = useState(null)
     const [drawerState, setDrawerState] = useState(false)
     const [title, setTitle] = useState('Add')
     const [alertState, setAlertState] = useState(false)
@@ -54,15 +54,15 @@ export default function Index({ auth, brands }) {
                     <BrandTable
                         data={brands?.data}
                         setTitle={setTitle}
-                        setSelectedBrand={setSelectedBrand}
+                        setSelected={setSelected}
                         setDrawerState={setDrawerState}
                         setAlertState={setAlertState}
                     />
                 </div>
             </div>
-            <BrandrDrawer
-                selectedBrand={selectedBrand}
-                setSelectedBrand={setSelectedBrand}
+            <BrandDrawer
+                selected={selected}
+                setSelected={setSelected}
                 title={title}
                 open={drawerState}
                 setOpen={setDrawerState}
@@ -70,8 +70,8 @@ export default function Index({ auth, brands }) {
             <BrandAlert
                 open={alertState}
                 setOpen={setAlertState}
-                selectedBrand={selectedBrand}
-                setSelectedBrand={setSelectedBrand}
+                selected={selected}
+                setSelected={setSelected}
             />
         </Authenticated>
     )
