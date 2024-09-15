@@ -11,7 +11,7 @@ export default function Index({ auth }) {
     const [open, setOpen] = useState(false)
 
     return (
-        <Authenticated user={auth.user}>
+        <Authenticated user={auth.user} activeKey={['products']}>
             <Head title='Products' />
             <div className="page-content products-page">
                 <div className="top-section">

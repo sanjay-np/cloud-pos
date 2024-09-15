@@ -20,7 +20,7 @@ export default function Index({ auth, brands }) {
         setDrawerState(true)
     }
     return (
-        <Authenticated user={auth.user}>
+        <Authenticated user={auth.user} activeKey={['products']}>
             <Head title="Brands" />
             <div className="page-content brands-page">
                 <div className="top-section">

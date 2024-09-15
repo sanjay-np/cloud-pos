@@ -17,7 +17,7 @@ export default function Index({ auth, brands, suppliers }) {
 
 
     return (
-        <Authenticated user={auth.user}>
+        <Authenticated user={auth.user} activeKey={['products']}>
             <Head title="Suppliers" />
             <div className="page-content suppliers-page">
                 <div className="top-section">

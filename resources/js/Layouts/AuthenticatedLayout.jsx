@@ -5,12 +5,12 @@ import { Toaster } from 'sonner';
 import CheckOutlineIcon from '@rsuite/icons/CheckOutline';
 import CloseOutlineIcon from '@rsuite/icons/CloseOutline';
 
-export default function Authenticated({ user, children }) {
+export default function Authenticated({ user, children, activeKey }) {
     if (user) {
         return (
             <div className="auth-main-content">
                 <Container>
-                    <Sidebar className='sidebar'><SiderbarComp /></Sidebar>
+                    <Sidebar className='sidebar'><SiderbarComp activeKey={activeKey} /></Sidebar>
                     <Container>
                         <Header className='main-header'><HeaderComp /></Header>
                         <Content>{children}</Content>

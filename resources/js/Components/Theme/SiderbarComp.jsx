@@ -3,10 +3,11 @@ import { BadgeDollarSignIcon, BadgePercentIcon, BookUserIcon, ClipboardCheckIcon
 import React from 'react'
 import { Nav, Sidenav } from 'rsuite'
 
-export default function SiderbarComp() {
+export default function SiderbarComp(props) {
+    const currenRoute = route().current();
     return (
         <React.Fragment>
-            <Sidenav appearance='subtle' className='side-nav'>
+            <Sidenav appearance='subtle' className='side-nav' defaultOpenKeys={props?.activeKey ?? []} >
                 <Sidenav.Header className='side-nav-header'>
                     <div>CGS-Application</div>
                 </Sidenav.Header>
@@ -17,38 +18,21 @@ export default function SiderbarComp() {
                         </Nav.Item>
 
                         <Nav.Item panel>Operations</Nav.Item>
-                        <Nav.Menu title="Products" icon={<PackageIcon strokeWidth={1.5} size={20} />} className='dropdown-menu'>
-                            <Nav.Item as={'div'}>
+                        <Nav.Menu eventKey={'products'} title="Products" icon={<PackageIcon strokeWidth={1.5} size={20} />} className='dropdown-menu'>
+                            <Nav.Item as={'div'} eventKey={'products.index'} active={currenRoute === 'products.index'}>
                                 <Link href={route('products.index')}>All Products</Link>
                             </Nav.Item>
-                            <Nav.Item as={'div'}>
+                            <Nav.Item as={'div'} eventKey={'brands.index'} active={currenRoute === 'brands.index'}>
                                 <Link href={route('brands.index')}>Brands</Link>
                             </Nav.Item>
-                            <Nav.Item as={'div'}>
+                            <Nav.Item as={'div'} eventKey={'categories.index'} active={currenRoute === 'categories.index'}>
                                 <Link href={route('categories.index')}>Categories</Link>
                             </Nav.Item>
-                            <Nav.Item as={'div'}>
+                            <Nav.Item as={'div'} eventKey={'suppliers.index'} active={currenRoute === 'suppliers.index'}>
                                 <Link href={route('suppliers.index')}>Suppliers</Link>
                             </Nav.Item>
-
                         </Nav.Menu>
-                        {/* <Nav.Item icon={<PackageIcon strokeWidth={1.5} size={20} />} as={'div'}>
-                            <Link href={route('products.index')}>Products</Link>
-                        </Nav.Item>
-                        <div className="product-sub-menu">
-                            <Nav.Item as={'div'}>
-                                <Link href={route('attributes.index')}>Attributes</Link>
-                            </Nav.Item>
-                            <Nav.Item as={'div'}>
-                                <Link href={route('brands.index')}>Brands</Link>
-                            </Nav.Item>
-                            <Nav.Item as={'div'}>
-                                <Link href={route('categories.index')}>Categories</Link>
-                            </Nav.Item>
-                            <Nav.Item as={'div'}>
-                                <Link href={route('suppliers.index')}>Suppliers</Link>
-                            </Nav.Item>
-                        </div> */}
+
                         <Nav.Item icon={<ReceiptIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('sales.index')}>Purchase</Link>
                         </Nav.Item>

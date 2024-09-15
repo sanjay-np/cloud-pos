@@ -88,7 +88,7 @@ export default function EmployeeDrawer(props) {
 
     return (
         <React.Fragment>
-            <Drawer backdrop={'static'} open={open} onClose={handleClose}>
+            <Drawer backdrop={'static'} open={open} onClose={handleClose} className='employee-drawer'>
                 <Drawer.Header className='pe-6 items-center'>
                     <Drawer.Title className='font-semibold text-gray-600'>{title} Employee</Drawer.Title>
                     <Drawer.Actions>

@@ -18,3 +18,11 @@
         }
     }
 }
+
+.employee-drawer {
+    .avatar-uploader {
+        input[type="file"] {
+            display: none;
+        }
+    }
+}

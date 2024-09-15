@@ -9,8 +9,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalesController;
-use App\Http\Controllers\SupplierController;
-;
+use App\Http\Controllers\SupplierController;;
+
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -29,24 +29,24 @@ Route::resource('products', ProductController::class)
     ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
-Route::resource('product/attributes', AttributeController::class)
+Route::resource('products/attributes', AttributeController::class)
     ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 // Brands
 Route::controller(BrandController::class)->group(function () {
-    Route::resource('product/brands', BrandController::class)->only(['index', 'store', 'update', 'destroy']);
-    Route::get('/product/brands/{id}', 'find')->name('brands.find');
+    Route::resource('products/brands', BrandController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::get('/products/brands/{id}', 'find')->name('brands.find');
 });
 
-Route::resource('product/categories', CategoryController::class)
+Route::resource('products/categories', CategoryController::class)
     ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::controller(SupplierController::class)->group(function () {
-    Route::resource('product/suppliers', SupplierController::class)
+    Route::resource('products/suppliers', SupplierController::class)
         ->only(['index', 'store', 'update', 'destroy']);
-    Route::get('/product/suppliers/{id}', 'find')->name('suppliers.find');
+    Route::get('/products/suppliers/{id}', 'find')->name('suppliers.find');
 })->middleware(['auth', 'verified']);
 
 Route::resource('sales', SalesController::class)

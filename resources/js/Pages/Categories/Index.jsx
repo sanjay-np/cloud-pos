@@ -7,7 +7,7 @@ import AddOutlineIcon from '@rsuite/icons/AddOutline';
 
 export default function Index({ auth }) {
     return (
-        <Authenticated user={auth.user}>
+        <Authenticated user={auth.user} activeKey={['products']}>
             <Head title="Categories" />
             <div className="page-content categories-page">
                 <div className="top-section">
