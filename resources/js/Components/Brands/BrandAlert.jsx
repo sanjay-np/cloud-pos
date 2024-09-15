@@ -4,7 +4,7 @@ import { Button, Modal } from 'rsuite'
 import { toast } from 'sonner'
 export default function BrandAlert(props) {
     const { open, setOpen, selected, setSelected } = props
-    const { delete: destroy } = useForm()
+    const { delete: destroy } = useForm({})
     const handleClose = () => {
         setSelected(null)
         setOpen(false)
@@ -29,7 +29,7 @@ export default function BrandAlert(props) {
                     <div className='font-semibold text-xl'>Are you sure?</div>
                 </Modal.Header>
                 <Modal.Body>
-                    Do you really want to delete this employee? This operation cannot be undone.
+                    Do you really want to delete this brand? This operation cannot be undone.
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleClose} appearance="subtle">

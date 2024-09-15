@@ -37,4 +37,15 @@ class SupplierController extends Controller
         $supplier = $this->supplierService->create(data: $request->all());
         return redirect(to: route(name: 'suppliers.index'));
     }
+
+    public function find($id)
+    {
+        $supplier = $this->supplierService->find(id: $id);
+        return $supplier;
+    }
+    public function destroy($id)
+    {
+        $this->supplierService->destroy(id: $id);
+        return to_route(route: 'suppliers.index');
+    }
 }

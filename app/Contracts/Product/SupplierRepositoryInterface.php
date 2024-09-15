@@ -4,12 +4,14 @@ namespace App\Contracts\Product;
 
 interface SupplierRepositoryInterface
 {
-    public function findAll(): object;
+    public function findAll();
 
-    public function paginate(int $perPage): object;
+    public function paginate(int $perPage);
 
-    public function create(array $data): object;
+    public function create(array $data);
 
-    public function find(int $id): object;
+    public function find(int $id);
+
+    public function destroy(int $id);
 
 }

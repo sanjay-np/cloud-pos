@@ -2,7 +2,7 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Button, Checkbox, FlexboxGrid, Input, InputGroup, Panel } from 'rsuite';
-import { EyeIcon, EyeOffIcon, LockIcon, MailIcon, User2Icon } from 'lucide-react';
+import { CommandIcon, EyeIcon, EyeOffIcon, LockIcon, MailIcon, User2Icon } from 'lucide-react';
 import { useState } from 'react';;
 
 export default function Login({ status, canResetPassword }) {
@@ -31,7 +31,20 @@ export default function Login({ status, canResetPassword }) {
             <div className="login-page">
                 <FlexboxGrid align='middle' className='login-container'>
                     <FlexboxGrid.Item colspan={16} className='left-section'>
-
+                        <div className="flex flex-col justify-between h-screen">
+                            <div className="text-white m-6 flex items-center gap-2">
+                                <CommandIcon strokeWidth={1.5} size={40} color='#fff' />
+                                <span className='font-semibold text-2xl'>Application Inc</span>
+                            </div>
+                            <div className='text-white max-w-screen-md p-6'>
+                                <blockquote className="space-y-2">
+                                    <p className="text-lg">
+                                        “This library has saved me countless hours of work and helped me deliver stunning designs to my clients faster than ever before.”
+                                    </p>
+                                    <footer className="text-sm">Sofia Davis</footer>
+                                </blockquote>
+                            </div>
+                        </div>
                     </FlexboxGrid.Item>
                     <FlexboxGrid.Item colspan={8} className="right-section">
                         <Panel bordered className="login-form-wrapper" title='Register'>
@@ -69,7 +82,7 @@ export default function Login({ status, canResetPassword }) {
                                         // required
                                         />
                                         <InputGroup.Button onClick={handleChange}>
-                                            {visible ? <EyeIcon strokeWidth={1.5} size={20} /> : <EyeOffIcon strokeWidth={1.5} size={18} />}
+                                            {visible ? <EyeIcon strokeWidth={1.5} size={20} /> : <EyeOffIcon strokeWidth={1.5} size={20} />}
                                         </InputGroup.Button>
                                     </InputGroup>
                                     <InputError message={errors.password} />

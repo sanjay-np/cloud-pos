@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -9,18 +10,11 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
-use Illuminate\Foundation\Application;
+;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get(uri: '/', action: function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get(uri: '/', action: [AuthenticatedSessionController::class, 'create']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -49,9 +43,11 @@ Route::resource('product/categories', CategoryController::class)
     ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
-Route::resource('product/suppliers', SupplierController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']);
+Route::controller(SupplierController::class)->group(function () {
+    Route::resource('product/suppliers', SupplierController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
+    Route::get('/product/suppliers/{id}', 'find')->name('suppliers.find');
+})->middleware(['auth', 'verified']);
 
 Route::resource('sales', SalesController::class)
     ->middleware(['auth', 'verified']);

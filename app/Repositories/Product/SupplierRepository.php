@@ -7,23 +7,28 @@ use App\Models\Supplier;
 class SupplierRepository implements SupplierRepositoryInterface
 {
 
-    public function findAll(): object
+    public function findAll()
     {
         return Supplier::all();
     }
 
-    public function paginate(int $perPage): object
+    public function paginate(int $perPage)
     {
         return Supplier::paginate(perPage: $perPage);
     }
 
-    public function create(array $data): object
+    public function create(array $data)
     {
         return Supplier::create(attributes: $data);
     }
 
-    public function find(int $id): object
+    public function find(int $id)
     {
         return Supplier::findOrFail($id);
+    }
+
+    public function destroy(int $id)
+    {
+        Supplier::destroy($id);
     }
 }

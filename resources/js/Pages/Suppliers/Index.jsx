@@ -6,6 +6,7 @@ import { ButtonToolbar, IconButton } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
 import SupplierDrawer from '@/Components/Suppliers/SupplierDrawer'
 import SupplierTable from '@/Components/Suppliers/SupplierTable'
+import SupplierAlert from '@/Components/Suppliers/SupplierAlert'
 
 export default function Index({ auth, brands, suppliers }) {
 
@@ -63,6 +64,12 @@ export default function Index({ auth, brands, suppliers }) {
                 open={drawerState}
                 setOpen={setDrawerState}
                 brands={brands}
+            />
+            <SupplierAlert
+                open={alertState}
+                setOpen={setAlertState}
+                selected={selected}
+                setSelected={setSelected}
             />
         </Authenticated>
     )

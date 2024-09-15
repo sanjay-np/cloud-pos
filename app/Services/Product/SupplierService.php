@@ -15,7 +15,7 @@ class SupplierService implements SupplierServiceInterface
         $this->supplierRepository = $supplierRepository;
     }
 
-    public function get(string $type): object
+    public function get(string $type)
     {
         return match ($type) {
             'all' => $this->supplierRepository->findAll(),
@@ -24,8 +24,18 @@ class SupplierService implements SupplierServiceInterface
         };
     }
 
-    public function create(array $data): object
+    public function create(array $data)
     {
         return $this->supplierRepository->create(data: $data);
+    }
+
+    public function find(int $id)
+    {
+        return $this->supplierRepository->find(id: $id);
+    }
+
+    public function destroy(int $id)
+    {
+        return $this->supplierRepository->destroy(id: $id);
     }
 }

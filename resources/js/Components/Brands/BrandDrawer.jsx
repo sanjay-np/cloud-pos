@@ -2,7 +2,7 @@ import { previewFile } from '@/Lib/Utils'
 import { router, useForm } from '@inertiajs/react'
 import { AirplayIcon } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
-import { Button, Drawer, Input, InputGroup, Uploader } from 'rsuite'
+import { Button, Drawer, Input, InputGroup, Loader, Uploader } from 'rsuite'
 import InputError from '@/Components/InputError'
 import { toast } from 'sonner'
 import axios from 'axios'
@@ -84,51 +84,55 @@ export default function BrandDrawer(props) {
                     </Drawer.Actions>
                 </Drawer.Header>
                 <Drawer.Body className='p-6'>
-                    <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Brand Name</label>
-                        <InputGroup>
-                            <Input
-                                placeholder="Brand Name..."
-                                value={data.name}
-                                onChange={e => setData('name', e)}
-                            />
-                        </InputGroup>
-                        <InputError message={errors.name} className="mt-2" />
-                    </div>
-                    <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Description</label>
-                        <InputGroup>
-                            <Input
-                                placeholder="Brand Description..."
-                                as="textarea"
-                                rows={3}
-                                value={data.description}
-                                onChange={e => setData('description', e)}
-                            />
-                        </InputGroup>
-                    </div>
-                    <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Brand Logo</label>
-                        <Uploader
-                            className='brand-logo-uploader'
-                            fileListVisible={false}
-                            listType="picture"
-                            action="/"
-                            autoUpload={false}
-                            onChange={file => {
-                                previewFile(file[0]?.blobFile, value => { setLogo(value); });
-                                setData('image', file[0]);
-                            }}
-                        >
-                            <button style={{ width: 140, height: 140 }}>
-                                {logo ? (
-                                    <img src={logo} width="100%" height="100%" />
-                                ) : (
-                                    <AirplayIcon size={64} strokeWidth={1.2} color='gray' />
-                                )}
-                            </button>
-                        </Uploader>
-                    </div>
+                    {loading ? <Loader backdrop content='fetching...' vertical /> :
+                        <>
+                            <div className="mb-4">
+                                <label className='text-gray-600 font-semibold mb-1 block'>Brand Name</label>
+                                <InputGroup>
+                                    <Input
+                                        placeholder="Brand Name..."
+                                        value={data.name}
+                                        onChange={e => setData('name', e)}
+                                    />
+                                </InputGroup>
+                                <InputError message={errors.name} className="mt-2" />
+                            </div>
+                            <div className="mb-4">
+                                <label className='text-gray-600 font-semibold mb-1 block'>Description</label>
+                                <InputGroup>
+                                    <Input
+                                        placeholder="Brand Description..."
+                                        as="textarea"
+                                        rows={3}
+                                        value={data.description}
+                                        onChange={e => setData('description', e)}
+                                    />
+                                </InputGroup>
+                            </div>
+                            <div className="mb-4">
+                                <label className='text-gray-600 font-semibold mb-1 block'>Brand Logo</label>
+                                <Uploader
+                                    className='brand-logo-uploader'
+                                    fileListVisible={false}
+                                    listType="picture"
+                                    action="/"
+                                    autoUpload={false}
+                                    onChange={file => {
+                                        previewFile(file[0]?.blobFile, value => { setLogo(value); });
+                                        setData('image', file[0]);
+                                    }}
+                                >
+                                    <button style={{ width: 140, height: 140 }}>
+                                        {logo ? (
+                                            <img src={logo} width="100%" height="100%" />
+                                        ) : (
+                                            <AirplayIcon size={64} strokeWidth={1.2} color='gray' />
+                                        )}
+                                    </button>
+                                </Uploader>
+                            </div>
+                        </>
+                    }
                 </Drawer.Body>
             </Drawer>
         </React.Fragment>
