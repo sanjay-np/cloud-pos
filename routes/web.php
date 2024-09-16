@@ -9,7 +9,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalesController;
-use App\Http\Controllers\SupplierController;;
+use App\Http\Controllers\SupplierController;
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;

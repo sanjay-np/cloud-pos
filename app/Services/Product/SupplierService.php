@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services\Product;
+
 use App\Contracts\Product\SupplierRepositoryInterface;
 use App\Contracts\Product\SupplierServiceInterface;
 

@@ -1,11 +1,18 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 import { ButtonToolbar, IconButton } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
+import CategoryDrawer from '@/Components/Categories/CategoryDrawer'
 
 export default function Index({ auth }) {
+
+    const [selected, setSelected] = useState(null)
+    const [drawerState, setDrawerState] = useState(false)
+    const [title, setTitle] = useState('Add')
+    const [alertState, setAlertState] = useState(false)
+
     return (
         <Authenticated user={auth.user} activeKey={['products']}>
             <Head title="Categories" />
@@ -30,7 +37,7 @@ export default function Index({ auth }) {
                                 color='green'
                                 icon={<AddOutlineIcon />}
                                 appearance='primary'
-                                onClick={() => setOpen(true)}
+                                onClick={() => setDrawerState(true)}
                             >
                                 <span className='font-semibold'>Add New</span>
                             </IconButton>
@@ -38,6 +45,13 @@ export default function Index({ auth }) {
                     </div>
                 </div>
             </div>
+            <CategoryDrawer
+                selected={selected}
+                setSelected={setSelected}
+                title={title}
+                open={drawerState}
+                setOpen={setDrawerState}
+            />
         </Authenticated>
     )
 }

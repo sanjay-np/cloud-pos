@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services\Product;
+
 use App\Contracts\Product\BrandRepositoryInterface;
 use App\Contracts\Product\BrandServiceInterface;
 

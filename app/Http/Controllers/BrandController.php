@@ -19,7 +19,6 @@ class BrandController extends Controller
     public function __construct(BrandServiceInterface $brandService)
     {
         $this->brandService = $brandService;
-
     }
 
     public function index(): Response

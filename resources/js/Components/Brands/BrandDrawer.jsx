@@ -11,10 +11,6 @@ export default function BrandDrawer(props) {
 
     const { open, setOpen, title, selected, setSelected } = props
     const [loading, setLoading] = useState(false)
-    const handleClose = () => {
-        reset()
-        setOpen(false)
-    }
 
     const [logo, setLogo] = useState(null)
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -40,6 +36,11 @@ export default function BrandDrawer(props) {
         };
         fetchData();
     }, [selected])
+
+    const handleClose = () => {
+        reset()
+        setOpen(false)
+    }
 
     const onSubmit = () => {
         if (title === 'Add') {

@@ -70,7 +70,7 @@ export default function HeaderComp() {
                             <Stack>
                                 <Whisper placement="bottomEnd" trigger="click" speaker={renderSpeaker} place>
                                     <div className='relative'>
-                                        <Avatar src='https://i.pravatar.cc/300' circle size='md' />
+                                        <Avatar src='https://avatar.iran.liara.run/public/32' circle size='md' />
                                         <div className="absolute bottom-0 right-0">
                                             <Badge color='green' />
                                         </div>

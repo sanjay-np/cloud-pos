@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Product\BrandServiceInterface;
 use App\Contracts\Product\SupplierServiceInterface;
-use App\Models\Brand;
-use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 

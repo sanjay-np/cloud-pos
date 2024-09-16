@@ -1,6 +1,6 @@
 .auth-main-content {
     .sidebar {
-        @apply min-h-screen max-h-screen bg-[#222e3c] overflow-scroll;
+        @apply min-h-screen max-h-screen bg-zinc-900 overflow-scroll;
         scrollbar-width: none;
 
         .side-nav {
@@ -14,7 +14,7 @@
                 .menu {
                     div {
                         &.rs-sidenav-item {
-                            @apply text-gray-400 font-semibold flex items-center gap-3 px-3 py-3 text-base cursor-pointer;
+                            @apply text-gray-300 font-semibold flex items-center gap-3 px-3 py-3 text-base cursor-pointer;
 
                             &:hover {
                                 @apply bg-gray-500 text-white;
@@ -27,7 +27,7 @@
                     }
 
                     .rs-sidenav-item-panel {
-                        @apply relative overflow-hidden text-gray-400 my-2 ps-2;
+                        @apply relative overflow-hidden text-gray-300 my-2 ps-2;
 
                         &::after {
                             content: "";
@@ -43,7 +43,7 @@
 
                     .dropdown-menu {
                         .rs-dropdown-toggle {
-                            @apply text-gray-400 font-semibold flex items-center gap-3 p-3 text-base cursor-pointer;
+                            @apply text-gray-300 font-semibold flex items-center gap-3 p-3 text-base cursor-pointer;
 
                             &:hover {
                                 @apply bg-gray-500 text-white;
@@ -53,7 +53,7 @@
                         .rs-dropdown-menu {
                             li {
                                 .rs-dropdown-item {
-                                    @apply text-gray-400 font-semibold flex items-center gap-3 px-12 py-3 text-sm cursor-pointer relative;
+                                    @apply text-gray-300 font-semibold flex items-center gap-3 px-12 py-3 text-sm cursor-pointer relative;
 
                                     &:hover {
                                         @apply bg-gray-500 text-white;
