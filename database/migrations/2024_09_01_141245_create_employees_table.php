@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('document_number');
             $table->string('avatar')->nullable();
             $table->json('document_files')->nullable();
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
         });

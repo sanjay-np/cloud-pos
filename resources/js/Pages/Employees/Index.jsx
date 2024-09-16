@@ -7,6 +7,7 @@ import { ButtonToolbar, IconButton } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
 import EmployeeDrawer from '@/Components/Employees/EmployeeDrawer'
 import EmployeeAlert from '@/Components/Employees/EmployeeAlert'
+import SearchComp from '@/Components/Search/Index'
 export default function Index({ auth, employees }) {
     const [selected, setSelected] = useState(null)
     const [drawerState, setDrawerState] = useState(false)
@@ -33,15 +34,22 @@ export default function Index({ auth, employees }) {
                             <li><Link href={route('employees.index')}><span>Employees</span></Link></li>
                         </ul>
                     </div>
-                    <div className="add-employee">
-                        <ButtonToolbar>
-                            <IconButton size='lg' color='green' icon={<AddOutlineIcon />} appearance='primary' onClick={handleAddState}>
-                                <span className='font-semibold'>Add New</span>
-                            </IconButton>
-                        </ButtonToolbar>
-                    </div>
                 </div>
-                <div className="content-wrapper h-[500px] bg-white">
+                <div className="content-wrapper bg-white rounded-md pb-8">
+                    <div className="top-wrapper p-4">
+                        <div className="flex items-center justify-between">
+                            <div className="w-2/3">
+                                <SearchComp />
+                            </div>
+                            <div className="add-employee">
+                                <ButtonToolbar>
+                                    <IconButton size='lg' color='green' icon={<AddOutlineIcon />} appearance='primary' onClick={handleAddState}>
+                                        <span className='font-semibold'>Add New</span>
+                                    </IconButton>
+                                </ButtonToolbar>
+                            </div>
+                        </div>
+                    </div>
                     <EmployeTable
                         data={employees?.data}
                         setTitle={setTitle}

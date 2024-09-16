@@ -50,6 +50,10 @@ export default function EmployeTable(props) {
                     <Cell dataKey="position" />
                 </Column>
                 <Column flexGrow={1}>
+                    <HeaderCell><span className="text-base text-gray-700">Status</span></HeaderCell>
+                    <Cell dataKey="status" />
+                </Column>
+                <Column flexGrow={1}>
                     <HeaderCell><span className="text-base text-gray-700">Actions</span></HeaderCell>
                     <ActionCell dataKey="id" />
                 </Column>

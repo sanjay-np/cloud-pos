@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('image')->nullable();
             $table->string('description')->nullable();
+            $table->integer('parent_id')->default(0);
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -22,6 +22,7 @@ export default function EmployeeDrawer(props) {
         document_number: '',
         avatar: null,
         document_files: [],
+        status: ''
     });
 
     useEffect(() => {
@@ -30,7 +31,7 @@ export default function EmployeeDrawer(props) {
         const fetchData = async () => {
             setLoading(true)
             try {
-                const res = await axios.get(route('employees.get', selected));
+                const res = await axios.get(route('employees.find', selected));
                 setData(res?.data);
                 setAvatar(res?.data?.avatar_url);
                 setDocumentFiles(res?.data?.document_list);
@@ -106,7 +107,7 @@ export default function EmployeeDrawer(props) {
                                 <div className="w-3/4">
                                     <div className='form-item mb-4'>
                                         <label className='text-gray-600 font-semibold mb-1 block'>Employee Name</label>
-                                        <InputGroup>
+                                        <InputGroup inside>
                                             <InputGroup.Addon>
                                                 <User2Icon color='gray' size={20} strokeWidth={1.6} />
                                             </InputGroup.Addon>
@@ -123,7 +124,7 @@ export default function EmployeeDrawer(props) {
                                     </div>
                                     <div className="form-item mb-4">
                                         <label className='text-gray-600 font-semibold mb-1 block'>Phone Number</label>
-                                        <InputGroup className='form-item mb-4'>
+                                        <InputGroup className='form-item mb-4' inside>
                                             <InputGroup.Addon>
                                                 <PhoneCallIcon color='gray' size={20} strokeWidth={1.6} />
                                             </InputGroup.Addon>
@@ -208,7 +209,7 @@ export default function EmployeeDrawer(props) {
                                 <InputError message={errors.position} className="mt-2" />
                             </div>
                             <div className="form-item mb-4">
-                                <label className='text-gray-600 font-semibold mb-1 block'>Documnet Validation Type</label>
+                                <label className='text-gray-600 font-semibold mb-1 block'>Document Validation Type</label>
                                 <SelectPicker
                                     data={[
                                         { label: 'Citizen Ship', value: "citizen_ship" },
@@ -225,7 +226,7 @@ export default function EmployeeDrawer(props) {
                             </div>
                             <div className="form-item mb-4">
                                 <label className='text-gray-600 font-semibold mb-1 block'>Document Number </label>
-                                <InputGroup>
+                                <InputGroup inside>
                                     <InputGroup.Addon>
                                         <FileTextIcon color='gray' size={20} strokeWidth={1.6} />
                                     </InputGroup.Addon>
@@ -254,6 +255,24 @@ export default function EmployeeDrawer(props) {
                                         <span>Click or Drag files to this area to upload</span>
                                     </div>
                                 </Uploader>
+                            </div>
+                            <div className="form-item mb-4">
+                                <label className='text-gray-600 font-semibold mb-1 block'>Employee Status</label>
+                                <SelectPicker
+                                    data={[
+                                        { label: 'On Hold', value: "on_hold" },
+                                        { label: 'Active', value: "active" },
+                                        { label: 'Suspended', value: "suspended" },
+                                        { label: 'Resigned', value: "resigned" },
+                                    ]}
+                                    className='text-base w-full'
+                                    size='lg'
+                                    placeholder="Select Status"
+                                    value={data.status}
+                                    onChange={value => setData('status', value)}
+                                    placement='auto'
+                                />
+                                <InputError message={errors.status} className="mt-2" />
                             </div>
                         </React.Fragment>
                     )}

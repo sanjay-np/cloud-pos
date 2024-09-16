@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee;
-use App\Traits\ImageUpload;
-use Illuminate\Http\Request;
+use App\Contracts\Employee\EmployeeServiceInterface;
+use App\Http\Requests\EmployeeRequest;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
 {
-    use ImageUpload;
+    protected $employeeService;
+
+    public function __construct(EmployeeServiceInterface $employeeService)
+    {
+        $this->employeeService = $employeeService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $employees = Employee::paginate(10);
+        $employees = $this->employeeService->paginate(10);
         return Inertia::render('Employees/Index', [
             'employees' => $employees
         ]);
@@ -24,94 +29,23 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:10',
-            'department' => 'required',
-            'position' => 'required',
-            'document_type' => 'required',
-            'document_number' => 'required|string|max:255',
-        ]);
-        $avatar_path = null;
-        if ($request->hasFile('avatar')) {
-            $avatar_path = $this->uploadImage($request->file('avatar')['blobFile'], 'Employees/Avatar');
-        }
-        $documents_path = null;
-        if ($request->has('document_files')) {
-            if (isset($request->document_files) && !empty($request->document_files)) {
-                foreach ($request->file('document_files') as $file) {
-                    $documents_path[] = $this->uploadImage($file['blobFile'], 'Employees/Documents');
-                }
-            }
-        }
-        $employee = Employee::create([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'department' => $request->department,
-            'position' => $request->position,
-            'document_type' => $request->document_type,
-            'document_number' => $request->document_number,
-            'avatar' => $avatar_path,
-            'document_files' => $documents_path,
-        ]);
+        $this->employeeService->store($request->validated());
         return to_route('employees.index');
     }
-    public function get($id)
+    public function find($id)
     {
-        $item = Employee::findOrFail($id);
-        $item->avatar_url = $item->avatar ? asset($item->avatar) : null;
-        if (isset($item->document_files) && is_array($item->document_files)) {
-            $file_list = array_map(function ($file, $index) {
-                return [
-                    'name' => basename($file),
-                    'fileKey' => $index + 1,
-                    'url' => asset($file)
-                ];
-            }, $item->document_files, array_keys($item->document_files));
-        }
-        $item->document_list = $file_list ?? [];
-        $item->makeHidden(['document_files', 'avatar']);
-        return $item;
+        $employee = $this->employeeService->find($id);
+        return $employee;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:10',
-            'department' => 'required',
-            'position' => 'required',
-            'document_type' => 'required',
-            'document_number' => 'required|string|max:255',
-        ]);
-        $avatar_path = null;
-        if ($request->hasFile('avatar')) {
-            $avatar_path = $this->uploadImage($request->file('avatar')['blobFile'], 'Employees/Avatar');
-        }
-        $documents_path = null;
-        if ($request->has('document_files')) {
-            if (isset($request->document_files) && !empty($request->document_files)) {
-                foreach ($request->file('document_files') as $file) {
-                    $documents_path[] = $this->uploadImage($file['blobFile'], 'Employees/Documents');
-                }
-            }
-        }
-        $employee = Employee::findOrFail($id);
-        $employee->update([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'department' => $request->department,
-            'position' => $request->position,
-            'document_type' => $request->document_type,
-            'document_number' => $request->document_number,
-            'avatar' => $avatar_path ?? $employee->avatar,
-            'document_files' => $documents_path ?? $employee->document_files,
-        ]);
+        $employee = $this->employeeService->update($request->validated(), $id);
         return to_route('employees.index');
     }
 
@@ -120,8 +54,7 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        $employee = Employee::findOrFail($id);
-        $employee->delete();
+        $employee = $this->employeeService->delete($id);
         return to_route('employees.index');
     }
 }
