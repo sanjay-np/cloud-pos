@@ -1,4 +1,4 @@
-import { useForm } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import { Button, Drawer, Input, InputGroup, Uploader } from "rsuite";
 import InputError from "../InputError";
@@ -16,7 +16,36 @@ export default function CategoryDrawer(props) {
 	})
 
 
-	const onSubmit = () => { }
+	const onSubmit = () => {
+
+		if (title === 'Add') {
+			post(route('categories.store'), {
+				onSuccess: () => {
+					setLogo(null)
+					setOpen(false)
+					reset()
+					toast.success('Success', {
+						description: 'Category added successfully',
+					})
+				}
+			})
+		} else if (title === 'Edit') {
+			router.post(route('categories.update', selected), {
+				_method: 'put',
+				...data
+			}, {
+				onSuccess: () => {
+					setOpen(false)
+					setSelected(null)
+					setLogo(null)
+					reset()
+					toast.success('Success', {
+						description: 'Category updated successfully',
+					})
+				},
+			})
+		}
+	}
 
 
 	return (

@@ -2,26 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\CategoryRepository;
+use App\Contracts\Product\CategoryServiceInterface;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
+    protected $categoryService;
+
+    public function __construct(CategoryServiceInterface $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Categories/Index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $categories = $this->categoryService->get(type: 'all');
+        return Inertia::render('Categories/Index', [
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -29,23 +33,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        //
+        $this->categoryService->store(data: $request->all());
+        return redirect(to: route(name: 'categories.index'));
     }
 
     /**

@@ -9,4 +9,3 @@ interface BrandRepositoryInterface
     public function find(int $id): object;
     public function destroy(int $id): bool;
 }
-
