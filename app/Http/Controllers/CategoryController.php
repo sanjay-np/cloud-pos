@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CategoryRepository;
 use App\Contracts\Product\CategoryServiceInterface;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -22,7 +23,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->categoryService->get(type: 'all');
+        $categories = $this->categoryService->paginate(perPage: 10);
         return Inertia::render('Categories/Index', [
             'categories' => $categories
         ]);
@@ -31,29 +32,27 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-
-        $this->categoryService->store(data: $request->all());
+        $this->categoryService->store(data: $request->validated());
         return redirect(to: route(name: 'categories.index'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        $this->categoryService->update(data: $request->validated(), id: $id);
+        return redirect(to: route(name: 'categories.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $this->categoryService->destroy(id: $id);
+        return redirect(to: route(name: 'categories.index'));
     }
 }

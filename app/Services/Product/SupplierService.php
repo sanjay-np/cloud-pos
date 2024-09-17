@@ -16,18 +16,14 @@ class SupplierService implements SupplierServiceInterface
         $this->supplierRepository = $supplierRepository;
     }
 
-    public function get(string $type)
+    public function paginate(int $perPage)
     {
-        return match ($type) {
-            'all' => $this->supplierRepository->findAll(),
-            'paginate' => $this->supplierRepository->paginate(perPage: 10),
-            default => $this->supplierRepository->findAll(),
-        };
+        return $this->supplierRepository->paginate(perPage: $perPage);
     }
 
-    public function create(array $data)
+    public function store(array $data)
     {
-        return $this->supplierRepository->create(data: $data);
+        return $this->supplierRepository->store(data: $data);
     }
 
     public function find(int $id)
@@ -35,8 +31,18 @@ class SupplierService implements SupplierServiceInterface
         return $this->supplierRepository->find(id: $id);
     }
 
-    public function destroy(int $id)
+    public function findAll()
     {
-        return $this->supplierRepository->destroy(id: $id);
+        return $this->supplierRepository->findAll();
+    }
+
+    public function update(array $data, int $id)
+    {
+        return $this->supplierRepository->update(data: $data, id: $id);
+    }
+
+    public function delete(int $id)
+    {
+        return $this->supplierRepository->delete(id: $id);
     }
 }

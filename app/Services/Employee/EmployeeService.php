@@ -53,11 +53,9 @@ class EmployeeService implements EmployeeServiceInterface
 
     public function update(array $data, int $id)
     {
-        $employee = $this->employeeRepository->find($id);
-        $avatar_path = $this->avatarUpload($data);
-        $documents_path = $this->uploadDocuments($data);
-        $data['avatar'] = $avatar_path ?? $employee->avatar;
-        $data['document_files'] = $documents_path ?? $employee->document_files;
+        $item = $this->employeeRepository->find($id);
+        $data['avatar'] = $this->avatarUpload($data) ?? $item->avatar;
+        $data['document_files'] = $this->uploadDocuments($data) ?? $item->document_files;
         return $this->employeeRepository->update($data, $id);
     }
 
@@ -78,11 +76,9 @@ class EmployeeService implements EmployeeServiceInterface
     public function uploadDocuments($data)
     {
         $documents_path = null;
-        if (isset($data['document_files'])) {
-            if (isset($data['document_files']) && !empty($data['document_files'])) {
-                foreach ($data['document_files'] as $file) {
-                    $documents_path[] = $this->uploadImage($file['blobFile'], 'Employees/Documents');
-                }
+        if (isset($data['document_files']) && !empty($data['document_files'])) {
+            foreach ($data['document_files'] as $file) {
+                $documents_path[] = $this->uploadImage($file['blobFile'], 'Employees/Documents');
             }
         }
         return $documents_path;

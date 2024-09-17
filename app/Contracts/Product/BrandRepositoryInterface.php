@@ -10,7 +10,9 @@ interface BrandRepositoryInterface
 
     public function find(int $id);
 
-    // public function findAll(): object;
-    // public function paginate(int $perPage): object;
-    // public function destroy(int $id): bool;
+    public function findAll();
+
+    public function update(array $data, int $id);
+
+    public function delete(int $id);
 }

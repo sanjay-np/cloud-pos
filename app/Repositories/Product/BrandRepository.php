@@ -19,6 +19,11 @@ class BrandRepository implements BrandRepositoryInterface
         return $this->model->paginate(perPage: $perPage);
     }
 
+    public function findAll()
+    {
+        return $this->model->all();
+    }
+
     public function store(array $data)
     {
         return $this->model->create($data);
@@ -29,23 +34,13 @@ class BrandRepository implements BrandRepositoryInterface
         return $this->model->findOrFail(id: $id);
     }
 
-    // public function findAll(): object
-    // {
-    //     return Brand::all();
-    // }
-    // public function paginate(int $perPage): object
-    // {
-    //     return Brand::paginate(perPage: $perPage);
-    // }
-    // public function find(int $id): object
-    // {
-    //     return Brand::findOrFail(id: $id);
-    // }
+    public function update(array $data, int $id)
+    {
+        return $this->model->find($id)->update($data);
+    }
 
-    // public function destroy(int $id): bool
-    // {
-    //     $brand = Brand::findOrFail(id: $id);
-    //     $brand->delete();
-    //     return true;
-    // }
+    public function delete(int $id)
+    {
+        return $this->model->find($id)->delete();
+    }
 }

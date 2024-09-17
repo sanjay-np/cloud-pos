@@ -7,29 +7,40 @@ use App\Models\Supplier;
 
 class SupplierRepository implements SupplierRepositoryInterface
 {
+    protected $model;
 
-    public function findAll()
+    public function __construct(Supplier $supplier)
     {
-        return Supplier::all();
+        $this->model = $supplier;
     }
 
     public function paginate(int $perPage)
     {
-        return Supplier::paginate(perPage: $perPage);
+        return $this->model->paginate(perPage: $perPage);
     }
 
-    public function create(array $data)
+    public function store(array $data)
     {
-        return Supplier::create(attributes: $data);
+        return $this->model->create($data);
     }
 
     public function find(int $id)
     {
-        return Supplier::findOrFail($id);
+        return $this->model->find($id);
     }
 
-    public function destroy(int $id)
+    public function findAll()
     {
-        Supplier::destroy($id);
+        return $this->model->all();
+    }
+
+    public function update(array $data, int $id)
+    {
+        return $this->model->find($id)->update($data);
+    }
+
+    public function delete(int $id)
+    {
+        return $this->model->find($id)->delete();
     }
 }

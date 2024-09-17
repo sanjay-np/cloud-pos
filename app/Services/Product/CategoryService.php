@@ -16,16 +16,33 @@ class CategoryService implements CategoryServiceInterface
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function get(string $type)
+    public function paginate(int $perPage)
     {
-        return match ($type) {
-            'all' => $this->categoryRepository->findAll(),
-            'paginate' => $this->categoryRepository->paginate(perPage: 10),
-        };
+        return $this->categoryRepository->paginate(perPage: $perPage);
     }
 
     public function store(array $data)
     {
         return $this->categoryRepository->store($data);
+    }
+
+    public function find(int $id)
+    {
+        return $this->categoryRepository->find($id);
+    }
+
+    public function findAll()
+    {
+        return $this->categoryRepository->findAll();
+    }
+
+    public function update(array $data, int $id)
+    {
+        return $this->categoryRepository->update($data, $id);
+    }
+
+    public function destroy(int $id)
+    {
+        return $this->categoryRepository->destroy($id);
     }
 }

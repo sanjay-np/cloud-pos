@@ -24,8 +24,14 @@ class BrandService implements BrandServiceInterface
         return $this->brandRepository->paginate(perPage: $perPage);
     }
 
+    public function findAll()
+    {
+        return $this->brandRepository->findAll();
+    }
+
     public function store(array $data)
     {
+        $data['image'] = $this->upload(data: $data);
         return $this->brandRepository->store(data: $data);
     }
 
@@ -34,36 +40,25 @@ class BrandService implements BrandServiceInterface
         return $this->brandRepository->find(id: $id);
     }
 
-    // public function get(string $type): object
-    // {
-    //     return match ($type) {
-    //         'all' => $this->brandRepository->findAll(),
-    //         'paginate' => $this->brandRepository->paginate(perPage: 10),
-    //     };
-    // }
+    public function update(array $data, int $id)
+    {
+        $item = $this->brandRepository->find(id: $id);
+        $data['image'] = $this->upload(data: $data) ?? $item->image;
+        return $this->brandRepository->update(data: $data, id: $id);
+    }
 
-    // public function find(int $id): object
-    // {
-    //     $item = $this->brandRepository->find(id: $id);
-    //     $item->image_url = $item->image ? asset(path: $item->image) : null;
-    //     $item->makeHidden(attributes: ['image']);
-    //     return $item;
-    // }
+    public function delete(int $id)
+    {
+        return $this->brandRepository->delete(id: $id);
+    }
 
-    // public function destroy(int $id): bool
-    // {
-    //     return $this->brandRepository->destroy(id: $id);
-    // }
 
-    // public function getBrandForSupplier(): array
-    // {
-    //     $brands = $this->brandRepository->findAll();
-    //     $brands = $brands->map(function ($brand) {
-    //         return [
-    //             'value' => $brand->id,
-    //             'label' => $brand->name
-    //         ];
-    //     })->toArray();
-    //     return $brands;
-    // }
+    public function upload(array $data)
+    {
+        $filePath = null;
+        if (isset($data['image'])) {
+            $filePath = $this->uploadImage(image: $data['image']['blobFile'], path: 'Brands');
+        }
+        return $filePath;
+    }
 }

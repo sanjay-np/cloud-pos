@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Product\BrandServiceInterface;
 use App\Http\Requests\BrandRequest;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class BrandController extends Controller
@@ -26,42 +25,20 @@ class BrandController extends Controller
 
     public function store(BrandRequest $request)
     {
-        // $logoPath = null;
-        // if ($request->hasFile(key: 'image')) {
-        //     $logoPath = $this->uploadImage(image: $request->file(key: 'image')['blobFile'], path: 'Brands');
-        // }
-
-        // $brand = Brand::create(attributes: [
-        //     'name' => $request->name,
-        //     'description' => $request->description,
-        //     'image' => $logoPath,
-        // ]);
-        // return to_route(route: 'brands.index');
+        $this->brandService->store(data: $request->validated());
+        return to_route(route: 'brands.index');
     }
 
-    public function update(Request $request, $id)
+    public function update(BrandRequest $request, $id)
     {
-        // $request->validate(rules: [
-        //     'name' => 'required|string|max:255',
-        // ]);
-        // $brand = Brand::findOrFail(id: $id);
-        // $logoPath = null;
-        // if ($request->hasFile(key: 'image')) {
-        //     $logoPath = $this->uploadImage(image: $request->file(key: 'image')['blobFile'], path: 'Brands');
-        // }
-
-        // $brand->update([
-        //     'name' => $request->name,
-        //     'description' => $request->description,
-        //     'image' => $logoPath ?? $brand->image,
-        // ]);
-        // return to_route(route: 'brands.index');
+        $this->brandService->update(data: $request->validated(), id: $id);
+        return to_route(route: 'brands.index');
     }
 
     public function destroy($id)
     {
-        // $this->brandService->destroy(id: $id);
-        // return to_route(route: 'brands.index');
+        $this->brandService->delete(id: $id);
+        return to_route(route: 'brands.index');
     }
 
     public function find($id)
