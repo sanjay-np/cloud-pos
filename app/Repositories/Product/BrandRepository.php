@@ -7,23 +7,45 @@ use App\Models\Brand;
 
 class BrandRepository implements BrandRepositoryInterface
 {
-    public function findAll(): object
+    protected $model;
+
+    public function __construct(Brand $model)
     {
-        return Brand::all();
-    }
-    public function paginate(int $perPage): object
-    {
-        return Brand::paginate(perPage: $perPage);
-    }
-    public function find(int $id): object
-    {
-        return Brand::findOrFail(id: $id);
+        $this->model = $model;
     }
 
-    public function destroy(int $id): bool
+    public function paginate(int $perPage)
     {
-        $brand = Brand::findOrFail(id: $id);
-        $brand->delete();
-        return true;
+        return $this->model->paginate(perPage: $perPage);
     }
+
+    public function store(array $data)
+    {
+        return $this->model->create($data);
+    }
+
+    public function find(int $id)
+    {
+        return $this->model->findOrFail(id: $id);
+    }
+
+    // public function findAll(): object
+    // {
+    //     return Brand::all();
+    // }
+    // public function paginate(int $perPage): object
+    // {
+    //     return Brand::paginate(perPage: $perPage);
+    // }
+    // public function find(int $id): object
+    // {
+    //     return Brand::findOrFail(id: $id);
+    // }
+
+    // public function destroy(int $id): bool
+    // {
+    //     $brand = Brand::findOrFail(id: $id);
+    //     $brand->delete();
+    //     return true;
+    // }
 }
