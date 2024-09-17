@@ -51,6 +51,11 @@ class EmployeeService implements EmployeeServiceInterface
         return  $employee;
     }
 
+    public function findAll()
+    {
+        return $this->employeeRepository->findAll();
+    }
+
     public function update(array $data, int $id)
     {
         $item = $this->employeeRepository->find($id);

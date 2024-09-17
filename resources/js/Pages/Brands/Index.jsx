@@ -7,6 +7,7 @@ import AddOutlineIcon from '@rsuite/icons/AddOutline';
 import BrandAlert from '@/Components/Brands/BrandAlert'
 import BrandTable from '@/Components/Brands/BrandTable'
 import BrandDrawer from '@/Components/Brands/BrandDrawer'
+import SearchComp from '@/Components/Search/Index'
 
 export default function Index({ auth, brands }) {
 
@@ -36,21 +37,22 @@ export default function Index({ auth, brands }) {
                             <li><span>Brands</span></li>
                         </ul>
                     </div>
-                    <div className='add-product'>
-                        <ButtonToolbar>
-                            <IconButton
-                                size='lg'
-                                color='green'
-                                icon={<AddOutlineIcon />}
-                                appearance='primary'
-                                onClick={handleAddState}
-                            >
-                                <span className='font-semibold'>Add New</span>
-                            </IconButton>
-                        </ButtonToolbar>
-                    </div>
                 </div>
-                <div className="content-wrapper h-[500px] bg-white">
+                <div className="content-wrapper h-[500px] bg-white rounded-md pb-8">
+                    <div className="top-wrapper p-4">
+                        <div className="flex items-center justify-between gap-4">
+                            <div className='w-full'>
+                                <SearchComp />
+                            </div>
+                            <div className="add-category">
+                                <ButtonToolbar>
+                                    <IconButton size='lg' color='green' icon={<AddOutlineIcon />} appearance='primary' onClick={handleAddState}>
+                                        <span className='font-semibold'>Add New</span>
+                                    </IconButton>
+                                </ButtonToolbar>
+                            </div>
+                        </div>
+                    </div>
                     <BrandTable
                         data={brands?.data}
                         setTitle={setTitle}

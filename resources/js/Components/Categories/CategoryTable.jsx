@@ -2,9 +2,10 @@ import { FilePenLineIcon, Trash2Icon } from 'lucide-react';
 import React from 'react'
 import { Divider, IconButton, Table } from 'rsuite'
 
-export default function EmployeTable(props) {
+export default function CategoryTable(props) {
 
     const { data, setTitle, setSelected, setDrawerState, setAlertState } = props
+
     const { Column, HeaderCell, Cell } = Table;
 
     const ActionCell = ({ rowData, dataKey, ...props }) => {
@@ -25,7 +26,6 @@ export default function EmployeTable(props) {
             </Cell>
         );
     }
-
     return (
         <React.Fragment>
             <Table data={data} bordered hover headerHeight={50} rowHeight={55} cellBordered autoHeight={true}>
@@ -33,24 +33,16 @@ export default function EmployeTable(props) {
                     <HeaderCell><span className="text-base text-gray-700">Id</span></HeaderCell>
                     <Cell dataKey="id" />
                 </Column>
-                <Column flexGrow={1}>
-                    <HeaderCell><span className='text-base text-gray-700'>Employee Name</span></HeaderCell>
+                <Column flexGrow={2}>
+                    <HeaderCell><span className='text-base text-gray-700'>Category Name</span></HeaderCell>
                     <Cell dataKey="name" />
                 </Column>
-                <Column flexGrow={1}>
-                    <HeaderCell><span className="text-base text-gray-700">Phone No.</span></HeaderCell>
-                    <Cell dataKey="phone" />
-                </Column>
-                <Column flexGrow={1}>
-                    <HeaderCell><span className="text-base text-gray-700">Department</span></HeaderCell>
-                    <Cell dataKey="department" />
-                </Column>
-                <Column flexGrow={1}>
-                    <HeaderCell><span className="text-base text-gray-700">Position</span></HeaderCell>
-                    <Cell dataKey="position" />
+                <Column flexGrow={2}>
+                    <HeaderCell><span className='text-base text-gray-700'>Parent Category</span></HeaderCell>
+                    <Cell dataKey="parent_id" />
                 </Column>
                 <Column>
-                    <HeaderCell><span className="text-base text-gray-700">Status</span></HeaderCell>
+                    <HeaderCell><span className='text-base text-gray-700'>Status</span></HeaderCell>
                     <Cell dataKey="status" />
                 </Column>
                 <Column width={120}>

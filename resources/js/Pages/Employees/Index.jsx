@@ -37,8 +37,8 @@ export default function Index({ auth, employees }) {
                 </div>
                 <div className="content-wrapper bg-white rounded-md pb-8">
                     <div className="top-wrapper p-4">
-                        <div className="flex items-center justify-between">
-                            <div className="w-2/3">
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="w-full">
                                 <SearchComp />
                             </div>
                             <div className="add-employee">

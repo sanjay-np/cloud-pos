@@ -38,10 +38,13 @@ Route::controller(BrandController::class)->group(function () {
     Route::resource('products/brands', BrandController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::get('/products/brands/{id}', 'find')->name('brands.find');
 });
+Route::controller(CategoryController::class)->group(function () {
+    Route::resource('products/categories', CategoryController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
+    Route::get('/products/categories/{id}', 'find')->name('categories.find');
+})->middleware(['auth', 'verified']);
 
-Route::resource('products/categories', CategoryController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']);
+
 
 Route::controller(SupplierController::class)->group(function () {
     Route::resource('products/suppliers', SupplierController::class)

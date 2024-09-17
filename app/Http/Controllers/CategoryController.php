@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\CategoryRepository;
 use App\Contracts\Product\CategoryServiceInterface;
 use App\Http\Requests\CategoryRequest;
-use App\Models\Category;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -54,5 +51,11 @@ class CategoryController extends Controller
     {
         $this->categoryService->destroy(id: $id);
         return redirect(to: route(name: 'categories.index'));
+    }
+
+    public function find($id)
+    {
+        $item = $this->categoryService->find(id: $id);
+        return $item;
     }
 }

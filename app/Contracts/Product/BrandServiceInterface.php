@@ -15,11 +15,4 @@ interface BrandServiceInterface
     public function update(array $data, int $id);
 
     public function delete(int $id);
-
-    // public function get(string $type): object;
-    // public function find(int $id): object;
-
-    // public function destroy(int $id): bool;
-
-    // public function getBrandForSupplier(): array;
 }

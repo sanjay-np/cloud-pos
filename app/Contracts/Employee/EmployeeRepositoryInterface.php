@@ -10,6 +10,8 @@ interface EmployeeRepositoryInterface
 
     public function find(int $id);
 
+    public function findAll();
+
     public function update(array $data, int $id);
 
     public function delete(int $id);

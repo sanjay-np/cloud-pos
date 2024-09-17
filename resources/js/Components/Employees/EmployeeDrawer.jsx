@@ -179,7 +179,6 @@ export default function EmployeeDrawer(props) {
                                         { label: 'Other', value: "Other" },
                                     ]}
                                     className='text-base w-full'
-                                    size='lg'
                                     placeholder="Select Department"
                                     value={data.department}
                                     onChange={value => setData('department', value)}
@@ -201,7 +200,6 @@ export default function EmployeeDrawer(props) {
                                         { label: 'Other', value: "Other" },
                                     ]}
                                     className='text-base w-full'
-                                    size='lg'
                                     placeholder="Select Position"
                                     value={data.position}
                                     onChange={value => setData('position', value)}
@@ -217,7 +215,6 @@ export default function EmployeeDrawer(props) {
                                         { label: 'Driving License', value: "driving_license" },
                                     ]}
                                     className='text-base w-full'
-                                    size='lg'
                                     placeholder="Select Validation Document"
                                     value={data.document_type}
                                     onChange={value => setData('document_type', value)}
@@ -266,7 +263,6 @@ export default function EmployeeDrawer(props) {
                                         { label: 'Resigned', value: "resigned" },
                                     ]}
                                     className='text-base w-full'
-                                    size='lg'
                                     placeholder="Select Status"
                                     value={data.status}
                                     onChange={value => setData('status', value)}

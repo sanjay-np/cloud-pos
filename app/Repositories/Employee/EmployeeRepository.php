@@ -30,6 +30,11 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         return $this->model->find($id);
     }
 
+    public function findAll()
+    {
+        return $this->model->all();
+    }
+
     public function update(array $data, int $id)
     {
         return $this->model->find($id)->update($data);
