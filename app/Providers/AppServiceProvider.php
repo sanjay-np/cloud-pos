@@ -8,15 +8,19 @@ use App\Contracts\Product\BrandRepositoryInterface;
 use App\Contracts\Product\BrandServiceInterface;
 use App\Contracts\Product\CategoryRepositoryInterface;
 use App\Contracts\Product\CategoryServiceInterface;
+use App\Contracts\Product\ProductRepositoryInterface;
+use App\Contracts\Product\ProductServiceInterface;
 use App\Contracts\Product\SupplierRepositoryInterface;
 use App\Contracts\Product\SupplierServiceInterface;
 use App\Repositories\Employee\EmployeeRepository;
 use App\Repositories\Product\BrandRepository;
 use App\Repositories\Product\CategoryRepository;
+use App\Repositories\Product\ProductRepository;
 use App\Repositories\Product\SupplierRepository;
 use App\Services\Employee\EmployeeService;
 use App\Services\Product\BrandService;
 use App\Services\Product\CategoryService as ProductCategoryService;
+use App\Services\Product\ProductService;
 use App\Services\Product\SupplierService;
 use Illuminate\Support\ServiceProvider;
 
@@ -38,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(abstract: EmployeeRepositoryInterface::class, concrete: EmployeeRepository::class);
         $this->app->bind(abstract: EmployeeServiceInterface::class, concrete: EmployeeService::class);
+
+        $this->app->bind(abstract: ProductRepositoryInterface::class, concrete: ProductRepository::class);
+        $this->app->bind(abstract: ProductServiceInterface::class, concrete: ProductService::class);
     }
 
     /**
