@@ -149,6 +149,7 @@ export default function SupplierDrawer(props) {
                                     data={brands}
                                     style={{ width: '100%' }}
                                     onChange={(value) => setData('brands', value)}
+                                    placement='top'
                                 />
                             </div>
                         </>

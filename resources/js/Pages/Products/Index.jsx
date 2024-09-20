@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { ButtonToolbar, IconButton } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
 import ProductDrawer from '@/Components/Products/ProductDrawer'
+import SearchComp from '@/Components/Search/Index'
 export default function Index({ auth }) {
 
     const [open, setOpen] = useState(false)
@@ -25,18 +26,27 @@ export default function Index({ auth }) {
                             <li><span>Products</span></li>
                         </ul>
                     </div>
-                    <div className='add-product'>
-                        <ButtonToolbar>
-                            <IconButton
-                                size='lg'
-                                color='green'
-                                icon={<AddOutlineIcon />}
-                                appearance='primary'
-                                onClick={() => setOpen(true)}
-                            >
-                                <span className='font-semibold'>Add New</span>
-                            </IconButton>
-                        </ButtonToolbar>
+                </div>
+                <div className="content-wrapper h-[500px] bg-white rounded-md pb-8">
+                    <div className="top-wrapper p-4">
+                        <div className="flex items-center justify-between gap-4">
+                            <div className='w-full'>
+                                <SearchComp />
+                            </div>
+                            <div className='add-product'>
+                                <ButtonToolbar>
+                                    <IconButton
+                                        size='lg'
+                                        color='green'
+                                        icon={<AddOutlineIcon />}
+                                        appearance='primary'
+                                        onClick={() => setOpen(true)}
+                                    >
+                                        <span className='font-semibold'>Add New</span>
+                                    </IconButton>
+                                </ButtonToolbar>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <ProductDrawer

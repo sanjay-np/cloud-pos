@@ -61,4 +61,16 @@ class BrandService implements BrandServiceInterface
         }
         return $filePath;
     }
+
+    public function brandsForSupplier(): array
+    {
+        $brands = $this->brandRepository->findAll();
+        $brands = $brands->map(function ($brand) {
+            return [
+                'value' => $brand->id,
+                'label' => $brand->name
+            ];
+        })->toArray();
+        return $brands;
+    }
 }

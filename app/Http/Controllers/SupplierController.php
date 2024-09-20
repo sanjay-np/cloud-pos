@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Contracts\Product\BrandServiceInterface;
 use App\Contracts\Product\SupplierServiceInterface;
 use App\Http\Requests\SupplierRequest;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SupplierController extends Controller
@@ -20,7 +19,7 @@ class SupplierController extends Controller
 
     public function index()
     {
-        $brands = $this->brandService->findAll();
+        $brands = $this->brandService->brandsForSupplier();
         $suppliers = $this->supplierService->paginate(perPage: 10);
         return Inertia::render(component: 'Suppliers/Index', props: [
             'brands' => $brands,
@@ -30,7 +29,13 @@ class SupplierController extends Controller
 
     public function store(SupplierRequest $request)
     {
-        $supplier = $this->supplierService->store(data: $request->validated());
+        $supplier = $this->supplierService->store(data: $request->all());
+        return redirect(to: route(name: 'suppliers.index'));
+    }
+
+    public function update(SupplierRequest $request, $id)
+    {
+        $this->supplierService->update(data: $request->all(), id: $id);
         return redirect(to: route(name: 'suppliers.index'));
     }
 

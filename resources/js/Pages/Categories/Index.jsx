@@ -7,6 +7,7 @@ import AddOutlineIcon from '@rsuite/icons/AddOutline';
 import CategoryDrawer from '@/Components/Categories/CategoryDrawer'
 import SearchComp from '@/Components/Search/Index'
 import CategoryTable from '@/Components/Categories/CategoryTable'
+import CategoryAlert from '@/Components/Categories/CategoryAlert'
 
 export default function Index({ auth, categories }) {
 
@@ -67,6 +68,12 @@ export default function Index({ auth, categories }) {
                 title={title}
                 open={drawerState}
                 setOpen={setDrawerState}
+            />
+            <CategoryAlert
+                open={alertState}
+                setOpen={setAlertState}
+                selected={selected}
+                setSelected={setSelected}
             />
         </Authenticated>
     )
