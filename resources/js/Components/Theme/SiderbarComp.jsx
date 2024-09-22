@@ -22,6 +22,9 @@ export default function SiderbarComp(props) {
                             <Nav.Item as={'div'} eventKey={'products.index'} active={currenRoute === 'products.index'}>
                                 <Link href={route('products.index')}>All Products</Link>
                             </Nav.Item>
+                            <Nav.Item as={'div'} eventKey={'attributes.index'} active={currenRoute === 'attributes.index'}>
+                                <Link href={route('attributes.index')}>Attributes</Link>
+                            </Nav.Item>
                             <Nav.Item as={'div'} eventKey={'brands.index'} active={currenRoute === 'brands.index'}>
                                 <Link href={route('brands.index')}>Brands</Link>
                             </Nav.Item>
