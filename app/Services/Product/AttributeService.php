@@ -23,4 +23,19 @@ class AttributeService implements AttributeServiceInterface
     {
         return $this->attributeRepository->findAll();
     }
+
+    public function store(array $data)
+    {
+        return $this->attributeRepository->store($data);
+    }
+
+    public function update(array $data, int $id)
+    {
+        return $this->attributeRepository->update($data, $id);
+    }
+
+    public function destroy(int $id)
+    {
+        return $this->attributeRepository->destroy($id);
+    }
 }

@@ -22,7 +22,11 @@ class AttributeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['string'],
+            'status' => ['required'],
+            'values' => ['array', 'required'],
+            'values.*' => ['string', 'max:255'],
         ];
     }
 }

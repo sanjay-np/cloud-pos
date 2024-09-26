@@ -24,4 +24,19 @@ class AttributeRepository implements AttributeRepositoryInterface
     {
         return $this->model->all();
     }
+
+    public function store(array $data)
+    {
+        return $this->model->create($data);
+    }
+
+    public function update(array $data, int $id)
+    {
+        return $this->model->find($id)->update($data);
+    }
+
+    public function destroy(int $id)
+    {
+        return $this->model->find($id)->delete();
+    }
 }

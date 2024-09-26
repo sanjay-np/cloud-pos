@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('attribute_id');
             $table->string('value');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

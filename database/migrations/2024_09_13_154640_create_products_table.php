@@ -29,6 +29,7 @@ return new class extends Migration {
             $table->string('status');
             $table->json('gallery_images')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
