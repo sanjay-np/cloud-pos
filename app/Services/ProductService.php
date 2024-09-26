@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services;
 
 use App\Contracts\Product\ProductRepositoryInterface;
 use App\Contracts\Product\ProductServiceInterface;

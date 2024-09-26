@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Contracts\Product;
+namespace App\Contracts\Attribute;
 
-interface CategoryServiceInterface
+interface AttributeServiceInterface
 {
-
     public function paginate(int $perPage);
 
-    public function store(array $data);
-
-    public function find(int $id);
-
     public function findAll();
+
+    public function store(array $data);
 
     public function update(array $data, int $id);
 

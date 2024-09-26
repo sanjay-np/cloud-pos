@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Contracts\Product;
+namespace App\Contracts\Category;
 
-interface BrandRepositoryInterface
+interface CategoryServiceInterface
 {
+
     public function paginate(int $perPage);
 
     public function store(array $data);
@@ -14,5 +15,5 @@ interface BrandRepositoryInterface
 
     public function update(array $data, int $id);
 
-    public function delete(int $id);
+    public function destroy(int $id);
 }

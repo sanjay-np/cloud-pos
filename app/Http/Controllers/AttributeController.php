@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Product\AttributeServiceInterface;
+use App\Contracts\Attribute\AttributeServiceInterface;
+use App\Contracts\AttributeValue\AttributeValueServiceInterface;
 use App\Http\Requests\AttributeRequest;
 use App\Models\Attribute;
 use Inertia\Inertia;
 
 class AttributeController extends Controller
 {
-    protected $attributeService;
+    protected $attributeService, $attributeValueService;
 
-    public function __construct(AttributeServiceInterface $attributeService)
+    public function __construct(AttributeServiceInterface $attributeService, AttributeValueServiceInterface $attributeValueService)
     {
         $this->attributeService = $attributeService;
+        $this->attributeValueService = $attributeValueService;
     }
 
     public function index()

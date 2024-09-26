@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Contracts\Product;
+namespace App\Contracts\Supplier;
 
-interface SupplierRepositoryInterface
+interface SupplierServiceInterface
 {
     public function paginate(int $perPage);
 

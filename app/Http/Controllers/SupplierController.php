@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Product\BrandServiceInterface;
-use App\Contracts\Product\SupplierServiceInterface;
+use App\Contracts\Brand\BrandServiceInterface;
+use App\Contracts\Supplier\SupplierServiceInterface;
 use App\Http\Requests\SupplierRequest;
 use Inertia\Inertia;
 

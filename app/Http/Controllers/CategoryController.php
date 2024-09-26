@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Product\CategoryServiceInterface;
+use App\Contracts\Category\CategoryServiceInterface;
 use App\Http\Requests\CategoryRequest;
 use Inertia\Inertia;
 

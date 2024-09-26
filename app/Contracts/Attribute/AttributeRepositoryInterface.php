@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts\Product;
+namespace App\Contracts\Attribute;
 
 interface AttributeRepositoryInterface
 {

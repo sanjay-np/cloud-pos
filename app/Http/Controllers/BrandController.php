@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Product\BrandServiceInterface;
+use App\Contracts\Brand\BrandServiceInterface;
 use App\Http\Requests\BrandRequest;
 use Inertia\Inertia;
 

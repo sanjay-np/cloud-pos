@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services;
 
-use App\Contracts\Product\SupplierRepositoryInterface;
-use App\Contracts\Product\SupplierServiceInterface;
+use App\Contracts\Supplier\SupplierRepositoryInterface;
+use App\Contracts\Supplier\SupplierServiceInterface;
 
 class SupplierService implements SupplierServiceInterface
 {
     protected $supplierRepository;
-    /**
-     * Create a new class instance.
-     */
+    
     public function __construct(SupplierRepositoryInterface $supplierRepository)
     {
         $this->supplierRepository = $supplierRepository;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Employee;
+namespace App\Services;
 
 use App\Contracts\Employee\EmployeeRepositoryInterface;
 use App\Contracts\Employee\EmployeeServiceInterface;

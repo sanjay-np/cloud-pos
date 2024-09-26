@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Repositories\Product;
+namespace App\Repositories;
 
-use App\Contracts\Product\AttributeRepositoryInterface;
-use App\Models\Attribute;
+use App\Contracts\AttributeValue\AttributeValueRepositoryInterface;
+use App\Models\AttributeValue;
 
-class AttributeRepository implements AttributeRepositoryInterface
+class AttributeValueRepository implements AttributeValueRepositoryInterface
 {
 
     protected $model;
 
-    public function __construct(Attribute $model)
+    public function __construct(AttributeValue $model)
     {
         $this->model = $model;
     }

@@ -1,27 +1,22 @@
 <?php
 
-namespace App\Repositories\Product;
+namespace App\Repositories;
 
-use App\Contracts\Product\BrandRepositoryInterface;
-use App\Models\Brand;
+use App\Contracts\Supplier\SupplierRepositoryInterface;
+use App\Models\Supplier;
 
-class BrandRepository implements BrandRepositoryInterface
+class SupplierRepository implements SupplierRepositoryInterface
 {
     protected $model;
 
-    public function __construct(Brand $model)
+    public function __construct(Supplier $supplier)
     {
-        $this->model = $model;
+        $this->model = $supplier;
     }
 
     public function paginate(int $perPage)
     {
         return $this->model->paginate(perPage: $perPage);
-    }
-
-    public function findAll()
-    {
-        return $this->model->all();
     }
 
     public function store(array $data)
@@ -31,7 +26,12 @@ class BrandRepository implements BrandRepositoryInterface
 
     public function find(int $id)
     {
-        return $this->model->findOrFail(id: $id);
+        return $this->model->find($id);
+    }
+
+    public function findAll()
+    {
+        return $this->model->all();
     }
 
     public function update(array $data, int $id)

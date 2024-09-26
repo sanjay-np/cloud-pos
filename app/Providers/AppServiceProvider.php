@@ -2,30 +2,34 @@
 
 namespace App\Providers;
 
+use App\Contracts\Attribute\AttributeRepositoryInterface;
+use App\Contracts\Attribute\AttributeServiceInterface;
+use App\Contracts\AttributeValue\AttributeValueRepositoryInterface;
+use App\Contracts\AttributeValue\AttributeValueServiceInterface;
+use App\Contracts\Brand\BrandRepositoryInterface;
+use App\Contracts\Brand\BrandServiceInterface;
+use App\Contracts\Category\CategoryRepositoryInterface;
+use App\Contracts\Category\CategoryServiceInterface;
 use App\Contracts\Employee\EmployeeRepositoryInterface;
 use App\Contracts\Employee\EmployeeServiceInterface;
-use App\Contracts\Product\AttributeRepositoryInterface;
-use App\Contracts\Product\AttributeServiceInterface;
-use App\Contracts\Product\BrandRepositoryInterface;
-use App\Contracts\Product\BrandServiceInterface;
-use App\Contracts\Product\CategoryRepositoryInterface;
-use App\Contracts\Product\CategoryServiceInterface;
 use App\Contracts\Product\ProductRepositoryInterface;
 use App\Contracts\Product\ProductServiceInterface;
-use App\Contracts\Product\SupplierRepositoryInterface;
-use App\Contracts\Product\SupplierServiceInterface;
-use App\Repositories\Employee\EmployeeRepository;
-use App\Repositories\Product\AttributeRepository;
-use App\Repositories\Product\BrandRepository;
-use App\Repositories\Product\CategoryRepository;
-use App\Repositories\Product\ProductRepository;
-use App\Repositories\Product\SupplierRepository;
-use App\Services\Employee\EmployeeService;
-use App\Services\Product\AttributeService;
-use App\Services\Product\BrandService;
-use App\Services\Product\CategoryService;
-use App\Services\Product\ProductService;
-use App\Services\Product\SupplierService;
+use App\Contracts\Supplier\SupplierRepositoryInterface;
+use App\Contracts\Supplier\SupplierServiceInterface;
+use App\Repositories\AttributeRepository;
+use App\Repositories\AttributeValueRepository;
+use App\Repositories\BrandRepository;
+use App\Repositories\CategoryRepository;
+use App\Repositories\EmployeeRepository;
+use App\Repositories\ProductRepository;
+use App\Repositories\SupplierRepository;
+use App\Services\AttributeService;
+use App\Services\AttributeValueService;
+use App\Services\BrandService;
+use App\Services\CategoryService;
+use App\Services\EmployeeService;
+use App\Services\ProductService;
+use App\Services\SupplierService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -38,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(abstract: AttributeRepositoryInterface::class, concrete: AttributeRepository::class);
         $this->app->bind(abstract: AttributeServiceInterface::class, concrete: AttributeService::class);
+
+        $this->app->bind(abstract: AttributeValueRepositoryInterface::class, concrete: AttributeValueRepository::class);
+        $this->app->bind(abstract: AttributeValueServiceInterface::class, concrete: AttributeValueService::class);
 
         $this->app->bind(abstract: BrandRepositoryInterface::class, concrete: BrandRepository::class);
         $this->app->bind(abstract: BrandServiceInterface::class, concrete: BrandService::class);

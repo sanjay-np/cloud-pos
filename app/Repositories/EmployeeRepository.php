@@ -1,22 +1,23 @@
 <?php
 
-namespace App\Repositories\Product;
+namespace App\Repositories;
 
-use App\Contracts\Product\SupplierRepositoryInterface;
-use App\Models\Supplier;
+use App\Contracts\Employee\EmployeeRepositoryInterface;
+use App\Models\Employee;
 
-class SupplierRepository implements SupplierRepositoryInterface
+class EmployeeRepository implements EmployeeRepositoryInterface
 {
     protected $model;
 
-    public function __construct(Supplier $supplier)
+    public function __construct(Employee $employee)
     {
-        $this->model = $supplier;
+        $this->model = $employee;
     }
+
 
     public function paginate(int $perPage)
     {
-        return $this->model->paginate(perPage: $perPage);
+        return $this->model->paginate($perPage);
     }
 
     public function store(array $data)

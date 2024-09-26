@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services;
 
-use App\Contracts\Product\AttributeRepositoryInterface;
-use App\Contracts\Product\AttributeServiceInterface;
-
+use App\Contracts\Attribute\AttributeRepositoryInterface;
+use App\Contracts\Attribute\AttributeServiceInterface;
 
 class AttributeService implements AttributeServiceInterface
 {

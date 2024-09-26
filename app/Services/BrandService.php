@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services;
 
-use App\Contracts\Product\BrandRepositoryInterface;
-use App\Contracts\Product\BrandServiceInterface;
+use App\Contracts\Brand\BrandRepositoryInterface;
+use App\Contracts\Brand\BrandServiceInterface;
 use App\Traits\ImageUpload;
 
 class BrandService implements BrandServiceInterface
