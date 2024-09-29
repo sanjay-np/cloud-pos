@@ -11,7 +11,7 @@ export default function Dashboard({ auth }) {
                     <h1 className='title'>Hello {auth?.user?.name},</h1>
                     <Clock />
                 </div>
-            </div>
+            </div>            
         </AuthenticatedLayout>
     );
 }

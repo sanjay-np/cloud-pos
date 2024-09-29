@@ -1,6 +1,7 @@
 import { FilePenLineIcon, Trash2Icon } from 'lucide-react';
 import React from 'react'
-import { Divider, IconButton, Table } from 'rsuite'
+import { Checkbox, Divider, IconButton, Table } from 'rsuite'
+import CheckCell from '../Table/CheckCell';
 
 export default function EmployeTable(props) {
 
@@ -8,27 +9,25 @@ export default function EmployeTable(props) {
     const { Column, HeaderCell, Cell } = Table;
 
     const ActionCell = ({ rowData, dataKey, ...props }) => {
-        const handleEditAction = () => {
-            setTitle('Edit')
-            setSelected(rowData[dataKey])
-            setDrawerState(true)
-        }
-        const handleDeleteAction = () => {
-            setSelected(rowData[dataKey])
-            setAlertState(true)
-        }
-        return (
-            <Cell {...props} className="link-group">
-                <IconButton appearance="subtle" size='xs' onClick={handleEditAction} icon={<FilePenLineIcon size={18} />} />
-                <Divider vertical />
-                <IconButton appearance="subtle" size='xs' onClick={handleDeleteAction} icon={<Trash2Icon size={18} />} />
-            </Cell>
-        );
+
     }
 
     return (
         <React.Fragment>
             <Table data={data} bordered hover headerHeight={50} rowHeight={55} cellBordered autoHeight={true}>
+                <Column width={50} align="center">
+                    <HeaderCell style={{ padding: 0 }}>
+                        <div style={{ lineHeight: '40px' }}>
+                            <Checkbox
+                                inline
+                                // checked={checked}
+                                // indeterminate={indeterminate}
+                                // onChange={handleCheckAll}
+                            />
+                        </div>
+                    </HeaderCell>
+                    <CheckCell dataKey="id" checkedKeys={checkedKeys} onChange={handleCheck} />
+                </Column>
                 <Column width={60} align="center" fixed>
                     <HeaderCell><span className="text-base text-gray-700">Id</span></HeaderCell>
                     <Cell dataKey="id" />
