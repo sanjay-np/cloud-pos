@@ -1,23 +1,17 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import React, { useState } from 'react'
-import { ButtonToolbar, IconButton } from 'rsuite'
-import AddOutlineIcon from '@rsuite/icons/AddOutline';
+import { useRef, useState } from 'react'
 import SearchComp from '@/Components/Search/Index'
-import AttributeDrawer from '@/Components/Attributes/AttributeDrawer'
+import AddButton from '@/Components/Button/AddButton'
+import DeleteModal from '@/Components/Overlays/DeleteModal'
+import AttributeForm from '@/Components/Forms/AttributeForm'
 
 export default function Index({ auth }) {
-
     const [selected, setSelected] = useState(null)
-    const [drawerState, setDrawerState] = useState(false)
-    const [title, setTitle] = useState('Add')
-    const [alertState, setAlertState] = useState(false)
-
-    const handleAddState = () => {
-        setTitle('Add')
-        setDrawerState(true)
-    }
+    const [type, setType] = useState("add");
+    const drawerRef = useRef(false);
+    const deleteModalRef = useRef(false);
 
     return (
         <Authenticated user={auth.user} activeKey={['products']}>
@@ -41,31 +35,27 @@ export default function Index({ auth }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
-                                <SearchComp />
+                                <SearchComp title={'Attributes'} />
                             </div>
                             <div className='add-product'>
-                                <ButtonToolbar>
-                                    <IconButton
-                                        size='lg'
-                                        color='green'
-                                        icon={<AddOutlineIcon />}
-                                        appearance='primary'
-                                        onClick={handleAddState}
-                                    >
-                                        <span className='font-semibold'>Add New</span>
-                                    </IconButton>
-                                </ButtonToolbar>
+                                <AddButton handleOnClick={() => {
+                                    setType("add");
+                                    drawerRef.current.open();
+                                }} />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <AttributeDrawer
+            <AttributeForm
+                drawerRef={drawerRef}
                 selected={selected}
-                setSelected={setSelected}
-                title={title}
-                open={drawerState}
-                setOpen={setDrawerState}
+                type={type}
+            />
+            <DeleteModal
+                ref={deleteModalRef}
+                title="Delete Attribute"
+                deleteAction={() => { }}
             />
         </Authenticated>
     )
