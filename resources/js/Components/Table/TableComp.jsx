@@ -16,7 +16,7 @@ import ActionCell from "./ActionCell";
 const TableComp = (props) => {
     const { Column, HeaderCell, Cell } = Table;
     return (
-        <Table data={props.data} bordered hover headerHeight={50} rowHeight={55} cellBordered autoHeight={true}>
+        <Table data={props.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
             {/* Checkbox */}
             {props?.checkboxCell && (
                 <Column width={50} align="center">
@@ -31,15 +31,15 @@ const TableComp = (props) => {
             {/* Columns */}
             {props?.columns?.map((column, index) => (
                 <Column flexGrow={1} key={index}>
-                    <HeaderCell><span className="text-base text-gray-700">{column.title}</span></HeaderCell>
+                    <HeaderCell><span className="text-base font-semibold text-gray-600">{column.title}</span></HeaderCell>
                     <Cell dataKey={column.dataKey} />
                 </Column>
             ))}
             {/* Action Cell */}
-            {props?.actionCell && (
+            {props?.actions && (
                 <Column width={120}>
                     <HeaderCell><span className="text-base text-gray-700">Actions</span></HeaderCell>
-                    <ActionCell dataKey="id" actions={props.actionsCell} />
+                    <ActionCell dataKey="id" actions={props?.actions} />
                 </Column>
             )}
         </Table>

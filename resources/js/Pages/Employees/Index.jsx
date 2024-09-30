@@ -1,32 +1,71 @@
-
-import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, Link } from '@inertiajs/react'
-import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import SearchComp from '@/Components/Search/Index'
-import TableComp from '@/Components/Table/TableComp'
-import AddButton from '@/Components/Button/AddButton';
-import { useRef, useState } from 'react'
-import EmployeeForm from './EmployeeForm'
+import { Head, Link, router } from "@inertiajs/react";
+import { ChevronRightIcon, LayoutGridIcon } from "lucide-react";
+import { useRef, useState } from "react";
+import { toast } from "sonner";
+import Authenticated from "@/Layouts/AuthenticatedLayout";
+import TableComp from "@/Components/Table/TableComp";
+import AddButton from "@/Components/Button/AddButton";
+import { employeeTableHeader } from "@/Lib/Constants";
+import SearchComp from "@/Components/Search/Index";
+import DeleteModal from "@/Components/Overlays/DeleteModal";
+import EmployeeForm from "@/Components/Forms/EmployeeForm";
 
 export default function Index({ auth, employees }) {
+    const [selected, setSelected] = useState(null);
+    const [type, setType] = useState("add");
+    const drawerRef = useRef(false);
+    const alertRef = useRef(false);
 
-    const [selected, setSelected] = useState(null)
-    const drawerRef = useRef(false)
-    const alertRef = useRef(false)
+    const editAction = (id) => {
+        setType("edit");
+        setSelected(id);
+        drawerRef.current.open();
+    };
+
+    const deleteAction = (id) => {
+        setSelected(id);
+        alertRef.current.open();
+    };
+
+    const handleDelete = () => {
+        router.delete(route("employees.destroy", selected), {∏
+            onSuccess: () => {
+                alertRef.current.close();
+                setSelected(null);
+                toast.success("Success", {
+                    description: "Employee deleted successfully",
+                });
+            },
+        });
+    };
 
     return (
         <Authenticated user={auth.user}>
-            <Head title='Employees' />
+            <Head title="Employees" />
             <div className="page-content employees-page">
                 <div className="top-section">
-                    <div className='title-wrapper'>
-                        <h1 className='title'>Employees</h1>
-                        <ul className='breadcrumb'>
-                            <li><LayoutGridIcon color='gray' size={20} /></li>
-                            <li><ChevronRightIcon color='gray' size={14} /></li>
-                            <li><Link href={route('dashboard')}><span>Dashboard</span></Link></li>
-                            <li><ChevronRightIcon color='gray' size={14} /></li>
-                            <li><Link href={route('employees.index')}><span>Employees</span></Link></li>
+                    <div className="title-wrapper">
+                        <h1 className="title">Employees</h1>
+                        <ul className="breadcrumb">
+                            <li>
+                                <LayoutGridIcon color="gray" size={20} />
+                            </li>
+                            <li>
+                                <ChevronRightIcon color="gray" size={14} />
+                            </li>
+                            <li>
+                                <Link href={route("dashboard")}>
+                                    <span>Dashboard</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <ChevronRightIcon color="gray" size={14} />
+                            </li>
+                            <li>
+                                <Link href={route("employees.index")}>
+                                    <span>Employees</span>
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -37,7 +76,12 @@ export default function Index({ auth, employees }) {
                                 <SearchComp />
                             </div>
                             <div className="add-employee">
-                                <AddButton handleOnClick={() => drawerRef.current.open()} />
+                                <AddButton
+                                    handleOnClick={() => {
+                                        setType("add");
+                                        drawerRef.current.open();
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
@@ -45,27 +89,8 @@ export default function Index({ auth, employees }) {
                         <TableComp
                             data={employees?.data}
                             checkboxCell={true}
-                            columns={[
-                                {
-                                    title: "Employee Name",
-                                    dataKey: "name"
-                                }, {
-                                    title: "Email",
-                                    dataKey: "email"
-                                }, {
-                                    title: "Phone",
-                                    dataKey: "phone"
-                                }
-                            ]}
-                            actionCell={[
-                                {
-                                    name: 'edit',
-                                    action: 'edit'
-                                }, {
-                                    name: 'delete',
-                                    action: 'delete'
-                                }
-                            ]}
+                            columns={employeeTableHeader}
+                            actions={{ editAction, deleteAction }}
                         />
                     </div>
                 </div>
@@ -73,7 +98,13 @@ export default function Index({ auth, employees }) {
             <EmployeeForm
                 drawerRef={drawerRef}
                 selected={selected}
+                type={type}
             />
-        </Authenticated >
-    )
+            <DeleteModal
+                title="Employee"
+                ref={alertRef}
+                deleteAction={handleDelete}
+            />
+        </Authenticated>
+    );
 }

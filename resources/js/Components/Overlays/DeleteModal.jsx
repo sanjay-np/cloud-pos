@@ -13,7 +13,7 @@ const DeleteModal = forwardRef((props, ref) => {
             <Modal.Body>This can't be undone.</Modal.Body>
             <Modal.Footer>
                 <Button onClick={ref?.current?.close} appearance="subtle"><span className='font-semibold'>Cancel</span></Button>
-                <Button onClick={props?.handleDelete} appearance="primary" color='red'><span className='font-semibold'>Delete</span></Button>
+                <Button onClick={props?.deleteAction} appearance="primary" color='red'><span className='font-semibold'>Delete</span></Button>
             </Modal.Footer>
         </Modal>
     )

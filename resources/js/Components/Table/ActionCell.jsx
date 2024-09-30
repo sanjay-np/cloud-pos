@@ -8,13 +8,15 @@ const ActionCell = ({ rowData, dataKey, ...props }) => {
             <IconButton
                 appearance="subtle"
                 size='xs'
-                icon={<FilePenLineIcon size={18} />}
+                icon={<FilePenLineIcon size={16} />}
+                onClick={() => props?.actions?.editAction(rowData[dataKey])}
             />
             <Divider vertical />
             <IconButton
                 appearance="subtle"
                 size='xs'
-                icon={<Trash2Icon size={18} />}
+                icon={<Trash2Icon size={16} />}
+                onClick={() => props?.actions?.deleteAction(rowData[dataKey])}
             />
         </Cell>
     )
