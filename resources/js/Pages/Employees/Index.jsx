@@ -14,7 +14,7 @@ export default function Index({ auth, employees }) {
     const [selected, setSelected] = useState(null);
     const [type, setType] = useState("add");
     const drawerRef = useRef(false);
-    const alertRef = useRef(false);
+    const deleteModalRef = useRef(false);
 
     const editAction = (id) => {
         setType("edit");
@@ -24,13 +24,13 @@ export default function Index({ auth, employees }) {
 
     const deleteAction = (id) => {
         setSelected(id);
-        alertRef.current.open();
+        deleteModalRef.current.open();
     };
 
     const handleDelete = () => {
-        router.delete(route("employees.destroy", selected), {∏
+        router.delete(route("employees.destroy", selected), {
             onSuccess: () => {
-                alertRef.current.close();
+                deleteModalRef.current.close();
                 setSelected(null);
                 toast.success("Success", {
                     description: "Employee deleted successfully",
@@ -47,25 +47,11 @@ export default function Index({ auth, employees }) {
                     <div className="title-wrapper">
                         <h1 className="title">Employees</h1>
                         <ul className="breadcrumb">
-                            <li>
-                                <LayoutGridIcon color="gray" size={20} />
-                            </li>
-                            <li>
-                                <ChevronRightIcon color="gray" size={14} />
-                            </li>
-                            <li>
-                                <Link href={route("dashboard")}>
-                                    <span>Dashboard</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <ChevronRightIcon color="gray" size={14} />
-                            </li>
-                            <li>
-                                <Link href={route("employees.index")}>
-                                    <span>Employees</span>
-                                </Link>
-                            </li>
+                            <li><LayoutGridIcon color="gray" size={20} /></li>
+                            <li><ChevronRightIcon color="gray" size={14} /></li>
+                            <li><Link href={route("dashboard")}><span>Dashboard</span></Link></li>
+                            <li><ChevronRightIcon color="gray" size={14} /></li>
+                            <li><Link href={route("employees.index")}><span>Employees</span></Link></li>
                         </ul>
                     </div>
                 </div>
@@ -73,7 +59,7 @@ export default function Index({ auth, employees }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className="w-full">
-                                <SearchComp />
+                                <SearchComp title="Employees" />
                             </div>
                             <div className="add-employee">
                                 <AddButton
@@ -102,7 +88,7 @@ export default function Index({ auth, employees }) {
             />
             <DeleteModal
                 title="Employee"
-                ref={alertRef}
+                ref={deleteModalRef}
                 deleteAction={handleDelete}
             />
         </Authenticated>
