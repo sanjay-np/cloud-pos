@@ -39,3 +39,9 @@ export const employeeStatus = [
     { label: 'Suspended', value: "suspended" },
     { label: 'Resigned', value: "resigned" },
 ]
+
+export const brandTableHeader = [
+    { title: "id", dataKey: "id" },
+    { title: "Brand Name", dataKey: "name", flexGrow: 2 },
+    { title: "Description", dataKey: "description", flexGrow: 2 }
+]

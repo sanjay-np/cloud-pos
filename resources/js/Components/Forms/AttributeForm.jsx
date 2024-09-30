@@ -7,7 +7,7 @@ import FormDrawer from '../Overlays/FormDrawer';
 export default function AttributeForm(props) {
 
     const { drawerRef, selected, type } = props;
-    
+
     const [loading, setLoading] = useState(false)
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',

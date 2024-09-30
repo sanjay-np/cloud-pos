@@ -37,7 +37,11 @@ class BrandService implements BrandServiceInterface
 
     public function find(int $id)
     {
-        return $this->brandRepository->find(id: $id);
+        $brand = $this->brandRepository->find(id: $id);
+        if (isset($brand->image)) {
+            $brand->image_url = asset($brand->image);
+        }
+        return  $brand;
     }
 
     public function update(array $data, int $id)
@@ -49,6 +53,7 @@ class BrandService implements BrandServiceInterface
 
     public function delete(int $id)
     {
+        // Todo: Image unlink
         return $this->brandRepository->delete(id: $id);
     }
 

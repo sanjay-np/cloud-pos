@@ -11,7 +11,7 @@ const FormDrawer = forwardRef(({ children, ...props }, ref) => {
         }
     }))
     return (
-        <Drawer backdrop={'static'} open={isOpen} onClose={ref?.current?.close}>
+        <Drawer backdrop={'static'} open={isOpen} onClose={ref?.current?.close} size={props?.size ?? 'xs'} keyboard={false}>
             <Drawer.Header className='pe-6 items-center'>
                 <Drawer.Title className='font-semibold text-gray-600'>{props?.drawerTitle}</Drawer.Title>
                 <Drawer.Actions>

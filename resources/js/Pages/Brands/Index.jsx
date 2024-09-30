@@ -1,25 +1,45 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import React, { useState } from 'react'
-import { ButtonToolbar, IconButton } from 'rsuite'
-import AddOutlineIcon from '@rsuite/icons/AddOutline';
-import BrandAlert from '@/Components/Brands/BrandAlert'
-import BrandTable from '@/Components/Brands/BrandTable'
-import BrandDrawer from '@/Components/Brands/BrandDrawer'
+import React, { useRef, useState } from 'react'
 import SearchComp from '@/Components/Search/Index'
+import { brandTableHeader } from '@/Lib/Constants'
+import AddButton from '@/Components/Button/AddButton'
+import TableComp from '@/Components/Table/TableComp'
+import DeleteModal from '@/Components/Overlays/DeleteModal'
+import { toast } from 'sonner'
+import BrandForm from '@/Components/Forms/BrandForm'
 
 export default function Index({ auth, brands }) {
 
-    const [selected, setSelected] = useState(null)
-    const [drawerState, setDrawerState] = useState(false)
-    const [title, setTitle] = useState('Add')
-    const [alertState, setAlertState] = useState(false)
+    const [selected, setSelected] = useState(null);
+    const [type, setType] = useState("add");
+    const drawerRef = useRef(false);
+    const deleteModalRef = useRef(false);
 
-    const handleAddState = () => {
-        setTitle('Add')
-        setDrawerState(true)
+    const editAction = (id) => {
+        setType("edit");
+        setSelected(id);
+        drawerRef.current.open();
     }
+
+    const deleteAction = (id) => {
+        setSelected(id)
+        deleteModalRef.current.open()
+    }
+
+    const handleDelete = () => {
+        router.delete(route('brands.destroy', selected), {
+            onSuccess: () => {
+                deleteModalRef.current.close()
+                setSelected(null)
+                toast.success('Success', {
+                    description: 'Brand deleted successfully',
+                })
+            },
+        })
+    }
+
     return (
         <Authenticated user={auth.user} activeKey={['products']}>
             <Head title="Brands" />
@@ -42,38 +62,35 @@ export default function Index({ auth, brands }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
-                                <SearchComp />
+                                <SearchComp title={'Brands'} />
                             </div>
                             <div className="add-category">
-                                <ButtonToolbar>
-                                    <IconButton size='lg' color='green' icon={<AddOutlineIcon />} appearance='primary' onClick={handleAddState}>
-                                        <span className='font-semibold'>Add New</span>
-                                    </IconButton>
-                                </ButtonToolbar>
+                                <AddButton
+                                    handleOnClick={() => {
+                                        setType('add')
+                                        drawerRef.current.open()
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
-                    <BrandTable
+                    <TableComp
                         data={brands?.data}
-                        setTitle={setTitle}
-                        setSelected={setSelected}
-                        setDrawerState={setDrawerState}
-                        setAlertState={setAlertState}
+                        checkboxCell={true}
+                        columns={brandTableHeader}
+                        actions={{ editAction, deleteAction }}
                     />
                 </div>
             </div>
-            <BrandDrawer
+            <BrandForm
+                drawerRef={drawerRef}
                 selected={selected}
-                setSelected={setSelected}
-                title={title}
-                open={drawerState}
-                setOpen={setDrawerState}
+                type={type}
             />
-            <BrandAlert
-                open={alertState}
-                setOpen={setAlertState}
-                selected={selected}
-                setSelected={setSelected}
+            <DeleteModal
+                title={'Brand'}
+                ref={deleteModalRef}
+                deleteAction={handleDelete}
             />
         </Authenticated>
     )

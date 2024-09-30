@@ -46,7 +46,7 @@ export default function EmployeeForm(props) {
     }, [selected]);
 
     const onSubmit = () => {
-        if (!selected) {
+        if (!selected && type === "add") {
             post(route("employees.store"), {
                 onSuccess: () => {
                     drawerRef.current.close();
@@ -59,23 +59,20 @@ export default function EmployeeForm(props) {
         }
         if (selected && type === "edit") {
             router.post(
-                route("employees.update", selected),
-                {
-                    _method: "put",
-                    ...data,
+                route("employees.update", selected), {
+                _method: "put",
+                ...data,
+            }, {
+                onSuccess: () => {
+                    setAvatar(null);
+                    setDocumentFiles([]);
+                    drawerRef.current.close();
+                    reset();
+                    toast.success("Success", {
+                        description: "Employee updated successfully",
+                    });
                 },
-                {
-                    onSuccess: () => {
-                        setAvatar(null);
-                        setDocumentFiles([]);
-                        drawerRef.current.close();
-                        reset();
-                        toast.success("Success", {
-                            description: "Employee updated successfully",
-                        });
-                    },
-                }
-            );
+            });
         }
     };
 
@@ -92,6 +89,7 @@ export default function EmployeeForm(props) {
             onSubmit={onSubmit}
             drawerTitle={selected ? "Edit Employee" : "Create New Employee"}
             reset={formClear}
+            size="sm"
         >
             {loading ? (
                 <Loader center content="loading" />
