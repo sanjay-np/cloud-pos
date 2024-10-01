@@ -1,25 +1,44 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import React, { useState } from 'react'
-import { ButtonToolbar, IconButton } from 'rsuite'
-import AddOutlineIcon from '@rsuite/icons/AddOutline';
-import CategoryDrawer from '@/Components/Categories/CategoryDrawer'
+import { useRef, useState } from 'react'
 import SearchComp from '@/Components/Search/Index'
-import CategoryTable from '@/Components/Categories/CategoryTable'
-import CategoryAlert from '@/Components/Categories/CategoryAlert'
+import AddButton from '@/Components/Button/AddButton'
+import TableComp from '@/Components/Table/TableComp'
+import { categoryTableHeader } from '@/Lib/Constants'
+import DeleteModal from '@/Components/Overlays/DeleteModal'
+
 
 export default function Index({ auth, categories }) {
 
     const [selected, setSelected] = useState(null)
-    const [drawerState, setDrawerState] = useState(false)
-    const [title, setTitle] = useState('Add')
-    const [alertState, setAlertState] = useState(false)
+    const [type, setType] = useState("add")
+    const drawerRef = useRef(false)
+    const deleteModalRef = useRef(false)
 
-    const handleAddState = () => {
-        setTitle('Add')
-        setDrawerState(true)
+    const editAction = (id) => {
+        setType("edit")
+        setSelected(id)
+        drawerRef.current.open()
     }
+
+    const deleteAction = (id) => {
+        setSelected(id)
+        deleteModalRef.current.open()
+    }
+
+    const handleDelete = () => {
+        router.delete(route('categories.destroy', selected), {
+            onSuccess: () => {
+                setOpen(false)
+                setSelected(null)
+                toast.success('Success', {
+                    description: 'Brand deleted successfully',
+                })
+            },
+        })
+    }
+
     return (
         <Authenticated user={auth.user} activeKey={['products']}>
             <Head title="Categories" />
@@ -45,35 +64,25 @@ export default function Index({ auth, categories }) {
                                 <SearchComp />
                             </div>
                             <div className="add-category">
-                                <ButtonToolbar>
-                                    <IconButton size='lg' color='green' icon={<AddOutlineIcon />} appearance='primary' onClick={handleAddState}>
-                                        <span className='font-semibold'>Add New</span>
-                                    </IconButton>
-                                </ButtonToolbar>
+                                <AddButton handleOnClick={() => {
+                                    setType("add")
+                                    drawerRef.current.open()
+                                }} />
                             </div>
                         </div>
                     </div>
-                    <CategoryTable
+                    <TableComp
                         data={categories?.data}
-                        setTitle={setTitle}
-                        setSelected={setSelected}
-                        setDrawerState={setDrawerState}
-                        setAlertState={setAlertState}
+                        checkboxCell={true}
+                        columns={categoryTableHeader}
+                        acttions={{ editAction, deleteAction }}
                     />
                 </div>
-            </div>
-            <CategoryDrawer
-                selected={selected}
-                setSelected={setSelected}
-                title={title}
-                open={drawerState}
-                setOpen={setDrawerState}
-            />
-            <CategoryAlert
-                open={alertState}
-                setOpen={setAlertState}
-                selected={selected}
-                setSelected={setSelected}
+            </div>            
+            <DeleteModal
+                title="Category"
+                ref={deleteModalRef}
+                deleteAction={handleDelete}
             />
         </Authenticated>
     )

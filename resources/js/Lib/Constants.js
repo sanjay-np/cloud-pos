@@ -52,3 +52,10 @@ export const supplierTableHeader = [
     { title: "Phone", dataKey: "phone" },
     { title: "PAN No.", dataKey: "pan" }
 ]
+
+export const categoryTableHeader = [
+    { title: "id", dataKey: "id" },
+    { title: "Category Name", dataKey: "name", flexGrow: 2 },
+    { title: "Parent Category", dataKey: "parent_id", flexGrow: 2 },
+    { title: "Status", dataKey: "status", flexGrow: 2 }
+]
