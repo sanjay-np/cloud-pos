@@ -1,10 +1,10 @@
 import { router, useForm } from '@inertiajs/react'
 import { useEffect, useState } from 'react'
-import FormDrawer from '../Overlays/FormDrawer'
 import { Input, InputGroup, Loader, Uploader } from 'rsuite'
-import InputError from '../InputError'
 import { AirplayIcon } from 'lucide-react'
 import { toast } from 'sonner'
+import FormDrawer from '@/Components/Overlays/FormDrawer'
+import InputError from '@/Components/InputError'
 import { previewFile } from '@/Lib/Utils'
 
 export default function BrandForm(props) {

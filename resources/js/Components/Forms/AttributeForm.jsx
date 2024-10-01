@@ -1,8 +1,8 @@
 import { useForm } from '@inertiajs/react';
 import { useState } from 'react'
 import { Input, InputGroup, Loader, TagInput } from 'rsuite';
-import InputError from '../InputError';
-import FormDrawer from '../Overlays/FormDrawer';
+import InputError from '@/Components/InputError';
+import FormDrawer from '@/Components/Overlays/FormDrawer';
 
 export default function AttributeForm(props) {
 

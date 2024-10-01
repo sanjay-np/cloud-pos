@@ -45,3 +45,10 @@ export const brandTableHeader = [
     { title: "Brand Name", dataKey: "name", flexGrow: 2 },
     { title: "Description", dataKey: "description", flexGrow: 2 }
 ]
+
+export const supplierTableHeader = [
+    { title: "id", dataKey: "id" },
+    { title: "Supplier Name", dataKey: "name", flexGrow: 2 },
+    { title: "Phone", dataKey: "phone" },
+    { title: "PAN No.", dataKey: "pan" }
+]

@@ -1,25 +1,46 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import React, { useState } from 'react'
-import { ButtonToolbar, IconButton } from 'rsuite'
-import AddOutlineIcon from '@rsuite/icons/AddOutline';
-import SupplierDrawer from '@/Components/Suppliers/SupplierDrawer'
-import SupplierTable from '@/Components/Suppliers/SupplierTable'
-import SupplierAlert from '@/Components/Suppliers/SupplierAlert'
+import React, { useRef, useState } from 'react'
 import SearchComp from '@/Components/Search/Index'
+import AddButton from '@/Components/Button/AddButton'
+import TableComp from '@/Components/Table/TableComp'
+import { supplierTableHeader } from '@/Lib/Constants'
+import DeleteModal from '@/Components/Overlays/DeleteModal'
+import { toast } from 'sonner'
+import SupplierForm from '@/Components/Forms/SupplierForm'
 
 export default function Index({ auth, brands, suppliers }) {
 
     const [selected, setSelected] = useState(null)
-    const [drawerState, setDrawerState] = useState(false)
-    const [title, setTitle] = useState('Add')
-    const [alertState, setAlertState] = useState(false)
+    const [type, setType] = useState("add");
+    const drawerRef = useRef(false)
+    const deleteModalRef = useRef(false)
 
-    const handleAddState = () => {
-        setTitle('Add')
-        setDrawerState(true)
+
+    const editAction = (id) => {
+        setType("edit");
+        setSelected(id);
+        drawerRef.current.open();
     }
+
+    const deleteAction = (id) => {
+        setSelected(id)
+        deleteModalRef.current.open()
+    }
+
+    const handleDelete = () => {
+        router.delete(route('suppliers.destroy', selected), {
+            onSuccess: () => {
+                setSelected(null)
+                deleteModalRef.current.close()
+                toast.success('Success', {
+                    description: 'Supplier deleted successfully',
+                })
+            },
+        })
+    }
+
 
     return (
         <Authenticated user={auth.user} activeKey={['products']}>
@@ -46,36 +67,31 @@ export default function Index({ auth, brands, suppliers }) {
                                 <SearchComp />
                             </div>
                             <div className="add-category">
-                                <ButtonToolbar>
-                                    <IconButton size='lg' color='green' icon={<AddOutlineIcon />} appearance='primary' onClick={handleAddState}>
-                                        <span className='font-semibold'>Add New</span>
-                                    </IconButton>
-                                </ButtonToolbar>
+                                <AddButton handleOnClick={() => {
+                                    setType("add")
+                                    drawerRef.current.open()
+                                }} />
                             </div>
                         </div>
                     </div>
-                    <SupplierTable
+                    <TableComp
                         data={suppliers?.data}
-                        setTitle={setTitle}
-                        setSelected={setSelected}
-                        setDrawerState={setDrawerState}
-                        setAlertState={setAlertState}
+                        checkboxCell={true}
+                        columns={supplierTableHeader}
+                        actions={{ editAction, deleteAction }}
                     />
                 </div>
             </div>
-            <SupplierDrawer
+            <SupplierForm
+                drawerRef={drawerRef}
                 selected={selected}
-                setSelected={setSelected}
-                title={title}
-                open={drawerState}
-                setOpen={setDrawerState}
+                type={type}
                 brands={brands}
             />
-            <SupplierAlert
-                open={alertState}
-                setOpen={setAlertState}
-                selected={selected}
-                setSelected={setSelected}
+            <DeleteModal
+                ref={deleteModalRef}
+                title="Supplier"
+                deleteAction={handleDelete}
             />
         </Authenticated>
     )
