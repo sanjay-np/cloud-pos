@@ -47,7 +47,6 @@ export const brandTableHeader = [
 ]
 
 export const supplierTableHeader = [
-    { title: "id", dataKey: "id" },
     { title: "Supplier Name", dataKey: "name", flexGrow: 2 },
     { title: "Phone", dataKey: "phone" },
     { title: "PAN No.", dataKey: "pan" }

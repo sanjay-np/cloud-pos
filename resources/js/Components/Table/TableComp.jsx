@@ -2,6 +2,16 @@ import { Checkbox, Table } from "rsuite"
 import CheckCell from "./CheckCell";
 import ActionCell from "./ActionCell";
 
+/**
+ * A reusable table component that renders data based on provided props.
+ *
+ * @param {object} props - The properties for the table component.
+ * @param {array} props.data - The data to be rendered in the table.
+ * @param {boolean} props.checkboxCell - Whether to include a checkbox column.
+ * @param {array} props.columns - The columns to be rendered in the table.
+ * @param {array} props.actions - The actions to be rendered in the action column.
+ * @return {JSX.Element} The rendered table component.
+ */
 const TableComp = (props) => {
     const { Column, HeaderCell, Cell } = Table;
     return (

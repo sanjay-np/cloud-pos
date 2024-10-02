@@ -5,7 +5,6 @@ import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import React, { useState } from 'react'
 import { ButtonToolbar, IconButton } from 'rsuite'
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
-import ProductDrawer from '@/Components/Products/ProductDrawer'
 import SearchComp from '@/Components/Search/Index'
 export default function Index({ auth }) {
 
@@ -31,7 +30,7 @@ export default function Index({ auth }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
-                                <SearchComp />
+                                <SearchComp title={'Products'}/>
                             </div>
                             <div className='add-product'>
                                 <ButtonToolbar>
@@ -49,10 +48,6 @@ export default function Index({ auth }) {
                         </div>
                     </div>
                 </div>
-                <ProductDrawer
-                    open={open}
-                    setOpen={setOpen}
-                />
             </div>
         </Authenticated>
     )

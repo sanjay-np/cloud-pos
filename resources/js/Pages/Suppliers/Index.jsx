@@ -64,7 +64,7 @@ export default function Index({ auth, brands, suppliers }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
-                                <SearchComp />
+                                <SearchComp  title={'Suppliers'}/>
                             </div>
                             <div className="add-category">
                                 <AddButton handleOnClick={() => {

@@ -7,6 +7,7 @@ import AddButton from '@/Components/Button/AddButton'
 import TableComp from '@/Components/Table/TableComp'
 import { categoryTableHeader } from '@/Lib/Constants'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
+import CategoryForm from '@/Components/Forms/CategoryForm'
 
 
 export default function Index({ auth, categories }) {
@@ -61,7 +62,7 @@ export default function Index({ auth, categories }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
-                                <SearchComp />
+                                <SearchComp title={'Categories'} />
                             </div>
                             <div className="add-category">
                                 <AddButton handleOnClick={() => {
@@ -75,10 +76,15 @@ export default function Index({ auth, categories }) {
                         data={categories?.data}
                         checkboxCell={true}
                         columns={categoryTableHeader}
-                        acttions={{ editAction, deleteAction }}
+                        actions={{ editAction, deleteAction }}
                     />
                 </div>
-            </div>            
+            </div>
+            <CategoryForm
+                drawerRef={drawerRef}
+                type={type}
+                selected={selected}
+            />
             <DeleteModal
                 title="Category"
                 ref={deleteModalRef}

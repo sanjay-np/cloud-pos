@@ -4,9 +4,13 @@ namespace App\Services;
 
 use App\Contracts\Category\CategoryRepositoryInterface;
 use App\Contracts\Category\CategoryServiceInterface;
+use App\Traits\ImageUpload;
 
 class CategoryService implements CategoryServiceInterface
 {
+
+    use ImageUpload;
+
     protected $categoryRepository;
     /**
      * Create a new class instance.
@@ -23,12 +27,17 @@ class CategoryService implements CategoryServiceInterface
 
     public function store(array $data)
     {
+        $data['image'] = $this->imageUpload($data);
         return $this->categoryRepository->store($data);
     }
 
     public function find(int $id)
     {
-        return $this->categoryRepository->find($id);
+        $item =$this->categoryRepository->find($id);
+        if(isset($item->image)){
+            $item->image_url = asset($item->image);
+        }
+        return $item;
     }
 
     public function findAll()
@@ -44,5 +53,14 @@ class CategoryService implements CategoryServiceInterface
     public function destroy(int $id)
     {
         return $this->categoryRepository->destroy($id);
+    }
+
+    public function imageUpload($data)
+    {
+        $path = null;
+        if (isset($data['image'])) {
+            $path = $this->uploadImage($data['image']['blobFile'], 'Category');
+        }
+        return $path;
     }
 }

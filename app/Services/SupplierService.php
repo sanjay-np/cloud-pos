@@ -4,14 +4,16 @@ namespace App\Services;
 
 use App\Contracts\Supplier\SupplierRepositoryInterface;
 use App\Contracts\Supplier\SupplierServiceInterface;
+use App\Models\Brand;
 
 class SupplierService implements SupplierServiceInterface
 {
-    protected $supplierRepository;
-    
-    public function __construct(SupplierRepositoryInterface $supplierRepository)
+    protected $supplierRepository, $brand;
+
+    public function __construct(SupplierRepositoryInterface $supplierRepository, Brand $brand)
     {
         $this->supplierRepository = $supplierRepository;
+        $this->brand = $brand;
     }
 
     public function paginate(int $perPage)

@@ -6,6 +6,7 @@ import { Input, InputGroup, Loader, SelectPicker, Uploader } from 'rsuite'
 import InputError from '@/Components/InputError'
 import { AirplayIcon } from 'lucide-react'
 import { toast } from 'sonner'
+import { previewFile } from '@/Lib/Utils'
 
 export default function CategoryForm(props) {
 
@@ -40,7 +41,7 @@ export default function CategoryForm(props) {
 
 
     const onSubmit = () => {
-        if (title === 'Add') {
+        if (type === 'add') {
             post(route('categories.store'), {
                 onSuccess: () => {
                     setLogo(null)
@@ -50,7 +51,7 @@ export default function CategoryForm(props) {
                     })
                 }
             })
-        } else if (title === 'Edit') {
+        } else if (type === 'edit') {
             router.post(route('categories.update', selected), {
                 _method: 'put',
                 ...data

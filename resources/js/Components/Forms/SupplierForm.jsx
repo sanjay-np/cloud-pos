@@ -45,6 +45,7 @@ export default function SupplierForm(props) {
                     toast.success('Success', {
                         description: 'Supplier added successfully',
                     })
+                    drawerRef.current.close()
                 },
             })
         }
@@ -58,6 +59,7 @@ export default function SupplierForm(props) {
                     toast.success('Success', {
                         description: 'Supplier updated successfully',
                     })
+                    drawerRef.current.close()
                 },
             })
         }
@@ -140,6 +142,7 @@ export default function SupplierForm(props) {
                             style={{ width: '100%' }}
                             onChange={(value) => setData('brands', value)}
                             placement='top'
+                            defaultValue={data.brands}
                         />
                     </div>
                 </>
