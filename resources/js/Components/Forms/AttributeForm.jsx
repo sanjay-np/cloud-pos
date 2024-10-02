@@ -1,4 +1,4 @@
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 import { useState } from 'react'
 import { Input, InputGroup, Loader, TagInput } from 'rsuite';
 import InputError from '@/Components/InputError';
@@ -20,7 +20,27 @@ export default function AttributeForm(props) {
     };
 
     const onSubmit = () => {
-
+        if (!selected && type === "add") {
+            post(route('attributes.store'), {
+                onSuccess: () => {
+                    drawerRef.current.close()
+                    toast.success('Success', {
+                        description: 'Attribute added successfully',
+                    })
+                }
+            })
+        }
+        if (selected && type === "edit") {
+            router.post(route('attributes.update', selected), {
+                _method: 'put',
+                onSuccess: () => {
+                    drawerRef.current.close()
+                    toast.success('Success', {
+                        description: 'Attribute updated successfully',
+                    })
+                }
+            })
+        }
     }
 
 
@@ -66,7 +86,7 @@ export default function AttributeForm(props) {
                                 setData('values', [...data.values, value])
                             }}
                             style={{ width: '100%', height: 100 }}
-                            value={data.values}
+                            defaultValue={data.values}
                             onClean={() => setData('values', [])}
                         />
                     </div>

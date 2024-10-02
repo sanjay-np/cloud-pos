@@ -13,4 +13,9 @@ class AttributeValueService implements AttributeValueServiceInterface
     {
         $this->attributeValueRepository = $attributeValueRepository;
     }
+
+    public function store(array $data)
+    {
+        return $this->attributeValueRepository->store($data);
+    }
 }

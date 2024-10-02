@@ -11,7 +11,7 @@ class AttributeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class AttributeRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'description' => ['string'],
             'status' => ['required'],
-            'values' => ['array', 'required'],
+            'values' => ['nullable', 'array'],
             'values.*' => ['string', 'max:255'],
         ];
     }

@@ -2,15 +2,20 @@
 
 namespace App\Services;
 
-use App\Contracts\Attribute\AttributeRepositoryInterface;
 use App\Contracts\Attribute\AttributeServiceInterface;
+use App\Contracts\Attribute\AttributeRepositoryInterface;
+use App\Contracts\AttributeValue\AttributeValueServiceInterface;
 
 class AttributeService implements AttributeServiceInterface
 {
-    protected $attributeRepository;
-    public function __construct(AttributeRepositoryInterface $attributeRepository)
-    {
+    protected $attributeRepository, $attributeValueService;
+
+    public function __construct(
+        AttributeRepositoryInterface $attributeRepository,
+        AttributeValueServiceInterface $attributeValueService
+    ) {
         $this->attributeRepository = $attributeRepository;
+        $this->attributeValueService = $attributeValueService;
     }
 
     public function paginate(int $perPage)
@@ -25,7 +30,17 @@ class AttributeService implements AttributeServiceInterface
 
     public function store(array $data)
     {
-        return $this->attributeRepository->store($data);
+        $attribute  = $this->attributeRepository->store($data);
+        if (isset($data['values'])) {
+            foreach ($data['values'] as $item) {
+                $valuesItem = [
+                    'attribute_id' => $attribute->id,
+                    'value' => $item
+                ];
+                $attributeValue = $this->attributeValueService->store($valuesItem);
+            }
+        }
+        return $attribute;
     }
 
     public function update(array $data, int $id)
