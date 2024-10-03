@@ -41,7 +41,6 @@ export const employeeStatus = [
 ]
 
 export const brandTableHeader = [
-    { title: "id", dataKey: "id" },
     { title: "Brand Name", dataKey: "name", flexGrow: 2 },
     { title: "Description", dataKey: "description", flexGrow: 2 }
 ]
@@ -53,8 +52,13 @@ export const supplierTableHeader = [
 ]
 
 export const categoryTableHeader = [
-    { title: "id", dataKey: "id" },
     { title: "Category Name", dataKey: "name", flexGrow: 2 },
     { title: "Parent Category", dataKey: "parent_id", flexGrow: 2 },
+    { title: "Status", dataKey: "status", flexGrow: 2 }
+]
+
+export const attributeTableHeader = [
+    { title: "Attribute Name", dataKey: "name", flexGrow: 2 },
+    { title: "Description", dataKey: "description", flexGrow: 2 },
     { title: "Status", dataKey: "status", flexGrow: 2 }
 ]

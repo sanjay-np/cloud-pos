@@ -1,18 +1,43 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import SearchComp from '@/Components/Search/Index'
 import AddButton from '@/Components/Button/AddButton'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
 import AttributeForm from '@/Components/Forms/AttributeForm'
+import TableComp from '@/Components/Table/TableComp'
+import { attributeTableHeader } from '@/Lib/Constants'
+import { toast } from 'sonner'
 
-export default function Index({ auth }) {
+export default function Index({ auth, attributes }) {
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add");
     const drawerRef = useRef(false);
     const deleteModalRef = useRef(false);
 
+    const editAction = (id) => {
+        setType("edit");
+        setSelected(id);
+        drawerRef.current.open();
+    }
+
+    const deleteAction = (id) => {
+        setSelected(id)
+        deleteModalRef.current.open()
+    }
+
+    const handleDelete = () => {
+        router.delete(route('attributes.destroy', selected), {
+            onSuccess: () => {
+                deleteModalRef.current.close()
+                setSelected(null)
+                toast.success('Success', {
+                    description: 'Attribute deleted successfully',
+                })
+            },
+        })
+    }
     return (
         <Authenticated user={auth.user} activeKey={['products']}>
             <Head title="Attributes" />
@@ -45,6 +70,15 @@ export default function Index({ auth }) {
                             </div>
                         </div>
                     </div>
+                    <TableComp
+                        data={attributes?.data}
+                        columns={attributeTableHeader}
+                        checkboxCell={true}
+                        actions={{
+                            editAction,
+                            deleteAction
+                        }}
+                    />
                 </div>
             </div>
             <AttributeForm
@@ -55,7 +89,7 @@ export default function Index({ auth }) {
             <DeleteModal
                 ref={deleteModalRef}
                 title="Delete Attribute"
-                deleteAction={() => { }}
+                deleteAction={handleDelete}
             />
         </Authenticated>
     )

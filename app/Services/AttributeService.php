@@ -43,6 +43,10 @@ class AttributeService implements AttributeServiceInterface
         return $attribute;
     }
 
+    public function find($id){
+        return $this->attributeRepository->find($id);
+    }
+
     public function update(array $data, int $id)
     {
         return $this->attributeRepository->update($data, $id);

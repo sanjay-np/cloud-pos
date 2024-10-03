@@ -30,6 +30,11 @@ class AttributeRepository implements AttributeRepositoryInterface
         return $this->model->create($data);
     }
 
+    public function find($id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
     public function update(array $data, int $id)
     {
         return $this->model->find($id)->update($data);

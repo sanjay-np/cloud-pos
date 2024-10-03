@@ -33,6 +33,10 @@ class AttributeController extends Controller
         return redirect(to: route(name: 'attributes.index'));
     }
 
+    public function find($id){
+        return $this->attributeService->find(id: $id);
+    }
+
 
     public function update(AttributeRequest $request, $id)
     {
@@ -41,9 +45,9 @@ class AttributeController extends Controller
     }
 
 
-    public function destroy(Attribute $attribute)
+    public function destroy($id)
     {
-        $this->attributeService->destroy(id: $attribute->id);
+        $this->attributeService->destroy(id: $id);
         return redirect(to: route(name: 'attributes.index'));
     }
 }

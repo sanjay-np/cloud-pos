@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Attribute extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = ['name', 'description', 'status`'];
 }

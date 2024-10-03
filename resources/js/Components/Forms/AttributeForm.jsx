@@ -1,8 +1,9 @@
 import { router, useForm } from '@inertiajs/react';
-import { useState } from 'react'
-import { Input, InputGroup, Loader, TagInput } from 'rsuite';
+import { useEffect, useState } from 'react'
+import { Input, InputGroup, Loader, SelectPicker, TagInput } from 'rsuite';
 import InputError from '@/Components/InputError';
 import FormDrawer from '@/Components/Overlays/FormDrawer';
+import { toast } from 'sonner';
 
 export default function AttributeForm(props) {
 
@@ -12,12 +13,26 @@ export default function AttributeForm(props) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         description: '',
-        values: []
+        values: [],
+        status: ''
     })
 
-    const formClear = () => {
-        reset();
-    };
+    useEffect(() => {
+        if (!selected && type !== 'edit') return
+        const fetchData = async () => {
+            setLoading(true)
+            try {
+                const res = await axios.get(route('attributes.find', selected));
+                setData(res?.data);
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchData()
+    }, [selected])
+
 
     const onSubmit = () => {
         if (!selected && type === "add") {
@@ -33,6 +48,8 @@ export default function AttributeForm(props) {
         if (selected && type === "edit") {
             router.post(route('attributes.update', selected), {
                 _method: 'put',
+                ...data,
+            }, {
                 onSuccess: () => {
                     drawerRef.current.close()
                     toast.success('Success', {
@@ -43,6 +60,9 @@ export default function AttributeForm(props) {
         }
     }
 
+    const formClear = () => {
+        reset();
+    };
 
     return (
         <FormDrawer
@@ -83,12 +103,27 @@ export default function AttributeForm(props) {
                             trigger={['Enter', 'Space', 'Comma']}
                             placeholder="Attributes Values..."
                             onCreate={(value) => {
-                                setData('values', [...data.values, value])
+                                // setData('values', { ...data.values, value })
                             }}
                             style={{ width: '100%', height: 100 }}
-                            defaultValue={data.values}
                             onClean={() => setData('values', [])}
                         />
+                        <InputError message={errors.values} className="mt-2" />
+                    </div>
+                    <div className='mb-4'>
+                        <label className="text-gray-600 font-semibold mb-1 block">Status</label>
+                        <SelectPicker
+                            data={[
+                                { value: 'published', label: 'Published' },
+                                { value: 'draft', label: 'Draft' }
+                            ]}
+                            placeholder="Select status..."
+                            className="text-base w-full"
+                            value={data.status}
+                            onChange={value => setData('status', value)}
+                            placement="top"
+                        />
+                        <InputError message={errors.status} className="mt-2" />
                     </div>
                 </>
             }

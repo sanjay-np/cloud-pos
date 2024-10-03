@@ -29,9 +29,10 @@ Route::resource('products', ProductController::class)
     ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
-Route::resource('products/attributes', AttributeController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']);
+Route::controller(AttributeController::class)->group(function () {
+    Route::resource('products/attributes', AttributeController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::get('/products/attributes/{id}', 'find')->name('attributes.find');
+})->middleware(['auth', 'verified']);
 
 // Brands
 Route::controller(BrandController::class)->group(function () {
