@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Product\ProductServiceInterface;
-use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Http\Requests\Product\StoreProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -18,7 +18,6 @@ class ProductController extends Controller
     }
 
 
-
     public function index()
     {
         $products = $this->productService->paginate(10);
@@ -28,21 +27,20 @@ class ProductController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
+    {
+        $this->productService->store($request->all());
+        return to_route('products.index');
+    }
+
+
+    public function update(UpdateProductRequest $request, $id)
     {
         //
     }
 
 
-
-
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-
-    public function destroy(Product $product)
+    public function destroy($id)
     {
         //
     }

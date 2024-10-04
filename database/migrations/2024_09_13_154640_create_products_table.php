@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->string('short_description')->nullable();
             $table->text('description')->nullable();
             $table->string('main_image')->nullable();
-            $table->string('purchase_price');
             $table->string('price');
             $table->string('stock');
             $table->json('category_ids')->nullable();

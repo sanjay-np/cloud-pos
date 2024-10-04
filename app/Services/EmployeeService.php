@@ -11,9 +11,7 @@ class EmployeeService implements EmployeeServiceInterface
     use ImageUpload;
 
     protected $employeeRepository;
-    /**
-     * Create a new class instance.
-     */
+
     public function __construct(EmployeeRepositoryInterface $employeeRepository)
     {
         $this->employeeRepository = $employeeRepository;
@@ -26,10 +24,8 @@ class EmployeeService implements EmployeeServiceInterface
 
     public function store(array $data)
     {
-        $avatar_path = $this->avatarUpload($data);
-        $documents_path = $this->uploadDocuments($data);
-        $data['avatar'] = $avatar_path;
-        $data['document_files'] = $documents_path;
+        $data['avatar'] = $this->avatarUpload($data);
+        $data['document_files'] = $this->uploadDocuments($data);
         return $this->employeeRepository->store($data);
     }
 
