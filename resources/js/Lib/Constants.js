@@ -62,3 +62,11 @@ export const attributeTableHeader = [
     { title: "Description", dataKey: "description", flexGrow: 2 },
     { title: "Status", dataKey: "status", flexGrow: 2 }
 ]
+
+export const productType = [
+    { label: 'Regular', value: "regular" },
+    { label: 'Variant', value: "variant" },
+]
+
+
+export const loadingText = "Loading... Please wait..."

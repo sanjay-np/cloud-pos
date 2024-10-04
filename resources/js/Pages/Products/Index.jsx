@@ -2,13 +2,15 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import React, { useState } from 'react'
-import { ButtonToolbar, IconButton } from 'rsuite'
-import AddOutlineIcon from '@rsuite/icons/AddOutline';
+import React, { useRef, useState } from 'react'
 import SearchComp from '@/Components/Search/Index'
+import AddButton from '@/Components/Button/AddButton'
+import ProductForm from '@/Components/Forms/ProductForm'
 export default function Index({ auth }) {
 
-    const [open, setOpen] = useState(false)
+    const drawerRef = useRef(false)
+    const alertModalRef = useRef(false)
+    const [type, setType] = useState("add")
 
     return (
         <Authenticated user={auth.user} activeKey={['products']}>
@@ -30,24 +32,20 @@ export default function Index({ auth }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
-                                <SearchComp title={'Products'}/>
+                                <SearchComp title={'Products'} />
                             </div>
                             <div className='add-product'>
-                                <ButtonToolbar>
-                                    <IconButton
-                                        size='lg'
-                                        color='green'
-                                        icon={<AddOutlineIcon />}
-                                        appearance='primary'
-                                        onClick={() => setOpen(true)}
-                                    >
-                                        <span className='font-semibold'>Add New</span>
-                                    </IconButton>
-                                </ButtonToolbar>
+                                <AddButton handleOnClick={() => {
+                                    drawerRef.current.open()
+                                }} />
                             </div>
                         </div>
                     </div>
                 </div>
+                <ProductForm
+                    drawerRef={drawerRef}
+                    type={type}
+                />
             </div>
         </Authenticated>
     )

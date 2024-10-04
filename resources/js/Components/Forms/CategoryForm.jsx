@@ -7,6 +7,7 @@ import InputError from '@/Components/InputError'
 import { AirplayIcon } from 'lucide-react'
 import { toast } from 'sonner'
 import { previewFile } from '@/Lib/Utils'
+import { loadingText } from '@/Lib/Constants'
 
 export default function CategoryForm(props) {
 
@@ -81,7 +82,7 @@ export default function CategoryForm(props) {
             reset={formClear}
         >
             {loading ? (
-                <Loader center content="loading" />
+                <Loader center content={loadingText} vertical />
             ) :
                 <React.Fragment>
                     <div className="mb-4">

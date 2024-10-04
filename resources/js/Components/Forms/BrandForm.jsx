@@ -6,6 +6,7 @@ import { toast } from 'sonner'
 import FormDrawer from '@/Components/Overlays/FormDrawer'
 import InputError from '@/Components/InputError'
 import { previewFile } from '@/Lib/Utils'
+import { loadingText } from '@/Lib/Constants'
 
 export default function BrandForm(props) {
     const { drawerRef, selected, type } = props
@@ -77,7 +78,7 @@ export default function BrandForm(props) {
             reset={formClear}
         >
 
-            {loading ? <Loader backdrop content='fetching...' vertical /> :
+            {loading ? <Loader backdrop content={loadingText} vertical /> :
                 <>
                     <div className="mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Brand Name</label>

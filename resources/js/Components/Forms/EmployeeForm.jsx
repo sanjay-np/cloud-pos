@@ -102,13 +102,6 @@ export default function EmployeeForm(props) {
                                     Employee Name
                                 </label>
                                 <InputGroup inside>
-                                    <InputGroup.Addon>
-                                        <User2Icon
-                                            color="gray"
-                                            size={20}
-                                            strokeWidth={1.6}
-                                        />
-                                    </InputGroup.Addon>
                                     <Input
                                         placeholder="Employee Name..."
                                         className="text-base"
@@ -129,14 +122,7 @@ export default function EmployeeForm(props) {
                                 <label className="text-gray-600 font-semibold mb-1 block">
                                     Phone Number
                                 </label>
-                                <InputGroup className="form-item mb-4" inside>
-                                    <InputGroup.Addon>
-                                        <PhoneCallIcon
-                                            color="gray"
-                                            size={20}
-                                            strokeWidth={1.6}
-                                        />
-                                    </InputGroup.Addon>
+                                <InputGroup className="form-item mb-4" inside>                                    
                                     <Input
                                         placeholder="Phone Number..."
                                         className="text-base"
@@ -240,14 +226,7 @@ export default function EmployeeForm(props) {
                         <label className="text-gray-600 font-semibold mb-1 block">
                             Document Number{" "}
                         </label>
-                        <InputGroup inside>
-                            <InputGroup.Addon>
-                                <FileTextIcon
-                                    color="gray"
-                                    size={20}
-                                    strokeWidth={1.6}
-                                />
-                            </InputGroup.Addon>
+                        <InputGroup inside>                            
                             <Input
                                 placeholder="Document Number..."
                                 className="text-base"

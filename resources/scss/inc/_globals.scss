@@ -48,3 +48,11 @@ body {
         }
     }
 }
+.full-width-image-uploader{
+    width: 100%;
+    display: block;
+    .rs-uploader-trigger{
+        float: unset;
+        width: 100%;
+    }
+}
