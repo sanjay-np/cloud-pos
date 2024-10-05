@@ -45,7 +45,7 @@ export default function Index({ auth, brands, suppliers }) {
     return (
         <Authenticated user={auth.user} activeKey={['products']}>
             <Head title="Suppliers" />
-            <div className="page-content suppliers-page">
+            <div className="page-content">
                 <div className="top-section">
                     <div className='title-wrapper'>
                         <h1 className='title'>Suppliers</h1>
@@ -60,11 +60,11 @@ export default function Index({ auth, brands, suppliers }) {
                         </ul>
                     </div>
                 </div>
-                <div className="content-wrapper h-[500px] bg-white rounded-md pb-8">
+                <div className="content-wrapper bg-white rounded-md pb-8">
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
-                                <SearchComp  title={'Suppliers'}/>
+                                <SearchComp title={'Suppliers'} />
                             </div>
                             <div className="add-category">
                                 <AddButton handleOnClick={() => {

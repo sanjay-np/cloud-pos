@@ -46,8 +46,9 @@ export const brandTableHeader = [
 ]
 
 export const supplierTableHeader = [
-    { title: "Supplier Name", dataKey: "name", flexGrow: 2 },
+    { title: "Supplier Name", dataKey: "name", flexGrow: 1 },
     { title: "Phone", dataKey: "phone" },
+    { title: "Contact Person", dataKey: "contact_person" },
     { title: "PAN No.", dataKey: "pan" }
 ]
 
@@ -64,8 +65,14 @@ export const attributeTableHeader = [
 ]
 
 export const productType = [
-    { label: 'Regular', value: "regular" },
+    { label: 'Simple', value: "simple" },
     { label: 'Variant', value: "variant" },
+    { label: 'Digital', value: "digital" }
+]
+
+export const productStatus = [
+    { label: 'Active', value: "active" },
+    { label: 'Inactive', value: "inactive" }
 ]
 
 

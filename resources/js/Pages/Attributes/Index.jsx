@@ -56,7 +56,7 @@ export default function Index({ auth, attributes }) {
                         </ul>
                     </div>
                 </div>
-                <div className="content-wrapper h-[500px] bg-white rounded-md pb-8">
+                <div className="content-wrapper bg-white rounded-md pb-8">
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>

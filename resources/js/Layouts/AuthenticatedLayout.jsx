@@ -11,7 +11,7 @@ export default function Authenticated({ user, children, activeKey }) {
             <div className="auth-main-content">
                 <Container>
                     <Sidebar className='sidebar'><SiderbarComp activeKey={activeKey} /></Sidebar>
-                    <Container>
+                    <Container className='main-container'>
                         <Header className='main-header'><HeaderComp /></Header>
                         <Content>{children}</Content>
                         <Footer>Footer</Footer>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Contracts\Attribute\AttributeServiceInterface;
 use App\Contracts\AttributeValue\AttributeValueServiceInterface;
 use App\Http\Requests\AttributeRequest;
-use App\Models\Attribute;
 use Inertia\Inertia;
 
 class AttributeController extends Controller

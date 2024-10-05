@@ -43,7 +43,7 @@ export default function Index({ auth, categories }) {
     return (
         <Authenticated user={auth.user} activeKey={['products']}>
             <Head title="Categories" />
-            <div className="page-content categories-page">
+            <div className="page-content">
                 <div className="top-section">
                     <div className='title-wrapper'>
                         <h1 className='title'>Categories</h1>
