@@ -27,8 +27,8 @@ class ProductController extends Controller
 
     public function index()
     {
-        $brands = $this->brandService->findAll();
-        $suppliers = $this->supplierService->findAll();
+        $brands = $this->brandService->brandsValueAndLabel();
+        $suppliers = $this->supplierService->suppliersValueAndLabel();
         $products = $this->productService->paginate(10);
         return Inertia::render('Products/Index', [
             'products' => $products,
@@ -40,7 +40,7 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        $this->productService->store($request->all());
+        $item = $this->productService->store($request->all());
         return to_route('products.index');
     }
 

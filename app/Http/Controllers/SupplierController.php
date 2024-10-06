@@ -19,7 +19,7 @@ class SupplierController extends Controller
 
     public function index()
     {
-        $brands = $this->brandService->brandsForSupplier();
+        $brands = $this->brandService->brandsValueAndLabel();
         $suppliers = $this->supplierService->paginate(perPage: 10);
         return Inertia::render(component: 'Suppliers/Index', props: [
             'brands' => $brands,

@@ -45,4 +45,16 @@ class SupplierService implements SupplierServiceInterface
     {
         return $this->supplierRepository->delete(id: $id);
     }
+
+    public function suppliersValueAndLabel()
+    {
+        $suppliers = $this->supplierRepository->findAll();
+        $suppliers = $suppliers->map(function ($supplier) {
+            return [
+                'value' => $supplier->id,
+                'label' => $supplier->name
+            ];
+        })->toArray();
+        return $suppliers;
+    }
 }

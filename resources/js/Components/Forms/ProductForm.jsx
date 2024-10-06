@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import FormDrawer from '@/Components/Overlays/FormDrawer'
-import { useForm } from '@inertiajs/react'
+import { router, useForm } from '@inertiajs/react'
 import { HStack, Input, InputGroup, Loader, SelectPicker, Uploader } from 'rsuite'
 import InputError from '@/Components/InputError'
 import { loadingText, productStatus, productType } from '@/Lib/Constants'
+import { toast } from 'sonner'
 
 export default function ProductForm(props) {
 
-    const { drawerRef, selected, type } = props
+    const { drawerRef, selected, type, brands, suppliers } = props
     const [loading, setLoading] = useState(false)
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
@@ -29,6 +30,30 @@ export default function ProductForm(props) {
     })
 
     const onSubmit = () => {
+        if (!selected && type === 'add') {
+            post(route('products.store'), {
+                onSuccess: () => {
+                    drawerRef.current.close()
+                    toast.success('Success', {
+                        description: 'Product added successfully',
+                    })
+                }
+            })
+        }
+
+        if (selected && type === 'edit') {
+            router.post(route('products.update', selected), {
+                _method: 'put',
+                ...data
+            }, {
+                onSuccess: () => {
+                    drawerRef.current.close()
+                    toast.success('Success', {
+                        description: 'Product updated successfully',
+                    })
+                },
+            })
+        }
 
     }
 
@@ -168,18 +193,20 @@ export default function ProductForm(props) {
                                 <label className='text-gray-600 font-semibold mb-1 block'>Supplier</label>
                                 <SelectPicker
                                     className='w-full'
-                                    data={[]}
+                                    data={suppliers}
                                     value={data.supplier_id}
                                     onChange={(value) => setData('supplier_id', value)}
+                                    placement='top'
                                 />
                             </div>
                             <div className="form-item w-1/2">
                                 <label className='text-gray-600 font-semibold mb-1 block'>Brand</label>
                                 <SelectPicker
                                     className='w-full'
-                                    data={[]}
+                                    data={brands}
                                     value={data.brand_id}
                                     onChange={(value) => setData('brand_id', value)}
+                                    placement='top'
                                 />
                             </div>
                         </HStack>
