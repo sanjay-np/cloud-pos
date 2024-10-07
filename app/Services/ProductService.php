@@ -47,6 +47,11 @@ class ProductService implements ProductServiceInterface
         return $this->productRepository->update($data, $id);
     }
 
+    public function destroy(int $id)
+    {
+        return $this->productRepository->destroy($id);
+    }
+
     public function uploadMainImage($data)
     {
         $path = null;

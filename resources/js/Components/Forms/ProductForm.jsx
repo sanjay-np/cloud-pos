@@ -121,7 +121,7 @@ export default function ProductForm(props) {
                                     onChange={(value) => setData('bar_code', value)}
                                 />
                             </InputGroup>
-                            <InputError message={errors.name} className='mt-2' />
+                            <InputError message={errors.bar_code} className='mt-2' />
                         </div>
                         <div className="form-item w-1/3">
                             <label className='text-gray-600 font-semibold mb-1 block'>Price</label>
@@ -132,6 +132,7 @@ export default function ProductForm(props) {
                                     onChange={(value) => setData('price', value)}
                                 />
                             </InputGroup>
+                            <InputError message={errors.price} className='mt-2' />
                         </div>
                     </HStack>
                     <div className="form-item mb-4">
@@ -143,6 +144,7 @@ export default function ProductForm(props) {
                             value={data.description}
                             onChange={(value) => setData('description', value)}
                         />
+                        <InputError message={errors.description} className='mt-2' />
                     </div>
                     <div className="mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Featured Image</label>
@@ -166,6 +168,7 @@ export default function ProductForm(props) {
                                 </span>
                             </div>
                         </Uploader>
+                        <InputError message={errors.main_image} className='mt-2' />
                     </div>
 
                     <div className="form-item mb-4">
@@ -190,6 +193,7 @@ export default function ProductForm(props) {
                                 </span>
                             </div>
                         </Uploader>
+                        <InputError message={errors.gallery_images} className='mt-2' />
                     </div>
                     <div className="form-item mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Product Type</label>
@@ -200,6 +204,7 @@ export default function ProductForm(props) {
                             value={data.product_type}
                             onChange={(value) => setData('product_type', value)}
                         />
+                        <InputError message={errors.product_type} className='mt-2' />
                     </div>
                     {/* 
                         Todo: Add Product attributes & product vairations
@@ -215,6 +220,7 @@ export default function ProductForm(props) {
                                     onChange={(value) => setData('supplier_id', value)}
                                     placement='top'
                                 />
+                                <InputError message={errors.supplier_id} className='mt-2' />
                             </div>
                             <div className="form-item w-1/2">
                                 <label className='text-gray-600 font-semibold mb-1 block'>Brand</label>
@@ -225,6 +231,7 @@ export default function ProductForm(props) {
                                     onChange={(value) => setData('brand_id', value)}
                                     placement='top'
                                 />
+                                <InputError message={errors.brand_id} className='mt-2' />
                             </div>
                         </HStack>
                     </div>
@@ -237,6 +244,7 @@ export default function ProductForm(props) {
                             onChange={(value) => setData('status', value)}
                             placement='bottom'
                         />
+                        <InputError message={errors.status} className='mt-2' />
                     </div>
                 </>
             }

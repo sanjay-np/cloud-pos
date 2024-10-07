@@ -44,8 +44,8 @@ class ProductController extends Controller
         return to_route('products.index');
     }
 
-    public function find($id){
-
+    public function find($id)
+    {
         $product = $this->productService->find($id);
         return $product;
     }
@@ -60,6 +60,7 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        //
+        $this->productService->destroy($id);
+        return to_route('products.index');
     }
 }

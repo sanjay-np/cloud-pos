@@ -13,4 +13,6 @@ interface ProductRepositoryInterface
     public function find(int $id);
 
     public function update(array $data, int $id);
+
+    public function destroy(int $id);
 }

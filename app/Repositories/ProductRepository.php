@@ -38,4 +38,9 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return $this->model->find($id)->update($data);
     }
+
+    public function destroy(int $id)
+    {
+        return $this->model->find($id)->delete();
+    }
 }
