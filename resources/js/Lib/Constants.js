@@ -65,8 +65,8 @@ export const attributeTableHeader = [
 ]
 
 export const productTableHeader = [
-    { title: "Product Name", dataKey: "name", flexGrow: 2 },
-    { title: "Product Type", dataKey: "type", flexGrow: 2 },
+    { title: "Product Name", dataKey: "title", flexGrow: 2 },
+    { title: "Product Type", dataKey: "product_type", flexGrow: 2 },
     { title: "Status", dataKey: "status", flexGrow: 2 }
 ]
 

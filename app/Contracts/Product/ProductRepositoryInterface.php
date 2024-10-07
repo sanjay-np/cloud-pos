@@ -9,4 +9,8 @@ interface ProductRepositoryInterface
     public function findAll();
 
     public function store(array $data);
+
+    public function find(int $id);
+
+    public function update(array $data, int $id);
 }

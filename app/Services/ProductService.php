@@ -30,9 +30,21 @@ class ProductService implements ProductServiceInterface
 
     public function store(array $data)
     {
-        $data['image'] = $this->uploadMainImage($data);
+        $data['main_image'] = $this->uploadMainImage($data);
         $data['gallery_images'] = $this->uploadGalleryImages($data);
         return $this->productRepository->store($data);
+    }
+
+    public function find(int $id)
+    {
+        return $this->productRepository->find($id);
+    }
+
+    public function update(array $data, int $id)
+    {
+        $data['main_image'] = $this->uploadMainImage($data);
+        $data['gallery_images'] = $this->uploadGalleryImages($data);
+        return $this->productRepository->update($data, $id);
     }
 
     public function uploadMainImage($data)

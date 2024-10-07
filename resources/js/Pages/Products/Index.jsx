@@ -75,6 +75,7 @@ export default function Index({ auth, products, brands, suppliers }) {
                 type={type}
                 brands={brands}
                 suppliers={suppliers}
+                selected={selected}
             />
             <DeleteModal
                 ref={deleteModalRef}

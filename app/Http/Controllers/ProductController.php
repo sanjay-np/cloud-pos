@@ -44,10 +44,17 @@ class ProductController extends Controller
         return to_route('products.index');
     }
 
+    public function find($id){
+
+        $product = $this->productService->find($id);
+        return $product;
+    }
+
 
     public function update(UpdateProductRequest $request, $id)
     {
-        //
+        $item  = $this->productService->update($request->validated(), $id);
+        return to_route('products.index');
     }
 
 

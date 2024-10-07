@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FormDrawer from '@/Components/Overlays/FormDrawer'
 import { router, useForm } from '@inertiajs/react'
 import { HStack, Input, InputGroup, Loader, SelectPicker, Uploader } from 'rsuite'
@@ -28,6 +28,23 @@ export default function ProductForm(props) {
         status: '',
 
     })
+
+    useEffect(() => {
+        if (!selected && type !== 'edit') return
+        const fetchData = async () => {
+            setLoading(true)
+            try {
+                const res = await axios.get(route('products.find', selected));
+                setData(res?.data);
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setLoading(false)
+            }
+        };
+        fetchData();
+
+    }, [selected])
 
     const onSubmit = () => {
         if (!selected && type === 'add') {
@@ -218,6 +235,7 @@ export default function ProductForm(props) {
                             data={productStatus}
                             value={data.status}
                             onChange={(value) => setData('status', value)}
+                            placement='bottom'
                         />
                     </div>
                 </>

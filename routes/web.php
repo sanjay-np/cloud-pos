@@ -25,9 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::resource('products', ProductController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']);
+Route::controller(ProductController::class)->group(function () {
+    Route::resource('products', ProductController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::get('/products/{id}', 'find')->name('products.find');
+})->middleware(['auth', 'verified']);
 
 Route::controller(AttributeController::class)->group(function () {
     Route::resource('products/attributes', AttributeController::class)->only(['index', 'store', 'update', 'destroy']);

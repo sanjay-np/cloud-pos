@@ -22,8 +22,7 @@ export default function SupplierForm(props) {
     })
 
     useEffect(() => {
-        if (!selected) return;
-        if (type !== 'edit') return
+        if (!selected && type !== 'edit') return
         const fetchData = async () => {
             setLoading(true)
             try {

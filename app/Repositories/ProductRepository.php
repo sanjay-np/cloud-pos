@@ -28,4 +28,14 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return $this->model->create($data);
     }
+
+    public function find(int $id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function update(array $data, int $id)
+    {
+        return $this->model->find($id)->update($data);
+    }
 }

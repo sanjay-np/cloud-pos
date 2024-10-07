@@ -23,8 +23,7 @@ export default function CategoryForm(props) {
         parent_id: 0
     })
     useEffect(() => {
-        if (!selected) return;
-        if (type !== 'edit') return
+        if (!selected && type !== 'edit') return
         const fetchData = async () => {
             setLoading(true)
             try {
