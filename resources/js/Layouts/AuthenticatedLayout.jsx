@@ -4,6 +4,7 @@ import HeaderComp from '@/Components/Theme/HeaderComp';
 import { Toaster } from 'sonner';
 import CheckOutlineIcon from '@rsuite/icons/CheckOutline';
 import CloseOutlineIcon from '@rsuite/icons/CloseOutline';
+import FooterComp from '@/Components/Theme/FooterComp';
 
 export default function Authenticated({ user, children, activeKey }) {
     if (user) {
@@ -14,7 +15,7 @@ export default function Authenticated({ user, children, activeKey }) {
                     <Container className='main-container'>
                         <Header className='main-header'><HeaderComp /></Header>
                         <Content>{children}</Content>
-                        <Footer>Footer</Footer>
+                        <Footer><FooterComp /></Footer>
                     </Container>
                 </Container>
                 <Toaster

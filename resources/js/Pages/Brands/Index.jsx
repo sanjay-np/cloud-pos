@@ -9,6 +9,7 @@ import TableComp from '@/Components/Table/TableComp'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
 import { toast } from 'sonner'
 import BrandForm from '@/Components/Forms/BrandForm'
+import Pagination from '@/Components/Pagination/Index'
 
 export default function Index({ auth, brands }) {
 
@@ -39,6 +40,8 @@ export default function Index({ auth, brands }) {
             },
         })
     }
+
+    console.log(brands);
 
     return (
         <Authenticated user={auth.user} activeKey={['products']}>
@@ -80,6 +83,14 @@ export default function Index({ auth, brands }) {
                         columns={brandTableHeader}
                         actions={{ editAction, deleteAction }}
                     />
+                    <div className="pagination-wrapper">
+                        <Pagination
+                            links={brands?.links}
+                            total={brands?.total}
+                            from={brands?.from}
+                            to={brands?.to}
+                        />
+                    </div>
                 </div>
             </div>
             <BrandForm
