@@ -18,8 +18,8 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = $this->customerService->paginate(10);
-        return Inertia::render('Customers/Index', [
+        $customers = $this->customerService->paginate(perPage: 10);
+        return Inertia::render(component: 'Customers/Index', props: [
             'customers' => $customers
         ]);
     }
@@ -27,7 +27,8 @@ class CustomerController extends Controller
 
     public function store(StoreRequest $request)
     {
-        return $this->customerService->store($request->all());
+        $this->customerService->store($request->getValues() + ['avatar' => $request->getAvatar()]);
+        return to_route('customers.index');
     }
 
     public function find($id)
@@ -37,11 +38,13 @@ class CustomerController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
-        return $this->customerService->update($request->all(), $id);
+        $this->customerService->update($request->all(), $id);
+        return to_route('customers.index');
     }
 
-    public function destory($id)
+    public function destroy($id)
     {
-        return $this->customerService->destroy($id);
+        $this->customerService->destroy($id);
+        return to_route('customers.index');
     }
 }

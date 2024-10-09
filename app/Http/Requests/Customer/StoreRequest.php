@@ -11,7 +11,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,5 +24,22 @@ class StoreRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    public function getValues(): array
+    {
+        $data = $this->only(keys: [
+            'name',
+            'phone',
+            'whatsapp',
+            'address',
+        ]);
+        $data['code'] = uniqid(prefix: 'CGS-');
+        return $data;
+    }
+
+    public function getAvatar(): string
+    {
+        return $this->file('avatar');
     }
 }

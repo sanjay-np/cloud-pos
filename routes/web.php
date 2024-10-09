@@ -63,8 +63,10 @@ Route::resource('sales', SalesController::class)
     ->middleware(['auth', 'verified']);
 
 // Customers
-Route::resource('customers', CustomerController::class)
-    ->middleware(['auth', 'verified']);
+Route::controller(CustomerController::class)->group(function () {
+    Route::resource('customers', CustomerController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::get('/customers/{id}', 'find')->name('customers.find');
+})->middleware(['auth', 'verified']);
 
 // Employees
 Route::controller(EmployeeController::class)->group(function () {
