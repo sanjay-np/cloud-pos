@@ -2,7 +2,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
-import SearchComp from '@/Components/Search/Index'
+import SearchBar from '@/Components/Search/Index'
 import AddButton from '@/Components/Button/AddButton'
 import TableComp from '@/Components/Table/TableComp'
 import { categoryTableHeader } from '@/Lib/Constants'
@@ -62,7 +62,7 @@ export default function Index({ auth, categories }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
-                                <SearchComp title={'Categories'} />
+                                <SearchBar title={'Categories'} />
                             </div>
                             <div className="add-category">
                                 <AddButton handleOnClick={() => {

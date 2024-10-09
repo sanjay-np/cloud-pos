@@ -2,7 +2,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import React, { useRef, useState } from 'react'
-import SearchComp from '@/Components/Search/Index'
+import SearchBar from '@/Components/Search/Index'
 import { brandTableHeader } from '@/Lib/Constants'
 import AddButton from '@/Components/Button/AddButton'
 import TableComp from '@/Components/Table/TableComp'
@@ -65,7 +65,7 @@ export default function Index({ auth, brands }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
-                                <SearchComp title={'Brands'} />
+                                <SearchBar title={'Brands'} />
                             </div>
                             <div className="add-category">
                                 <AddButton

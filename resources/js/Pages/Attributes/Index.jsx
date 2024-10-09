@@ -2,7 +2,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
-import SearchComp from '@/Components/Search/Index'
+import SearchBar from '@/Components/Search/Index'
 import AddButton from '@/Components/Button/AddButton'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
 import AttributeForm from '@/Components/Forms/AttributeForm'
@@ -60,7 +60,7 @@ export default function Index({ auth, attributes }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
-                                <SearchComp title={'Attributes'} />
+                                <SearchBar title={'Attributes'} />
                             </div>
                             <div className='add-product'>
                                 <AddButton handleOnClick={() => {

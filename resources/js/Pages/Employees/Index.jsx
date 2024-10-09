@@ -6,7 +6,7 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import TableComp from "@/Components/Table/TableComp";
 import AddButton from "@/Components/Button/AddButton";
 import { employeeTableHeader } from "@/Lib/Constants";
-import SearchComp from "@/Components/Search/Index";
+import SearchBar from "@/Components/Search/Index";
 import DeleteModal from "@/Components/Overlays/DeleteModal";
 import EmployeeForm from "@/Components/Forms/EmployeeForm";
 
@@ -59,7 +59,7 @@ export default function Index({ auth, employees }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className="w-full">
-                                <SearchComp title="Employees" />
+                                <SearchBar title="Employees" />
                             </div>
                             <div className="add-employee">
                                 <AddButton

@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('code')->unique();
+            $table->string('phone')->unique();
+            $table->string('whatsapp')->unique()->nullable();
+            $table->text('address')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('status')->default('active');
             $table->timestamps();
             $table->softDeletes();
         });
