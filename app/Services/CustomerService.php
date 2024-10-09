@@ -18,4 +18,24 @@ class CustomerService implements CustomerServiceInterface
     {
         return $this->customerRepository->paginate($perPage);
     }
+
+    public function store(array $data)
+    {
+        return $this->customerRepository->store($data);
+    }
+
+    public function find(int $id)
+    {
+        return $this->customerRepository->find($id);
+    }
+
+    public function update(array $data, int $id)
+    {
+        return $this->customerRepository->update($data, $id);
+    }
+
+    public function destroy(int $id)
+    {
+        return $this->customerRepository->destroy($id);
+    }
 }

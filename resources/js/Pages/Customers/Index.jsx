@@ -1,17 +1,45 @@
 
 import AddButton from '@/Components/Button/AddButton'
 import CustomerForm from '@/Components/Forms/CustomerForm'
+import DeleteModal from '@/Components/Overlays/DeleteModal'
 import SearchBar from '@/Components/Search/Index'
+import TableComp from '@/Components/Table/TableComp'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
+import { customerTableHeader } from '@/Lib/Constants'
+import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import React, { useRef, useState } from 'react'
+import { toast } from 'sonner'
 
-export default function Index({ auth }) {
+export default function Index({ auth, customers }) {
 
     const [selected, setSelected] = useState(null);
     const [type, setType] = useState("add");
     const drawerRef = useRef(false);
+    const deleteModalRef = useRef(false);
+
+    const editAction = (id) => {
+        setType("edit");
+        setSelected(id);
+        drawerRef.current.open();
+    };
+
+    const deleteAction = (id) => {
+        setSelected(id);
+        deleteModalRef.current.open();
+    };
+
+    const handleDelete = () => {
+        router.delete(route('customers.destroy', selected), {
+            onSuccess: () => {
+                deleteModalRef.current.close();
+                setSelected(null);
+                toast.success('Success', {
+                    description: 'Customer deleted successfully',
+                });
+            },
+        });
+    };
 
     return (
         <Authenticated user={auth.user}>
@@ -45,12 +73,23 @@ export default function Index({ auth }) {
                             </div>
                         </div>
                     </div>
+                    <TableComp
+                        data={customers?.data}
+                        checkboxCell={true}
+                        columns={customerTableHeader}
+                        actions={{ editAction, deleteAction }}
+                    />
                 </div>
             </div>
             <CustomerForm
                 drawerRef={drawerRef}
                 selected={selected}
                 type={type}
+            />
+            <DeleteModal
+                title={'Customer'}
+                ref={deleteModalRef}
+                deleteAction={handleDelete}
             />
         </Authenticated>
     )

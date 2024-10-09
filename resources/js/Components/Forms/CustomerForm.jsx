@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import FormDrawer from '@/Components/Overlays/FormDrawer'
-import { useForm } from '@inertiajs/react'
+import { router, useForm } from '@inertiajs/react'
 import { HStack, Input, InputGroup, Loader, Uploader } from 'rsuite'
 import { loadingText } from '@/Lib/Constants'
 import InputError from '../InputError'
 import { previewFile } from '@/Lib/Utils'
 import { User2Icon } from 'lucide-react'
+import { toast } from 'sonner'
 
 export default function CustomerForm(props) {
 
@@ -18,7 +19,6 @@ export default function CustomerForm(props) {
         whatsapp: '',
         address: '',
         avatar: null
-
     })
 
     useEffect(() => {
@@ -34,10 +34,35 @@ export default function CustomerForm(props) {
                 setLoading(false)
             }
         }
-
+        fetchData()
     }, [selected])
 
-    const onSubmit = () => { }
+    const onSubmit = () => {
+        if (!selected && type === 'add') {
+            post(route('customers.store'), {
+                onSuccess: () => {
+                    drawerRef.current.close()
+                    toast.success('Success', {
+                        description: 'Customer added successfully',
+                    })
+                }
+            })
+        }
+
+        if (selected && type === 'edit') {
+            router.post(route('customers.update', selected), {
+                _method: 'put',
+                ...data
+            }, {
+                onSuccess: () => {
+                    drawerRef.current.close()
+                    toast.success('Success', {
+                        description: 'Customer updated successfully',
+                    })
+                },
+            })
+        }
+    }
 
     const formClear = () => {
         reset()
@@ -146,7 +171,6 @@ export default function CustomerForm(props) {
                     </div>
                 </>
             }
-
         </FormDrawer >
     )
 }
