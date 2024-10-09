@@ -11,7 +11,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,5 +24,22 @@ class UpdateRequest extends FormRequest
         return [
             //
         ];
+    }
+    public function getValues(): array
+    {
+        $data = $this->only(keys: [
+            'name',
+            'phone',
+            'whatsapp',
+            'address',
+            'status'
+        ]);
+        $data['code'] = uniqid(prefix: 'CGS-');
+        return $data;
+    }
+
+    public function getAvatar(): array | null
+    {
+        return $this->file('avatar');
     }
 }

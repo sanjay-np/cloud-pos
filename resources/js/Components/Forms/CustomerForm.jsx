@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import FormDrawer from '@/Components/Overlays/FormDrawer'
 import { router, useForm } from '@inertiajs/react'
-import { HStack, Input, InputGroup, Loader, Uploader } from 'rsuite'
+import { HStack, Input, InputGroup, Loader, SelectPicker, Uploader } from 'rsuite'
 import { loadingText } from '@/Lib/Constants'
-import InputError from '../InputError'
+import InputError from '@/Components/InputError'
 import { previewFile } from '@/Lib/Utils'
 import { User2Icon } from 'lucide-react'
 import { toast } from 'sonner'
@@ -18,7 +18,8 @@ export default function CustomerForm(props) {
         phone: '',
         whatsapp: '',
         address: '',
-        avatar: null
+        avatar: null,
+        status: ''
     })
 
     useEffect(() => {
@@ -168,6 +169,19 @@ export default function CustomerForm(props) {
                             />
                             <InputError message={errors.name} className="mt-2x" />
                         </InputGroup>
+                    </div>
+                    <div className="mb-4">
+                        <label className='text-gray-600 font-semibold mb-1 block'>Status</label>
+                        <SelectPicker
+                            className='w-fullßßß'
+                            data={[
+                                { label: 'Active', value: 'active' },
+                                { label: 'Inactive', value: 'inactive' },
+                            ]}
+                            value={data.status}
+                            onChange={(val) => setData('status', val)}
+                            placement='autotop'
+                        />
                     </div>
                 </>
             }

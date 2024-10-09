@@ -38,7 +38,7 @@ class CustomerController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
-        $this->customerService->update($request->all(), $id);
+        $this->customerService->update($request->getValues() + ['avatar' => $request->getAvatar()], $id);
         return to_route('customers.index');
     }
 

@@ -33,12 +33,13 @@ class StoreRequest extends FormRequest
             'phone',
             'whatsapp',
             'address',
+            'status'
         ]);
         $data['code'] = uniqid(prefix: 'CGS-');
         return $data;
     }
 
-    public function getAvatar(): string
+    public function getAvatar(): array
     {
         return $this->file('avatar');
     }

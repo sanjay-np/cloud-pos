@@ -4,9 +4,12 @@ namespace App\Services;
 
 use App\Contracts\Customer\CustomerRepositoryInterface;
 use App\Contracts\Customer\CustomerServiceInterface;
+use App\Traits\ImageUpload;
 
 class CustomerService implements CustomerServiceInterface
 {
+    use ImageUpload;
+
     protected $customerRepository;
 
     public function __construct(CustomerRepositoryInterface $customerRepository)
@@ -21,6 +24,7 @@ class CustomerService implements CustomerServiceInterface
 
     public function store(array $data)
     {
+        $data['avatar'] = $this->uploadImage($data['avatar']['blobFile'], 'customers');
         return $this->customerRepository->store($data);
     }
 
@@ -31,6 +35,12 @@ class CustomerService implements CustomerServiceInterface
 
     public function update(array $data, int $id)
     {
+        if (!isset($data['avatar'])) {
+            unset($data['avatar']);
+        } else {
+            $data['avatar'] = $this->uploadImage($data['avatar']['blobFile'], 'customers');
+        }
+        // Todo: Delete previous uploaded Image
         return $this->customerRepository->update($data, $id);
     }
 
