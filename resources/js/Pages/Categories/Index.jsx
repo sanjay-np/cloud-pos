@@ -73,10 +73,11 @@ export default function Index({ auth, categories }) {
                         </div>
                     </div>
                     <TableComp
-                        data={categories?.data}
+                        items={categories}
                         checkboxCell={true}
                         columns={categoryTableHeader}
                         actions={{ editAction, deleteAction }}
+                        pagination={true}
                     />
                 </div>
             </div>

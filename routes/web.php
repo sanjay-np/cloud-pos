@@ -8,7 +8,10 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\PurchaseReturnController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\SalesReturnController;
 use App\Http\Controllers\SupplierController;
 
 use Illuminate\Support\Facades\Route;
@@ -26,53 +29,68 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Products
-Route::controller(ProductController::class)->group(function () {
-    Route::resource('products', ProductController::class)->only(['index', 'store', 'update', 'destroy']);
-    Route::get('/products/find/{id}', 'find')->name('products.find');
-})->middleware(['auth', 'verified']);
+Route::middleware(['auth', 'verified'])->group(function () {
 
-// Attributes
-Route::controller(AttributeController::class)->group(function () {
-    Route::resource('products/attributes', AttributeController::class)->only(['index', 'store', 'update', 'destroy']);
-    Route::get('/products/attributes/{id}', 'find')->name('attributes.find');
-})->middleware(['auth', 'verified']);
+    // Products
+    Route::controller(ProductController::class)->group(function () {
+        Route::resource('products', ProductController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::get('/products/find/{id}', 'find')->name('products.find');
+    });
 
-// Brands
-Route::controller(BrandController::class)->group(function () {
-    Route::resource('products/brands', BrandController::class)->only(['index', 'store', 'update', 'destroy']);
-    Route::get('/products/brands/{id}', 'find')->name('brands.find');
+    // Attributes
+    Route::controller(AttributeController::class)->group(function () {
+        Route::resource('products/attributes', AttributeController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::get('/products/attributes/find/{id}', 'find')->name('attributes.find');
+    });
+
+    // Brands
+    Route::controller(BrandController::class)->group(function () {
+        Route::resource('products/brands', BrandController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::get('/products/brands/find/{id}', 'find')->name('brands.find');
+    });
+
+    // Categories
+    Route::controller(CategoryController::class)->group(function () {
+        Route::resource('products/categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::get('/products/categories/{id}', 'find')->name('categories.find');
+    });
+
+    // Suppliers
+    Route::controller(SupplierController::class)->group(function () {
+        Route::resource('products/suppliers', SupplierController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::get('/products/suppliers/{id}', 'find')->name('suppliers.find');
+    });
+
+    // Purchases
+    Route::controller(PurchaseController::class)->group(function () {
+        Route::resource('purchases', PurchaseController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::get('/purchases/find/{id}', 'find')->name('purchases.find');
+    });
+
+    Route::resource('purchases/returns', PurchaseReturnController::class)->only(['index', 'store', 'update', 'destroy'])->names('purchases.returns');
+    Route::get('purchases/returns/{id}', [PurchaseReturnController::class, 'find'])->name('purchases.returns.find');
+
+    // Sales
+    Route::controller(SalesController::class)->group(function () {
+        Route::resource('sales', SalesController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::get('/sales/find/{id}', 'find')->name('sales.find');
+    });
+
+    Route::resource('sales/returns', SalesReturnController::class)->only(['index', 'store', 'update', 'destroy'])->names('sales.returns');
+    Route::get('sales/returns/{id}', [SalesReturnController::class, 'find'])->name('sales.returns.find');
+
+    // Customers
+    Route::controller(CustomerController::class)->group(function () {
+        Route::resource('customers', CustomerController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::get('/customers/find/{id}', 'find')->name('customers.find');
+    });
+
+    // Employees
+    Route::controller(EmployeeController::class)->group(function () {
+        Route::resource('employees', EmployeeController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::get('/employees/find/{id}', 'find')->name('employees.find');
+    });
 });
-
-// Categories
-Route::controller(CategoryController::class)->group(function () {
-    Route::resource('products/categories', CategoryController::class)
-        ->only(['index', 'store', 'update', 'destroy']);
-    Route::get('/products/categories/{id}', 'find')->name('categories.find');
-})->middleware(['auth', 'verified']);
-
-// Suppliers
-Route::controller(SupplierController::class)->group(function () {
-    Route::resource('products/suppliers', SupplierController::class)
-        ->only(['index', 'store', 'update', 'destroy']);
-    Route::get('/products/suppliers/{id}', 'find')->name('suppliers.find');
-})->middleware(['auth', 'verified']);
-
-// Sales
-Route::resource('sales', SalesController::class)
-    ->middleware(['auth', 'verified']);
-
-// Customers
-Route::controller(CustomerController::class)->group(function () {
-    Route::resource('customers', CustomerController::class)->only(['index', 'store', 'update', 'destroy']);
-    Route::get('/customers/{id}', 'find')->name('customers.find');
-})->middleware(['auth', 'verified']);
-
-// Employees
-Route::controller(EmployeeController::class)->group(function () {
-    Route::resource('employees', EmployeeController::class)->only(['index', 'store', 'update', 'destroy']);
-    Route::get('/employees/{id}', 'find')->name('employees.find');
-})->middleware(['auth', 'verified']);
 
 
 require __DIR__ . '/auth.php';

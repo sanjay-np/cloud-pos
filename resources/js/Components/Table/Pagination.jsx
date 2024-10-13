@@ -2,7 +2,21 @@ import { Link } from '@inertiajs/react';
 import React from 'react'
 
 
-export default function Pagination({ links, total, from, to }) {
+/**
+ * Renders a pagination component given a set of links.
+ *
+ * @param {Array.<Object>} links An array of objects containing the
+ *     pagination links, with the following properties:
+ *     - `url`: The URL of the link.
+ *     - `label`: The HTML content of the link.
+ *     - `active`: A boolean indicating if the link is active.
+ * @param {number} total The total number of records.
+ * @param {number} from The first record number.
+ * @param {number} to The last record number.
+ *
+ * @returns {React.ReactElement}
+ */
+const Pagination = ({ links, total, from, to }) => {
 
     function getClassName(active) {
         if (active) {
@@ -35,3 +49,4 @@ export default function Pagination({ links, total, from, to }) {
         )
     );
 }
+export default Pagination

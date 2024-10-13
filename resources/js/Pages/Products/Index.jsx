@@ -62,10 +62,11 @@ export default function Index({ auth, products, brands, suppliers }) {
                     </div>
                     <div className="table-wrapper">
                         <TableComp
-                            data={products?.data}
+                            items={products}
                             checkboxCell={true}
                             columns={productTableHeader}
                             actions={{ editAction, deleteAction }}
+                            pagination={true}
                         />
                     </div>
                 </div>

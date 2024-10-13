@@ -74,10 +74,11 @@ export default function Index({ auth, customers }) {
                         </div>
                     </div>
                     <TableComp
-                        data={customers?.data}
+                        items={customers}
                         checkboxCell={true}
                         columns={customerTableHeader}
                         actions={{ editAction, deleteAction }}
+                        pagination={true}
                     />
                 </div>
             </div>

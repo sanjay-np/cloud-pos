@@ -101,7 +101,7 @@ export default function ProductForm(props) {
                         <InputError message={errors.title} className='mt-2' />
                     </div>
                     <HStack spacing={12} className='mb-4'>
-                        <div className="form-item w-1/3">
+                        <div className="form-item w-1/2">
                             <label className='text-gray-600 font-semibold mb-1 block'>SKU</label>
                             <InputGroup>
                                 <Input
@@ -112,7 +112,7 @@ export default function ProductForm(props) {
                             </InputGroup>
                             <InputError message={errors.sku} className='mt-2' />
                         </div>
-                        <div className="form-item w-1/3">
+                        <div className="form-item w-1/2">
                             <label className='text-gray-600 font-semibold mb-1 block'>Bar Code</label>
                             <InputGroup>
                                 <Input
@@ -122,17 +122,6 @@ export default function ProductForm(props) {
                                 />
                             </InputGroup>
                             <InputError message={errors.bar_code} className='mt-2' />
-                        </div>
-                        <div className="form-item w-1/3">
-                            <label className='text-gray-600 font-semibold mb-1 block'>Price</label>
-                            <InputGroup>
-                                <Input
-                                    placeholder='Price...'
-                                    value={data.price}
-                                    onChange={(value) => setData('price', value)}
-                                />
-                            </InputGroup>
-                            <InputError message={errors.price} className='mt-2' />
                         </div>
                     </HStack>
                     <div className="form-item mb-4">
@@ -195,6 +184,38 @@ export default function ProductForm(props) {
                         </Uploader>
                         <InputError message={errors.gallery_images} className='mt-2' />
                     </div>
+                    <HStack className='mb-4'>
+                        <div className="form-item w-1/3">
+                            <label className='text-gray-600 font-semibold mb-1 block'>Stock Qty</label>
+                            <InputGroup>
+                                <Input
+                                    placeholder='Qty...'
+                                    value={data.stock_qty}
+                                    onChange={(value) => setData('stock_qty', value)}
+                                />
+                            </InputGroup>
+                        </div>
+                        <div className="form-item w-1/3">
+                            <label className='text-gray-600 font-semibold mb-1 block'>Purchase Price</label>
+                            <InputGroup>
+                                <Input
+                                    placeholder='Purchase Price...'
+                                    value={data.purchase_price}
+                                    onChange={(value) => setData('purchase_price', value)}
+                                />
+                            </InputGroup>
+                        </div>
+                        <div className="form-item w-1/3">
+                            <label className='text-gray-600 font-semibold mb-1 block'>Selling Price</label>
+                            <InputGroup>
+                                <Input
+                                    placeholder='Selling Price...'
+                                    value={data.price}
+                                    onChange={(value) => setData('price', value)}
+                                />
+                            </InputGroup>
+                        </div>
+                    </HStack>
                     <div className="form-item mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Product Type</label>
                         <SelectPicker
@@ -242,7 +263,7 @@ export default function ProductForm(props) {
                             data={productStatus}
                             value={data.status}
                             onChange={(value) => setData('status', value)}
-                            placement='bottom'
+                            placement='top'
                         />
                         <InputError message={errors.status} className='mt-2' />
                     </div>

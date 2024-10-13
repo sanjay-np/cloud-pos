@@ -73,10 +73,11 @@ export default function Index({ auth, employees }) {
                     </div>
                     <div className="table-wrapper">
                         <TableComp
-                            data={employees?.data}
+                            items={employees}
                             checkboxCell={true}
                             columns={employeeTableHeader}
                             actions={{ editAction, deleteAction }}
+                            pagination={true}
                         />
                     </div>
                 </div>

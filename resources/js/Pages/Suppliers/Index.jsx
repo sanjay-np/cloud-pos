@@ -75,10 +75,11 @@ export default function Index({ auth, brands, suppliers }) {
                         </div>
                     </div>
                     <TableComp
-                        data={suppliers?.data}
+                        items={suppliers}
                         checkboxCell={true}
                         columns={supplierTableHeader}
                         actions={{ editAction, deleteAction }}
+                        pagination={true}
                     />
                 </div>
             </div>

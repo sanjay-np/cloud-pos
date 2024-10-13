@@ -16,6 +16,14 @@ use App\Contracts\Employee\EmployeeRepositoryInterface;
 use App\Contracts\Employee\EmployeeServiceInterface;
 use App\Contracts\Product\ProductRepositoryInterface;
 use App\Contracts\Product\ProductServiceInterface;
+use App\Contracts\Purchase\PurchaseRepositoryInterface;
+use App\Contracts\Purchase\PurchaseServiceInterface;
+use App\Contracts\PurchaseReturn\PurchaseReturnRepositoryInterface;
+use App\Contracts\PurchaseReturn\PurchaseReturnServiceInterface;
+use App\Contracts\Sales\SalesRepositoryInterface;
+use App\Contracts\Sales\SalesServiceInterface;
+use App\Contracts\SalesReturn\SalesReturnRepositoryInterface;
+use App\Contracts\SalesReturn\SalesReturnServiceInterface;
 use App\Contracts\Supplier\SupplierRepositoryInterface;
 use App\Contracts\Supplier\SupplierServiceInterface;
 use App\Repositories\AttributeRepository;
@@ -25,6 +33,10 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\PurchaseRepository;
+use App\Repositories\PurchaseReturnRepository;
+use App\Repositories\SalesRepository;
+use App\Repositories\SalesReturnRepository;
 use App\Repositories\SupplierRepository;
 use App\Services\AttributeService;
 use App\Services\AttributeValueService;
@@ -33,6 +45,10 @@ use App\Services\CategoryService;
 use App\Services\CustomerService;
 use App\Services\EmployeeService;
 use App\Services\ProductService;
+use App\Services\PurhcaseReturnService;
+use App\Services\PurhcaseService;
+use App\Services\SalesReturnService;
+use App\Services\SalesService;
 use App\Services\SupplierService;
 use Illuminate\Support\ServiceProvider;
 
@@ -67,6 +83,18 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(abstract: CustomerRepositoryInterface::class, concrete: CustomerRepository::class);
         $this->app->bind(abstract: CustomerServiceInterface::class, concrete: CustomerService::class);
+
+        $this->app->bind(abstract: PurchaseRepositoryInterface::class, concrete: PurchaseRepository::class);
+        $this->app->bind(abstract: PurchaseServiceInterface::class, concrete: PurhcaseService::class);
+
+        $this->app->bind(abstract: PurchaseReturnRepositoryInterface::class, concrete: PurchaseReturnRepository::class);
+        $this->app->bind(abstract: PurchaseReturnServiceInterface::class, concrete: PurhcaseReturnService::class);
+
+        $this->app->bind(abstract: SalesRepositoryInterface::class, concrete: SalesRepository::class);
+        $this->app->bind(abstract: SalesServiceInterface::class, concrete: SalesService::class);
+
+        $this->app->bind(abstract: SalesReturnRepositoryInterface::class, concrete: SalesReturnRepository::class);
+        $this->app->bind(abstract: SalesReturnServiceInterface::class, concrete: SalesReturnService::class);
     }
 
     /**

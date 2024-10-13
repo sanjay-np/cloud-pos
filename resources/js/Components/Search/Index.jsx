@@ -2,7 +2,13 @@ import { SearchIcon } from 'lucide-react'
 import React from 'react'
 import { Input, InputGroup } from 'rsuite'
 
-export default function SearchBar({ title }) {
+/**
+ * A search bar component with a search icon and a placeholder that includes the title.
+ * @param {Object} props - Component props
+ * @param {string} props.title - The title of the search bar.
+ * @returns {ReactElement} A search bar component.
+ */
+const SearchBar = ({ title }) => {
     return (
         <InputGroup inside>
             <Input
@@ -15,3 +21,5 @@ export default function SearchBar({ title }) {
         </InputGroup>
     );
 }
+
+export default SearchBar

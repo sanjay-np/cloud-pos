@@ -173,14 +173,14 @@ export default function CustomerForm(props) {
                     <div className="mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Status</label>
                         <SelectPicker
-                            className='w-fullßßß'
+                            className='w-full'
                             data={[
                                 { label: 'Active', value: 'active' },
                                 { label: 'Inactive', value: 'inactive' },
                             ]}
                             value={data.status}
                             onChange={(val) => setData('status', val)}
-                            placement='autotop'
+                            placement='bottom'
                         />
                     </div>
                 </>

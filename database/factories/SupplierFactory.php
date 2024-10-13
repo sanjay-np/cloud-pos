@@ -21,7 +21,7 @@ class SupplierFactory extends Factory
         $selectedBrandIds = $this->faker->randomElements($brandIds, 3);
 
         return [
-            'name' => fake()->unique()->word(),
+            'name' => fake()->unique()->name(),
             'phone' => fake()->unique()->phoneNumber(),
             'address' => fake()->address(),
             'pan' => fake()->unique()->randomNumber(8),
