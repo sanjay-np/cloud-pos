@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->integer('supplier_id')->nullable();
             $table->json('tags')->nullable();
             $table->string('product_type');
+            $table->string('unit');
             $table->string('status');
             $table->timestamps();
             $table->softDeletes();

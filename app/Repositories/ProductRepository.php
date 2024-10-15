@@ -47,6 +47,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function search(string $search_qry)
     {
         return $this->model
+            ->select(['id', 'title', 'sku', 'bar_code', 'price', 'purchase_price'])
             ->where('title', 'like', "%{$search_qry}%")
             ->orWhere('sku', 'like', "%{$search_qry}%")
             ->orWhere('bar_code', 'like', "%{$search_qry}%")

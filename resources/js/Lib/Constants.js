@@ -92,4 +92,12 @@ export const customerTableHeader = [
     { title: "Status", dataKey: "status", flexGrow: 2 }
 ]
 
+export const purchaseFormTableHeader = [
+    { title: "Product Name", dataKey: "title", flexGrow: 2 },
+    { title: "Qty", dataKey: "sku" },
+    { title: "P.Price", dataKey: "bar_code" },
+    { title: "S.Price", dataKey: "price" },
+    { title: "Total", dataKey: "total" },
+]
+
 export const loadingText = "Loading... Please wait..."

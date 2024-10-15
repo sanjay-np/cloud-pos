@@ -3,12 +3,13 @@ import FormDrawer from '../Overlays/FormDrawer'
 import { useForm } from '@inertiajs/react'
 import { HStack, Input, InputGroup, SelectPicker, Table } from 'rsuite'
 import { SearchIcon } from 'lucide-react'
+import ProductTable from '../Table/ProductTable'
+import { purchaseFormTableHeader } from '@/Lib/Constants'
 
 
 const PurchaseForm = (props) => {
 
     const { drawerRef, selected, suppliers } = props
-    const { Column, HeaderCell, Cell } = Table;
     const [searchItems, setSearchItems] = useState([])
     const [selectedItems, setSelectedItems] = useState([])
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -96,36 +97,9 @@ const PurchaseForm = (props) => {
                 </div>
             </HStack>
             <div className="form-item mb-4">
-                <Table data={[]} hover bordered cellBordered headerHeight={50}>
-                    <Column width={50}>
-                        <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
-                        <Cell dataKey='name' />
-                    </Column>
-                    <Column flexGrow={2}>
-                        <HeaderCell><span className="text-base font-semibold text-gray-600">Product Name</span></HeaderCell>
-                        <Cell dataKey='name' />
-                    </Column>
-                    <Column width={120}>
-                        <HeaderCell><span className="text-base font-semibold text-gray-600">Qty</span></HeaderCell>
-                        <Cell dataKey='name' />
-                    </Column>
-                    <Column flexGrow={1}>
-                        <HeaderCell><span className="text-base font-semibold text-gray-600">P.Price</span></HeaderCell>
-                        <Cell dataKey='name' />
-                    </Column>
-                    <Column flexGrow={1}>
-                        <HeaderCell><span className="text-base font-semibold text-gray-600">S.Price</span></HeaderCell>
-                        <Cell dataKey='name' />
-                    </Column>
-                    <Column flexGrow={1}>
-                        <HeaderCell><span className="text-base font-semibold text-gray-600">Total</span></HeaderCell>
-                        <Cell dataKey='name' />
-                    </Column>
-                    <Column width={80}>
-                        <HeaderCell><span className="text-base font-semibold text-gray-600">Action</span></HeaderCell>
-                        <Cell dataKey='name' />
-                    </Column>
-                </Table>
+                <ProductTable
+                    items={selectedItems}                    
+                />
             </div>
             <div className="form-item mb-4 flex justify-end">
                 <div className="w-1/4">

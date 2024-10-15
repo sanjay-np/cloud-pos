@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Purchase\PurchaseServiceInterface;
 use App\Contracts\Supplier\SupplierServiceInterface;
-use App\Models\Supplier;
 use Inertia\Inertia;
 
 class PurchaseController extends Controller
