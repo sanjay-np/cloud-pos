@@ -7,6 +7,7 @@ use App\Contracts\Product\ProductServiceInterface;
 use App\Contracts\Supplier\SupplierServiceInterface;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -62,5 +63,10 @@ class ProductController extends Controller
     {
         $this->productService->destroy($id);
         return to_route('products.index');
+    }
+
+    public function search(Request $request)
+    {
+        return $this->productService->search($request->search_qry);
     }
 }

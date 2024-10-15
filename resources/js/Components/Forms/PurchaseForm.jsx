@@ -1,16 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FormDrawer from '../Overlays/FormDrawer'
 import { useForm } from '@inertiajs/react'
-import { NepaliDatePicker } from 'nepali-datepicker-reactjs'
-import "nepali-datepicker-reactjs/dist/index.css"
 import { HStack, Input, InputGroup, SelectPicker, Table } from 'rsuite'
 import { SearchIcon } from 'lucide-react'
 
 
 const PurchaseForm = (props) => {
 
-    const { drawerRef, selected } = props
+    const { drawerRef, selected, suppliers } = props
     const { Column, HeaderCell, Cell } = Table;
+    const [searchItems, setSearchItems] = useState([])
+    const [selectedItems, setSelectedItems] = useState([])
     const { data, setData, post, processing, errors, reset } = useForm({
         date: ""
     })
@@ -19,6 +19,24 @@ const PurchaseForm = (props) => {
 
     const formClear = () => {
         reset()
+    }
+
+    const handleSearch = async (value) => {
+        if (value.length > 3) {
+            const res = await axios.get(route('products.search', {
+                'search_qry': value
+            }))
+            if (res?.data?.length > 0) {
+                setSearchItems(res?.data)
+            }
+        } else {
+            setSearchItems([])
+        }
+    }
+
+    const onClickSearchItem = (item) => {
+        setSelectedItems([...selectedItems, item])
+        setSearchItems([])
     }
 
     return (
@@ -30,15 +48,31 @@ const PurchaseForm = (props) => {
             reset={formClear}
             size='lg'
         >
-            <div className="form-item mb-4">
+            <div className="form-item mb-4 relative">
                 <InputGroup>
                     <Input
                         placeholder='Search Product by name or code...'
+                        size='md'
+                        onChange={(val) => handleSearch(val)}
                     />
                     <InputGroup.Addon>
                         <SearchIcon color="gray" strokeWidth={1.5} />
                     </InputGroup.Addon>
                 </InputGroup>
+                {searchItems.length > 0 && (
+                    <div className="search-result absolute z-10 w-full bg-white top-11 border-x px-2">
+                        <ul>
+                            {searchItems.map((item, index) => (
+                                <li className="item border-b py-2 cursor-pointer" key={index}>
+                                    <div className='flex items-center justify-between' onClick={() => onClickSearchItem(item)}>
+                                        <p>{item.title}</p>
+                                        <p>{item.sku}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </div>
             <HStack spacing={20} className='mb-4'>
                 <div className="form-item w-1/3">
@@ -53,19 +87,12 @@ const PurchaseForm = (props) => {
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Supplier</label>
                     <SelectPicker
-                        data={[]}
+                        data={suppliers}
                         className='w-full'
                     />
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Purhcase Date</label>
-                    <NepaliDatePicker
-                        inputClassName="w-full focus:outline-none"
-                        className='border rounded py-1.5 px-3 text-gray-600'
-                        value={data?.date}
-                        onChange={(value) => setData('date', value)}
-                        options={{ calenderLocale: "en", valueLocale: "en" }}
-                    />
                 </div>
             </HStack>
             <div className="form-item mb-4">

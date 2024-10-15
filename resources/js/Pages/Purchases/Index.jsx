@@ -7,7 +7,7 @@ import { ChevronRightIcon, LayoutGridIcon } from "lucide-react"
 import { useRef, useState } from "react"
 import { Toggle } from "rsuite"
 
-const Index = ({ auth }) => {
+const Index = ({ auth, suppliers }) => {
 
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add");
@@ -17,7 +17,7 @@ const Index = ({ auth }) => {
 
     return (
         <Authenticated user={auth.user}>
-            <Head title='purchases' />
+            <Head title='Purchases' />
             <div className="page-content purchases-page">
                 <div className="top-section">
                     <div className='title-wrapper'>
@@ -56,6 +56,7 @@ const Index = ({ auth }) => {
                     <PurchaseForm
                         drawerRef={drawerRef}
                         selected={selected}
+                        suppliers={suppliers}
                     />
                 </div>
             </div>

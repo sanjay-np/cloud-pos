@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(ProductController::class)->group(function () {
         Route::resource('products', ProductController::class)->only(['index', 'store', 'update', 'destroy']);
         Route::get('/products/find/{id}', 'find')->name('products.find');
+        Route::get('/products/search', 'search')->name('products.search');
     });
 
     // Attributes

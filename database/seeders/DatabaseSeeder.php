@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Inventory;
+use App\Models\Price;
+use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -30,5 +33,22 @@ class DatabaseSeeder extends Seeder
 
         // Create 10 Categories
         Category::factory()->count(50)->create();
+
+        for ($i = 0; $i < 20; $i++) {
+            $product = Product::factory()->create();
+
+            Inventory::create([
+                'product_id' => $product->id,
+                'quantity' => $product->stock_qty,
+                'status' => 'initial',
+            ]);
+
+            Price::create([
+                'product_id' => $product->id,
+                'purchase_price' => $product->purchase_price,
+                'sale_price' => $product->price,
+                'status' => 'initial',
+            ]);
+        }
     }
 }

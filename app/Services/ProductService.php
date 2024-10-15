@@ -52,6 +52,11 @@ class ProductService implements ProductServiceInterface
         return $this->productRepository->destroy($id);
     }
 
+    public function search(string $search_qry)
+    {
+        return $this->productRepository->search($search_qry);
+    }
+
     public function uploadMainImage($data)
     {
         $path = null;

@@ -43,4 +43,13 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return $this->model->find($id)->delete();
     }
+
+    public function search(string $search_qry)
+    {
+        return $this->model
+            ->where('title', 'like', "%{$search_qry}%")
+            ->orWhere('sku', 'like', "%{$search_qry}%")
+            ->orWhere('bar_code', 'like', "%{$search_qry}%")
+            ->get();
+    }
 }
