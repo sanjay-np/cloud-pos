@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import FormDrawer from '../Overlays/FormDrawer'
 import { useForm } from '@inertiajs/react'
-import { DatePicker, HStack, Input, InputGroup, SelectPicker, Table } from 'rsuite'
+import { DatePicker, HStack, Input, InputGroup, SelectPicker } from 'rsuite'
 import { SearchIcon } from 'lucide-react'
 import ProductTable from '../Table/ProductTable'
-import { purchaseFormTableHeader } from '@/Lib/Constants'
 
 
 const PurchaseForm = (props) => {
 
     const { drawerRef, selected, suppliers } = props
+    const searchRef = useRef(null)
     const [searchItems, setSearchItems] = useState([])
     const [selectedItems, setSelectedItems] = useState([])
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -38,6 +38,10 @@ const PurchaseForm = (props) => {
     const onClickSearchItem = (item) => {
         setSelectedItems([...selectedItems, { ...item, qty: 1 }])
         setSearchItems([])
+
+        if (!searchRef.current) return
+        searchRef.current.value = ''
+        searchRef.current.focus()
     }
 
     return (
@@ -54,6 +58,7 @@ const PurchaseForm = (props) => {
                     <Input
                         placeholder='Search Product by name or code...'
                         size='md'
+                        ref={searchRef}
                         onChange={(val) => handleSearch(val)}
                     />
                     <InputGroup.Addon>
@@ -94,7 +99,7 @@ const PurchaseForm = (props) => {
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Purhcase Date</label>
-                    <DatePicker 
+                    <DatePicker
                         className='w-full'
                         placeholder='Select Date'
                         oneTap
