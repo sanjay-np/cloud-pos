@@ -1,11 +1,37 @@
+import { formattedNumber } from '@/Lib/Utils';
+import { removePurchaseProduct, setPurchasePrice, setQty } from '@/Store/Reducers/PurchaseProductSlice';
 import { Trash2Icon } from 'lucide-react';
+import { useDispatch } from 'react-redux';
 import { IconButton, Input, InputGroup, Table } from 'rsuite';
 
 const ProductTable = (props) => {
     const { Column, HeaderCell, Cell } = Table;
 
+    const dispatch = useDispatch()
+
+    const removeProduct = (id) => {
+        dispatch(removePurchaseProduct(id))
+    }
+
+    const handleProductQty = (id, qty) => {
+        dispatch(setQty({ id, qty }))
+    }
+
+    const handleProductPrice = (id, price, type) => {
+        dispatch(setPurchasePrice({ id, price, type }))
+    }
+
     return (
-        <Table data={props?.items} hover bordered cellBordered headerHeight={44} autoHeight={true} rowHeight={55}>
+        <Table
+            data={props?.items}
+            hover
+            bordered
+            cellBordered
+            headerHeight={44}
+            autoHeight={true}
+            rowHeight={55}
+            renderEmpty={() => <div className='rs-table-body-info'>Products not selected yet..</div>}
+        >
             <Column width={50}>
                 <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
                 <Cell>{(rowData, rowIndex) => rowIndex + 1}</Cell>
@@ -22,6 +48,7 @@ const ProductTable = (props) => {
                             <Input
                                 value={rowData?.qty}
                                 size='sm'
+                                onChange={(qty) => handleProductQty(rowData?.id, qty)}
                             />
                         </InputGroup>
                     )}
@@ -35,6 +62,7 @@ const ProductTable = (props) => {
                             <Input
                                 value={rowData?.purchase_price}
                                 size='sm'
+                                onChange={(price) => handleProductPrice(rowData?.id, price, 'purchase')}
                             />
                         </InputGroup>
                     )}
@@ -48,6 +76,7 @@ const ProductTable = (props) => {
                             <Input
                                 value={rowData?.price}
                                 size='sm'
+                                onChange={(price) => handleProductPrice(rowData?.id, price, 'sell')}
                             />
                         </InputGroup>
                     )}
@@ -57,7 +86,7 @@ const ProductTable = (props) => {
                 <HeaderCell><span className="text-base font-semibold text-gray-600">Total</span></HeaderCell>
                 <Cell>
                     {(rowData) => (
-                        <span>{rowData?.purchase_price * rowData?.qty}</span>
+                        <span>{formattedNumber(rowData?.purchase_price * rowData?.qty)}</span>
                     )}
                 </Cell>
             </Column>
@@ -69,7 +98,7 @@ const ProductTable = (props) => {
                             appearance="subtle"
                             size='xs'
                             icon={<Trash2Icon size={16} />}
-                        // onClick={() => props?.actions?.deleteAction(rowData.id)}
+                            onClick={() => removeProduct(rowData?.id)}
                         />
                     )}
                 </Cell>

@@ -7,6 +7,7 @@ import { CustomProvider } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import '../css/app.css';
 import '../scss/app.scss';
+import StoreProvider from './Store/Providers/StoreProvider';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -19,7 +20,9 @@ createInertiaApp({
         root.render(
             <React.StrictMode>
                 <CustomProvider theme="light">
-                    <App {...props} />
+                    <StoreProvider>
+                        <App {...props} />
+                    </StoreProvider>
                 </CustomProvider>
             </React.StrictMode>
         )

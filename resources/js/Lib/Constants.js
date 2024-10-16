@@ -100,4 +100,16 @@ export const purchaseFormTableHeader = [
     { title: "Total", dataKey: "total" },
 ]
 
+export const purchaseStatus = [
+    { label: 'Pending', value: "pending" },
+    { label: 'Ordered', value: "ordered" },
+    { label: 'Completed', value: "completed" },
+]
+
+export const paymentMethods = [
+    { label: 'Cash', value: "cash" },
+    { label: 'Bank Transfer', value: "bank_transfer" },
+    { label: 'Cheque', value: "cheque" },
+]
+
 export const loadingText = "Loading... Please wait..."
