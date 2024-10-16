@@ -34,6 +34,7 @@ class ProductFactory extends Factory
             'supplier_id' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             'tags' => null,
             'product_type' => 'simple',
+            'unit' => $this->faker->randomElement(['piece', 'kg', 'gm']),
             'status' => $this->faker->randomElement(['active', 'inactive']),
         ];
     }

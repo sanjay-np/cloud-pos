@@ -25,6 +25,7 @@ class Product extends Model
         'supplier_id',
         'tags',
         'product_type',
+        'unit',
         'status',
     ];
 

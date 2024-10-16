@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import FormDrawer from '../Overlays/FormDrawer'
 import { useForm } from '@inertiajs/react'
-import { HStack, Input, InputGroup, SelectPicker, Table } from 'rsuite'
+import { DatePicker, HStack, Input, InputGroup, SelectPicker, Table } from 'rsuite'
 import { SearchIcon } from 'lucide-react'
 import ProductTable from '../Table/ProductTable'
 import { purchaseFormTableHeader } from '@/Lib/Constants'
@@ -36,7 +36,7 @@ const PurchaseForm = (props) => {
     }
 
     const onClickSearchItem = (item) => {
-        setSelectedItems([...selectedItems, item])
+        setSelectedItems([...selectedItems, { ...item, qty: 1 }])
         setSearchItems([])
     }
 
@@ -94,11 +94,17 @@ const PurchaseForm = (props) => {
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Purhcase Date</label>
+                    <DatePicker 
+                        className='w-full'
+                        placeholder='Select Date'
+                        oneTap
+                        onChange={(value) => setData('date', value)}
+                    />
                 </div>
             </HStack>
             <div className="form-item mb-4">
                 <ProductTable
-                    items={selectedItems}                    
+                    items={selectedItems}
                 />
             </div>
             <div className="form-item mb-4 flex justify-end">
