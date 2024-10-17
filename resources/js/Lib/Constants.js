@@ -74,11 +74,15 @@ export const productTableHeader = [
     { title: "Status", dataKey: "status", flexGrow: 1 }
 ]
 
-
 export const productType = [
     { label: 'Simple', value: "simple" },
     { label: 'Variant', value: "variant" },
     { label: 'Digital', value: "digital" }
+]
+
+export const productUnit = [
+    { label: 'KG', value: "kg" },
+    { label: 'Piece', value: "pcs" },
 ]
 
 export const productStatus = [

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import FormDrawer from '@/Components/Overlays/FormDrawer'
 import { router, useForm } from '@inertiajs/react'
-import { HStack, Input, InputGroup, Loader, SelectPicker, Uploader } from 'rsuite'
+import { HStack, Input, InputGroup, InputNumber, Loader, SelectPicker, Uploader } from 'rsuite'
 import InputError from '@/Components/InputError'
-import { loadingText, productStatus, productType } from '@/Lib/Constants'
+import { loadingText, productStatus, productType, productUnit } from '@/Lib/Constants'
 import { toast } from 'sonner'
 
 export default function ProductForm(props) {
@@ -12,7 +12,6 @@ export default function ProductForm(props) {
     const [loading, setLoading] = useState(false)
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
-        sku: '',
         bar_code: '',
         description: '',
         main_image: null,
@@ -25,8 +24,8 @@ export default function ProductForm(props) {
         supplier_id: '',
         tags: '',
         product_type: '',
+        unit: '',
         status: '',
-
     })
 
     useEffect(() => {
@@ -43,7 +42,6 @@ export default function ProductForm(props) {
             }
         };
         fetchData();
-
     }, [selected])
 
     const onSubmit = () => {
@@ -71,7 +69,6 @@ export default function ProductForm(props) {
                 },
             })
         }
-
     }
 
     const formClear = () => {
@@ -106,8 +103,9 @@ export default function ProductForm(props) {
                             <InputGroup>
                                 <Input
                                     placeholder='SKU...'
-                                    value={data.sku}
-                                    onChange={(value) => setData('sku', value)}
+                                    value={'PROD'}
+                                    readOnly
+                                    className='bg-gray-200'
                                 />
                             </InputGroup>
                             <InputError message={errors.sku} className='mt-2' />
@@ -146,15 +144,8 @@ export default function ProductForm(props) {
                                 setData("main_image", file[0]);
                             }}
                         >
-                            <div style={{
-                                height: 200,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center"
-                            }}>
-                                <span>
-                                    Click or Drag files to this area to upload
-                                </span>
+                            <div style={{ height: 200, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <span>Click or Drag files to this area to upload</span>
                             </div>
                         </Uploader>
                         <InputError message={errors.main_image} className='mt-2' />
@@ -171,15 +162,8 @@ export default function ProductForm(props) {
                                 setData("gallery_images", file);
                             }}
                         >
-                            <div style={{
-                                height: 200,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center"
-                            }}>
-                                <span>
-                                    Click or Drag files to this area to upload
-                                </span>
+                            <div style={{ height: 200, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <span>Click or Drag files to this area to upload</span>
                             </div>
                         </Uploader>
                         <InputError message={errors.gallery_images} className='mt-2' />
@@ -188,7 +172,7 @@ export default function ProductForm(props) {
                         <div className="form-item w-1/3">
                             <label className='text-gray-600 font-semibold mb-1 block'>Stock Qty</label>
                             <InputGroup>
-                                <Input
+                                <InputNumber
                                     placeholder='Qty...'
                                     value={data.stock_qty}
                                     onChange={(value) => setData('stock_qty', value)}
@@ -224,6 +208,7 @@ export default function ProductForm(props) {
                             placement='auto'
                             value={data.product_type}
                             onChange={(value) => setData('product_type', value)}
+                            searchable={false}
                         />
                         <InputError message={errors.product_type} className='mt-2' />
                     </div>
@@ -257,15 +242,32 @@ export default function ProductForm(props) {
                         </HStack>
                     </div>
                     <div className="form-item mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Status</label>
-                        <SelectPicker
-                            className='w-full'
-                            data={productStatus}
-                            value={data.status}
-                            onChange={(value) => setData('status', value)}
-                            placement='top'
-                        />
-                        <InputError message={errors.status} className='mt-2' />
+                        <HStack>
+                            <div className="form-item w-1/2">
+                                <label className='text-gray-600 font-semibold mb-1 block'>Unit</label>
+                                <SelectPicker
+                                    searchable={false}
+                                    className='w-full'
+                                    data={productUnit}
+                                    value={data.unit}
+                                    onChange={(value) => setData('unit', value)}
+                                    placement='top'
+                                />
+                                <InputError message={errors.unit} className='mt-2' />
+                            </div>
+                            <div className="form-item w-1/2">
+                                <label className='text-gray-600 font-semibold mb-1 block'>Status</label>
+                                <SelectPicker
+                                    searchable={false}
+                                    className='w-full'
+                                    data={productStatus}
+                                    value={data.status}
+                                    onChange={(value) => setData('status', value)}
+                                    placement='top'
+                                />
+                                <InputError message={errors.status} className='mt-2' />
+                            </div>
+                        </HStack>
                     </div>
                 </>
             }

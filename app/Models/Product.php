@@ -34,4 +34,13 @@ class Product extends Model
         'category_ids' => 'array',
         'tags' => 'array',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $number = Product::max('id') + 1;
+            $model->sku = make_reference_id('PROD', $number);
+        });
+    }
 }
