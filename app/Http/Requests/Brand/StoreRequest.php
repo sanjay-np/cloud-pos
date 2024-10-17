@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Customer;
+namespace App\Http\Requests\Brand;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,24 +22,9 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'image' => ['nullable']
         ];
-    }
-
-    public function getValues(): array
-    {
-        $data = $this->only(keys: [
-            'name',
-            'phone',
-            'whatsapp',
-            'address',
-            'status'
-        ]);
-        return $data;
-    }
-
-    public function getAvatar(): array
-    {
-        return $this->file('avatar');
     }
 }

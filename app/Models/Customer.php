@@ -19,4 +19,13 @@ class Customer extends Model
         'avatar',
         'status'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $number = Customer::max('id') + 1;
+            $model->code = make_reference_id('CGS-CUS', $number);
+        });
+    }
 }

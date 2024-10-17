@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Employee\EmployeeServiceInterface;
-use App\Http\Requests\EmployeeRequest;
+use App\Http\Requests\Employee\StoreRequest;
+use App\Http\Requests\Employee\UpdateRequest;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
@@ -29,24 +30,27 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(EmployeeRequest $request)
+    public function store(StoreRequest $request)
     {
-        $this->employeeService->store($request->validated());
-        return to_route('employees.index');
+        $item = $this->employeeService->store($request->validated());
+        if ($item) {
+            return to_route('employees.index');
+        }
     }
     public function find($id)
     {
-        $employee = $this->employeeService->find($id);
-        return $employee;
+        return $this->employeeService->find($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(EmployeeRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        $employee = $this->employeeService->update($request->validated(), $id);
-        return to_route('employees.index');
+        $item = $this->employeeService->update($request->validated(), $id);
+        if ($item) {
+            return to_route('employees.index');
+        }
     }
 
     /**
@@ -54,7 +58,9 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        $employee = $this->employeeService->delete($id);
-        return to_route('employees.index');
+        $item = $this->employeeService->delete($id);
+        if ($item) {
+            return to_route('employees.index');
+        }
     }
 }

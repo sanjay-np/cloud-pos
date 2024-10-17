@@ -60,7 +60,7 @@ const ProductTable = (props) => {
                     {(rowData) => (
                         <InputGroup>
                             <Input
-                                value={rowData?.purchase_price}
+                                value={rowData?.unit_price}
                                 size='sm'
                                 onChange={(price) => handleProductPrice(rowData?.id, price, 'purchase')}
                             />
@@ -86,7 +86,7 @@ const ProductTable = (props) => {
                 <HeaderCell><span className="text-base font-semibold text-gray-600">Total</span></HeaderCell>
                 <Cell>
                     {(rowData) => (
-                        <span>{formattedNumber(rowData?.purchase_price * rowData?.qty)}</span>
+                        <span>{formattedNumber(rowData?.unit_price * rowData?.qty)}</span>
                     )}
                 </Cell>
             </Column>

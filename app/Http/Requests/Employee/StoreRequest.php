@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Employee;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BrandRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,14 @@ class BrandRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'image' => ['nullable']
+            'phone' => ['required', 'string', 'max:10'],
+            'department' => ['required'],
+            'position' => ['required'],
+            'document_type' => ['required'],
+            'document_number' => ['required', 'string', 'max:255'],
+            'avatar' => ['nullable'],
+            'document_files' => ['array'],
+            'status' => ['required'],
         ];
     }
 }

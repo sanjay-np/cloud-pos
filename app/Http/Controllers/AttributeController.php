@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Attribute\AttributeServiceInterface;
-use App\Contracts\AttributeValue\AttributeValueServiceInterface;
-use App\Http\Requests\AttributeRequest;
+use App\Http\Requests\Attribute\StoreRequest;
+use App\Http\Requests\Attribute\UpdateRequest;
 use Inertia\Inertia;
 
 class AttributeController extends Controller
 {
-    protected $attributeService, $attributeValueService;
+    protected $attributeService;
 
-    public function __construct(AttributeServiceInterface $attributeService, AttributeValueServiceInterface $attributeValueService)
+    public function __construct(AttributeServiceInterface $attributeService)
     {
         $this->attributeService = $attributeService;
-        $this->attributeValueService = $attributeValueService;
     }
 
     public function index()
@@ -25,28 +24,33 @@ class AttributeController extends Controller
         ]);
     }
 
-
-    public function store(AttributeRequest $request)
+    public function store(StoreRequest $request)
     {
-        $attribute = $this->attributeService->store(data: $request->validated());
-        return redirect(to: route(name: 'attributes.index'));
+        $item = $this->attributeService->store(data: $request->validated());
+        if ($item) {
+            return redirect(to: route(name: 'attributes.index'));
+        }
     }
 
-    public function find($id){
+    public function find($id)
+    {
         return $this->attributeService->find(id: $id);
     }
 
-
-    public function update(AttributeRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        $attribute = $this->attributeService->update(data: $request->validated(), id: $id);
-        return redirect(to: route(name: 'attributes.index'));
+        $item = $this->attributeService->update(data: $request->validated(), id: $id);
+        if ($item) {
+            return redirect(to: route(name: 'attributes.index'));
+        }
     }
 
 
     public function destroy($id)
     {
-        $this->attributeService->destroy(id: $id);
-        return redirect(to: route(name: 'attributes.index'));
+        $item = $this->attributeService->destroy(id: $id);
+        if ($item) {
+            return redirect(to: route(name: 'attributes.index'));
+        }
     }
 }

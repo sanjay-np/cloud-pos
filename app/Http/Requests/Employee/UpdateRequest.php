@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Customer;
+namespace App\Http\Requests\Employee;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,23 +22,15 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:10'],
+            'department' => ['required'],
+            'position' => ['required'],
+            'document_type' => ['required'],
+            'document_number' => ['required', 'string', 'max:255'],
+            'avatar' => ['nullable'],
+            'document_files' => ['array'],
+            'status' => ['required'],
         ];
-    }
-    public function getValues(): array
-    {
-        $data = $this->only(keys: [
-            'name',
-            'phone',
-            'whatsapp',
-            'address',
-            'status'
-        ]);
-        return $data;
-    }
-
-    public function getAvatar(): array | null
-    {
-        return $this->file('avatar');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class PurhcaseReturnService
+class PurchaseReturnService
 {
     /**
      * Create a new class instance.

@@ -65,7 +65,7 @@ export const PurchaseProductSlice = createSlice({
             const { id, price, type } = action.payload
             state.products = state.products.map(item => {
                 if (item.id === id) {
-                    type === "purchase" ? item.purchase_price = price : item.price = price;
+                    type === "purchase" ? item.unit_price = price : item.price = price;
                 }
                 return item
             })

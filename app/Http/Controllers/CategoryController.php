@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Category\CategoryServiceInterface;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\Category\StoreRequest;
+use App\Http\Requests\Category\UpdateRequest;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -29,19 +30,28 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request)
+    public function store(StoreRequest $request)
     {
-        $this->categoryService->store(data: $request->validated());
-        return redirect(to: route(name: 'categories.index'));
+        $item = $this->categoryService->store(data: $request->validated());
+        if ($item) {
+            return redirect(to: route(name: 'categories.index'));
+        }
+    }
+
+    public function find($id)
+    {
+        return $this->categoryService->find(id: $id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        $this->categoryService->update(data: $request->all(), id: $id);
-        return redirect(to: route(name: 'categories.index'));
+        $item = $this->categoryService->update(data: $request->all(), id: $id);
+        if ($item) {
+            return redirect(to: route(name: 'categories.index'));
+        }
     }
 
     /**
@@ -49,13 +59,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $this->categoryService->destroy(id: $id);
-        return redirect(to: route(name: 'categories.index'));
-    }
-
-    public function find($id)
-    {
-        $item = $this->categoryService->find(id: $id);
-        return $item;
+        $item = $this->categoryService->destroy(id: $id);
+        if ($item) {
+            return redirect(to: route(name: 'categories.index'));
+        }
     }
 }

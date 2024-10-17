@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Brand\BrandServiceInterface;
 use App\Contracts\Supplier\SupplierServiceInterface;
-use App\Http\Requests\SupplierRequest;
+use App\Http\Requests\Supplier\StoreRequest;
+use App\Http\Requests\Supplier\UpdateRequest;
 use Inertia\Inertia;
 
 class SupplierController extends Controller
@@ -27,26 +28,32 @@ class SupplierController extends Controller
         ]);
     }
 
-    public function store(SupplierRequest $request)
+    public function store(StoreRequest $request)
     {
-        $supplier = $this->supplierService->store(data: $request->all());
-        return redirect(to: route(name: 'suppliers.index'));
-    }
-
-    public function update(SupplierRequest $request, $id)
-    {
-        $this->supplierService->update(data: $request->all(), id: $id);
-        return redirect(to: route(name: 'suppliers.index'));
+        $item = $this->supplierService->store(data: $request->all());
+        if ($item) {
+            return redirect(to: route(name: 'suppliers.index'));
+        }
     }
 
     public function find($id)
     {
-        $supplier = $this->supplierService->find(id: $id);
-        return $supplier;
+        return $this->supplierService->find(id: $id);
     }
+
+    public function update(UpdateRequest $request, $id)
+    {
+        $item = $this->supplierService->update(data: $request->all(), id: $id);
+        if ($item) {
+            return redirect(to: route(name: 'suppliers.index'));
+        }
+    }
+
     public function destroy($id)
     {
-        $this->supplierService->delete(id: $id);
-        return to_route(route: 'suppliers.index');
+        $item = $this->supplierService->delete(id: $id);
+        if ($item) {
+            return to_route(route: 'suppliers.index');
+        }
     }
 }

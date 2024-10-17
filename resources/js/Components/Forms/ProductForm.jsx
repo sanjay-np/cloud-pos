@@ -17,7 +17,7 @@ export default function ProductForm(props) {
         main_image: null,
         gallery_images: [],
         price: '',
-        purchase_price: '',
+        unit_price: '',
         stock_qty: '',
         category_ids: [],
         brand_id: '',
@@ -103,7 +103,7 @@ export default function ProductForm(props) {
                             <InputGroup>
                                 <Input
                                     placeholder='SKU...'
-                                    value={'PROD'}
+                                    defaultValue={data?.sku ?? 'PROD'}
                                     readOnly
                                     className='bg-gray-200'
                                 />
@@ -180,12 +180,12 @@ export default function ProductForm(props) {
                             </InputGroup>
                         </div>
                         <div className="form-item w-1/3">
-                            <label className='text-gray-600 font-semibold mb-1 block'>Purchase Price</label>
+                            <label className='text-gray-600 font-semibold mb-1 block'>Unit Price</label>
                             <InputGroup>
                                 <Input
                                     placeholder='Purchase Price...'
-                                    value={data.purchase_price}
-                                    onChange={(value) => setData('purchase_price', value)}
+                                    value={data.unit_price}
+                                    onChange={(value) => setData('unit_price', value)}
                                 />
                             </InputGroup>
                         </div>

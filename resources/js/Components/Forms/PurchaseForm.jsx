@@ -15,13 +15,23 @@ const PurchaseForm = (props) => {
     const { drawerRef, selected, suppliers } = props
     const searchRef = useRef(null)
     const [searchItems, setSearchItems] = useState([])
+    const { products, total, taxPercent, taxAmount, discount, shipping } = useSelector(state => state.purchaseProductSlice)
     const { data, setData, post, processing, errors, reset } = useForm({
         date: "",
-        tax: 0,
-        discount: 0,
-        shipping: 0
+        supplier_id: "",
+        tax_percentage: taxPercent,
+        tax_amount: taxAmount,
+        discount_amount: 0,
+        shipping_amount: 0,
+        total_amount: total,
+        paid_amount: 0,
+        status: "",
+        payment_status: "",
+        payment_method: "",
+        note: "",
+        products: products
     })
-    const { products, total, taxPercent, taxAmount, discount, shipping } = useSelector(state => state.purchaseProductSlice)
+
     const dispatch = useDispatch()
 
     const handleSearch = async (value) => {
@@ -93,8 +103,7 @@ const PurchaseForm = (props) => {
                     <label className='text-gray-600 font-semibold mb-1 block'>Reference</label>
                     <Input
                         readOnly
-                        value={'PUR'}
-                        onChange={(value) => setData('quantity', value)}
+                        defaultValue={'CGS-PUR'}
                         className='bg-gray-200'
                     />
                 </div>
@@ -103,6 +112,7 @@ const PurchaseForm = (props) => {
                     <SelectPicker
                         data={suppliers}
                         className='w-full'
+                        onChange={(val) => setData('supplier_id', val)}
                     />
                 </div>
                 <div className="form-item w-1/3">
@@ -111,7 +121,7 @@ const PurchaseForm = (props) => {
                         className='w-full'
                         placeholder='Select Date'
                         oneTap
-                        onChange={(value) => setData('date', value)}
+                        onChange={(date) => setData('date', date)}
                     />
                 </div>
             </HStack>
@@ -145,11 +155,8 @@ const PurchaseForm = (props) => {
                     <label className='text-gray-600 font-semibold mb-1 block'>Tax (%)</label>
                     <InputGroup>
                         <Input
-                            value={data?.tax}
-                            onChange={(value) => {
-                                setData('tax', value)
-                                dispatch(setTax(value))
-                            }}
+                            defaultValue={data?.tax_percentage}
+                            onChange={(val) => dispatch(setTax(val))}
                         />
                     </InputGroup>
                 </div>
@@ -157,11 +164,8 @@ const PurchaseForm = (props) => {
                     <label className='text-gray-600 font-semibold mb-1 block'>Discount</label>
                     <InputGroup>
                         <Input
-                            value={data?.discount}
-                            onChange={(value) => {
-                                setData('discount', value)
-                                dispatch(setDiscount(value))
-                            }}
+                            defaultValue={data?.discount_amount}
+                            onChange={(val) => dispatch(setDiscount(val))}
                         />
                     </InputGroup>
                 </div>
@@ -169,11 +173,8 @@ const PurchaseForm = (props) => {
                     <label className='text-gray-600 font-semibold mb-1 block'>Shipping</label>
                     <InputGroup>
                         <Input
-                            value={data?.shipping}
-                            onChange={(value) => {
-                                setData('shipping', value)
-                                dispatch(setShipping(value))
-                            }}
+                            defaultValue={data?.shipping_amount}
+                            onChange={(val) => dispatch(setShipping(val))}
                         />
                     </InputGroup>
                 </div>
@@ -184,6 +185,7 @@ const PurchaseForm = (props) => {
                     <SelectPicker
                         data={purchaseStatus}
                         className='w-full'
+                        onChange={(val) => setData('status', val)}
                     />
                 </div>
                 <div className="form-item w-1/3">
@@ -191,12 +193,16 @@ const PurchaseForm = (props) => {
                     <SelectPicker
                         data={paymentMethods}
                         className='w-full'
+                        onChange={(val) => setData('payment_method', val)}
                     />
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Paid Amount</label>
                     <InputGroup>
-                        <Input />
+                        <Input
+                            value={data?.paid_amount}
+                            onChange={(val) => setData('paid_amount', val)}
+                        />
                     </InputGroup>
                 </div>
             </HStack>
@@ -206,6 +212,8 @@ const PurchaseForm = (props) => {
                     <Input
                         as={"textarea"}
                         rows={5}
+                        value={data?.note}
+                        onChange={(val) => setData('note', val)}
                     />
                 </InputGroup>
             </div>

@@ -18,13 +18,12 @@ class ProductFactory extends Factory
     {
         return [
             'title' => $this->faker->words(12, true),
-            'sku' => 'CGS-P' . $this->faker->randomNumber(4),
             'bar_code' => $this->faker->ean13(),
             'description' => $this->faker->paragraph(),
             'main_image' => null,
             'gallery_images' => null,
             'price' => $this->faker->randomFloat(2,  800, 1000),
-            'purchase_price' => $this->faker->randomFloat(2, 500, 800),
+            'unit_price' => $this->faker->randomFloat(2, 500, 800),
             'stock_qty' => $this->faker->randomNumber(4),
             'category_ids' => [
                 $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),

@@ -24,11 +24,12 @@ class CustomerController extends Controller
         ]);
     }
 
-
     public function store(StoreRequest $request)
     {
-        $this->customerService->store($request->getValues() + ['avatar' => $request->getAvatar()]);
-        return to_route('customers.index');
+        $item = $this->customerService->store($request->getValues() + ['avatar' => $request->getAvatar()]);
+        if ($item) {
+            return to_route('customers.index');
+        }
     }
 
     public function find($id)
@@ -38,13 +39,17 @@ class CustomerController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
-        $this->customerService->update($request->getValues() + ['avatar' => $request->getAvatar()], $id);
-        return to_route('customers.index');
+        $item = $this->customerService->update($request->getValues() + ['avatar' => $request->getAvatar()], $id);
+        if ($item) {
+            return to_route('customers.index');
+        }
     }
 
     public function destroy($id)
     {
-        $this->customerService->destroy($id);
-        return to_route('customers.index');
+        $item = $this->customerService->destroy($id);
+        if ($item) {
+            return to_route('customers.index');
+        }
     }
 }

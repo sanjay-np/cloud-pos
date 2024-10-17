@@ -14,7 +14,6 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         $this->model = $employee;
     }
 
-
     public function paginate(int $perPage)
     {
         return $this->model->paginate($perPage);

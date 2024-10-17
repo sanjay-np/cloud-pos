@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Brand\BrandServiceInterface;
-use App\Http\Requests\BrandRequest;
+use App\Http\Requests\Brand\StoreRequest;
+use App\Http\Requests\Brand\UpdateRequest;
 use Inertia\Inertia;
 
 class BrandController extends Controller
@@ -23,27 +24,32 @@ class BrandController extends Controller
         ]);
     }
 
-    public function store(BrandRequest $request)
+    public function store(StoreRequest $request)
     {
-        $this->brandService->store(data: $request->validated());
-        return to_route(route: 'brands.index');
-    }
-
-    public function update(BrandRequest $request, $id)
-    {
-        $this->brandService->update(data: $request->validated(), id: $id);
-        return to_route(route: 'brands.index');
-    }
-
-    public function destroy($id)
-    {
-        $this->brandService->delete(id: $id);
-        return to_route(route: 'brands.index');
+        $item = $this->brandService->store(data: $request->validated());
+        if ($item) {
+            return to_route(route: 'brands.index');
+        }
     }
 
     public function find($id)
     {
-        $item = $this->brandService->find(id: $id);
-        return $item;
+        return $this->brandService->find(id: $id);
+    }
+
+    public function update(UpdateRequest $request, $id)
+    {
+        $item = $this->brandService->update(data: $request->validated(), id: $id);
+        if ($item) {
+            return to_route(route: 'brands.index');
+        }
+    }
+
+    public function destroy($id)
+    {
+        $item = $this->brandService->delete(id: $id);
+        if ($item) {
+            return to_route(route: 'brands.index');
+        }
     }
 }

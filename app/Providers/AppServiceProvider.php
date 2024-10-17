@@ -45,8 +45,8 @@ use App\Services\CategoryService;
 use App\Services\CustomerService;
 use App\Services\EmployeeService;
 use App\Services\ProductService;
-use App\Services\PurhcaseReturnService;
-use App\Services\PurhcaseService;
+use App\Services\PurchaseReturnService;
+use App\Services\PurchaseService;
 use App\Services\SalesReturnService;
 use App\Services\SalesService;
 use App\Services\SupplierService;
@@ -85,10 +85,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(abstract: CustomerServiceInterface::class, concrete: CustomerService::class);
 
         $this->app->bind(abstract: PurchaseRepositoryInterface::class, concrete: PurchaseRepository::class);
-        $this->app->bind(abstract: PurchaseServiceInterface::class, concrete: PurhcaseService::class);
+        $this->app->bind(abstract: PurchaseServiceInterface::class, concrete: PurchaseService::class);
 
         $this->app->bind(abstract: PurchaseReturnRepositoryInterface::class, concrete: PurchaseReturnRepository::class);
-        $this->app->bind(abstract: PurchaseReturnServiceInterface::class, concrete: PurhcaseReturnService::class);
+        $this->app->bind(abstract: PurchaseReturnServiceInterface::class, concrete: PurchaseReturnService::class);
 
         $this->app->bind(abstract: SalesRepositoryInterface::class, concrete: SalesRepository::class);
         $this->app->bind(abstract: SalesServiceInterface::class, concrete: SalesService::class);

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Attribute;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EmployeeRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +23,10 @@ class EmployeeRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:10'],
-            'department' => ['required'],
-            'position' => ['required'],
-            'document_type' => ['required'],
-            'document_number' => ['required', 'string', 'max:255'],
-            'avatar' => ['nullable'],
-            'document_files' => ['array'],
+            'description' => ['string'],
             'status' => ['required'],
+            'values' => ['nullable', 'array'],
+            'values.*' => ['string', 'max:255'],
         ];
     }
 }

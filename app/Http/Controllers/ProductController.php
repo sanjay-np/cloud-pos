@@ -12,7 +12,6 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-
     protected $productService, $brandService, $supplierService;
 
     public function __construct(
@@ -42,27 +41,32 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $item = $this->productService->store($request->all());
-        return to_route('products.index');
+        if ($item) {
+            return to_route('products.index');
+        }
     }
 
     public function find($id)
     {
-        $product = $this->productService->find($id);
-        return $product;
+        return $this->productService->find($id);
     }
 
 
     public function update(UpdateProductRequest $request, $id)
     {
         $item  = $this->productService->update($request->validated(), $id);
-        return to_route('products.index');
+        if ($item) {
+            return to_route('products.index');
+        }
     }
 
 
     public function destroy($id)
     {
-        $this->productService->destroy($id);
-        return to_route('products.index');
+        $item = $this->productService->destroy($id);
+        if ($item) {
+            return to_route('products.index');
+        }
     }
 
     public function search(Request $request)

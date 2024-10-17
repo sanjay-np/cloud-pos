@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('main_image')->nullable();
             $table->json('gallery_images')->nullable();
             $table->string('price');
-            $table->string('purchase_price')->nullable();
+            $table->string('unit_price')->nullable();
             $table->string('stock_qty')->nullable();
             $table->json('category_ids')->nullable();
             $table->integer('brand_id')->nullable();

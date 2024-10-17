@@ -18,7 +18,7 @@ class Product extends Model
         'main_image',
         'gallery_images',
         'price',
-        'purchase_price',
+        'unit_price',
         'stock_qty',
         'category_ids',
         'brand_id',
@@ -40,7 +40,7 @@ class Product extends Model
         parent::boot();
         static::creating(function ($model) {
             $number = Product::max('id') + 1;
-            $model->sku = make_reference_id('PROD', $number);
+            $model->sku = make_reference_id('CGS-PROD', $number);
         });
     }
 }

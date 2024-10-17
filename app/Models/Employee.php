@@ -30,4 +30,13 @@ class Employee extends Model
     protected $casts = [
         'document_files' => 'array',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $number = Employee::max('id') + 1;
+            $model->code = make_reference_id('CGS-EMP', $number);
+        });
+    }
 }
