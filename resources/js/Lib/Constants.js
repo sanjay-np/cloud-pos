@@ -68,7 +68,8 @@ export const productTableHeader = [
     { title: "Product Name", dataKey: "title", flexGrow: 2 },
     { title: "SKU", dataKey: "sku", flexGrow: 2 },
     { title: "Stock", dataKey: "stock_qty" },
-    { title: "Price", dataKey: "price" },
+    { title: "P.Price", dataKey: "unit_price" },
+    { title: "S.Price", dataKey: "sale_price" },
     { title: "Status", dataKey: "status" }
 ]
 
@@ -112,6 +113,16 @@ export const paymentMethods = [
     { label: 'Cash', value: "cash" },
     { label: 'Bank Transfer', value: "bank_transfer" },
     { label: 'Cheque', value: "cheque" },
+]
+
+export const purchaseTableHeader = [
+    { title: 'Purchase Date', dataKey: 'date' },
+    { title: 'Reference', dataKey: 'reference' },
+    { title: 'Supplier', dataKey: 'supplier.name' },
+    { title: 'Total Items', dataKey: 'items_count' },
+    { title: 'Total', dataKey: 'total_amount' },
+    { title: 'Payment Status', dataKey: 'payment_status' },
+    { title: 'Status', dataKey: 'status' }
 ]
 
 export const loadingText = "Loading... Please wait..."

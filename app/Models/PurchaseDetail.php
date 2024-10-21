@@ -17,4 +17,9 @@ class PurchaseDetail extends Model
         'sale_price',
         'sub_total',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

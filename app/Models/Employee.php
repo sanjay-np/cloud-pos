@@ -36,7 +36,7 @@ class Employee extends Model
         parent::boot();
         static::creating(function ($model) {
             $number = Employee::max('id') + 1;
-            $model->code = make_reference_id('CGS-EMP', $number);
+            $model->code = make_reference_id('EMP', $number);
         });
     }
 }

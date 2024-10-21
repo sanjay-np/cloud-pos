@@ -1,5 +1,5 @@
 import { formattedNumber } from '@/Lib/Utils';
-import { removePurchaseProduct, setPurchasePrice, setQty } from '@/Store/Reducers/PurchaseProductSlice';
+import { removePurchaseProduct, setProductPrice, setQty } from '@/Store/Reducers/PurchaseProductSlice';
 import { Trash2Icon } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { IconButton, Input, InputGroup, Table } from 'rsuite';
@@ -18,7 +18,7 @@ const ProductTable = (props) => {
     }
 
     const handleProductPrice = (id, price, type) => {
-        dispatch(setPurchasePrice({ id, price, type }))
+        dispatch(setProductPrice({ id, price, type }))
     }
 
     return (
@@ -74,9 +74,9 @@ const ProductTable = (props) => {
                     {(rowData) => (
                         <InputGroup>
                             <Input
-                                value={rowData?.price}
+                                value={rowData?.sale_price}
                                 size='sm'
-                                onChange={(price) => handleProductPrice(rowData?.id, price, 'sell')}
+                                onChange={(price) => handleProductPrice(rowData?.id, price, 'sale')}
                             />
                         </InputGroup>
                     )}

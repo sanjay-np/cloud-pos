@@ -16,19 +16,22 @@ return new class extends Migration
             $table->date('date');
             $table->string('reference');
             $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->unsignedBigInteger('financial_year_id')->nullable();
             $table->integer('tax_percentage')->default(0);
-            $table->integer('tax_amount')->default(0);
-            $table->integer('discount_amount')->default(0);
-            $table->integer('shipping_amount')->default(0);
-            $table->integer('total_amount');
-            $table->integer('paid_amount');
-            $table->integer('due_amount');
+            $table->float('tax_amount')->default(0);
+            $table->float('discount_amount')->default(0);
+            $table->float('shipping_amount')->default(0);
+            $table->float('total_amount');
+            $table->float('paid_amount');
+            $table->float('due_amount');
             $table->string('status');
             $table->string('payment_status');
             $table->string('payment_method');
             $table->text('note')->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->nullOnDelete();
+            $table->foreign('financial_year_id')->references('id')->on('financial_years')->nullOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

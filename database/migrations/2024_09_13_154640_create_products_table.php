@@ -18,8 +18,8 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->string('main_image')->nullable();
             $table->json('gallery_images')->nullable();
-            $table->string('price');
-            $table->string('unit_price')->nullable();
+            $table->float('unit_price');
+            $table->float('sale_price');
             $table->string('stock_qty')->nullable();
             $table->json('category_ids')->nullable();
             $table->integer('brand_id')->nullable();

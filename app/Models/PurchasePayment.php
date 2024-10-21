@@ -23,7 +23,7 @@ class PurchasePayment extends Model
         parent::boot();
         static::creating(function ($model) {
             $number = Purchase::max('id') + 1;
-            $model->reference = make_reference_id('CGS-PUR-PAY', $number);
+            $model->reference = make_reference_id('PUR-PAY', $number);
         });
     }
 }

@@ -1,18 +1,24 @@
 import AddButton from "@/Components/Button/AddButton"
 import PurchaseForm from "@/Components/Forms/PurchaseForm"
 import SearchBar from "@/Components/Search/Index"
+import TableComp from "@/Components/Table/TableComp"
 import Authenticated from "@/Layouts/AuthenticatedLayout"
+import { purchaseTableHeader } from "@/Lib/Constants"
 import { Head } from "@inertiajs/react"
 import { ChevronRightIcon, LayoutGridIcon } from "lucide-react"
 import { useRef, useState } from "react"
 import { Toggle } from "rsuite"
 
-const Index = ({ auth, suppliers }) => {
+const Index = ({ auth, suppliers, purchases }) => {
 
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add");
     const drawerRef = useRef(false)
     const deleteModalRef = useRef(false)
+
+    const editAction = (id) => { }
+
+    const deleteAction = (id) => { }
 
 
     return (
@@ -38,10 +44,7 @@ const Index = ({ auth, suppliers }) => {
                                 <SearchBar title={'Purhcases'} />
                             </div>
                             <div className="toggle">
-                                <Toggle
-                                    size={'lg'}
-                                    color="green"
-                                />
+                                <Toggle size={'lg'} color="green" />
                             </div>
                             <div className="add-category">
                                 <AddButton
@@ -53,14 +56,24 @@ const Index = ({ auth, suppliers }) => {
                             </div>
                         </div>
                     </div>
-                    <PurchaseForm
-                        drawerRef={drawerRef}
-                        selected={selected}
-                        suppliers={suppliers}
-                        type={type}
-                    />
+                    <div className="table-wrapper">
+                        <TableComp
+                            items={purchases}
+                            checkboxCell
+                            columns={purchaseTableHeader}
+                            actions={{ editAction, deleteAction }}
+                            pagination
+                            serialize
+                        />
+                    </div>
                 </div>
             </div>
+            <PurchaseForm
+                drawerRef={drawerRef}
+                selected={selected}
+                suppliers={suppliers}
+                type={type}
+            />
         </Authenticated>
     )
 }

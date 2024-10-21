@@ -61,11 +61,11 @@ export const PurchaseProductSlice = createSlice({
          * @param {Number} action.payload.price - The new price of the product
          * @param {String} action.payload.type - The type of price to be modified ("purchase" or "price")
          */
-        setPurchasePrice(state, action) {
+        setProductPrice(state, action) {
             const { id, price, type } = action.payload
             state.products = state.products.map(item => {
                 if (item.id === id) {
-                    type === "purchase" ? item.unit_price = price : item.price = price;
+                    type === "purchase" ? item.unit_price = price : item.sale_price = price;
                 }
                 return item
             })
@@ -104,7 +104,7 @@ export const {
     setPurchaseProduct,
     removePurchaseProduct,
     setQty,
-    setPurchasePrice,
+    setProductPrice,
     setTax,
     setDiscount,
     setShipping

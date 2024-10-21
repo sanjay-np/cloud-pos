@@ -13,8 +13,9 @@ class CreatePurchasePayment
         $this->model = $model;
     }
 
-    public function handle(array $data)
+    public function handle(array $data, int $purchaseId)
     {
+        $data['purchase_id'] = $purchaseId;
         return $this->model->create($data);
     }
 }

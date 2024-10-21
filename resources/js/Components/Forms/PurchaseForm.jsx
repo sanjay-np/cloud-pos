@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import FormDrawer from '@/Components/Overlays/FormDrawer'
 import { useForm } from '@inertiajs/react'
 import { DatePicker, HStack, Input, InputGroup, SelectPicker } from 'rsuite'
@@ -9,39 +9,54 @@ import { setDiscount, setPurchaseProduct, setShipping, setTax } from '@/Store/Re
 import { formattedNumber } from '@/Lib/Utils'
 import { paymentMethods, purchaseStatus } from '@/Lib/Constants'
 import { toast } from 'sonner'
+import InputError from '@/Components/InputError'
 
 
-const PurchaseForm = (props) => {
+const PurchaseForm = ({ drawerRef, selected, suppliers, type }) => {
 
-    const { drawerRef, selected, suppliers, type } = props
     const searchRef = useRef(null)
     const [searchItems, setSearchItems] = useState([])
     const { products, total, taxPercent, taxAmount, discount, shipping } = useSelector(state => state.purchaseProductSlice)
     const { data, setData, post, processing, errors, reset } = useForm({
         date: "",
         supplier_id: "",
-        tax_percentage: taxPercent,
-        tax_amount: taxAmount,
+        tax_percentage: 0,
+        tax_amount: 0,
         discount_amount: 0,
         shipping_amount: 0,
-        total_amount: total,
+        total_amount: 0,
         paid_amount: 0,
         status: "",
         payment_status: "",
         payment_method: "",
         note: "",
-        products: products
+        products: []
     })
 
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        setData((prev) => {
+            return {
+                ...prev,
+                products: products,
+                tax_percentage: taxPercent,
+                tax_amount: taxAmount,
+                discount_amount: discount,
+                shipping_amount: shipping,
+                total_amount: total
+            }
+        })
+    }, [products, total, taxPercent, taxAmount, discount, shipping])
+
     const handleSearch = async (value) => {
         if (value.length > 3) {
-            const res = await axios.get(route('products.search', {
-                'search_qry': value
-            }))
-            if (res?.data?.length > 0) {
-                setSearchItems(res?.data)
+            try {
+                const res = await axios.get(route('products.search', { search_qry: value }));
+                setSearchItems(res.data.length ? res.data : []);
+            } catch (error) {
+                console.error("Search error:", error);
+                setSearchItems([]);
             }
         } else {
             setSearchItems([])
@@ -118,6 +133,7 @@ const PurchaseForm = (props) => {
                         defaultValue={'CGS-PUR'}
                         className='bg-gray-200'
                     />
+                    <InputError message={errors.reference} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Supplier</label>
@@ -126,6 +142,7 @@ const PurchaseForm = (props) => {
                         className='w-full'
                         onChange={(val) => setData('supplier_id', val)}
                     />
+                    <InputError message={errors.supplier_id} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Purhcase Date</label>
@@ -135,12 +152,14 @@ const PurchaseForm = (props) => {
                         oneTap
                         onChange={(date) => setData('date', date)}
                     />
+                    <InputError message={errors.date} className='mt-2' />
                 </div>
             </HStack>
             <div className="form-item mb-4">
                 <ProductTable
                     items={products}
                 />
+                <InputError message={errors.products} className='mt-2' />
             </div>
             <div className="form-item mb-4 flex justify-end">
                 <div className="w-1/3">
@@ -168,9 +187,10 @@ const PurchaseForm = (props) => {
                     <InputGroup>
                         <Input
                             defaultValue={data?.tax_percentage}
-                            onChange={(val) => dispatch(setTax(val))}
+                            onChange={(val) => dispatch(setTax(parseFloat(val)))}
                         />
                     </InputGroup>
+                    <InputError message={errors.tax_percentage} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Discount</label>
@@ -180,6 +200,7 @@ const PurchaseForm = (props) => {
                             onChange={(val) => dispatch(setDiscount(val))}
                         />
                     </InputGroup>
+                    <InputError message={errors.discount_amount} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Shipping</label>
@@ -189,6 +210,7 @@ const PurchaseForm = (props) => {
                             onChange={(val) => dispatch(setShipping(val))}
                         />
                     </InputGroup>
+                    <InputError message={errors.shipping_amount} className='mt-2' />
                 </div>
             </HStack>
             <HStack spacing={20} className='mb-4'>
@@ -199,6 +221,7 @@ const PurchaseForm = (props) => {
                         className='w-full'
                         onChange={(val) => setData('status', val)}
                     />
+                    <InputError message={errors.status} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Payment Method</label>
@@ -207,15 +230,17 @@ const PurchaseForm = (props) => {
                         className='w-full'
                         onChange={(val) => setData('payment_method', val)}
                     />
+                    <InputError message={errors.payment_method} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Paid Amount</label>
                     <InputGroup>
                         <Input
                             value={data?.paid_amount}
-                            onChange={(val) => setData('paid_amount', val)}
+                            onChange={(val) => setData('paid_amount', parseFloat(val))}
                         />
                     </InputGroup>
+                    <InputError message={errors.paid_amount} className='mt-2' />
                 </div>
             </HStack>
             <div className="form-item mb-4">
@@ -228,6 +253,7 @@ const PurchaseForm = (props) => {
                         onChange={(val) => setData('note', val)}
                     />
                 </InputGroup>
+                <InputError message={errors.note} className='mt-2' />
             </div>
         </FormDrawer>
     )

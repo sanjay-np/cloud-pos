@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Purchase;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -29,44 +30,56 @@ class StoreRequest extends FormRequest
             'discount_amount'  => ['required'],
             'shipping_amount' => ['required'],
             'total_amount' => ['required'],
-            'paid_amount' => ['required'],
+            'paid_amount' => ['required', 'numeric'],
             'status' => ['required'],
             'payment_method' => ['required'],
-            'note' => ['string'],
-            'products' => ['array'],
-            'products.*.product_id' => ['required'],
+            'products' => ['array', 'min:1'],
+            'products.*.id' => ['required'],
             'products.*.qty' => ['required', 'numeric'],
             'products.*.unit_price' => ['required', 'numeric'],
             'products.*.sale_price' => ['required', 'numeric'],
+            'note' => ['nullable', 'string'],
         ];
     }
 
     public function valuesToStore()
     {
+        $totalAmount = $this->input('total_amount');
+        $paidAmount = $this->input('paid_amount');
+        $paymentStatus = ($paidAmount >= $totalAmount) ? 'paid' : ($paidAmount > 0 ? 'due' : 'unpaid');
+        $dueAmount = $totalAmount - $paidAmount;
+
         return [
-            'purchase' => $this->only(keys: [
-                'date',
-                'supplier_id',
-                'tax_percentage',
-                'tax_amount',
-                'discount_amount',
-                'shipping_amount',
-                'total_amount',
-                'paid_amount',
-                'status',
-                'payment_status',
-                'payment_method',
-                'note',
-            ]),
-            'products' =>  $this->only(keys: [
-                'products'
-            ]),
-            'payments' =>  $this->only(keys: [
-                'paid_amount',
-                'date',
-                'payment_method',
-                'note',
-            ]),
+            'purchase' => array_merge(
+                $this->only(keys: [
+                    'supplier_id',
+                    'tax_percentage',
+                    'tax_amount',
+                    'discount_amount',
+                    'shipping_amount',
+                    'total_amount',
+                    'paid_amount',
+                    'status',
+                    'note',
+                    'payment_method',
+                ]),
+                [
+                    'date' => Carbon::parse($this->input('date'))->format('Y-m-d H:i:s'),
+                    'payment_status' => $paymentStatus,
+                    'due_amount' => $dueAmount
+                ]
+            ),
+            'products' => $this->only(keys: ['products']),
+            'payments' => array_merge(
+                $this->only(keys: [
+                    'payment_method',
+                    'note',
+                ]),
+                [
+                    'date' => Carbon::parse($this->input('date'))->format('Y-m-d H:i:s'),
+                    'amount' => $this->input('paid_amount')
+                ]
+            )
         ];
     }
 }

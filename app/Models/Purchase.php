@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Purchase extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'date',
@@ -31,7 +32,17 @@ class Purchase extends Model
         parent::boot();
         static::creating(function ($model) {
             $number = Purchase::max('id') + 1;
-            $model->reference = make_reference_id('CGS-PUR', $number);
+            $model->reference = make_reference_id('PUR', $number);
         });
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(PurchaseDetail::class);
     }
 }

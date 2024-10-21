@@ -13,8 +13,11 @@ class CreatePurchaseDetail
         $this->model = $model;
     }
 
-    public function handle(array $data)
+    public function handle(array $data, int $purchaseId)
     {
+        $data['product_id'] = $data['id'] ?? null;
+        $data['purchase_id'] = $purchaseId;
+        $data['sub_total'] = $data['unit_price'] * $data['qty'];
         return $this->model->create($data);
     }
 }

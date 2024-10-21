@@ -25,7 +25,7 @@ class Customer extends Model
         parent::boot();
         static::creating(function ($model) {
             $number = Customer::max('id') + 1;
-            $model->code = make_reference_id('CGS-CUS', $number);
+            $model->code = make_reference_id('CUS', $number);
         });
     }
 }

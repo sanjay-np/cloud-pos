@@ -9,15 +9,15 @@ use App\Contracts\Purchase\PurchaseServiceInterface;
 
 class PurchaseService implements PurchaseServiceInterface
 {
-    protected $purchaseRepository, $createPurchseDetailsAction, $createPurchasePaymentAction;
+    protected $purchaseRepository, $createPurchaseDetailsAction, $createPurchasePaymentAction;
 
     public function __construct(
         PurchaseRepositoryInterface $purchaseRepository,
-        CreatePurchaseDetail $createPurchseDetail,
+        CreatePurchaseDetail $createPurchaseDetail,
         CreatePurchasePayment $createPurchasePayment
     ) {
         $this->purchaseRepository = $purchaseRepository;
-        $this->createPurchseDetailsAction = $createPurchseDetail;
+        $this->createPurchaseDetailsAction = $createPurchaseDetail;
         $this->createPurchasePaymentAction = $createPurchasePayment;
     }
 
@@ -33,21 +33,16 @@ class PurchaseService implements PurchaseServiceInterface
 
     public function store(array $data)
     {
-        $item = $this->purchaseRepository->store($data);
+        $item = $this->purchaseRepository->store($data['purchase']);
         if ($item) {
-            if (isset($data['products'])) {
-                foreach ($data['products'] as $product) {
-                    $this->createPurchseDetailsAction->handle($product + [
-                        'purchase_id' => $item->id,
-                        'sub_total' => $product['unit_price'] * $product['qty']
-                    ]);
+            $products = $data['products']['products'] ?? [];
+            if (!empty($products)) {
+                foreach ($products as $product) {
+                    $this->createPurchaseDetailsAction->handle($product, $item->id);
                 }
             }
-
-            if (isset($data['payments'])) {
-                foreach ($data['payments'] as $payment) {
-                    $this->createPurchasePaymentAction->handle($payment, $item->id);
-                }
+            if (!empty($data['payments'])) {
+                $this->createPurchasePaymentAction->handle($data['payments'], $item->id);
             }
         }
         return $item;

@@ -9,6 +9,7 @@ import Pagination from "@/Components/Table/Pagination";
  * @param {object} props - The component properties.
  * @param {object[]} props.items - The data to be rendered.
  * @param {boolean} props.checkboxCell - Whether to render a checkbox cell for each row. Default is false.
+ * @param {boolean} props.serialize - Whether to render a serialize cell for each row. Default is false.
  * @param {object[]} props.columns - An array of column objects. Each object should have a title and a dataKey.
  * @param {object} props.actions - An object containing the actions to be rendered in the action cell.
  * @param {boolean} props.pagination - Whether to render pagination links. Default is false.
@@ -29,6 +30,12 @@ const TableComp = (props) => {
                                 </div>
                             </HeaderCell>
                             <CheckCell dataKey="id" />
+                        </Column>
+                    )}
+                    {props?.serialize && (
+                        <Column width={50}>
+                            <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
+                            <Cell>{(rowData, rowIndex) => rowIndex + 1}</Cell>
                         </Column>
                     )}
                     {/* Columns */}

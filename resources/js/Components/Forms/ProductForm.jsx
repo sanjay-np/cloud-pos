@@ -16,8 +16,8 @@ export default function ProductForm(props) {
         description: '',
         main_image: null,
         gallery_images: [],
-        price: '',
         unit_price: '',
+        sale_price: '',
         stock_qty: '',
         category_ids: [],
         brand_id: '',
@@ -194,8 +194,8 @@ export default function ProductForm(props) {
                             <InputGroup>
                                 <Input
                                     placeholder='Selling Price...'
-                                    value={data.price}
-                                    onChange={(value) => setData('price', value)}
+                                    value={data.sale_price}
+                                    onChange={(value) => setData('sale_price', value)}
                                 />
                             </InputGroup>
                         </div>
