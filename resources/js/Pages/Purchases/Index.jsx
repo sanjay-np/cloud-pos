@@ -57,6 +57,7 @@ const Index = ({ auth, suppliers }) => {
                         drawerRef={drawerRef}
                         selected={selected}
                         suppliers={suppliers}
+                        type={type}
                     />
                 </div>
             </div>

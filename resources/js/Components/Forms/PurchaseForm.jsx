@@ -8,11 +8,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setDiscount, setPurchaseProduct, setShipping, setTax } from '@/Store/Reducers/PurchaseProductSlice'
 import { formattedNumber } from '@/Lib/Utils'
 import { paymentMethods, purchaseStatus } from '@/Lib/Constants'
+import { toast } from 'sonner'
 
 
 const PurchaseForm = (props) => {
 
-    const { drawerRef, selected, suppliers } = props
+    const { drawerRef, selected, suppliers, type } = props
     const searchRef = useRef(null)
     const [searchItems, setSearchItems] = useState([])
     const { products, total, taxPercent, taxAmount, discount, shipping } = useSelector(state => state.purchaseProductSlice)
@@ -54,7 +55,18 @@ const PurchaseForm = (props) => {
         searchRef.current.value = ''
     }
 
-    const onSubmit = () => { }
+    const onSubmit = () => {
+        if (!selected && type === 'add') {
+            post(route('purchases.store'), {
+                onSuccess: () => {
+                    drawerRef.current.close()
+                    toast.success('Success', {
+                        description: 'Purchase added successfully',
+                    })
+                }
+            })
+        }
+    }
 
     const formClear = () => {
         reset()
