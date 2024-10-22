@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react'
-import { BadgeDollarSignIcon, BadgePercentIcon, BookUserIcon, ClipboardCheckIcon, ContactRoundIcon, CornerDownLeftIcon, CornerDownRightIcon, GaugeIcon, MailIcon, PackageIcon, PieChartIcon, ReceiptIcon } from 'lucide-react'
+import { BadgeDollarSignIcon, BadgePercentIcon, BookUserIcon, ClipboardCheckIcon, ContactRoundIcon, CornerDownLeftIcon, CornerDownRightIcon, GaugeIcon, MailIcon, PackageIcon, PieChartIcon, ReceiptIcon, SettingsIcon } from 'lucide-react'
 import React from 'react'
 import { Nav, Sidenav } from 'rsuite'
 
@@ -64,6 +64,13 @@ export default function SiderbarComp(props) {
                         <Nav.Item icon={<ContactRoundIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('employees.index')}>Employees</Link>
                         </Nav.Item>
+
+                        <Nav.Item panel>Settings</Nav.Item>
+                        <Nav.Menu eventKey={'settings'} title="Settings" icon={<SettingsIcon strokeWidth={1.5} size={20} />} className='dropdown-menu'>
+                            <Nav.Item as={'div'} eventKey={'settings.index'} active={currenRoute === 'settings.index'}>
+                                <Link href={route('/')}>Fiscal Years</Link>
+                            </Nav.Item>
+                        </Nav.Menu>
                     </Nav>
                 </Sidenav.Body>
             </Sidenav>
