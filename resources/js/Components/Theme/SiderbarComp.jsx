@@ -68,7 +68,7 @@ export default function SiderbarComp(props) {
                         <Nav.Item panel>Settings</Nav.Item>
                         <Nav.Menu eventKey={'settings'} title="Settings" icon={<SettingsIcon strokeWidth={1.5} size={20} />} className='dropdown-menu'>
                             <Nav.Item as={'div'} eventKey={'settings.index'} active={currenRoute === 'settings.index'}>
-                                <Link href={route('/')}>Fiscal Years</Link>
+                                <Link href={route('fiscal-years.index')}>Fiscal Years</Link>
                             </Nav.Item>
                         </Nav.Menu>
                     </Nav>

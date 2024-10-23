@@ -20,9 +20,9 @@ const Pagination = ({ links, total, from, to }) => {
 
     function getClassName(active) {
         if (active) {
-            return "mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-primary focus:text-primary bg-blue-700 text-white";
+            return "mr-1 mb-1 px-4 py-3 leading-4 border border-green-700 rounded hover:no-underline bg-green-700 text-white font-seimbold hover:text-white";
         } else {
-            return "mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-primary focus:text-primary";
+            return "mr-1 mb-1 px-4 py-3 leading-4 border rounded hover:no-underline focus:border-primary font-medium hover:text-gray-700";
 
         }
     }
@@ -35,7 +35,7 @@ const Pagination = ({ links, total, from, to }) => {
                 <div className="flex flex-wrap">
                     {links.map((link, index) => (
                         link.url === null ?
-                            <div key={index} className="mr-1 mb-1 px-4 py-3 text-sm leading-4 text-gray-400 border rounded">
+                            <div key={index} className="mr-1 mb-1 px-4 py-3 leading-4 text-gray-600 border rounded font-medium">
                                 <span dangerouslySetInnerHTML={{ __html: link.label }} />
                             </div>
                             :

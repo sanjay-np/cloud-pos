@@ -46,7 +46,7 @@ export const brandTableHeader = [
 ]
 
 export const supplierTableHeader = [
-    { title: "Supplier Name", dataKey: "name", flexGrow: 1 },
+    { title: "Supplier Name", dataKey: "name" },
     { title: "Phone", dataKey: "phone" },
     { title: "Contact Person", dataKey: "contact_person" },
     { title: "PAN No.", dataKey: "pan" }
@@ -65,8 +65,8 @@ export const attributeTableHeader = [
 ]
 
 export const productTableHeader = [
-    { title: "Product Name", dataKey: "title", flexGrow: 2 },
-    { title: "SKU", dataKey: "sku", flexGrow: 2 },
+    { title: "Product Name", dataKey: "title", flexGrow: 4 },
+    { title: "SKU", dataKey: "sku" },
     { title: "Stock", dataKey: "stock_qty" },
     { title: "P.Price", dataKey: "unit_price" },
     { title: "S.Price", dataKey: "sale_price" },
@@ -119,7 +119,7 @@ export const purchaseTableHeader = [
     { title: 'Purchase Date', dataKey: 'date' },
     { title: 'Reference', dataKey: 'reference' },
     { title: 'Supplier', dataKey: 'supplier.name' },
-    { title: 'Total Items', dataKey: 'items_count' },
+    { title: 'Items', dataKey: 'items_count' },
     { title: 'Total', dataKey: 'total_amount' },
     { title: 'Payment Status', dataKey: 'payment_status' },
     { title: 'Status', dataKey: 'status' }

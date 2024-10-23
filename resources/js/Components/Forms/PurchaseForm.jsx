@@ -18,7 +18,7 @@ const PurchaseForm = ({ drawerRef, selected, suppliers, type }) => {
     const [searchItems, setSearchItems] = useState([])
     const { products, total, taxPercent, taxAmount, discount, shipping } = useSelector(state => state.purchaseProductSlice)
     const { data, setData, post, processing, errors, reset } = useForm({
-        date: "",
+        date: new Date(),
         supplier_id: "",
         tax_percentage: 0,
         tax_amount: 0,
@@ -147,6 +147,7 @@ const PurchaseForm = ({ drawerRef, selected, suppliers, type }) => {
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Purhcase Date</label>
                     <DatePicker
+                        value={data.date}
                         className='w-full'
                         placeholder='Select Date'
                         oneTap

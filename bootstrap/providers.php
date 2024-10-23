@@ -10,5 +10,6 @@ return [
     App\Providers\ProductServiceProvider::class,
     App\Providers\PurchaseServiceProvider::class,
     App\Providers\SaleServiceProvider::class,
+    App\Providers\SettingServiceProvider::class,
     App\Providers\SupplierServiceProvider::class,
 ];

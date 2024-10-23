@@ -48,7 +48,7 @@ const TableComp = (props) => {
                     {/* Action Cell */}
                     {props?.actions && (
                         <Column width={120}>
-                            <HeaderCell><span className="text-base text-gray-700">Actions</span></HeaderCell>
+                            <HeaderCell><span className="text-base font-semibold text-gray-600">Actions</span></HeaderCell>
                             <ActionCell dataKey="id" actions={props?.actions} />
                         </Column>
                     )}

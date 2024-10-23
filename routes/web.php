@@ -6,6 +6,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FiscalYearController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
@@ -90,6 +91,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(EmployeeController::class)->group(function () {
         Route::resource('employees', EmployeeController::class)->only(['index', 'store', 'update', 'destroy']);
         Route::get('/employees/find/{id}', 'find')->name('employees.find');
+    });
+
+    Route::controller(FiscalYearController::class)->group(function () {
+        Route::resource('fiscal-years', FiscalYearController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::get('/fiscal-years/find/{id}', 'find')->name('fiscal-years.find');
     });
 });
 

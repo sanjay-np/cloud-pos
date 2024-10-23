@@ -44,7 +44,11 @@ const Index = ({ auth, suppliers, purchases }) => {
                                 <SearchBar title={'Purhcases'} />
                             </div>
                             <div className="toggle">
-                                <Toggle size={'lg'} color="green" />
+                                <div className="flex items-center gap-2">
+                                    <label className="font-medium text-lg text-gray-500">Unofficial</label>
+                                    <Toggle size={'lg'} color="green" />
+                                    <label className="font-medium text-lg text-gray-500">Official</label>
+                                </div>
                             </div>
                             <div className="add-category">
                                 <AddButton
@@ -59,7 +63,6 @@ const Index = ({ auth, suppliers, purchases }) => {
                     <div className="table-wrapper">
                         <TableComp
                             items={purchases}
-                            checkboxCell
                             columns={purchaseTableHeader}
                             actions={{ editAction, deleteAction }}
                             pagination

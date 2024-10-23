@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useState } from 'react'
+import { forwardRef, useImperativeHandle, useState } from 'react'
 import { Button, Drawer } from 'rsuite'
 
 const FormDrawer = forwardRef(({ children, ...props }, ref) => {
