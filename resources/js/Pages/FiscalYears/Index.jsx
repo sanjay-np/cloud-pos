@@ -1,15 +1,43 @@
+import { Head, Link, router } from '@inertiajs/react'
 import AddButton from '@/Components/Button/AddButton'
 import FiscalYearForm from '@/Components/Forms/FiscalYearForm'
-import FormModal from '@/Components/Overlays/FormModal'
+import DeleteModal from '@/Components/Overlays/DeleteModal'
 import SearchBar from '@/Components/Search/Index'
+import TableComp from '@/Components/Table/TableComp'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, Link } from '@inertiajs/react'
+import { fiscalYearTableHeader } from '@/Lib/Constants'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import React, { useRef } from 'react'
+import { useRef, useState } from 'react'
+import { toast } from 'sonner'
 
-export default function Index({ auth }) {
+export default function Index({ auth, fiscalYears }) {
+    const modalRef = useRef(false)
+    const deleteModalRef = useRef(false)
+    const [selected, setSelected] = useState(null)
+    const [type, setType] = useState("add")
 
-    const createModal = useRef(false)
+    const editAction = (id) => {
+        setType("edit");
+        setSelected(id);
+        modalRef.current.open();
+    };
+
+    const deleteAction = (id) => {
+        setSelected(id);
+        deleteModalRef.current.open();
+    };
+
+    const handleDelete = () => {
+        router.delete(route("fiscal-years.destroy", selected), {
+            onSuccess: () => {
+                deleteModalRef.current.close();
+                setSelected(null);
+                toast.success("Success", {
+                    description: "Fiscal Year deleted successfully",
+                });
+            },
+        });
+    };
 
     return (
         <Authenticated user={auth.user}>
@@ -36,18 +64,33 @@ export default function Index({ auth }) {
                             <div className="add-employee">
                                 <AddButton
                                     handleOnClick={() => {
-                                        createModal.current.open()
+                                        setType("add")
+                                        modalRef.current.open()
                                     }}
                                 />
                             </div>
                         </div>
                     </div>
+                    <div className="table-wrapper">
+                        <TableComp
+                            items={fiscalYears}
+                            checkboxCell={false}
+                            columns={fiscalYearTableHeader}
+                            actions={{ editAction, deleteAction }}
+                            pagination={true}
+                        />
+                    </div>
                 </div>
             </div>
             <FiscalYearForm
-                drawerRef={createModal}
-                type="add"
-                selected={null}
+                drawerRef={modalRef}
+                selected={selected}
+                type={type}
+            />
+            <DeleteModal
+                ref={deleteModalRef}
+                deleteAction={handleDelete}
+                title=" Fiscal Year"
             />
         </Authenticated>
     )

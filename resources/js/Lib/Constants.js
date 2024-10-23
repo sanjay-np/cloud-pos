@@ -125,4 +125,9 @@ export const purchaseTableHeader = [
     { title: 'Status', dataKey: 'status' }
 ]
 
+export const fiscalYearTableHeader = [
+    { title: 'Fiscal Year', dataKey: 'fiscal_year' },
+    { title: 'Status', dataKey: 'is_current' },
+]
+
 export const loadingText = "Loading... Please wait..."

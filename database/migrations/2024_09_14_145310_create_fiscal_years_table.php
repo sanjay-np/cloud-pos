@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('label');
             $table->boolean('is_current')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

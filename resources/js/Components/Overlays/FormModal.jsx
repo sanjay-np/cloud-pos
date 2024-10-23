@@ -7,6 +7,7 @@ const FormModal = forwardRef(({ children, ...props }, ref) => {
     useImperativeHandle(ref, () => ({
         open: () => setIsOpen(true),
         close: () => {
+            props?.reset()
             setIsOpen(false)
         },
     }))
@@ -16,7 +17,7 @@ const FormModal = forwardRef(({ children, ...props }, ref) => {
             <Modal.Body>{children}</Modal.Body>
             <Modal.Footer>
                 <Button onClick={ref?.current?.close} appearance="subtle"><span className='font-semibold'>Cancel</span></Button>
-                <Button onClick={props?.onSubmit} appearance="primary" color='green'><span className='font-semibold'>Submit</span></Button>
+                <Button onClick={props?.onSubmit} appearance="primary" color='green' loading={props?.processing}><span className='font-semibold'>Submit</span></Button>
             </Modal.Footer>
         </Modal>
     )

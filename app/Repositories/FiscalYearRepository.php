@@ -18,4 +18,29 @@ class FiscalYearRepository implements FiscalYearRepositoryInterface
     {
         return $this->model->paginate($perPage);
     }
+
+    public function store($data)
+    {
+        return $this->model->create($data);
+    }
+
+    public function find(int $id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function findAll()
+    {
+        return $this->model->all();
+    }
+
+    public function update(array $data, int $id)
+    {
+        return $this->model->find($id)->update($data);
+    }
+
+    public function delete(int $id)
+    {
+        return $this->model->find($id)->delete();
+    }
 }

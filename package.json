@@ -6,7 +6,6 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "@headlessui/react": "^2.0.0",
         "@inertiajs/react": "^1.0.0",
         "@vitejs/plugin-react": "^4.2.0",
         "autoprefixer": "^10.4.20",
