@@ -1,5 +1,5 @@
 import { FilePenLineIcon, Trash2Icon } from "lucide-react"
-import { Divider, IconButton, Table } from "rsuite"
+import { IconButton, Table } from "rsuite"
 
 /**
  * A React component that renders a table cell with edit and delete action buttons.
@@ -11,22 +11,28 @@ import { Divider, IconButton, Table } from "rsuite"
  */
 const ActionCell = ({ rowData, dataKey, ...props }) => {
     const { Cell } = Table
-    return (
-        <Cell {...props} className="link-group">
-            <IconButton
-                appearance="subtle"
-                size='xs'
-                icon={<FilePenLineIcon size={16} />}
-                onClick={() => props?.actions?.editAction(rowData[dataKey])}
-            />
-            <Divider vertical />
-            <IconButton
-                appearance="subtle"
-                size='xs'
-                icon={<Trash2Icon size={16} />}
-                onClick={() => props?.actions?.deleteAction(rowData[dataKey])}
-            />
-        </Cell>
-    )
+    const { actions } = props
+    if (actions) {
+        return (
+            <Cell {...props} className="link-group">
+                {actions?.editAction && (
+                    <IconButton
+                        appearance="subtle"
+                        size='xs'
+                        icon={<FilePenLineIcon size={17} />}
+                        onClick={() => actions?.editAction(rowData[dataKey])}
+                    />
+                )}
+                {actions?.deleteAction && (
+                    <IconButton
+                        appearance="subtle"
+                        size='xs'
+                        icon={<Trash2Icon size={17} />}
+                        onClick={() => actions?.deleteAction(rowData[dataKey])}
+                    />
+                )}
+            </Cell>
+        )
+    }
 }
 export default ActionCell

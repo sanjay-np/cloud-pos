@@ -15,4 +15,22 @@ class FiscalYear extends Model
     protected $casts = [
         'is_current' => 'boolean',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (static::count() === 0) {
+                $model->is_current = true;
+            }
+        });
+
+        static::updating(function ($model) {
+            if ($model->is_current) {
+                static::where('id', '!=', $model->id)
+                    ->update(['is_current' => false]);
+            }
+        });
+    }
 }

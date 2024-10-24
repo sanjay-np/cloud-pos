@@ -2,19 +2,9 @@ import { Checkbox, Table } from "rsuite"
 import CheckCell from "@/Components/Table/CheckCell";
 import ActionCell from "@/Components/Table/ActionCell";
 import Pagination from "@/Components/Table/Pagination";
+import ToggleCell from "./ToggleCell";
 
-/**
- * A reusable table component for rendering data.
- *
- * @param {object} props - The component properties.
- * @param {object[]} props.items - The data to be rendered.
- * @param {boolean} props.checkboxCell - Whether to render a checkbox cell for each row. Default is false.
- * @param {boolean} props.serialize - Whether to render a serialize cell for each row. Default is false.
- * @param {object[]} props.columns - An array of column objects. Each object should have a title and a dataKey.
- * @param {object} props.actions - An object containing the actions to be rendered in the action cell.
- * @param {boolean} props.pagination - Whether to render pagination links. Default is false.
- * @return {JSX.Element} The rendered table component.
- */
+
 const TableComp = (props) => {
     const { Column, HeaderCell, Cell } = Table;
     return (
@@ -32,19 +22,31 @@ const TableComp = (props) => {
                             <CheckCell dataKey="id" />
                         </Column>
                     )}
+
                     {props?.serialize && (
                         <Column width={50}>
                             <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
                             <Cell>{(rowData, rowIndex) => rowIndex + 1}</Cell>
                         </Column>
                     )}
+
                     {/* Columns */}
-                    {props?.columns?.map((column, index) => (
-                        <Column flexGrow={column?.flexGrow ?? 1} key={index}>
-                            <HeaderCell><span className="text-base font-semibold text-gray-600">{column.title}</span></HeaderCell>
-                            <Cell dataKey={column.dataKey} />
-                        </Column>
-                    ))}
+                    {props?.columns?.map((column, index) => {
+                        if (column?.type === 'toggle') {
+                            return (
+                                <Column flexGrow={column?.flexGrow ?? 1} key={index}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">{column.title}</span></HeaderCell>
+                                    <ToggleCell dataKey={column.dataKey} />
+                                </Column>
+                            )
+                        }
+                        return (
+                            <Column flexGrow={column?.flexGrow ?? 1} key={index}>
+                                <HeaderCell><span className="text-base font-semibold text-gray-600">{column.title}</span></HeaderCell>
+                                <Cell dataKey={column.dataKey} />
+                            </Column>
+                        )
+                    })}
                     {/* Action Cell */}
                     {props?.actions && (
                         <Column width={120}>

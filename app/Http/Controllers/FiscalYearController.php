@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\FiscalYear\FiscalYearServiceInterface;
-use Illuminate\Http\Request;
+use App\Http\Requests\FiscalYear\StoreRequest;
+use App\Http\Requests\FiscalYear\UpdateRequest;
 use Inertia\Inertia;
 
 class FiscalYearController extends Controller
@@ -23,7 +24,7 @@ class FiscalYearController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $item = $this->fiscalYearService->store($request->all());
         if ($item) {
@@ -36,7 +37,7 @@ class FiscalYearController extends Controller
         return $this->fiscalYearService->find($id);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         $item = $this->fiscalYearService->update($request->all(), $id);
         if ($item) {

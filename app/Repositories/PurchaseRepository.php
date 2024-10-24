@@ -16,7 +16,7 @@ class PurchaseRepository implements PurchaseRepositoryInterface
 
     public function paginate(int $perPage)
     {
-        return $this->model->with(['supplier'])->withCount('items')->paginate($perPage);
+        return $this->model->current()->with(['supplier'])->withCount('items')->paginate($perPage);
     }
 
     public function findAll()

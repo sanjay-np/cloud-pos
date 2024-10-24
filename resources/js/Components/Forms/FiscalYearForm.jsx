@@ -8,7 +8,7 @@ import InputError from '@/Components/InputError'
 export default function FiscalYearForm(props) {
 
     const { drawerRef, selected, type } = props
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset, put } = useForm({
         label: '',
         is_current: false,
     })
@@ -38,7 +38,7 @@ export default function FiscalYearForm(props) {
             })
         }
         if (selected && type === 'edit') {
-            post(route('fiscal-years.update', selected), {
+            put(route('fiscal-years.update', selected), {
                 onSuccess: () => {
                     drawerRef.current.close()
                     toast.success('Success', {
@@ -69,11 +69,11 @@ export default function FiscalYearForm(props) {
                             value={data.label}
                             onChange={(value) => setData('label', value)}
                         />
-                        <InputError message={errors.label} className="mt-2" />
                     </InputGroup>
+                    <InputError message={errors.label} className="mt-2" />
                 </div>
                 <div className="form-item mb-4">
-                    <label className='text-gray-600 font-semibold mb-1'>Is Current</label>
+                    <label className='text-gray-600 font-semibold mb-1 pe-3'>Is Current</label>
                     <Toggle
                         checked={data.is_current}
                         onChange={(value) => setData('is_current', value)}

@@ -17,6 +17,8 @@ export default function Index({ auth, fiscalYears }) {
     const [type, setType] = useState("add")
 
     const editAction = (id) => {
+        console.log(id);
+
         setType("edit");
         setSelected(id);
         modalRef.current.open();
@@ -40,7 +42,7 @@ export default function Index({ auth, fiscalYears }) {
     };
 
     return (
-        <Authenticated user={auth.user}>
+        <Authenticated user={auth.user} activeKey={['options']}>
             <Head title="Fiscal Years" />
             <div className="page-content">
                 <div className="top-section">
@@ -76,8 +78,12 @@ export default function Index({ auth, fiscalYears }) {
                             items={fiscalYears}
                             checkboxCell={false}
                             columns={fiscalYearTableHeader}
-                            actions={{ editAction, deleteAction }}
+                            actions={{
+                                editAction,
+                                deleteAction
+                            }}
                             pagination={true}
+                            serialize
                         />
                     </div>
                 </div>
