@@ -58,7 +58,7 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        $item = $this->employeeService->delete($id);
+        $item = $this->employeeService->destroy($id);
         if ($item) {
             return to_route('employees.index');
         }

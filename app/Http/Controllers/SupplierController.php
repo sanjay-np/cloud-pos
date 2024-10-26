@@ -51,7 +51,7 @@ class SupplierController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->supplierService->delete(id: $id);
+        $item = $this->supplierService->destroy(id: $id);
         if ($item) {
             return to_route(route: 'suppliers.index');
         }

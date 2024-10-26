@@ -60,9 +60,9 @@ class EmployeeService implements EmployeeServiceInterface
         return $this->employeeRepository->update($data, $id);
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
-        return $this->employeeRepository->delete($id);
+        return $this->employeeRepository->destroy($id);
     }
 
     public function avatarUpload($data)

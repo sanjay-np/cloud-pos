@@ -14,5 +14,5 @@ interface FiscalYearServiceInterface
 
     public function update(array $data, int $id);
 
-    public function delete(int $id);
+    public function destroy(int $id);
 }

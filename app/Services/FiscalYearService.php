@@ -39,8 +39,8 @@ class FiscalYearService implements FiscalYearServiceInterface
         return $this->fiscalYearRepository->update($data, $id);
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
-        return $this->fiscalYearRepository->delete($id);
+        return $this->fiscalYearRepository->destroy($id);
     }
 }

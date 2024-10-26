@@ -47,7 +47,7 @@ class BrandController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->brandService->delete(id: $id);
+        $item = $this->brandService->destroy(id: $id);
         if ($item) {
             return to_route(route: 'brands.index');
         }

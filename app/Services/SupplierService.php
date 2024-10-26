@@ -41,9 +41,9 @@ class SupplierService implements SupplierServiceInterface
         return $this->supplierRepository->update(data: $data, id: $id);
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
-        return $this->supplierRepository->delete(id: $id);
+        return $this->supplierRepository->destroy(id: $id);
     }
 
     public function suppliersValueAndLabel()

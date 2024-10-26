@@ -39,7 +39,7 @@ class SupplierRepository implements SupplierRepositoryInterface
         return $this->model->find($id)->update($data);
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
         return $this->model->find($id)->delete();
     }

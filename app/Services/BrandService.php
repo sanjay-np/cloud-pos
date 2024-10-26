@@ -51,10 +51,10 @@ class BrandService implements BrandServiceInterface
         return $this->brandRepository->update(data: $data, id: $id);
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
         // Todo: Image unlink
-        return $this->brandRepository->delete(id: $id);
+        return $this->brandRepository->destroy(id: $id);
     }
 
 

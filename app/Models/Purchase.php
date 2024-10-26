@@ -35,7 +35,8 @@ class Purchase extends Model
         static::creating(function ($model) {
             $number = Purchase::max('id') + 1;
             $model->reference = make_reference_id('PUR', $number);
-            $model->fiscal_year_id = $this->getCurrentFY();
+            $instance = new Purchase();
+            $model->fiscal_year_id = $model->getCurrentFY();
         });
     }
 
@@ -51,6 +52,6 @@ class Purchase extends Model
 
     public function scopeCurrent($query)
     {
-        return $query->where('fiscal_year_id', $this->getCurrentFY())->first();
+        return $query->where('fiscal_year_id', $this->getCurrentFY());
     }
 }

@@ -45,9 +45,9 @@ class FiscalYearController extends Controller
         }
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
-        $item = $this->fiscalYearService->delete($id);
+        $item = $this->fiscalYearService->destroy($id);
         if ($item) {
             return to_route('fiscal-years.index');
         }
