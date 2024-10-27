@@ -2,13 +2,15 @@
 
 namespace App\Repositories;
 
-class SalesRepository
+use App\Contracts\Sales\SalesRepositoryInterface;
+use App\Models\Sale;
+
+class SalesRepository implements SalesRepositoryInterface
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
+    protected $model;
+
+    public function __construct(Sale $model)
     {
-        //
+        $this->model = $model;
     }
 }
