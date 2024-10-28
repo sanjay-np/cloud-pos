@@ -21,7 +21,7 @@ class PurchaseController extends Controller
 
     public function index()
     {
-        $suppliers = $this->supplierService->suppliersValueAndLabel();
+        $suppliers = $this->supplierService->labelAndValue();
         $purchases = $this->purchaseService->paginate(perPage: 10);
         return Inertia::render('Purchases/Index', [
             'suppliers' => $suppliers,

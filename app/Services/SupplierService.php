@@ -46,7 +46,7 @@ class SupplierService implements SupplierServiceInterface
         return $this->supplierRepository->destroy(id: $id);
     }
 
-    public function suppliersValueAndLabel()
+    public function labelAndValue()
     {
         $suppliers = $this->supplierRepository->findAll();
         $suppliers = $suppliers->map(function ($supplier) {

@@ -9,7 +9,7 @@ import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { Toggle } from 'rsuite'
 
-export default function Index({ auth }) {
+export default function Index({ auth, customers }) {
 
     const drawerRef = useRef(false)
     const [selected, setSelected] = useState(null)
@@ -72,6 +72,7 @@ export default function Index({ auth }) {
                 drawerRef={drawerRef}
                 selected={selected}
                 type={type}
+                customers={customers}
             />
 
         </Authenticated>

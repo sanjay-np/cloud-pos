@@ -27,8 +27,8 @@ class ProductController extends Controller
 
     public function index()
     {
-        $brands = $this->brandService->brandsValueAndLabel();
-        $suppliers = $this->supplierService->suppliersValueAndLabel();
+        $brands = $this->brandService->labelAndValue();
+        $suppliers = $this->supplierService->labelAndValue();
         $products = $this->productService->paginate(10);
         return Inertia::render('Products/Index', [
             'products' => $products,

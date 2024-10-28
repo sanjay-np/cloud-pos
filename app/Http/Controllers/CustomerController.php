@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Customer\CustomerServiceInterface;
 use App\Http\Requests\Customer\StoreRequest;
 use App\Http\Requests\Customer\UpdateRequest;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CustomerController extends Controller
@@ -51,5 +52,10 @@ class CustomerController extends Controller
         if ($item) {
             return to_route('customers.index');
         }
+    }
+
+    public function search(Request $request)
+    {
+        return $this->customerService->search($request->search_qry);
     }
 }

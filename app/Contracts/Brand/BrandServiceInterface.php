@@ -16,5 +16,5 @@ interface BrandServiceInterface
 
     public function destroy(int $id);
 
-    public function brandsValueAndLabel();
+    public function labelAndValue();
 }

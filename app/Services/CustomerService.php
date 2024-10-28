@@ -48,4 +48,21 @@ class CustomerService implements CustomerServiceInterface
     {
         return $this->customerRepository->destroy($id);
     }
+
+    public function search($search_qry)
+    {
+        return $this->customerRepository->search($search_qry);
+    }
+
+    public function labelAndValue()
+    {
+        $customers = $this->customerRepository->takeItems(10);
+        $customers = $customers->map(function ($customer) {
+            return [
+                'value' => $customer->id,
+                'label' => $customer->name
+            ];
+        });
+        return $customers;
+    }
 }

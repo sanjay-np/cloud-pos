@@ -29,6 +29,11 @@ class CustomerRepository implements CustomerRepositoryInterface
         return $this->model->find($id);
     }
 
+    public function findAll()
+    {
+        return $this->model->all();
+    }
+
     public function update(array $data, int $id)
     {
         return $this->model->find($id)->update($data);
@@ -37,5 +42,19 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function destroy(int $id)
     {
         return $this->model->find($id)->delete();
+    }
+
+    public function search(string $search_qry)
+    {
+        return $this->model
+            ->where('name', 'like', '%' . $search_qry . '%')
+            ->orWhere('code', 'like', '%' . $search_qry . '%')
+            ->orWhere('phone', 'like', '%' . $search_qry . '%')
+            ->take(10)->get();
+    }
+
+    public function takeItems(int $count)
+    {
+        return $this->model->take($count)->get();
     }
 }

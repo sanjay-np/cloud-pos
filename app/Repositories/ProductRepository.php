@@ -51,6 +51,6 @@ class ProductRepository implements ProductRepositoryInterface
             ->where('title', 'like', "%{$search_qry}%")
             ->orWhere('sku', 'like', "%{$search_qry}%")
             ->orWhere('bar_code', 'like', "%{$search_qry}%")
-            ->get();
+            ->take(10)->get();
     }
 }
