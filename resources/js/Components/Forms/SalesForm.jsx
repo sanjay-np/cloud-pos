@@ -8,8 +8,9 @@ import ProductTable from '../Table/ProductTable'
 import { formattedNumber } from '@/Lib/Utils'
 import { useSelector } from 'react-redux'
 import { paymentMethods, purchaseStatus } from '@/Lib/Constants'
+import UserPicker from '../UserPicker'
 
-export default function SalesForm({ drawerRef, selected, type, customers }) {
+export default function SalesForm({ drawerRef, selected, type }) {
 
     const productSearchRef = useRef(null)
     const [searchCustomerItems, setSearchCustomerItems] = useState([])
@@ -38,18 +39,6 @@ export default function SalesForm({ drawerRef, selected, type, customers }) {
         setSearchProductItems([])
         if (!productSearchRef.current) return
         productSearchRef.current.value = ''
-    }
-
-    const handleCustomerSearch = async (searchTerm) => {
-
-        try {
-            const response = await axios.get(route('customers.search'), { search_qry: searchTerm });
-            setSearchCustomerItems(response.data);
-        } catch (error) {
-            console.error("Error fetching customers:", error);
-        } finally {
-            setLoading(false);
-        }
     }
 
     const onSubmit = () => {
@@ -100,18 +89,14 @@ export default function SalesForm({ drawerRef, selected, type, customers }) {
                     <label className='text-gray-600 font-semibold mb-1 block'>Reference</label>
                     <Input
                         readOnly
-                        defaultValue={'CGS-SAL'}
+                        defaultValue={'CGS-SALE'}
                         className='bg-gray-200'
                     />
                     <InputError message={errors.reference} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Customer</label>
-                    <SelectPicker
-                        data={customers}
-                        className='w-full'
-                        onChange={(val) => setData('customer_id', val)}
-                    />
+                    <UserPicker />
                     <InputError message={errors.customer_id} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">

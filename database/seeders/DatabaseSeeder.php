@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\User;
@@ -17,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();        
+        User::factory(10)->create();
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@test.com',
@@ -35,5 +36,7 @@ class DatabaseSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             $product = Product::factory()->create();
         }
+
+        Customer::factory()->count(30)->create();
     }
 }

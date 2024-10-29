@@ -56,6 +56,19 @@ class CustomerController extends Controller
 
     public function search(Request $request)
     {
+        if (isset($request->show_type) && $request->show_type === 'picker') {
+            $customers = $this->customerService->search($request->search_qry);
+            return $customers->map(function ($customer) {
+                return [
+                    'value' => $customer->id,
+                    'label' => $customer->name
+                ];
+            });
+        }
         return $this->customerService->search($request->search_qry);
+    }
+    public function getCustomerPickerItems(Request $request)
+    {
+        return $this->customerService->labelAndValue($request->count ?? 10);
     }
 }

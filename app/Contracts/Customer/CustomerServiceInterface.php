@@ -16,5 +16,5 @@ interface CustomerServiceInterface
 
     public function search(string $search_qry);
 
-    public function labelAndValue();
+    public function labelAndValue(int $count);
 }

@@ -20,9 +20,6 @@ class SalesController extends Controller
 
     public function index()
     {
-        $customers = $this->customerService->labelAndValue();
-        return Inertia::render('Sales/Index', [
-            'customers' => $customers
-        ]);
+        return Inertia::render('Sales/Index');
     }
 }

@@ -54,9 +54,9 @@ class CustomerService implements CustomerServiceInterface
         return $this->customerRepository->search($search_qry);
     }
 
-    public function labelAndValue()
+    public function labelAndValue(int $count)
     {
-        $customers = $this->customerRepository->takeItems(10);
+        $customers = $this->customerRepository->takeItems($count);
         $customers = $customers->map(function ($customer) {
             return [
                 'value' => $customer->id,
