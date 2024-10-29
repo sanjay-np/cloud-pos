@@ -71,6 +71,20 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        return $this->productService->search($request->search_qry);
+        $products = $this->productService->search($request->search_qry);
+        if (isset($request->show_type) && $request->show_type === 'picker') {
+            return $products->map(function ($product) {
+                return [
+                    'value' => $product->id,
+                    'label' => $product->name
+                ];
+            });
+        }
+        return $products;
+    }
+
+    public function picker(Request $request)
+    {
+        return $this->productService->labelAndValue($request->count ?? 10);
     }
 }

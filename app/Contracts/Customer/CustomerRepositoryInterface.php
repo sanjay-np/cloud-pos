@@ -18,5 +18,5 @@ interface CustomerRepositoryInterface
 
     public function search(string $search_qry);
 
-    public function takeItems(int $count);
+    public function labelAndValue(int $count);
 }

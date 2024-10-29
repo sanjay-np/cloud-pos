@@ -46,15 +46,13 @@ class SupplierService implements SupplierServiceInterface
         return $this->supplierRepository->destroy(id: $id);
     }
 
-    public function labelAndValue()
+    public function search(string $search_qry)
     {
-        $suppliers = $this->supplierRepository->findAll();
-        $suppliers = $suppliers->map(function ($supplier) {
-            return [
-                'value' => $supplier->id,
-                'label' => $supplier->name
-            ];
-        })->toArray();
-        return $suppliers;
+        return $this->supplierRepository->search(search_qry: $search_qry);
+    }
+
+    public function take($count)
+    {
+        return $this->supplierRepository->take($count);
     }
 }

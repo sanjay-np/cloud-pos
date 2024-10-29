@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('products', ProductController::class)->only(['index', 'store', 'update', 'destroy']);
         Route::get('/products/find/{id}', 'find')->name('products.find');
         Route::get('/products/search', 'search')->name('products.search');
+        Route::get('/products/picker', 'picker')->name('products.picker');
     });
 
     // Attributes
@@ -49,6 +50,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(BrandController::class)->group(function () {
         Route::resource('products/brands', BrandController::class)->only(['index', 'store', 'update', 'destroy']);
         Route::get('/products/brands/find/{id}', 'find')->name('brands.find');
+        Route::get('/products/brands/search', 'search')->name('brands.search');
+        Route::get('/products/brands/picker', 'picker')->name('brands.picker');
     });
 
     // Categories
@@ -61,6 +64,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(SupplierController::class)->group(function () {
         Route::resource('products/suppliers', SupplierController::class)->only(['index', 'store', 'update', 'destroy']);
         Route::get('/products/suppliers/{id}', 'find')->name('suppliers.find');
+        Route::get('/products/suppliers/search', 'search')->name('suppliers.search');
+        Route::get('/products/suppliers/picker', 'picker')->name('suppliers.picker');
     });
 
     // Purchases
@@ -86,7 +91,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('customers', CustomerController::class)->only(['index', 'store', 'update', 'destroy']);
         Route::get('/customers/find/{id}', 'find')->name('customers.find');
         Route::get('/customers/search', 'search')->name('customers.search');
-        Route::get('/customers/picker', 'getCustomerPickerItems')->name('customers.picker');
+        Route::get('/customers/picker', 'picker')->name('customers.picker');
     });
 
     // Employees

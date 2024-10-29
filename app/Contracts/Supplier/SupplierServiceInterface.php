@@ -16,5 +16,7 @@ interface SupplierServiceInterface
 
     public function destroy(int $id);
 
-    public function labelAndValue();
+    public function search(string $search_qry);
+
+    public function take(int $count);
 }

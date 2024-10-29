@@ -53,7 +53,7 @@ class CustomerRepository implements CustomerRepositoryInterface
             ->take(10)->get();
     }
 
-    public function takeItems(int $count)
+    public function labelAndValue(int $count)
     {
         return $this->model->take($count)->get();
     }

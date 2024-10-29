@@ -8,7 +8,7 @@ import ProductTable from '../Table/ProductTable'
 import { formattedNumber } from '@/Lib/Utils'
 import { useSelector } from 'react-redux'
 import { paymentMethods, purchaseStatus } from '@/Lib/Constants'
-import UserPicker from '../UserPicker'
+import CustomerPicker from '@/Components/Picker/CustomerPicker'
 
 export default function SalesForm({ drawerRef, selected, type }) {
 
@@ -96,7 +96,7 @@ export default function SalesForm({ drawerRef, selected, type }) {
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Customer</label>
-                    <UserPicker />
+                    <CustomerPicker />
                     <InputError message={errors.customer_id} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">

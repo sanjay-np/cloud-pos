@@ -53,4 +53,9 @@ class ProductRepository implements ProductRepositoryInterface
             ->orWhere('bar_code', 'like', "%{$search_qry}%")
             ->take(10)->get();
     }
+
+    public function labelAndValue(int $count)
+    {
+        return $this->model->take($count)->get();
+    }
 }

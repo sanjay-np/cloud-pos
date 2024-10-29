@@ -6,6 +6,7 @@ use App\Contracts\Brand\BrandServiceInterface;
 use App\Contracts\Supplier\SupplierServiceInterface;
 use App\Http\Requests\Supplier\StoreRequest;
 use App\Http\Requests\Supplier\UpdateRequest;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SupplierController extends Controller
@@ -20,10 +21,8 @@ class SupplierController extends Controller
 
     public function index()
     {
-        $brands = $this->brandService->labelAndValue();
         $suppliers = $this->supplierService->paginate(perPage: 10);
         return Inertia::render(component: 'Suppliers/Index', props: [
-            'brands' => $brands,
             'suppliers' => $suppliers
         ]);
     }
@@ -55,5 +54,31 @@ class SupplierController extends Controller
         if ($item) {
             return to_route(route: 'suppliers.index');
         }
+    }
+
+    public function search(Request $request)
+    {
+        $suppliers = $this->supplierService->search($request->search);
+        if (isset($request->show_type) && $request->show_type === 'picker') {
+            return  $suppliers->map(function ($supplier) {
+                return [
+                    'value' => $supplier->id,
+                    'label' => $supplier->name
+                ];
+            });
+        }
+        return $suppliers;
+    }
+
+    public function picker(Request $request)
+    {
+        $suppliers = $this->supplierService->take($request->count ?? 10);
+        $suppliers = $suppliers->map(function ($supplier) {
+            return [
+                'value' => $supplier->id,
+                'label' => $supplier->name
+            ];
+        });
+        return $suppliers;
     }
 }

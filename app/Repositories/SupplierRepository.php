@@ -43,4 +43,17 @@ class SupplierRepository implements SupplierRepositoryInterface
     {
         return $this->model->find($id)->delete();
     }
+
+    public function search(string $search_qry)
+    {
+        return $this->model
+            ->where('name', 'like', '%' . $search_qry . '%')
+            ->take(10)
+            ->get();
+    }
+
+    public function take(int $count)
+    {
+        return $this->model->take($count)->get();
+    }
 }

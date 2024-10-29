@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { SelectPicker } from 'rsuite'
 
-export default function UserPicker() {
+export default function CustomerPicker() {
     const [customers, setCustomers] = useState([])
     useEffect(() => {
         const fetchItems = async () => {
@@ -34,7 +34,7 @@ export default function UserPicker() {
     return (
         <SelectPicker
             data={customers}
-            className='w-full'
+            block
             onSearch={handleCustomerSearch}
         />
     )

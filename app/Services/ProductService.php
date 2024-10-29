@@ -57,6 +57,17 @@ class ProductService implements ProductServiceInterface
         return $this->productRepository->search($search_qry);
     }
 
+    public function labelAndvalue(int $count)
+    {
+        $products = $this->productRepository->labelAndValue($count);
+        $products = $products->map(function ($product) {
+            return [
+                'value' => $product->id,
+                'label' => $product->name
+            ];
+        });
+    }
+
     public function uploadMainImage($data)
     {
         $path = null;

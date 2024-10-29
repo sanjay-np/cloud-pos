@@ -56,8 +56,8 @@ class CustomerController extends Controller
 
     public function search(Request $request)
     {
+        $customers = $this->customerService->search($request->search_qry);
         if (isset($request->show_type) && $request->show_type === 'picker') {
-            $customers = $this->customerService->search($request->search_qry);
             return $customers->map(function ($customer) {
                 return [
                     'value' => $customer->id,
@@ -65,9 +65,9 @@ class CustomerController extends Controller
                 ];
             });
         }
-        return $this->customerService->search($request->search_qry);
+        return $customers;
     }
-    public function getCustomerPickerItems(Request $request)
+    public function picker(Request $request)
     {
         return $this->customerService->labelAndValue($request->count ?? 10);
     }

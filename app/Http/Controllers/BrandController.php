@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Brand\BrandServiceInterface;
 use App\Http\Requests\Brand\StoreRequest;
 use App\Http\Requests\Brand\UpdateRequest;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class BrandController extends Controller
@@ -51,5 +52,31 @@ class BrandController extends Controller
         if ($item) {
             return to_route(route: 'brands.index');
         }
+    }
+
+    public function search(Request $request)
+    {
+        $brands = $this->brandService->search(search_qry: $request->search_qry);
+        if (isset($request->show_type) && $request->show_type === 'picker') {
+            return $brands->map(function ($brand) {
+                return [
+                    'value' => $brand->id,
+                    'label' => $brand->name
+                ];
+            });
+        }
+        return $brands;
+    }
+
+    public function picker(Request $request)
+    {
+        $brands = $this->brandService->take($request->count ?? 10);
+        $brands = $brands->map(function ($brand) {
+            return [
+                'value' => $brand->id,
+                'label' => $brand->name
+            ];
+        });
+        return $brands;
     }
 }

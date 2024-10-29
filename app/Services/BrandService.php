@@ -67,15 +67,13 @@ class BrandService implements BrandServiceInterface
         return $filePath;
     }
 
-    public function labelAndValue(): array
+    public function search(string $search_qry)
     {
-        $brands = $this->brandRepository->findAll();
-        $brands = $brands->map(function ($brand) {
-            return [
-                'value' => $brand->id,
-                'label' => $brand->name
-            ];
-        })->toArray();
-        return $brands;
+        return $this->brandRepository->search(search_qry: $search_qry);
+    }
+
+    public function take(int $count): array
+    {
+        return $this->brandRepository->take($count);
     }
 }
