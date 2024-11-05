@@ -17,7 +17,7 @@ export default function SiderbarComp(props) {
                             <Link href={route('dashboard')}>Dashboard</Link>
                         </Nav.Item>
 
-                        <Nav.Item panel>Operations</Nav.Item>
+                        {/* <Nav.Item panel>Operations</Nav.Item>
                         <Nav.Menu eventKey={'products'} title="Products" icon={<PackageIcon strokeWidth={1.5} size={20} />} className='dropdown-menu'>
                             <Nav.Item as={'div'} eventKey={'products.index'} active={currenRoute === 'products.index'}>
                                 <Link href={route('products.index')}>All Products</Link>
@@ -56,12 +56,12 @@ export default function SiderbarComp(props) {
                         <Nav.Item panel>Analytics</Nav.Item>
                         <Nav.Item icon={<ClipboardCheckIcon strokeWidth={1.5} size={20} />} as={'div'}>Reports</Nav.Item>
                         <Nav.Item icon={<PieChartIcon strokeWidth={1.5} size={20} />} as={'div'}>Analysis</Nav.Item>
-
+*/}
                         <Nav.Item panel>Users</Nav.Item>
                         <Nav.Item icon={<BookUserIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('customers.index')}>Customers</Link>
                         </Nav.Item>
-                        <Nav.Item icon={<ContactRoundIcon strokeWidth={1.5} size={20} />} as={'div'}>
+                        {/* <Nav.Item icon={<ContactRoundIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('employees.index')}>Employees</Link>
                         </Nav.Item>
 
@@ -70,7 +70,7 @@ export default function SiderbarComp(props) {
                             <Nav.Item as={'div'} eventKey={'settings.index'} active={currenRoute === 'settings.index'}>
                                 <Link href={route('fiscal-years.index')}>Fiscal Years</Link>
                             </Nav.Item>
-                        </Nav.Menu>
+                        </Nav.Menu> */}
                     </Nav>
                 </Sidenav.Body>
             </Sidenav>

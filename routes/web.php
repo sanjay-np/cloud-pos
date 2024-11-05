@@ -30,81 +30,81 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
+// Route::middleware(['auth', 'verified'])->group(function () {
 
-    // Products
-    Route::controller(ProductController::class)->group(function () {
-        Route::resource('products', ProductController::class)->only(['index', 'store', 'update', 'destroy']);
-        Route::get('/products/find/{id}', 'find')->name('products.find');
-        Route::get('/products/search', 'search')->name('products.search');
-        Route::get('/products/picker', 'picker')->name('products.picker');
-    });
+//     // Products
+//     Route::controller(ProductController::class)->group(function () {
+//         Route::resource('products', ProductController::class)->only(['index', 'store', 'update', 'destroy']);
+//         Route::get('/products/find/{id}', 'find')->name('products.find');
+//         Route::get('/products/search', 'search')->name('products.search');
+//         Route::get('/products/picker', 'picker')->name('products.picker');
+//     });
 
-    // Attributes
-    Route::controller(AttributeController::class)->group(function () {
-        Route::resource('products/attributes', AttributeController::class)->only(['index', 'store', 'update', 'destroy']);
-        Route::get('/products/attributes/find/{id}', 'find')->name('attributes.find');
-    });
+//     // Attributes
+//     Route::controller(AttributeController::class)->group(function () {
+//         Route::resource('products/attributes', AttributeController::class)->only(['index', 'store', 'update', 'destroy']);
+//         Route::get('/products/attributes/find/{id}', 'find')->name('attributes.find');
+//     });
 
-    // Brands
-    Route::controller(BrandController::class)->group(function () {
-        Route::resource('products/brands', BrandController::class)->only(['index', 'store', 'update', 'destroy']);
-        Route::get('/products/brands/find/{id}', 'find')->name('brands.find');
-        Route::get('/products/brands/search', 'search')->name('brands.search');
-        Route::get('/products/brands/picker', 'picker')->name('brands.picker');
-    });
+//     // Brands
+//     Route::controller(BrandController::class)->group(function () {
+//         Route::resource('products/brands', BrandController::class)->only(['index', 'store', 'update', 'destroy']);
+//         Route::get('/products/brands/find/{id}', 'find')->name('brands.find');
+//         Route::get('/products/brands/search', 'search')->name('brands.search');
+//         Route::get('/products/brands/picker', 'picker')->name('brands.picker');
+//     });
 
-    // Categories
-    Route::controller(CategoryController::class)->group(function () {
-        Route::resource('products/categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
-        Route::get('/products/categories/{id}', 'find')->name('categories.find');
-    });
+//     // Categories
+//     Route::controller(CategoryController::class)->group(function () {
+//         Route::resource('products/categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
+//         Route::get('/products/categories/{id}', 'find')->name('categories.find');
+//     });
 
-    // Suppliers
-    Route::controller(SupplierController::class)->group(function () {
-        Route::resource('products/suppliers', SupplierController::class)->only(['index', 'store', 'update', 'destroy']);
-        Route::get('/products/suppliers/{id}', 'find')->name('suppliers.find');
-        Route::get('/products/suppliers/search', 'search')->name('suppliers.search');
-        Route::get('/products/suppliers/picker', 'picker')->name('suppliers.picker');
-    });
+//     // Suppliers
+//     Route::controller(SupplierController::class)->group(function () {
+//         Route::resource('products/suppliers', SupplierController::class)->only(['index', 'store', 'update', 'destroy']);
+//         Route::get('/products/suppliers/{id}', 'find')->name('suppliers.find');
+//         Route::get('/products/suppliers/search', 'search')->name('suppliers.search');
+//         Route::get('/products/suppliers/picker', 'picker')->name('suppliers.picker');
+//     });
 
-    // Purchases
-    Route::controller(PurchaseController::class)->group(function () {
-        Route::resource('purchases', PurchaseController::class)->only(['index', 'store', 'update', 'destroy']);
-        Route::get('/purchases/find/{id}', 'find')->name('purchases.find');
-    });
+//     // Purchases
+//     Route::controller(PurchaseController::class)->group(function () {
+//         Route::resource('purchases', PurchaseController::class)->only(['index', 'store', 'update', 'destroy']);
+//         Route::get('/purchases/find/{id}', 'find')->name('purchases.find');
+//     });
 
-    Route::resource('purchases/returns', PurchaseReturnController::class)->only(['index', 'store', 'update', 'destroy'])->names('purchases.returns');
-    Route::get('purchases/returns/{id}', [PurchaseReturnController::class, 'find'])->name('purchases.returns.find');
+//     Route::resource('purchases/returns', PurchaseReturnController::class)->only(['index', 'store', 'update', 'destroy'])->names('purchases.returns');
+//     Route::get('purchases/returns/{id}', [PurchaseReturnController::class, 'find'])->name('purchases.returns.find');
 
-    // Sales
-    Route::controller(SalesController::class)->group(function () {
-        Route::resource('sales', SalesController::class)->only(['index', 'store', 'update', 'destroy']);
-        Route::get('/sales/find/{id}', 'find')->name('sales.find');
-    });
+//     // Sales
+//     Route::controller(SalesController::class)->group(function () {
+//         Route::resource('sales', SalesController::class)->only(['index', 'store', 'update', 'destroy']);
+//         Route::get('/sales/find/{id}', 'find')->name('sales.find');
+//     });
 
-    Route::resource('sales/returns', SalesReturnController::class)->only(['index', 'store', 'update', 'destroy'])->names('sales.returns');
-    Route::get('sales/returns/{id}', [SalesReturnController::class, 'find'])->name('sales.returns.find');
+//     Route::resource('sales/returns', SalesReturnController::class)->only(['index', 'store', 'update', 'destroy'])->names('sales.returns');
+//     Route::get('sales/returns/{id}', [SalesReturnController::class, 'find'])->name('sales.returns.find');
 
-    // Customers
-    Route::controller(CustomerController::class)->group(function () {
-        Route::resource('customers', CustomerController::class)->only(['index', 'store', 'update', 'destroy']);
-        Route::get('/customers/find/{id}', 'find')->name('customers.find');
-        Route::get('/customers/search', 'search')->name('customers.search');
-        Route::get('/customers/picker', 'picker')->name('customers.picker');
-    });
+//     // Customers
+//     Route::controller(CustomerController::class)->group(function () {
+//         Route::resource('customers', CustomerController::class)->only(['index', 'store', 'update', 'destroy']);
+//         Route::get('/customers/find/{id}', 'find')->name('customers.find');
+//         Route::get('/customers/search', 'search')->name('customers.search');
+//         Route::get('/customers/picker', 'picker')->name('customers.picker');
+//     });
 
-    // Employees
-    Route::controller(EmployeeController::class)->group(function () {
-        Route::resource('employees', EmployeeController::class)->only(['index', 'store', 'update', 'destroy']);
-        Route::get('/employees/find/{id}', 'find')->name('employees.find');
-    });
+//     // Employees
+//     Route::controller(EmployeeController::class)->group(function () {
+//         Route::resource('employees', EmployeeController::class)->only(['index', 'store', 'update', 'destroy']);
+//         Route::get('/employees/find/{id}', 'find')->name('employees.find');
+//     });
 
-    Route::controller(FiscalYearController::class)->group(function () {
-        Route::resource('fiscal-years', FiscalYearController::class)->only(['index', 'store', 'update', 'destroy']);
-        Route::get('/fiscal-years/find/{id}', 'find')->name('fiscal-years.find');
-    });
-});
+//     Route::controller(FiscalYearController::class)->group(function () {
+//         Route::resource('fiscal-years', FiscalYearController::class)->only(['index', 'store', 'update', 'destroy']);
+//         Route::get('/fiscal-years/find/{id}', 'find')->name('fiscal-years.find');
+//     });
+// });
 
 
 require __DIR__ . '/auth.php';

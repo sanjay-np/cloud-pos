@@ -18,25 +18,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        // User::factory(10)->create();
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@test.com',
         ]);
 
-        // Create 10 brands
-        Brand::factory()->count(50)->create();
+        // // Create 10 brands
+        // Brand::factory()->count(50)->create();
 
-        //Create 5 suppliers
-        Supplier::factory()->count(50)->create();
+        // //Create 5 suppliers
+        // Supplier::factory()->count(50)->create();
 
-        // Create 10 Categories
-        Category::factory()->count(50)->create();
+        // // Create 10 Categories
+        // Category::factory()->count(50)->create();
 
-        for ($i = 0; $i < 20; $i++) {
-            $product = Product::factory()->create();
-        }
+        // for ($i = 0; $i < 20; $i++) {
+        //     $product = Product::factory()->create();
+        // }
 
-        Customer::factory()->count(30)->create();
+        // Customer::factory()->count(30)->create();
     }
 }

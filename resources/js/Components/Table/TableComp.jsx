@@ -57,7 +57,7 @@ const TableComp = (props) => {
                 </Table>
             </div>
             {
-                props?.pagination && (
+                props?.pagination && props?.items?.links && (
                     <div className="pagination-wrapper">
                         <Pagination
                             links={props?.items?.links}
