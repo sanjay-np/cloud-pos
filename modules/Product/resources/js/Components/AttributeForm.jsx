@@ -1,25 +1,20 @@
-import InputError from '@/Components/InputError'
-import FormDrawer from '@/Components/Overlays/FormDrawer'
-import { loadingText } from '@/Lib/Constants'
-import { previewFile } from '@/Lib/Utils'
-import { router, useForm } from '@inertiajs/react'
-import axios from 'axios'
-import { AirplayIcon } from 'lucide-react'
+import { router, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react'
-import { Input, InputGroup, Loader, SelectPicker, Uploader } from 'rsuite'
-import { toast } from 'sonner'
+import { Input, InputGroup, Loader, SelectPicker, TagInput } from 'rsuite';
+import InputError from '@/Components/InputError';
+import FormDrawer from '@/Components/Overlays/FormDrawer';
+import { toast } from 'sonner';
+import { loadingText } from '@/Lib/Constants';
 
 export default function AttributeForm(props) {
-    const { drawerRef, selected, type } = props
+
+    const { drawerRef, selected, type } = props;
 
     const [loading, setLoading] = useState(false)
-    const [logo, setLogo] = useState(null)
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
-        code: '',
-        type: '',
-        is_required: false,
-        options: [],
+        description: '',
+        values: [],
         status: ''
     })
 
@@ -28,67 +23,63 @@ export default function AttributeForm(props) {
         const fetchData = async () => {
             setLoading(true)
             try {
-                const res = await axios.get(route('brands.show', selected));
+                const res = await axios.get(route('attributes.find', selected));
                 setData(res?.data);
-                setLogo(res?.data?.image_url);
             } catch (err) {
                 console.log(err);
             } finally {
                 setLoading(false)
             }
-        };
-        fetchData();
+        }
+        fetchData()
     }, [selected])
 
+
     const onSubmit = () => {
-        if (type === 'add') {
-            post(route('brands.store'), {
+        if (!selected && type === "add") {
+            post(route('attributes.store'), {
                 onSuccess: () => {
-                    setLogo(null)
                     drawerRef.current.close()
                     toast.success('Success', {
-                        description: 'Brand added successfully',
+                        description: 'Attribute added successfully',
                     })
                 }
             })
-        } else if (type === 'edit') {
-            router.post(route('brands.update', selected), {
+        }
+        if (selected && type === "edit") {
+            router.post(route('attributes.update', selected), {
                 _method: 'put',
-                ...data
+                ...data,
             }, {
                 onSuccess: () => {
-                    setLogo(null)
                     drawerRef.current.close()
                     toast.success('Success', {
-                        description: 'Brand updated successfully',
+                        description: 'Attribute updated successfully',
                     })
-                },
+                }
             })
         }
     }
 
     const formClear = () => {
         reset();
-        setLogo(null);
-    }
+    };
 
     return (
         <FormDrawer
             ref={drawerRef}
             processing={processing}
             onSubmit={onSubmit}
-            drawerTitle={selected ? "Edit Brand" : "Create New Brand"}
+            drawerTitle={selected ? "Edit Attribute" : "Create New Attribute"}
             reset={formClear}
         >
-            {loading ? (
-                <Loader center content={loadingText} vertical />
-            ) : (
+            {loading ? <Loader backdrop content={loadingText} vertical /> :
                 <>
                     <div className="mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Brand Name</label>
                         <InputGroup>
                             <Input
-                                placeholder="Brand Name..."
+                                placeholder="Attribute Name..."
                                 value={data.name}
                                 onChange={e => setData('name', e)}
                             />
@@ -99,7 +90,7 @@ export default function AttributeForm(props) {
                         <label className='text-gray-600 font-semibold mb-1 block'>Description</label>
                         <InputGroup>
                             <Input
-                                placeholder="Brand Description..."
+                                placeholder="Attribute Description..."
                                 as="textarea"
                                 rows={3}
                                 value={data.description}
@@ -108,55 +99,24 @@ export default function AttributeForm(props) {
                         </InputGroup>
                     </div>
                     <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Website</label>
-                        <InputGroup>
-                            <Input
-                                placeholder="Brand Website..."
-                                value={data.website}
-                                onChange={e => setData('website', e)}
-                            />
-                        </InputGroup>
-                    </div>
-                    <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Country</label>
-                        <InputGroup>
-                            <Input
-                                placeholder="Country of Origin..."
-                                value={data.country}
-                                onChange={e => setData('country', e)}
-                            />
-                        </InputGroup>
-                    </div>
-                    <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Brand Logo</label>
-                        <Uploader
-                            className='brand-logo-uploader'
-                            fileListVisible={false}
-                            listType="picture"
-                            action="/"
-                            autoUpload={false}
-                            onChange={file => {
-                                previewFile(file[0]?.blobFile, value => {
-                                    setLogo(value);
-                                });
-                                setData('image', file[0]);
+                        <label className='text-gray-600 font-semibold mb-1 block'>Attribute Values</label>
+                        <TagInput
+                            trigger={['Enter', 'Space', 'Comma']}
+                            placeholder="Attributes Values..."
+                            onCreate={(value) => {
+                                // setData('values', { ...data.values, value })
                             }}
-                        >
-                            <button style={{ width: 140, height: 140 }}>
-                                {logo ? (
-                                    <img src={logo} width="100%" height="100%" />
-                                ) : (
-                                    <AirplayIcon size={64} strokeWidth={1.2} color='gray' />
-                                )}
-                            </button>
-                        </Uploader>
+                            style={{ width: '100%', height: 100 }}
+                            onClean={() => setData('values', [])}
+                        />
+                        <InputError message={errors.values} className="mt-2" />
                     </div>
-                    <div className="mb-4">
+                    <div className='mb-4'>
                         <label className="text-gray-600 font-semibold mb-1 block">Status</label>
                         <SelectPicker
                             data={[
-                                { value: 'active', label: 'Active' },
-                                { value: 'inactive', label: 'Inactive' }
+                                { value: 'published', label: 'Published' },
+                                { value: 'draft', label: 'Draft' }
                             ]}
                             placeholder="Select status..."
                             className="text-base w-full"
@@ -167,7 +127,7 @@ export default function AttributeForm(props) {
                         <InputError message={errors.status} className="mt-2" />
                     </div>
                 </>
-            )}
+            }
         </FormDrawer>
     )
-} 
+}

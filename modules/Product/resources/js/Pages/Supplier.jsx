@@ -9,7 +9,7 @@ import { supplierTableHeader } from '../Lib/Constants'
 import SupplierForm from '../Components/SupplierForm'
 
 
-export default function Supplier({ auth }) {
+export default function Supplier({ auth, brands }) {
 
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add")

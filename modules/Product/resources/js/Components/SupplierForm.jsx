@@ -1,28 +1,22 @@
-import InputError from '@/Components/InputError'
-import FormDrawer from '@/Components/Overlays/FormDrawer'
-import { loadingText } from '@/Lib/Constants'
-import { previewFile } from '@/Lib/Utils'
-import { router, useForm } from '@inertiajs/react'
-import axios from 'axios'
-import { AirplayIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { Input, InputGroup, Loader, SelectPicker, Uploader } from 'rsuite'
-import { toast } from 'sonner'
+import FormDrawer from "@/Components/Overlays/FormDrawer";
+import { Input, InputGroup, Loader, TagPicker } from "rsuite";
+import InputError from "@/Components/InputError";
+import { router, useForm } from "@inertiajs/react";
+import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import { loadingText } from "@/Lib/Constants";
 
 export default function SupplierForm(props) {
-    const { drawerRef, selected, type } = props
+    const { drawerRef, selected, type, brands } = props
 
     const [loading, setLoading] = useState(false)
-    const [logo, setLogo] = useState(null)
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
-        company_name: '',
-        email: '',
         phone: '',
         address: '',
-        tax_number: '',
-        payment_terms: '',
-        status: ''
+        contact_person: '',
+        pan: '',
+        brands: [],
     })
 
     useEffect(() => {
@@ -30,9 +24,8 @@ export default function SupplierForm(props) {
         const fetchData = async () => {
             setLoading(true)
             try {
-                const res = await axios.get(route('suppliers.show', selected));
+                const res = await axios.get(route('suppliers.find', selected));
                 setData(res?.data);
-                setLogo(res?.data?.image_url);
             } catch (err) {
                 console.log(err);
             } finally {
@@ -43,27 +36,28 @@ export default function SupplierForm(props) {
     }, [selected])
 
     const onSubmit = () => {
-        if (type === 'add') {
+        if (!selected && type === "add") {
             post(route('suppliers.store'), {
                 onSuccess: () => {
-                    setLogo(null)
-                    drawerRef.current.close()
+                    reset()
                     toast.success('Success', {
                         description: 'Supplier added successfully',
                     })
-                }
+                    drawerRef.current.close()
+                },
             })
-        } else if (type === 'edit') {
+        }
+        if (selected && type === "edit") {
             router.post(route('suppliers.update', selected), {
                 _method: 'put',
                 ...data
             }, {
                 onSuccess: () => {
-                    setLogo(null)
-                    drawerRef.current.close()
+                    reset()
                     toast.success('Success', {
                         description: 'Supplier updated successfully',
                     })
+                    drawerRef.current.close()
                 },
             })
         }
@@ -71,7 +65,6 @@ export default function SupplierForm(props) {
 
     const formClear = () => {
         reset();
-        setLogo(null);
     }
 
     return (
@@ -82,98 +75,76 @@ export default function SupplierForm(props) {
             drawerTitle={selected ? "Edit Supplier" : "Create New Supplier"}
             reset={formClear}
         >
-            {loading ? (
-                <Loader center content={loadingText} vertical />
-            ) : (
+            {loading ? <Loader center content={loadingText} vertical /> :
                 <>
                     <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Supplier Name</label>
+                        <label className='text-gray-600 font-semibold mb-1 block'>Firm Name</label>
                         <InputGroup>
                             <Input
-                                placeholder="Supplier Name..."
+                                placeholder="Firm Name..."
                                 value={data.name}
-                                onChange={e => setData('name', e)}
+                                onChange={(value) => setData('name', value)}
                             />
                         </InputGroup>
                         <InputError message={errors.name} className="mt-2" />
                     </div>
                     <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Company Name</label>
+                        <label className='text-gray-600 font-semibold mb-1 block'>Firm Phone</label>
                         <InputGroup>
                             <Input
-                                placeholder="Company Name..."
-                                value={data.company_name}
-                                onChange={e => setData('company_name', e)}
-                            />
-                        </InputGroup>
-                    </div>
-                    <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Email</label>
-                        <InputGroup>
-                            <Input
-                                placeholder="Email..."
-                                value={data.email}
-                                onChange={e => setData('email', e)}
-                            />
-                        </InputGroup>
-                    </div>
-                    <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Phone</label>
-                        <InputGroup>
-                            <Input
-                                placeholder="Phone..."
+                                placeholder="Firm Contact..."
                                 value={data.phone}
-                                onChange={e => setData('phone', e)}
+                                onChange={(value) => setData('phone', value)}
                             />
                         </InputGroup>
+                        <InputError message={errors.phone} className="mt-2" />
                     </div>
                     <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Address</label>
+                        <label className='text-gray-600 font-semibold mb-1 block'>Contact Person Name </label>
                         <InputGroup>
                             <Input
-                                placeholder="Address..."
+                                placeholder="Contact Person Name..."
+                                value={data.contact_person}
+                                onChange={(value) => setData('contact_person', value)}
+                            />
+                        </InputGroup>
+                        <InputError message={errors.contact_person} className="mt-2" />
+                    </div>
+                    <div className="mb-4">
+                        <label className='text-gray-600 font-semibold mb-1 block'>Firm Address </label>
+                        <InputGroup>
+                            <Input
+                                placeholder="Firm Address..."
                                 value={data.address}
-                                onChange={e => setData('address', e)}
+                                onChange={(value) => setData('address', value)}
                             />
                         </InputGroup>
+                        <InputError message={errors.address} className="mt-2" />
                     </div>
                     <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Tax Number</label>
+                        <label className='text-gray-600 font-semibold mb-1 block'>PAN Number </label>
                         <InputGroup>
                             <Input
-                                placeholder="Tax Number..."
-                                value={data.tax_number}
-                                onChange={e => setData('tax_number', e)}
+                                placeholder="PAN Number..."
+                                value={data.pan}
+                                onChange={(value) => setData('pan', value)}
                             />
                         </InputGroup>
+                        <InputError message={errors.pan} className="mt-2" />
                     </div>
                     <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Payment Terms</label>
-                        <InputGroup>
-                            <Input
-                                placeholder="Payment Terms..."
-                                value={data.payment_terms}
-                                onChange={e => setData('payment_terms', e)}
-                            />
-                        </InputGroup>
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-gray-600 font-semibold mb-1 block">Status</label>
-                        <SelectPicker
-                            data={[
-                                { value: 'active', label: 'Active' },
-                                { value: 'inactive', label: 'Inactive' }
-                            ]}
-                            placeholder="Select status..."
-                            className="text-base w-full"
-                            value={data.status}
-                            onChange={value => setData('status', value)}
-                            placement="top"
+                        <label className='text-gray-600 font-semibold mb-1 block'>Supplying Brands </label>
+                        <TagPicker
+                            creatable
+                            data={brands}
+                            style={{ width: '100%' }}
+                            onChange={(value) => setData('brands', value)}
+                            placement='top'
+                            defaultValue={data.brands}
                         />
-                        <InputError message={errors.status} className="mt-2" />
                     </div>
                 </>
-            )}
+            }
         </FormDrawer>
     )
 } 
