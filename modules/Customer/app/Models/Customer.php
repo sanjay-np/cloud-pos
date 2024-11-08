@@ -5,6 +5,7 @@ namespace Modules\Customer\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Customer\Database\Factories\CustomerFactory;
 
 class Customer extends Model
 {
@@ -37,5 +38,9 @@ class Customer extends Model
             $number = Customer::max('id') + 1;
             $model->code = make_reference_id('CUS', $number);
         });
+    }
+
+    protected static function newFactory(){
+        return CustomerFactory::new();
     }
 }

@@ -14,6 +14,7 @@ use Modules\Employee\Http\Controllers\EmployeeController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('employee', EmployeeController::class)->names('employee');
-});
+Route::resource('employees', EmployeeController::class)
+    ->names('employees')
+    ->only(['index', 'store', 'show', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);

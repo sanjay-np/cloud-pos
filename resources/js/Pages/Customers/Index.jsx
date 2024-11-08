@@ -30,6 +30,7 @@ export default function Index({ auth, customers }) {
     };
 
     const handleDelete = () => {
+        if (!selected) return
         router.delete(route('customers.destroy', selected), {
             onSuccess: () => {
                 deleteModalRef.current.close();

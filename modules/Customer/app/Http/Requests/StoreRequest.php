@@ -31,16 +31,15 @@ class StoreRequest extends FormRequest
         return true;
     }
 
-    public function getValues(): array
+    public function getValidated(): array
     {
-        $data = $this->only(keys: [
+        return $this->only(keys: [
             'name',
             'phone',
             'whatsapp',
             'address',
             'status'
         ]);
-        return $data;
     }
 
     public function getAvatar(): string
@@ -49,6 +48,6 @@ class StoreRequest extends FormRequest
             return null;
         }
         $file = $this->file('avatar')['blobFile'];
-        return $this->uploadImage($file, 'customers');
+        return $this->uploadImage($file, 'Customers/Avatar');
     }
 }

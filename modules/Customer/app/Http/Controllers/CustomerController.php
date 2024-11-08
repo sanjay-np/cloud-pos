@@ -28,7 +28,7 @@ class CustomerController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $item = $this->customerService->store($request->getValues() + ['avatar' => $request->getAvatar()]);
+        $item = $this->customerService->store($request->getValidated() + ['avatar' => $request->getAvatar()]);
         if ($item) {
             return to_route('customers.index');
         }
@@ -41,7 +41,8 @@ class CustomerController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
-        $item = $this->customerService->update($request->getValues() + ['avatar' => $request->getAvatar()], $id);
+        // Todo: update avatar
+        $item = $this->customerService->update($request->getValidated() + ['avatar' => $request->getAvatar()], $id);
         if ($item) {
             return to_route('customers.index');
         }

@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
         return true;
     }
 
-    public function getValues(): array
+    public function getValidated(): array
     {
         $data = $this->only(keys: [
             'name',

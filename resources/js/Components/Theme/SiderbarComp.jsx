@@ -17,7 +17,7 @@ export default function SiderbarComp(props) {
                             <Link href={route('dashboard')}>Dashboard</Link>
                         </Nav.Item>
 
-                        {/* <Nav.Item panel>Operations</Nav.Item>
+                        <Nav.Item panel>Operations</Nav.Item>
                         <Nav.Menu eventKey={'products'} title="Products" icon={<PackageIcon strokeWidth={1.5} size={20} />} className='dropdown-menu'>
                             <Nav.Item as={'div'} eventKey={'products.index'} active={currenRoute === 'products.index'}>
                                 <Link href={route('products.index')}>All Products</Link>
@@ -35,7 +35,7 @@ export default function SiderbarComp(props) {
                                 <Link href={route('suppliers.index')}>Suppliers</Link>
                             </Nav.Item>
                         </Nav.Menu>
-
+                        {/*
                         <Nav.Item icon={<ReceiptIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('purchases.index')}>Purchase</Link>
                         </Nav.Item>
@@ -61,10 +61,10 @@ export default function SiderbarComp(props) {
                         <Nav.Item icon={<BookUserIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('customers.index')}>Customers</Link>
                         </Nav.Item>
-                        {/* <Nav.Item icon={<ContactRoundIcon strokeWidth={1.5} size={20} />} as={'div'}>
+                        <Nav.Item icon={<ContactRoundIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('employees.index')}>Employees</Link>
                         </Nav.Item>
-
+                        {/* 
                         <Nav.Item panel>Settings</Nav.Item>
                         <Nav.Menu eventKey={'options'} title="Options" icon={<Settings2Icon strokeWidth={1.5} size={20} />} className='dropdown-menu'>
                             <Nav.Item as={'div'} eventKey={'settings.index'} active={currenRoute === 'settings.index'}>

@@ -14,6 +14,7 @@ use Modules\Customer\Http\Controllers\CustomerController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('customer', CustomerController::class)->names('customers')->only(['index', 'store', 'show', 'update', 'destroy']);
-});
+Route::resource('customers', CustomerController::class)
+    ->names('customers')
+    ->only(['index', 'store', 'show', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
