@@ -2,21 +2,30 @@
 
 namespace Modules\Product\Services;
 
+use Modules\Product\Actions\AttributeValueAction;
 use Modules\Product\Interfaces\Attribute\AttributeRepositoryInterface;
 use Modules\Product\Interfaces\Attribute\AttributeServiceInterface;
 
 class AttributeService implements AttributeServiceInterface
 {
-    protected $attributeRepository;
+    protected $attributeRepository, $attributeAction;
 
-    public function __construct(AttributeRepositoryInterface $attributeRepository)
-    {
+    public function __construct(
+        AttributeRepositoryInterface $attributeRepository,
+        AttributeValueAction $attributeValueAction
+    ) {
         $this->attributeRepository = $attributeRepository;
+        $this->attributeAction = $attributeValueAction;
     }
 
     public function paginate(int $perPage)
     {
         return $this->attributeRepository->paginate($perPage);
+    }
+
+    public function all()
+    {
+        return $this->attributeRepository->all();
     }
 
     public function store(array $data)

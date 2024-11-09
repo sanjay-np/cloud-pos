@@ -7,19 +7,33 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Product\Http\Requests\Supplier\StoreRequest;
 use Modules\Product\Http\Requests\Supplier\UpdateRequest;
+use Modules\Product\Interfaces\Brand\BrandServiceInterface;
 use Modules\Product\Interfaces\Supplier\SupplierServiceInterface;
 
 class SupplierController extends Controller
 {
-    protected $supplierService;
+    protected $supplierService, $brandService;
 
-    public function __construct(SupplierServiceInterface $supplierService)
-    {
+    public function __construct(
+        SupplierServiceInterface $supplierService,
+        BrandServiceInterface $brandService
+    ) {
         $this->supplierService = $supplierService;
+        $this->brandService = $brandService;
     }
     public function index()
     {
-        return Inertia::render('Product::Supplier');
+        $suppliers = $this->supplierService->paginate(perPage: 10);
+        $brands = $this->brandService->all()->map(function ($brand) {
+            return [
+                'value' => $brand->id,
+                'label' => $brand->name,
+            ];
+        });
+        return Inertia::render('Product::Supplier', [
+            'suppliers' => $suppliers,
+            'brands' => $brands
+        ]);
     }
 
     public function store(StoreRequest $request)

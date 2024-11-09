@@ -3,8 +3,9 @@ import FormDrawer from '@/Components/Overlays/FormDrawer'
 import { router, useForm } from '@inertiajs/react'
 import { HStack, Input, InputGroup, InputNumber, Loader, SelectPicker, Uploader } from 'rsuite'
 import InputError from '@/Components/InputError'
-import { loadingText, productStatus, productType, productUnit } from '@/Lib/Constants'
+import { loadingText } from '@/Lib/Constants'
 import { toast } from 'sonner'
+import { productStatus, productType, productUnit } from '../Lib/Constants'
 
 export default function ProductForm(props) {
 
@@ -33,7 +34,7 @@ export default function ProductForm(props) {
         const fetchData = async () => {
             setLoading(true)
             try {
-                const res = await axios.get(route('products.find', selected));
+                const res = await axios.get(route('products.show', selected));
                 setData(res?.data);
             } catch (err) {
                 console.log(err);

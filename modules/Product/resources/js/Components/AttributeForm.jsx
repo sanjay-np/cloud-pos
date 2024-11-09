@@ -76,7 +76,7 @@ export default function AttributeForm(props) {
             {loading ? <Loader backdrop content={loadingText} vertical /> :
                 <>
                     <div className="mb-4">
-                        <label className='text-gray-600 font-semibold mb-1 block'>Brand Name</label>
+                        <label className='text-gray-600 font-semibold mb-1 block'>Attribute Name</label>
                         <InputGroup>
                             <Input
                                 placeholder="Attribute Name..."

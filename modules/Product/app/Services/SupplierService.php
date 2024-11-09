@@ -18,6 +18,11 @@ class SupplierService implements SupplierServiceInterface
         return $this->supplierRepository->paginate($perPage);
     }
 
+    public function all()
+    {
+        return $this->supplierRepository->all();
+    }
+
     public function store(array $data)
     {
         return $this->supplierRepository->store($data);

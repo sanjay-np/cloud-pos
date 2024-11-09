@@ -5,10 +5,10 @@ import { useRef, useState } from 'react'
 import SearchBar from '@/Components/Search/Index'
 import AddButton from '@/Components/Button/AddButton'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
-import AttributeForm from '@/Components/Forms/AttributeForm'
 import TableComp from '@/Components/Table/TableComp'
-import { attributeTableHeader } from '@/Lib/Constants'
 import { toast } from 'sonner'
+import AttributeForm from '../Components/AttributeForm'
+import { attributeTableHeader } from '../Lib/Constants'
 
 export default function Attribute({ auth, attributes }) {
     const [selected, setSelected] = useState(null)
@@ -72,7 +72,7 @@ export default function Attribute({ auth, attributes }) {
                         </div>
                     </div>
                     <TableComp
-                        data={attributes?.data}
+                        data={attributes}
                         columns={attributeTableHeader}
                         checkboxCell={true}
                         actions={{

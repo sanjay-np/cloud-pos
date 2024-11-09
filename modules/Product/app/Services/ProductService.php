@@ -19,6 +19,11 @@ class ProductService implements ProductServiceInterface
         return $this->productRepository->paginate($perPage);
     }
 
+    public function all()
+    {
+        return $this->productRepository->all();
+    }
+
     public function store(array $data)
     {
         return $this->productRepository->store($data);

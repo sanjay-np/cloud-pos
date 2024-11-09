@@ -15,7 +15,13 @@ class Category extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['name', 'image', 'description', 'parent_id', 'status'];
+    protected $fillable = [
+        'name',
+        'image',
+        'description',
+        'parent_id',
+        'status'
+    ];
 
     protected $appends = ['image_url'];
 

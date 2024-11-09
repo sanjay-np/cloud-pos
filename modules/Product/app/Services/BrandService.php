@@ -19,6 +19,11 @@ class BrandService implements BrandServiceInterface
         return $this->brandRepository->paginate($perPage);
     }
 
+    public function all()
+    {
+        return $this->brandRepository->all();
+    }
+
     public function store(array $data)
     {
         return $this->brandRepository->store($data);

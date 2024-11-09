@@ -15,7 +15,11 @@ class Brand extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['name', 'description', 'image'];
+    protected $fillable = [
+        'name',
+        'description',
+        'image'
+    ];
 
     protected $appends = ['image_url'];
 

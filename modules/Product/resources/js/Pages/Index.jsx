@@ -4,10 +4,10 @@ import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import React, { useRef, useState } from 'react'
 import SearchBar from '@/Components/Search/Index'
 import AddButton from '@/Components/Button/AddButton'
-import ProductForm from '@/Components/Forms/ProductForm'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
 import TableComp from '@/Components/Table/TableComp'
-import { productTableHeader } from '@/Lib/Constants'
+import ProductForm from '../Components/ProductForm'
+import { productTableHeader } from '../Lib/Constants'
 
 
 export default function Index({ auth, products, brands, suppliers }) {
@@ -34,7 +34,7 @@ export default function Index({ auth, products, brands, suppliers }) {
     return (
         <Authenticated user={auth?.user} activeKey={['products']}>
             <Head title='Products' />
-            <div className="page-content products-page">
+            <div className="page-content">
                 <div className="top-section">
                     <div className='title-wrapper'>
                         <h1 className='title'>Products</h1>

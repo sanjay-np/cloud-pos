@@ -19,6 +19,11 @@ class BrandRepository implements BrandRepositoryInterface
         return $this->model->paginate($perPage)->withQueryString();
     }
 
+    public function all()
+    {
+        return $this->model->get();
+    }
+
     public function store(array $data)
     {
         return $this->model->create($data);

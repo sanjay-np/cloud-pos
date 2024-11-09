@@ -33,7 +33,7 @@ export default function Category({ auth, categories }) {
             onSuccess: () => {
                 setSelected(null)
                 toast.success('Success', {
-                    description: 'Brand deleted successfully',
+                    description: 'Category deleted successfully',
                 })
                 deleteModalRef.current.close()
             },
@@ -41,7 +41,7 @@ export default function Category({ auth, categories }) {
     }
     return (
         <Authenticated user={auth?.user} activeKey={['products']}>
-            <Head title="Category" />
+            <Head title="Categories" />
             <div className="page-content">
                 <div className="top-section">
                     <div className='title-wrapper'>

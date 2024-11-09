@@ -6,6 +6,8 @@ interface BrandRepositoryInterface
 {
     public function paginate(int $perPage);
 
+    public function all();
+
     public function store(array $data);
 
     public function show($id);

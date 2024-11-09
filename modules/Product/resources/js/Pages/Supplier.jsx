@@ -7,9 +7,11 @@ import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { supplierTableHeader } from '../Lib/Constants'
 import SupplierForm from '../Components/SupplierForm'
+import DeleteModal from '@/Components/Overlays/DeleteModal'
+import { toast } from 'sonner'
 
 
-export default function Supplier({ auth, brands }) {
+export default function Supplier({ auth, brands, suppliers }) {
 
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add")
@@ -28,20 +30,20 @@ export default function Supplier({ auth, brands }) {
     }
 
     const handleDelete = () => {
-        // router.delete(route('categories.destroy', selected), {
-        //     onSuccess: () => {
-        //         setSelected(null)
-        //         toast.success('Success', {
-        //             description: 'Brand deleted successfully',
-        //         })
-        //         deleteModalRef.current.close()
-        //     },
-        // })
+        router.delete(route('suppliers.destroy', selected), {
+            onSuccess: () => {
+                setSelected(null)
+                toast.success('Success', {
+                    description: 'Supplier deleted successfully',
+                })
+                deleteModalRef.current.close()
+            },
+        })
     }
 
     return (
         <Authenticated user={auth?.user} activeKey={['products']}>
-            <Head title="Supplier" />
+            <Head title="Suppliers" />
             <div className="page-content">
                 <div className="top-section">
                     <div className='title-wrapper'>
@@ -74,7 +76,7 @@ export default function Supplier({ auth, brands }) {
                         </div>
                     </div>
                     <TableComp
-                        items={[]}
+                        items={suppliers}
                         checkboxCell={true}
                         columns={supplierTableHeader}
                         actions={{ editAction, deleteAction }}
@@ -86,6 +88,11 @@ export default function Supplier({ auth, brands }) {
                 drawerRef={drawerRef}
                 selected={selected}
                 type={type}
+                brands={brands}
+            />
+            <DeleteModal
+                ref={deleteModalRef}
+                deleteAction={handleDelete}
             />
         </Authenticated>
     )

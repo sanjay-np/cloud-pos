@@ -24,7 +24,7 @@ export default function SupplierForm(props) {
         const fetchData = async () => {
             setLoading(true)
             try {
-                const res = await axios.get(route('suppliers.find', selected));
+                const res = await axios.get(route('suppliers.show', selected));
                 setData(res?.data);
             } catch (err) {
                 console.log(err);
