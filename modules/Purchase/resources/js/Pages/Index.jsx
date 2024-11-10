@@ -71,12 +71,12 @@ export default function Index({ auth, purchases }) {
                     </div>
                 </div>
             </div>
-            {/* <PurchaseForm
+            <PurchaseForm
                 drawerRef={drawerRef}
                 selected={selected}
                 suppliers={suppliers}
                 type={type}
-            /> */}
+            />
         </Authenticated>
     )
 }

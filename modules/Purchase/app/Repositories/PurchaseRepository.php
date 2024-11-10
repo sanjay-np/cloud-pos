@@ -16,12 +16,16 @@ class PurchaseRepository implements PurchaseRepositoryInterface
 
     public function paginate(int $perPage)
     {
-        return $this->model->paginate($perPage);
+        return $this->model
+            ->current()
+            ->with(['supplier'])
+            ->withCount('items')
+            ->paginate($perPage);
     }
 
     public function all()
     {
-        return $this->model->get();
+        return $this->model->all();
     }
 
     public function store(array $data)

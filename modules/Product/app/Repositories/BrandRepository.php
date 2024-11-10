@@ -21,7 +21,7 @@ class BrandRepository implements BrandRepositoryInterface
 
     public function all()
     {
-        return $this->model->get();
+        return $this->model->all();
     }
 
     public function store(array $data)

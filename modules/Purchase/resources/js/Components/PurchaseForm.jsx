@@ -3,13 +3,13 @@ import FormDrawer from '@/Components/Overlays/FormDrawer'
 import { useForm } from '@inertiajs/react'
 import { DatePicker, HStack, Input, InputGroup, SelectPicker } from 'rsuite'
 import { SearchIcon } from 'lucide-react'
-import ProductTable from '@/Components/Table/ProductTable'
 import { useDispatch, useSelector } from 'react-redux'
 import { setDiscount, setPurchaseProduct, setShipping, setTax } from '@/Store/Reducers/PurchaseProductSlice'
 import { formattedNumber } from '@/Lib/Utils'
-// import { paymentMethods, purchaseStatus } from '@/Lib/Constants'
 import { toast } from 'sonner'
 import InputError from '@/Components/InputError'
+import { paymentMethods, purchaseStatus } from '../Lib/Constants'
+import ProductTable from './ProductTable'
 
 
 const PurchaseForm = ({ drawerRef, selected, suppliers, type }) => {
