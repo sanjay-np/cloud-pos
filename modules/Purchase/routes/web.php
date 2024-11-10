@@ -14,6 +14,7 @@ use Modules\Purchase\Http\Controllers\PurchaseController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('purchase', PurchaseController::class)->names('purchase');
-});
+Route::resource('purchases', PurchaseController::class)
+    ->names('purchases')
+    ->only(['index', 'store', 'show', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);

@@ -35,10 +35,11 @@ export default function SiderbarComp(props) {
                                 <Link href={route('suppliers.index')}>Suppliers</Link>
                             </Nav.Item>
                         </Nav.Menu>
-                        {/*
+
                         <Nav.Item icon={<ReceiptIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('purchases.index')}>Purchase</Link>
                         </Nav.Item>
+                        {/*
                         <Nav.Item icon={<CornerDownRightIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('purchases.returns.index')}>Purchase Return</Link>
                         </Nav.Item>
@@ -48,7 +49,7 @@ export default function SiderbarComp(props) {
                         <Nav.Item icon={<CornerDownLeftIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('sales.returns.index')}>Sales Return</Link>
                         </Nav.Item>
-
+*/}
                         <Nav.Item panel>Miscellaneous</Nav.Item>
                         <Nav.Item icon={<BadgePercentIcon strokeWidth={1.5} size={20} />} as={'div'}>Coupons</Nav.Item>
                         <Nav.Item icon={<MailIcon strokeWidth={1.5} size={20} />} as={'div'}>Messages</Nav.Item>
@@ -56,7 +57,7 @@ export default function SiderbarComp(props) {
                         <Nav.Item panel>Analytics</Nav.Item>
                         <Nav.Item icon={<ClipboardCheckIcon strokeWidth={1.5} size={20} />} as={'div'}>Reports</Nav.Item>
                         <Nav.Item icon={<PieChartIcon strokeWidth={1.5} size={20} />} as={'div'}>Analysis</Nav.Item>
-*/}
+
                         <Nav.Item panel>Users</Nav.Item>
                         <Nav.Item icon={<BookUserIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('customers.index')}>Customers</Link>

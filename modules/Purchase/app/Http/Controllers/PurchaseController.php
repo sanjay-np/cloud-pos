@@ -4,62 +4,53 @@ namespace Modules\Purchase\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Modules\Purchase\Http\Requests\StoreRequest;
+use Modules\Purchase\Http\Requests\UpdateRequest;
+use Modules\Purchase\Interfaces\PurchaseServiceInterface;
 
 class PurchaseController extends Controller
 {
+    protected $purchaseService;
+
+    public function __construct(PurchaseServiceInterface $purchaseService)
+    {
+        $this->purchaseService = $purchaseService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('purchase::index');
+        return Inertia::render('Purchase::Index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreRequest $request)
     {
-        return view('purchase::create');
+        $item = $this->purchaseService->store($request->getValidated());
+        if ($item) {
+            return to_route('purchases.index');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show(int $id)
     {
-        //
+        return $this->purchaseService->show($id);
     }
 
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
+    public function update(UpdateRequest $request, int $id)
     {
-        return view('purchase::show');
+        $item = $this->purchaseService->update($request->getValidated(), $id);
+        if ($item) {
+            return to_route('purchases.index');
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function destroy(int $id)
     {
-        return view('purchase::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+        $item = $this->purchaseService->destroy($id);
+        if ($item) {
+            return to_route('purchases.index');
+        }
     }
 }
