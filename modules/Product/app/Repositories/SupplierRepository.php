@@ -2,10 +2,10 @@
 
 namespace Modules\Product\Repositories;
 
-use Modules\Product\Interfaces\Supplier\SupplierRepositoryInterface;
+use App\Interfaces\Interfaces\CurdRepositoryInterface;
 use Modules\Product\Models\Supplier;
 
-class SupplierRepository implements SupplierRepositoryInterface
+class SupplierRepository implements CurdRepositoryInterface
 {
     protected $model;
 
@@ -19,7 +19,7 @@ class SupplierRepository implements SupplierRepositoryInterface
         return $this->model->paginate($perPage)->withQueryString();
     }
 
-    public function all()
+    public function findAll()
     {
         return $this->model->all();
     }
@@ -28,9 +28,9 @@ class SupplierRepository implements SupplierRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function show($id)
+    public function findorFail(int $id)
     {
-        return $this->model->find($id);
+        return $this->model->findorFail($id);
     }
 
     public function update(array $data, $id)
@@ -38,7 +38,7 @@ class SupplierRepository implements SupplierRepositoryInterface
         return $this->model->find($id)->update($data);
     }
 
-    public function destroy($id)
+    public function delete(int $id)
     {
         return $this->model->find($id)->delete();
     }

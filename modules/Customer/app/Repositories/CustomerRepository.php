@@ -2,10 +2,11 @@
 
 namespace Modules\Customer\Repositories;
 
+use App\Interfaces\Interfaces\CurdRepositoryInterface;
 use Modules\Customer\Interfaces\CustomerRepositoryInterface;
 use Modules\Customer\Models\Customer;
 
-class CustomerRepository implements CustomerRepositoryInterface
+class CustomerRepository implements CurdRepositoryInterface, CustomerRepositoryInterface
 {
     protected $model;
 
@@ -19,22 +20,27 @@ class CustomerRepository implements CustomerRepositoryInterface
         return $this->model->paginate($perPage);
     }
 
+    public function findAll()
+    {
+        return $this->model->all();
+    }
+
     public function store(array $data)
     {
         return $this->model->create($data);
     }
 
-    public function show($id)
+    public function findOrFail($id)
     {
         return $this->model->findOrFail($id);
     }
 
-    public function update(array $data, $id)
+    public function update(array $data, int $id)
     {
         return $this->model->find($id)->update($data);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         return $this->model->find($id)->delete();
     }

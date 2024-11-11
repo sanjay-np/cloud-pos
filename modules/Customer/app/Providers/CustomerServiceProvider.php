@@ -4,10 +4,6 @@ namespace Modules\Customer\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Customer\Interfaces\CustomerRepositoryInterface;
-use Modules\Customer\Interfaces\CustomerServiceInterface;
-use Modules\Customer\Repositories\CustomerRepository;
-use Modules\Customer\Services\CustomerService;
 use Nwidart\Modules\Traits\PathNamespace;
 
 class CustomerServiceProvider extends ServiceProvider
@@ -38,8 +34,6 @@ class CustomerServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
-        $this->app->bind(abstract: CustomerRepositoryInterface::class, concrete: CustomerRepository::class);
-        $this->app->bind(abstract: CustomerServiceInterface::class, concrete: CustomerService::class);
     }
 
     /**

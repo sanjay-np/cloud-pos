@@ -1,5 +1,5 @@
 import { formattedNumber } from '@/Lib/Utils';
-import { removePurchaseProduct, setProductPrice, setQty } from '@/Store/Reducers/SaleProductSlice';
+import { removeSaleProduct, setProductPrice, setQty } from '@/Store/Reducers/SaleProductSlice';
 import { Trash2Icon } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { IconButton, Input, InputGroup, Table } from 'rsuite';
@@ -10,7 +10,7 @@ const ProductTable = (props) => {
     const dispatch = useDispatch()
 
     const removeProduct = (id) => {
-        dispatch(removePurchaseProduct(id))
+        dispatch(removeSaleProduct(id))
     }
 
     const handleProductQty = (id, qty) => {

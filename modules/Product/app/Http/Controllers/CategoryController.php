@@ -7,20 +7,20 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Product\Http\Requests\Category\StoreRequest;
 use Modules\Product\Http\Requests\Category\UpdateRequest;
-use Modules\Product\Interfaces\Category\CategoryServiceInterface;
+use Modules\Product\Repositories\CategoryRepository;
 
 class CategoryController extends Controller
 {
-    protected $categoryService;
+    protected $categoryRepository;
 
-    public function __construct(CategoryServiceInterface $categoryService)
+    public function __construct(CategoryRepository $categoryRepository)
     {
-        $this->categoryService = $categoryService;
+        $this->categoryRepository = $categoryRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $categories = $this->categoryService->paginate(perPage: 10);
+        $categories = $this->categoryRepository->paginate(perPage: 10);
         return Inertia::render('Product::Category', [
             'categories' => $categories
         ]);
@@ -28,7 +28,7 @@ class CategoryController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $item = $this->categoryService->store($request->getValidated() + [
+        $item = $this->categoryRepository->store($request->getValidated() + [
             'image' => $request->getImage()
         ]);
         if ($item) {
@@ -38,13 +38,13 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        return $this->categoryService->show($id);
+        return $this->categoryRepository->findOrFail($id);
     }
 
     public function update(UpdateRequest $request, $id)
     {
         // Todo: update image
-        $item = $this->categoryService->update($request->getValidated(), $id);
+        $item = $this->categoryRepository->update($request->getValidated(), $id);
         if ($item) {
             return to_route('categories.index');
         }
@@ -52,7 +52,7 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->categoryService->destroy($id);
+        $item = $this->categoryRepository->delete($id);
         if ($item) {
             return to_route('categories.index');
         }

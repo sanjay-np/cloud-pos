@@ -2,10 +2,10 @@
 
 namespace Modules\Setting\Repositories;
 
-use Modules\Setting\Interfaces\FiscalYear\FiscalYearRepositoryInterface;
+use App\Interfaces\Interfaces\CurdRepositoryInterface;
 use Modules\Setting\Models\FiscalYear;
 
-class FiscalYearRepository implements FiscalYearRepositoryInterface
+class FiscalYearRepository implements CurdRepositoryInterface
 {
     protected $model;
 
@@ -19,7 +19,7 @@ class FiscalYearRepository implements FiscalYearRepositoryInterface
         return $this->model->paginate($perPage);
     }
 
-    public function all()
+    public function findAll()
     {
         return $this->model->all();
     }
@@ -29,9 +29,9 @@ class FiscalYearRepository implements FiscalYearRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function show(int $id)
+    public function findOrFail(int $id)
     {
-        return $this->model->find($id);
+        return $this->model->findOrFail($id);
     }
 
     public function update(array $data, int $id)
@@ -39,7 +39,7 @@ class FiscalYearRepository implements FiscalYearRepositoryInterface
         return $this->model->find($id)->update($data);
     }
 
-    public function destroy(int $id)
+    public function delete(int $id)
     {
         return $this->model->find($id)->delete();
     }

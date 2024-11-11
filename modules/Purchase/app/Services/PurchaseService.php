@@ -4,31 +4,18 @@ namespace Modules\Purchase\Services;
 
 use Modules\Purchase\Actions\PurchaseDetailAction;
 use Modules\Purchase\Actions\PurchasePaymentAction;
-use Modules\Purchase\Interfaces\PurchaseRepositoryInterface;
-use Modules\Purchase\Interfaces\PurchaseServiceInterface;
 
-class PurchaseService implements PurchaseServiceInterface
+class PurchaseService
 {
     protected $purchaseRepository, $purchaseDetail, $purchasePayment;
 
     public function __construct(
-        PurchaseRepositoryInterface $purchaseRepository,
         PurchaseDetailAction $purchaseDetail,
         PurchasePaymentAction $purchasePayment
     ) {
         $this->purchaseRepository = $purchaseRepository;
         $this->purchaseDetail = $purchaseDetail;
         $this->purchasePayment = $purchasePayment;
-    }
-
-    public function paginate(int $perPage)
-    {
-        return $this->purchaseRepository->paginate($perPage);
-    }
-
-    public function all()
-    {
-        return $this->purchaseRepository->all();
     }
 
     public function store(array $data)
@@ -46,20 +33,5 @@ class PurchaseService implements PurchaseServiceInterface
             }
         }
         return $item;
-    }
-
-    public function show(int $id)
-    {
-        return $this->purchaseRepository->show($id);
-    }
-
-    public function update(array $data, int $id)
-    {
-        return $this->purchaseRepository->update($data, $id);
-    }
-
-    public function destroy(int $id)
-    {
-        return $this->purchaseRepository->destroy($id);
     }
 }

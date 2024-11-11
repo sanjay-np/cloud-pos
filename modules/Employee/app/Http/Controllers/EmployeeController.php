@@ -7,20 +7,20 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Employee\Http\Requests\StoreRequest;
 use Modules\Employee\Http\Requests\UpdateRequest;
-use Modules\Employee\Interfaces\EmployeeServiceInterface;
+use Modules\Employee\Repositories\EmployeeRepository;
 
 class EmployeeController extends Controller
 {
-    protected $employeeService;
+    protected $employeeRepository;
 
-    public function __construct(EmployeeServiceInterface $employeeService)
+    public function __construct(EmployeeRepository $employeeRepository)
     {
-        $this->employeeService = $employeeService;
+        $this->employeeRepository = $employeeRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $employees = $this->employeeService->paginate(perPage: 10);
+        $employees = $this->employeeRepository->paginate(perPage: 10);
         return Inertia::render('Employee::Index', [
             'employees' => $employees
         ]);
@@ -28,7 +28,7 @@ class EmployeeController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $item = $this->employeeService->store($request->getValidated() + [
+        $item = $this->employeeRepository->store($request->getValidated() + [
             'avatar' => $request->getAvatar(),
             'document_files' => $request->getDocuments()
         ]);
@@ -39,13 +39,13 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
-        return $this->employeeService->show($id);
+        return $this->employeeRepository->findorFail($id);
     }
 
     public function update(UpdateRequest $request, $id)
     {
         // Todo: update avatar and document if deleted
-        $item = $this->employeeService->update($request->getValidated(), $id);
+        $item = $this->employeeRepository->update($request->getValidated(), $id);
         if ($item) {
             return to_route('employees.index');
         }
@@ -53,7 +53,7 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->employeeService->destroy($id);
+        $item = $this->employeeRepository->delete($id);
         if ($item) {
             return to_route('employees.index');
         }

@@ -2,10 +2,10 @@
 
 namespace Modules\Product\Repositories;
 
-use Modules\Product\Interfaces\Attribute\AttributeRepositoryInterface;
+use App\Interfaces\Interfaces\CurdRepositoryInterface;
 use Modules\Product\Models\Attribute;
 
-class AttributeRepository implements AttributeRepositoryInterface
+class AttributeRepository implements CurdRepositoryInterface
 {
     protected $model;
 
@@ -19,7 +19,7 @@ class AttributeRepository implements AttributeRepositoryInterface
         return $this->model->paginate($perPage);
     }
 
-    public function all()
+    public function findAll()
     {
         return $this->model->all();
     }
@@ -29,9 +29,9 @@ class AttributeRepository implements AttributeRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function show($id)
+    public function findOrFail($id)
     {
-        return $this->model->find($id);
+        return $this->model->findOrFail($id);
     }
 
     public function update(array $data, $id)
@@ -39,7 +39,7 @@ class AttributeRepository implements AttributeRepositoryInterface
         return $this->model->find($id)->update($data);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         return $this->model->destroy($id);
     }

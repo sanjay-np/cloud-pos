@@ -7,22 +7,22 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Product\Http\Requests\Product\StoreRequest;
 use Modules\Product\Http\Requests\Product\UpdateRequest;
-use Modules\Product\Interfaces\Product\ProductServiceInterface;
+use Modules\Product\Repositories\ProductRepository;
 
 class ProductController extends Controller
 {
-    protected $productService;
+    protected $productRepository;
 
-    public function __construct(ProductServiceInterface $productService)
+    public function __construct(ProductRepository $productRepository)
     {
-        $this->productService = $productService;
+        $this->productRepository = $productRepository;
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->productService->paginate(perPage: 10);
+        $products = $this->productRepository->paginate(perPage: 10);
         return Inertia::render('Product::Index', [
             'products' => $products
         ]);
@@ -30,7 +30,7 @@ class ProductController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $item = $this->productService->store($request->getValidated() + [
+        $item = $this->productRepository->store($request->getValidated() + [
             'main_image' => $request->getMainImage(),
             'gallery_images' => $request->getGalleryImages()
         ]);
@@ -41,12 +41,12 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        return $this->productService->show($id);
+        return $this->productRepository->findOrFail($id);
     }
 
     public function update(UpdateRequest $request, $id)
     {
-        $item = $this->productService->update($request->getValidated(), $id);
+        $item = $this->productRepository->update($request->getValidated(), $id);
         if ($item) {
             return to_route('products.index');
         }
@@ -54,7 +54,7 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->productService->destroy($id);
+        $item = $this->productRepository->delete($id);
         if ($item) {
             return to_route('products.index');
         }
@@ -62,6 +62,6 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        return $this->productService->search($request->search_qry);
+        return $this->productRepository->search($request->search_qry);
     }
 }

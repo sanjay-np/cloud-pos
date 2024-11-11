@@ -7,20 +7,20 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Product\Http\Requests\Brand\StoreRequest;
 use Modules\Product\Http\Requests\Brand\UpdateRequest;
-use Modules\Product\Interfaces\Brand\BrandServiceInterface;
+use Modules\Product\Repositories\BrandRepository;
 
 class BrandController extends Controller
 {
-    protected $brandService;
+    protected $brandRepository;
 
-    public function __construct(BrandServiceInterface $brandService)
+    public function __construct(BrandRepository $brandRepository)
     {
-        $this->brandService = $brandService;
+        $this->brandRepository = $brandRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $brands = $this->brandService->paginate(perPage: 10);
+        $brands = $this->brandRepository->paginate(perPage: 10);
         return Inertia::render('Product::Brand', [
             'brands' => $brands
         ]);
@@ -28,7 +28,7 @@ class BrandController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $item = $this->brandService->store($request->getValidated() + [
+        $item = $this->brandRepository->store($request->getValidated() + [
             'image' => $request->getImage()
         ]);
         if ($item) {
@@ -38,13 +38,13 @@ class BrandController extends Controller
 
     public function show($id)
     {
-        return $this->brandService->show($id);
+        return $this->brandRepository->findorFail($id);
     }
 
     public function update(UpdateRequest $request, $id)
     {
         // Todo: update image
-        $item = $this->brandService->update($request->getValidated(), $id);
+        $item = $this->brandRepository->update($request->getValidated(), $id);
         if ($item) {
             return to_route('brands.index');
         }
@@ -52,7 +52,7 @@ class BrandController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->brandService->destroy($id);
+        $item = $this->brandRepository->delete($id);
         if ($item) {
             return to_route('brands.index');
         }
@@ -60,11 +60,11 @@ class BrandController extends Controller
 
     public function take(int $count)
     {
-        return $this->brandService->take($count);
+        return $this->brandRepository->take($count);
     }
 
     public function search(string $search_qry)
     {
-        return $this->brandService->search($search_qry);
+        return $this->brandRepository->search($search_qry);
     }
 }

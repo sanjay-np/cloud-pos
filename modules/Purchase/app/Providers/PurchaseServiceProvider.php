@@ -4,10 +4,6 @@ namespace Modules\Purchase\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Purchase\Interfaces\PurchaseRepositoryInterface;
-use Modules\Purchase\Interfaces\PurchaseServiceInterface;
-use Modules\Purchase\Repositories\PurchaseRepository;
-use Modules\Purchase\Services\PurchaseService;
 use Nwidart\Modules\Traits\PathNamespace;
 
 class PurchaseServiceProvider extends ServiceProvider
@@ -38,8 +34,6 @@ class PurchaseServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
-        $this->app->bind(abstract: PurchaseRepositoryInterface::class, concrete: PurchaseRepository::class);
-        $this->app->bind(abstract: PurchaseServiceInterface::class, concrete: PurchaseService::class);
     }
 
     /**
