@@ -4,62 +4,51 @@ namespace Modules\Sales\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Modules\Sales\Http\Requests\StoreRequest;
+use Modules\Sales\Http\Requests\UpdateRequest;
+use Modules\Sales\Interfaces\SaleServiceInterface;
 
 class SalesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $saleService;
+
+    public function __construct(SaleServiceInterface $saleService)
+    {
+        $this->saleService = $saleService;
+    }
+
     public function index()
     {
-        return view('sales::index');
+        return Inertia::render('Sales::Index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreRequest $request)
     {
-        return view('sales::create');
+        $item = $this->saleService->store($request->getValidated());
+        if ($item) {
+            return to_route('sales.index');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show(int $id)
     {
-        //
+        return $this->saleService->show($id);
     }
 
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
+    public function update(UpdateRequest $request, int $id)
     {
-        return view('sales::show');
+        $item = $this->saleService->update($request->getValidated(), $id);
+        if ($item) {
+            return to_route('sales.index');
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function destroy(int $id)
     {
-        return view('sales::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+        $item = $this->saleService->destroy($id);
+        if ($item) {
+            return to_route('sales.index');
+        }
     }
 }

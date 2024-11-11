@@ -38,9 +38,16 @@ Route::resource('products', ProductController::class)
     ->only(['index', 'store', 'show', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+Route::controller(ProductController::class)->group(function () {
+    Route::get('product-search', 'search')->name('products.search');
+})->middleware(['auth', 'verified']);
+
 Route::resource('suppliers', SupplierController::class)
     ->names('suppliers')
     ->only(['index', 'store', 'show', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
-Route::get('supplier-picker', [SupplierController::class, 'picker'])->name('suppliers.picker');
+Route::controller(SupplierController::class)->group(function () {
+    Route::get('supplier-picker', 'picker')->name('suppliers.picker');
+    Route::get('supplier-search', 'search')->name('suppliers.search');
+})->middleware(['auth', 'verified']);

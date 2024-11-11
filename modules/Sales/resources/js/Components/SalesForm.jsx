@@ -1,148 +1,64 @@
-import React, { useEffect, useRef, useState } from 'react'
-import FormDrawer from '@/Components/Overlays/FormDrawer'
 import { useForm } from '@inertiajs/react'
 import { DatePicker, HStack, Input, InputGroup, SelectPicker } from 'rsuite'
-import { SearchIcon } from 'lucide-react'
-import { useDispatch, useSelector } from 'react-redux'
-import { setDiscount, setPurchaseProduct, setShipping, setTax } from '@/Store/Reducers/PurchaseProductSlice'
 import { formattedNumber } from '@/Lib/Utils'
-import { toast } from 'sonner'
+import { useDispatch, useSelector } from 'react-redux'
+import CustomerPicker from '@/Components/Picker/CustomerPicker'
+import ProductPicker from '@/Components/Picker/ProductPicker'
+import { setDiscount, setSaleProduct, setShipping } from '@/Store/Reducers/SaleProductSlice'
+import FormDrawer from '@/Components/Overlays/FormDrawer'
 import InputError from '@/Components/InputError'
-import { paymentMethods, purchaseStatus } from '../Lib/Constants'
 import ProductTable from './ProductTable'
-import SupplierPicker from '@/Components/Picker/SupplierPicker'
 
+export default function SalesForm({ drawerRef, selected, type }) {
 
-const PurchaseForm = ({ drawerRef, selected, type }) => {
-
-    const searchRef = useRef(null)
-    const [searchItems, setSearchItems] = useState([])
-    const { products, total, taxPercent, taxAmount, discount, shipping } = useSelector(state => state.purchaseProductSlice)
+    const { products, total, taxPercent, taxAmount, discount, shipping } = useSelector(state => state.saleProductSlice)
     const { data, setData, post, processing, errors, reset } = useForm({
-        date: new Date(),
-        supplier_id: "",
-        tax_percentage: 0,
-        tax_amount: 0,
-        discount_amount: 0,
-        shipping_amount: 0,
-        total_amount: 0,
-        paid_amount: 0,
-        status: "",
-        payment_status: "",
-        payment_method: "",
-        note: "",
-        products: []
+        name: '',
     })
-
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        setData((prev) => {
-            return {
-                ...prev,
-                products: products,
-                tax_percentage: taxPercent,
-                tax_amount: taxAmount,
-                discount_amount: discount,
-                shipping_amount: shipping,
-                total_amount: total
-            }
-        })
-    }, [products, total, taxPercent, taxAmount, discount, shipping])
-
-    const handleSearch = async (value) => {
-        if (value.length > 3) {
-            try {
-                const res = await axios.get(route('products.search', { search_qry: value }));
-                setSearchItems(res.data.length ? res.data : []);
-            } catch (error) {
-                console.error("Search error:", error);
-                setSearchItems([]);
-            }
-        } else {
-            setSearchItems([])
-        }
-    }
-
-    const onClickSearchItem = (item) => {
-        dispatch(setPurchaseProduct({ ...item, qty: 1 }))
-        setSearchItems([])
-        if (!searchRef.current) return
-        searchRef.current.value = ''
+    const handleProductClick = (item) => {
+        dispatch(setSaleProduct({ ...item, qty: 1 }))
     }
 
     const onSubmit = () => {
-        if (!selected && type === 'add') {
-            post(route('purchases.store'), {
-                onSuccess: () => {
-                    drawerRef.current.close()
-                    toast.success('Success', {
-                        description: 'Purchase added successfully',
-                    })
-                }
-            })
-        }
+
     }
 
     const formClear = () => {
         reset()
     }
-
     return (
         <FormDrawer
             ref={drawerRef}
-            processing={processing}
+            drawerTitle={type === 'add' ? 'Add Sales' : 'Edit Sales'}
             onSubmit={onSubmit}
-            drawerTitle={selected ? 'Edit Purchase' : 'Add Purchase'}
+            processing={processing}
             reset={formClear}
             size='lg'
         >
-            <div className="form-item mb-4 relative">
-                <InputGroup>
-                    <Input
-                        placeholder='Search Product by name or code...'
-                        size='md'
-                        ref={searchRef}
-                        onChange={(val) => handleSearch(val)}
-                    />
-                    <InputGroup.Addon>
-                        <SearchIcon color="gray" strokeWidth={1.5} />
-                    </InputGroup.Addon>
-                </InputGroup>
-                {searchItems.length > 0 && (
-                    <div className="search-result absolute z-10 w-full bg-white top-11 border-x px-2">
-                        <ul>
-                            {searchItems.map((item, index) => (
-                                <li className="item border-b py-2 cursor-pointer" key={index}>
-                                    <div className='flex items-center justify-between' onClick={() => onClickSearchItem(item)}>
-                                        <p>{item.title}</p>
-                                        <p>{item.sku}</p>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+            <div className="form-item mb-4">
+                <ProductPicker
+                    handleProductClick={handleProductClick}
+                />
             </div>
             <HStack spacing={20} className='mb-4'>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Reference</label>
                     <Input
                         readOnly
-                        defaultValue={'CGS-PUR'}
+                        defaultValue={'CGS-SALE'}
                         className='bg-gray-200'
                     />
                     <InputError message={errors.reference} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">
-                    <label className='text-gray-600 font-semibold mb-1 block'>Supplier</label>
-                    <SupplierPicker
-                        onChange={(val) => setData('supplier_id', val)}
-                    />
-                    <InputError message={errors.supplier_id} className='mt-2' />
+                    <label className='text-gray-600 font-semibold mb-1 block'>Customer</label>
+                    <CustomerPicker />
+                    <InputError message={errors.customer_id} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">
-                    <label className='text-gray-600 font-semibold mb-1 block'>Purhcase Date</label>
+                    <label className='text-gray-600 font-semibold mb-1 block'>Sale Date</label>
                     <DatePicker
                         value={data.date}
                         className='w-full'
@@ -215,7 +131,7 @@ const PurchaseForm = ({ drawerRef, selected, type }) => {
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Status</label>
                     <SelectPicker
-                        data={purchaseStatus}
+                        data={[]}
                         className='w-full'
                         onChange={(val) => setData('status', val)}
                     />
@@ -224,7 +140,7 @@ const PurchaseForm = ({ drawerRef, selected, type }) => {
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Payment Method</label>
                     <SelectPicker
-                        data={paymentMethods}
+                        data={[]}
                         className='w-full'
                         onChange={(val) => setData('payment_method', val)}
                     />
@@ -256,5 +172,3 @@ const PurchaseForm = ({ drawerRef, selected, type }) => {
         </FormDrawer>
     )
 }
-
-export default PurchaseForm

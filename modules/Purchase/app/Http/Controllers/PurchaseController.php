@@ -22,7 +22,10 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Purchase::Index');
+        $purchases = $this->purchaseService->paginate(perPage: 10);
+        return Inertia::render('Purchase::Index', [
+            'purchases' => $purchases
+        ]);
     }
 
     public function store(StoreRequest $request)

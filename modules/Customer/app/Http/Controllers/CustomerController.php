@@ -71,6 +71,16 @@ class CustomerController extends Controller
     }
     public function picker(Request $request)
     {
-        return $this->customerService->take($request->count ?? 10);
+        if ($request->has('search_qry')) {
+            $items = $this->customerService->search($request->search_qry);
+        } else {
+            $items = $this->customerService->take($request->count ?? 10);
+        }
+        return $items->map(function ($item) {
+            return [
+                'value' => $item->id,
+                'label' => $item->name,
+            ];
+        });
     }
 }

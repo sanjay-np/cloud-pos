@@ -51,6 +51,11 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function search(string $search_qry)
     {
-        return $this->model->search($search_qry)->get();
+        return $this->model
+            ->where('title', 'like', '%' . $search_qry . '%')
+            ->orWhere('bar_code', 'like', '%' . $search_qry . '%')
+            ->orWhere('sku', 'like', '%' . $search_qry . '%')
+            ->take(10)
+            ->get();
     }
 }

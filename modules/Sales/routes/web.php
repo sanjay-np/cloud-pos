@@ -14,6 +14,7 @@ use Modules\Sales\Http\Controllers\SalesController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('sales', SalesController::class)->names('sales');
-});
+Route::resource('sales', SalesController::class)
+    ->names('sales')
+    ->only(['index', 'store', 'show', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);

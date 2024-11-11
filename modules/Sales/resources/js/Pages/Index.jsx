@@ -1,15 +1,15 @@
-import AddButton from "@/Components/Button/AddButton"
-import SearchBar from "@/Components/Search/Index"
-import TableComp from "@/Components/Table/TableComp"
-import Authenticated from "@/Layouts/AuthenticatedLayout"
-import { Head } from "@inertiajs/react"
-import { ChevronRightIcon, LayoutGridIcon } from "lucide-react"
-import { useRef, useState } from "react"
-import { Toggle } from "rsuite"
-import { purchaseTableHeader } from "../Lib/Constants"
-import PurchaseForm from "../Components/PurchaseForm"
+import AddButton from '@/Components/Button/AddButton'
+import SearchBar from '@/Components/Search/Index'
+import TableComp from '@/Components/Table/TableComp'
+import Authenticated from '@/Layouts/AuthenticatedLayout'
+import { Head } from '@inertiajs/react'
+import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
+import React, { useRef, useState } from 'react'
+import { Toggle } from 'rsuite'
+import { salesTableHeader } from '../Lib/Constants'
+import SalesForm from '../Components/SalesForm'
 
-export default function Index({ auth, purchases }) {
+export default function Index({ auth, sales }) {
 
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add");
@@ -20,20 +20,19 @@ export default function Index({ auth, purchases }) {
 
     const deleteAction = (id) => { }
 
-
     return (
         <Authenticated user={auth.user}>
-            <Head title='Purchases' />
+            <Head title='Sales' />
             <div className="page-content">
                 <div className="top-section">
                     <div className='title-wrapper'>
-                        <h1 className='title'>Purchases</h1>
+                        <h1 className='title'>Sales</h1>
                         <ul className='breadcrumb'>
                             <li><LayoutGridIcon color='gray' size={20} /></li>
                             <li><ChevronRightIcon color='gray' size={14} /></li>
                             <li><span>Dashboard</span></li>
                             <li><ChevronRightIcon color='gray' size={14} /></li>
-                            <li><span>Purchases</span></li>
+                            <li><span>Sales</span></li>
                         </ul>
                     </div>
                 </div>
@@ -41,7 +40,7 @@ export default function Index({ auth, purchases }) {
                     <div className="top-wrapper p-4">
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
-                                <SearchBar title={'Purhcases'} />
+                                <SearchBar title={'Sales'} />
                             </div>
                             <div className="toggle">
                                 <div className="flex items-center gap-2">
@@ -62,8 +61,8 @@ export default function Index({ auth, purchases }) {
                     </div>
                     <div className="table-wrapper">
                         <TableComp
-                            items={purchases}
-                            columns={purchaseTableHeader}
+                            items={sales}
+                            columns={salesTableHeader}
                             actions={{ editAction, deleteAction }}
                             pagination
                             serialize
@@ -71,7 +70,7 @@ export default function Index({ auth, purchases }) {
                     </div>
                 </div>
             </div>
-            <PurchaseForm
+            <SalesForm
                 drawerRef={drawerRef}
                 selected={selected}
                 type={type}

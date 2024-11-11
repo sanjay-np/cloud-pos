@@ -59,4 +59,9 @@ class ProductController extends Controller
             return to_route('products.index');
         }
     }
+
+    public function search(Request $request)
+    {
+        return $this->productService->search($request->search_qry);
+    }
 }

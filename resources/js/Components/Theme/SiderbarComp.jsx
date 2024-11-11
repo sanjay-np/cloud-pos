@@ -39,17 +39,21 @@ export default function SiderbarComp(props) {
                         <Nav.Item icon={<ReceiptIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('purchases.index')}>Purchase</Link>
                         </Nav.Item>
+
                         {/*
                         <Nav.Item icon={<CornerDownRightIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('purchases.returns.index')}>Purchase Return</Link>
                         </Nav.Item>
+                        */}
+
                         <Nav.Item icon={<BadgeDollarSignIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('sales.index')}>Sales</Link>
                         </Nav.Item>
-                        <Nav.Item icon={<CornerDownLeftIcon strokeWidth={1.5} size={20} />} as={'div'}>
+
+                        {/* <Nav.Item icon={<CornerDownLeftIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('sales.returns.index')}>Sales Return</Link>
-                        </Nav.Item>
-*/}
+                        </Nav.Item> */}
+
                         <Nav.Item panel>Miscellaneous</Nav.Item>
                         <Nav.Item icon={<BadgePercentIcon strokeWidth={1.5} size={20} />} as={'div'}>Coupons</Nav.Item>
                         <Nav.Item icon={<MailIcon strokeWidth={1.5} size={20} />} as={'div'}>Messages</Nav.Item>
