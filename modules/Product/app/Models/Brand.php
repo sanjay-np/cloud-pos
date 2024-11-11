@@ -5,8 +5,7 @@ namespace Modules\Product\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-// use Modules\Product\Database\Factories\BrandFactory;
+use Modules\Product\Database\Factories\BrandFactory;
 
 class Brand extends Model
 {
@@ -28,8 +27,8 @@ class Brand extends Model
         return asset($this->image);
     }
 
-    // protected static function newFactory(): BrandFactory
-    // {
-    //     // return BrandFactory::new();
-    // }
+    protected static function newFactory(): BrandFactory
+    {
+        return BrandFactory::new();
+    }
 }

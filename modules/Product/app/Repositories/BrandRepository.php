@@ -2,10 +2,10 @@
 
 namespace Modules\Product\Repositories;
 
-use Modules\Product\Interfaces\Brand\BrandRepositoryInterface;
+use App\Interfaces\Interfaces\CurdRepositoryInterface;
 use Modules\Product\Models\Brand;
 
-class BrandRepository implements BrandRepositoryInterface
+class BrandRepository implements CurdRepositoryInterface
 {
     protected $model;
 
@@ -19,9 +19,9 @@ class BrandRepository implements BrandRepositoryInterface
         return $this->model->paginate($perPage)->withQueryString();
     }
 
-    public function all()
+    public function findAll()
     {
-        return $this->model->get();
+        return $this->model->all();
     }
 
     public function store(array $data)
@@ -29,9 +29,9 @@ class BrandRepository implements BrandRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function show($id)
+    public function findorFail($id)
     {
-        return $this->model->find($id);
+        return $this->model->findorFail($id);
     }
 
     public function update(array $data, $id)
@@ -39,7 +39,7 @@ class BrandRepository implements BrandRepositoryInterface
         return $this->model->find($id)->update($data);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         return $this->model->find($id)->delete();
     }

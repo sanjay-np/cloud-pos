@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Models\FiscalYear;
+use Modules\Setting\Models\FiscalYear;
 
 trait CurrentFiscalYear
 {

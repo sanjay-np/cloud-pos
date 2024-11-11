@@ -2,10 +2,10 @@
 
 namespace Modules\Product\Repositories;
 
-use Modules\Product\Interfaces\Category\CategoryRepositoryInterface;
+use App\Interfaces\Interfaces\CurdRepositoryInterface;
 use Modules\Product\Models\Category;
 
-class CategoryRepository implements CategoryRepositoryInterface
+class CategoryRepository implements CurdRepositoryInterface
 {
     protected $model;
 
@@ -19,22 +19,27 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $this->model->paginate($perPage);
     }
 
+    public function findAll()
+    {
+        return $this->model->all();
+    }
+
     public function store(array $data)
     {
         return $this->model->create($data);
     }
 
-    public function show($id)
+    public function findOrFail($id)
     {
-        return $this->model->find($id);
+        return $this->model->findOrFail($id);
     }
 
-    public function update(array $data, $id)
+    public function update(array $data, int $id)
     {
         return $this->model->find($id)->update($data);
     }
 
-    public function destroy($id)
+    public function delete(int $id)
     {
         return $this->model->find($id)->delete();
     }

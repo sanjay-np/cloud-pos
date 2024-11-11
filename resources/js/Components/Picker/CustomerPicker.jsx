@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { SelectPicker } from 'rsuite'
 
-export default function CustomerPicker() {
+export default function CustomerPicker(props) {
     const [customers, setCustomers] = useState([])
     useEffect(() => {
         const fetchItems = async () => {
@@ -14,12 +14,11 @@ export default function CustomerPicker() {
     }, [])
 
     const handleCustomerSearch = async (searchTerm) => {
-        if (searchTerm.length > 3) {
+        if (searchTerm.length >= 2) {
             try {
-                const res = await axios.get(route('customers.search'), {
+                const res = await axios.get(route('customers.picker'), {
                     params: {
                         search_qry: searchTerm,
-                        show_type: "picker"
                     },
                 });
                 if (res?.data?.length > 0) {
@@ -34,8 +33,9 @@ export default function CustomerPicker() {
     return (
         <SelectPicker
             data={customers}
-            block
             onSearch={handleCustomerSearch}
+            block
+            onChange={(value) => props.onChange(value)}
         />
     )
 }

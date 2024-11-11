@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-// use Modules\Product\Database\Factories\SupplierFactory;
+use Modules\Product\Database\Factories\SupplierFactory;
 
 class Supplier extends Model
 {
@@ -33,8 +33,8 @@ class Supplier extends Model
         'brands' => 'array'
     ];
 
-    // protected static function newFactory(): SupplierFactory
-    // {
-    //     // return SupplierFactory::new();
-    // }
+    protected static function newFactory(): SupplierFactory
+    {
+        return SupplierFactory::new();
+    }
 }

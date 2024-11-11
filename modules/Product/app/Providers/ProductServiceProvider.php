@@ -4,26 +4,6 @@ namespace Modules\Product\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Product\Interfaces\Attribute\AttributeRepositoryInterface;
-use Modules\Product\Interfaces\Attribute\AttributeServiceInterface;
-use Modules\Product\Interfaces\Brand\BrandRepositoryInterface;
-use Modules\Product\Interfaces\Brand\BrandServiceInterface;
-use Modules\Product\Interfaces\Category\CategoryRepositoryInterface;
-use Modules\Product\Interfaces\Category\CategoryServiceInterface;
-use Modules\Product\Interfaces\Product\ProductRepositoryInterface;
-use Modules\Product\Interfaces\Product\ProductServiceInterface;
-use Modules\Product\Interfaces\Supplier\SupplierRepositoryInterface;
-use Modules\Product\Interfaces\Supplier\SupplierServiceInterface;
-use Modules\Product\Repositories\AttributeRepository;
-use Modules\Product\Repositories\BrandRepository;
-use Modules\Product\Repositories\CategoryRepository;
-use Modules\Product\Repositories\ProductRepository;
-use Modules\Product\Repositories\SupplierRepository;
-use Modules\Product\Services\AttributeService;
-use Modules\Product\Services\BrandService;
-use Modules\Product\Services\CategoryService;
-use Modules\Product\Services\ProductService;
-use Modules\Product\Services\SupplierService;
 use Nwidart\Modules\Traits\PathNamespace;
 
 class ProductServiceProvider extends ServiceProvider
@@ -54,21 +34,6 @@ class ProductServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
-
-        $this->app->bind(abstract: AttributeRepositoryInterface::class, concrete: AttributeRepository::class);
-        $this->app->bind(abstract: AttributeServiceInterface::class, concrete: AttributeService::class);
-
-        $this->app->bind(abstract: BrandRepositoryInterface::class, concrete: BrandRepository::class);
-        $this->app->bind(abstract: BrandServiceInterface::class, concrete: BrandService::class);
-
-        $this->app->bind(abstract: CategoryRepositoryInterface::class, concrete: CategoryRepository::class);
-        $this->app->bind(abstract: CategoryServiceInterface::class, concrete: CategoryService::class);
-
-        $this->app->bind(abstract: ProductRepositoryInterface::class, concrete: ProductRepository::class);
-        $this->app->bind(abstract: ProductServiceInterface::class, concrete: ProductService::class);
-
-        $this->app->bind(abstract: SupplierRepositoryInterface::class, concrete: SupplierRepository::class);
-        $this->app->bind(abstract: SupplierServiceInterface::class, concrete: SupplierService::class);
     }
 
     /**

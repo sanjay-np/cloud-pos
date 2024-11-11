@@ -2,10 +2,10 @@
 
 namespace Modules\Product\Repositories;
 
-use Modules\Product\Interfaces\Product\ProductRepositoryInterface;
+use App\Interfaces\Interfaces\CurdRepositoryInterface;
 use Modules\Product\Models\Product;
 
-class ProductRepository implements ProductRepositoryInterface
+class ProductRepository implements CurdRepositoryInterface
 {
     protected $model;
 
@@ -19,9 +19,9 @@ class ProductRepository implements ProductRepositoryInterface
         return $this->model->paginate($perPage);
     }
 
-    public function all()
+    public function findAll()
     {
-        return $this->model->get();
+        return $this->model->all();
     }
 
     public function store(array $data)
@@ -29,9 +29,9 @@ class ProductRepository implements ProductRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function show($id)
+    public function findOrFail($id)
     {
-        return $this->model->find($id);
+        return $this->model->findOrFail($id);
     }
 
     public function update(array $data, $id)
@@ -39,7 +39,7 @@ class ProductRepository implements ProductRepositoryInterface
         return $this->model->find($id)->update($data);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         return $this->model->find($id)->delete();
     }
@@ -51,6 +51,11 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function search(string $search_qry)
     {
-        return $this->model->search($search_qry)->get();
+        return $this->model
+            ->where('title', 'like', '%' . $search_qry . '%')
+            ->orWhere('bar_code', 'like', '%' . $search_qry . '%')
+            ->orWhere('sku', 'like', '%' . $search_qry . '%')
+            ->take(10)
+            ->get();
     }
 }

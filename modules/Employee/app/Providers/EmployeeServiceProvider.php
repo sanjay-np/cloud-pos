@@ -4,10 +4,6 @@ namespace Modules\Employee\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Employee\Interfaces\EmployeeRepositoryInterface;
-use Modules\Employee\Interfaces\EmployeeServiceInterface;
-use Modules\Employee\Repositories\EmployeeRepository;
-use Modules\Employee\Services\EmployeeService;
 use Nwidart\Modules\Traits\PathNamespace;
 
 class EmployeeServiceProvider extends ServiceProvider
@@ -38,8 +34,6 @@ class EmployeeServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
-        $this->app->bind(abstract: EmployeeRepositoryInterface::class, concrete: EmployeeRepository::class);
-        $this->app->bind(abstract: EmployeeServiceInterface::class, concrete: EmployeeService::class);
     }
 
     /**

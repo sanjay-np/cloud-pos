@@ -7,23 +7,23 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Product\Http\Requests\Attribute\StoreRequest;
 use Modules\Product\Http\Requests\Attribute\UpdateRequest;
-use Modules\Product\Interfaces\Attribute\AttributeServiceInterface;
+use Modules\Product\Repositories\AttributeRepository;
 
 class AttributeController extends Controller
 {
-    protected $attributeService;
+    protected $attributeRepository;
 
-    public function __construct(AttributeServiceInterface $attributeService)
+    public function __construct(AttributeRepository $attributeRepository)
     {
-        $this->attributeService = $attributeService;
+        $this->attributeRepository = $attributeRepository;
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $attributes = $this->attributeService->paginate(perPage: 10);
+        $attributes = $this->attributeRepository->paginate(perPage: 10);
         return Inertia::render('Product::Attribute', [
             'attributes' => $attributes
         ]);
@@ -31,7 +31,7 @@ class AttributeController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $item = $this->attributeService->store($request->getValidated());
+        $item = $this->attributeRepository->store($request->getValidated());
         if ($item) {
             return to_route('attributes.index');
         }
@@ -39,12 +39,12 @@ class AttributeController extends Controller
 
     public function show($id)
     {
-        return $this->attributeService->show($id);
+        return $this->attributeRepository->findOrFail($id);
     }
 
     public function update(UpdateRequest $request, $id)
     {
-        $item = $this->attributeService->update($request->getValidated(), $id);
+        $item = $this->attributeRepository->update($request->getValidated(), $id);
         if ($item) {
             return to_route('attributes.index');
         }
@@ -52,7 +52,7 @@ class AttributeController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->attributeService->destroy($id);
+        $item = $this->attributeRepository->delete($id);
         if ($item) {
             return to_route('attributes.index');
         }
