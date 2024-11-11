@@ -42,3 +42,5 @@ Route::resource('suppliers', SupplierController::class)
     ->names('suppliers')
     ->only(['index', 'store', 'show', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
+
+Route::get('supplier-picker', [SupplierController::class, 'picker'])->name('suppliers.picker');

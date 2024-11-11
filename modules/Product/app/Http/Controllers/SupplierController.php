@@ -74,4 +74,19 @@ class SupplierController extends Controller
     {
         return $this->supplierService->search($request->get('q'));
     }
+
+    public function picker(Request $request)
+    {
+        if ($request->has('search_qry')) {
+            $items = $this->supplierService->search($request->search_qry);
+        } else {
+            $items = $this->supplierService->take($request->count ?? 10);
+        }
+        return $items->map(function ($item) {
+            return [
+                'value' => $item->id,
+                'label' => $item->name,
+            ];
+        });
+    }
 }

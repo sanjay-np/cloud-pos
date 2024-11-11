@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SelectPicker } from 'rsuite';
 
 export default function SupplierPicker() {
@@ -17,10 +17,9 @@ export default function SupplierPicker() {
     const handleSupplierSearch = async (searchTerm) => {
         if (searchTerm.length > 3) {
             try {
-                const res = await axios.get(route('suppliers.search'), {
+                const res = await axios.get(route('suppliers.picker'), {
                     params: {
                         search_qry: searchTerm,
-                        show_type: "picker"
                     },
                 });
                 if (res?.data?.length > 0) {

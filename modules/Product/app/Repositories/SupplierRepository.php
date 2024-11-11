@@ -50,6 +50,9 @@ class SupplierRepository implements SupplierRepositoryInterface
 
     public function search(string $search_qry)
     {
-        return $this->model->search($search_qry);
+        return $this->model
+            ->where('name', 'like', '%' . $search_qry . '%')
+            ->take(10)
+            ->get();
     }
 }
