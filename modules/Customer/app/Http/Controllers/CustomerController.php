@@ -69,6 +69,7 @@ class CustomerController extends Controller
         }
         return $customers;
     }
+    
     public function picker(Request $request)
     {
         if ($request->has('search_qry')) {
