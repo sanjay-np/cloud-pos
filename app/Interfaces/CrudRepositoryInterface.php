@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Interfaces\Interfaces;
+namespace App\Interfaces;
 
-interface CurdRepositoryInterface
+interface CrudRepositoryInterface
 {
     public function paginate(int $perPage);
 

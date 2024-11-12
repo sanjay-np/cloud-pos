@@ -2,10 +2,10 @@
 
 namespace Modules\Employee\Repositories;
 
-use App\Interfaces\Interfaces\CurdRepositoryInterface;
+use App\Interfaces\CrudRepositoryInterface;
 use Modules\Employee\Models\Employee;
 
-class EmployeeRepository implements CurdRepositoryInterface
+class EmployeeRepository implements CrudRepositoryInterface
 {
     protected $model;
 
@@ -42,15 +42,5 @@ class EmployeeRepository implements CurdRepositoryInterface
     public function delete(int $id)
     {
         return $this->model->find($id)->delete();
-    }
-
-    public function take(int $count)
-    {
-        return $this->model->take($count)->get();
-    }
-
-    public function search(string $search_qry)
-    {
-        return $this->model->where('name', 'like', '%' . $search_qry . '%')->get();
     }
 }

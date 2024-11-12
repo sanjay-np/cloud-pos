@@ -2,10 +2,10 @@
 
 namespace Modules\Purchase\Repositories;
 
-use Modules\Purchase\Interfaces\PurchaseRepositoryInterface;
+use App\Interfaces\CrudRepositoryInterface;
 use Modules\Purchase\Models\Purchase;
 
-class PurchaseRepository implements PurchaseRepositoryInterface
+class PurchaseRepository implements CrudRepositoryInterface
 {
     protected $model;
 
@@ -23,7 +23,7 @@ class PurchaseRepository implements PurchaseRepositoryInterface
             ->paginate($perPage);
     }
 
-    public function all()
+    public function findAll()
     {
         return $this->model->all();
     }
@@ -33,9 +33,9 @@ class PurchaseRepository implements PurchaseRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function show(int $id)
+    public function findOrFail(int $id)
     {
-        return $this->model->find($id);
+        return $this->model->findOrFail($id);
     }
 
     public function update(array $data, int $id)
@@ -43,7 +43,7 @@ class PurchaseRepository implements PurchaseRepositoryInterface
         return $this->model->find($id)->update($data);
     }
 
-    public function destroy(int $id)
+    public function delete(int $id)
     {
         return $this->model->find($id)->delete();
     }

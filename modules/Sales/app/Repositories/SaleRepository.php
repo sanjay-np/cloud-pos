@@ -2,10 +2,10 @@
 
 namespace Modules\Sales\Repositories;
 
-use App\Interfaces\Interfaces\CurdRepositoryInterface;
+use App\Interfaces\CrudRepositoryInterface;
 use Modules\Sales\Models\Sale;
 
-class SaleRepository implements CurdRepositoryInterface
+class SaleRepository implements CrudRepositoryInterface
 {
     protected $model;
 

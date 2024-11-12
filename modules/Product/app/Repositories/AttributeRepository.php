@@ -2,10 +2,10 @@
 
 namespace Modules\Product\Repositories;
 
-use App\Interfaces\Interfaces\CurdRepositoryInterface;
+use App\Interfaces\CrudRepositoryInterface;
 use Modules\Product\Models\Attribute;
 
-class AttributeRepository implements CurdRepositoryInterface
+class AttributeRepository implements CrudRepositoryInterface
 {
     protected $model;
 
@@ -42,15 +42,5 @@ class AttributeRepository implements CurdRepositoryInterface
     public function delete($id)
     {
         return $this->model->destroy($id);
-    }
-
-    public function take(int $count)
-    {
-        return $this->model->take($count);
-    }
-
-    public function search(string $search_qry)
-    {
-        return $this->model->where('name', 'like', '%' . $search_qry . '%')->get();
     }
 }

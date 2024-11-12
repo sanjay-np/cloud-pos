@@ -5,7 +5,7 @@ export default function CustomerPicker(props) {
     const [customers, setCustomers] = useState([])
     useEffect(() => {
         const fetchItems = async () => {
-            const res = await axios.get(route('customers.picker'), { params: { count: 10 } });
+            const res = await axios.get(route('customers.picker'), { count: 10 });
             if (res?.data?.length > 0) {
                 setCustomers(res?.data)
             }
@@ -16,11 +16,7 @@ export default function CustomerPicker(props) {
     const handleCustomerSearch = async (searchTerm) => {
         if (searchTerm.length >= 2) {
             try {
-                const res = await axios.get(route('customers.picker'), {
-                    params: {
-                        search_qry: searchTerm,
-                    },
-                });
+                const res = await axios.get(route('customers.picker'), { search_qry: searchTerm });
                 if (res?.data?.length > 0) {
                     setCustomers(res?.data)
                 }

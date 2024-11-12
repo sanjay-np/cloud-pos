@@ -2,10 +2,10 @@
 
 namespace Modules\Setting\Repositories;
 
-use App\Interfaces\Interfaces\CurdRepositoryInterface;
+use App\Interfaces\CrudRepositoryInterface;
 use Modules\Setting\Models\FiscalYear;
 
-class FiscalYearRepository implements CurdRepositoryInterface
+class FiscalYearRepository implements CrudRepositoryInterface
 {
     protected $model;
 

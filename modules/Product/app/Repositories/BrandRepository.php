@@ -2,10 +2,11 @@
 
 namespace Modules\Product\Repositories;
 
-use App\Interfaces\Interfaces\CurdRepositoryInterface;
+use App\Interfaces\CrudRepositoryInterface;
+use App\Interfaces\SearchRepositoryInterface;
 use Modules\Product\Models\Brand;
 
-class BrandRepository implements CurdRepositoryInterface
+class BrandRepository implements CrudRepositoryInterface, SearchRepositoryInterface
 {
     protected $model;
 

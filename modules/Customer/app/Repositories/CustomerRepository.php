@@ -2,11 +2,11 @@
 
 namespace Modules\Customer\Repositories;
 
-use App\Interfaces\Interfaces\CurdRepositoryInterface;
-use Modules\Customer\Interfaces\CustomerRepositoryInterface;
+use App\Interfaces\CrudRepositoryInterface;
+use App\Interfaces\SearchRepositoryInterface;
 use Modules\Customer\Models\Customer;
 
-class CustomerRepository implements CurdRepositoryInterface, CustomerRepositoryInterface
+class CustomerRepository implements CrudRepositoryInterface, SearchRepositoryInterface
 {
     protected $model;
 

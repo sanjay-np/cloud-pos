@@ -4,10 +4,6 @@ namespace Modules\Setting\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Setting\Interfaces\FiscalYear\FiscalYearRepositoryInterface;
-use Modules\Setting\Interfaces\FiscalYear\FiscalYearServiceInterface;
-use Modules\Setting\Repositories\FiscalYearRepository;
-use Modules\Setting\Services\FiscalYearService;
 use Nwidart\Modules\Traits\PathNamespace;
 
 class SettingServiceProvider extends ServiceProvider
@@ -38,8 +34,6 @@ class SettingServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
-        $this->app->bind(abstract: FiscalYearRepositoryInterface::class, concrete: FiscalYearRepository::class);
-        $this->app->bind(abstract: FiscalYearServiceInterface::class, concrete: FiscalYearService::class);
     }
 
     /**

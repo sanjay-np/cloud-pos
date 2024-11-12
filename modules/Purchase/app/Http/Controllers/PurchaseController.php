@@ -38,7 +38,7 @@ class PurchaseController extends Controller
 
     public function show(int $id)
     {
-        return $this->purchaseRepository->show($id);
+        return $this->purchaseRepository->findOrFail($id);
     }
 
     public function update(UpdateRequest $request, int $id)
@@ -51,7 +51,7 @@ class PurchaseController extends Controller
 
     public function destroy(int $id)
     {
-        $item = $this->purchaseRepository->destroy($id);
+        $item = $this->purchaseRepository->delete($id);
         if ($item) {
             return to_route('purchases.index');
         }

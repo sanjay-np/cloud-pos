@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\Customer\Interfaces;
+namespace App\Interfaces;
 
-interface CustomerRepositoryInterface
+interface SearchRepositoryInterface
 {
     public function take(int $count);
 
