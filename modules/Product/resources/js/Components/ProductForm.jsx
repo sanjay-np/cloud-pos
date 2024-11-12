@@ -220,6 +220,7 @@ export default function ProductForm(props) {
                         <HStack>
                             <div className="form-item w-1/2">
                                 <label className='text-gray-600 font-semibold mb-1 block'>Supplier</label>
+                                {/* Todo: Supplier Selector */}
                                 <SelectPicker
                                     className='w-full'
                                     data={suppliers}
@@ -230,6 +231,7 @@ export default function ProductForm(props) {
                                 <InputError message={errors.supplier_id} className='mt-2' />
                             </div>
                             <div className="form-item w-1/2">
+                                {/* Todo: Brand Selector */}
                                 <label className='text-gray-600 font-semibold mb-1 block'>Brand</label>
                                 <SelectPicker
                                     className='w-full'

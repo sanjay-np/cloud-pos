@@ -13,7 +13,14 @@ class SaleDetail extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'sale_id',
+        'product_id',
+        'qty',
+        'unit_price',
+        'sale_price',
+        'sub_total',
+    ];
 
     // protected static function newFactory(): SaleDetailFactory
     // {

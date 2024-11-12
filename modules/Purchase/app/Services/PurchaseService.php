@@ -19,11 +19,10 @@ class PurchaseService
 
     public function createPurchaseDetail(array $data, int $purchaseId)
     {
-        $data['purchase_id'] = $purchaseId;
         foreach ($data['products'] as $product) {
             $product['product_id'] = $product['id'] ?? null;
-            $product['sub_total'] = $product['unit_price'] * $product['qty'];
-            $this->purchaseDetailModal->create($product);
+            $product['sub_total'] = $product['unit_price'] ?? 0 * $product['qty'] ?? 0;
+            $this->purchaseDetailModal->create($product + ['purchase_id' => $purchaseId]);
         }
     }
 

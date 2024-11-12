@@ -12,12 +12,6 @@ export const purchaseStatus = [
     { label: 'Completed', value: "completed" },
 ]
 
-export const paymentMethods = [
-    { label: 'Cash', value: "cash" },
-    { label: 'Bank Transfer', value: "bank_transfer" },
-    { label: 'Cheque', value: "cheque" },
-]
-
 export const purchaseTableHeader = [
     { title: 'Purchase Date', dataKey: 'date' },
     { title: 'Reference', dataKey: 'reference' },

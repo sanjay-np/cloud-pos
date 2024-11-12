@@ -16,9 +16,13 @@ export default function Index({ auth, purchases }) {
     const drawerRef = useRef(false)
     const deleteModalRef = useRef(false)
 
-    const editAction = (id) => { }
+    const editAction = (id) => {
+        // Todo: Edit action
+    }
 
-    const deleteAction = (id) => { }
+    const deleteAction = (id) => {
+        // Todo: Delete action
+    }
 
 
     return (

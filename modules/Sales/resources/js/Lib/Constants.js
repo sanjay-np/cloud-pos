@@ -7,3 +7,9 @@ export const salesTableHeader = [
     { title: 'Payment Status', dataKey: 'payment_status' },
     { title: 'Status', dataKey: 'status' }
 ]
+
+export const saleStatus = [
+    { label: 'Pending', value: "pending" },
+    { label: 'Ordered', value: "ordered" },
+    { label: 'Completed', value: "completed" },
+]

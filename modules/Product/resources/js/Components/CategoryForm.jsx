@@ -109,6 +109,7 @@ export default function CategoryForm(props) {
                     </div>
                     <div className="mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Parent Category</label>
+                        {/* Todo: Implement Parent Category */}
                         <SelectPicker
                             data={[]}
                             placeholder="Select Parent Category..."

@@ -26,7 +26,7 @@ class PurchasePayment extends Model
     {
         parent::boot();
         static::creating(function ($model) {
-            $number = Purchase::max('id') + 1;
+            $number = PurchasePayment::max('id') + 1;
             $model->reference = make_reference_id('PUR-PAY', $number);
         });
     }

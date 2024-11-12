@@ -8,21 +8,60 @@ import { setDiscount, setSaleProduct, setShipping } from '@/Store/Reducers/SaleP
 import FormDrawer from '@/Components/Overlays/FormDrawer'
 import InputError from '@/Components/InputError'
 import ProductTable from './ProductTable'
+import { paymentMethods } from '@/Lib/Constants'
+import { saleStatus } from '../Lib/Constants'
+import { useEffect } from 'react'
+import { toast } from 'sonner'
 
 export default function SalesForm({ drawerRef, selected, type }) {
 
     const { products, total, taxPercent, taxAmount, discount, shipping } = useSelector(state => state.saleProductSlice)
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
+        date: new Date(),
+        customer_id: "",
+        tax_percentage: 0,
+        tax_amount: 0,
+        discount_amount: 0,
+        shipping_amount: 0,
+        total_amount: 0,
+        paid_amount: 0,
+        status: "",
+        payment_status: "",
+        payment_method: "",
+        note: "",
+        products: []
     })
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        setData((prev) => {
+            return {
+                ...prev,
+                products: products,
+                tax_percentage: taxPercent,
+                tax_amount: taxAmount,
+                discount_amount: discount,
+                shipping_amount: shipping,
+                total_amount: total
+            }
+        })
+    }, [products, total, taxPercent, taxAmount, discount, shipping])
 
     const handleProductClick = (item) => {
         dispatch(setSaleProduct({ ...item, qty: 1 }))
     }
 
     const onSubmit = () => {
-
+        if (!selected && type === 'add') {
+            post(route('sales.store'), {
+                onSuccess: () => {
+                    drawerRef.current.close()
+                    toast.success('Success', {
+                        description: 'Sales added successfully',
+                    })
+                }
+            })
+        }
     }
 
     const formClear = () => {
@@ -54,7 +93,9 @@ export default function SalesForm({ drawerRef, selected, type }) {
                 </div>
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Customer</label>
-                    <CustomerPicker />
+                    <CustomerPicker
+                        onChange={(id) => setData('customer_id', id)}
+                    />
                     <InputError message={errors.customer_id} className='mt-2' />
                 </div>
                 <div className="form-item w-1/3">
@@ -131,7 +172,7 @@ export default function SalesForm({ drawerRef, selected, type }) {
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Status</label>
                     <SelectPicker
-                        data={[]}
+                        data={saleStatus}
                         className='w-full'
                         onChange={(val) => setData('status', val)}
                     />
@@ -140,7 +181,7 @@ export default function SalesForm({ drawerRef, selected, type }) {
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Payment Method</label>
                     <SelectPicker
-                        data={[]}
+                        data={paymentMethods}
                         className='w-full'
                         onChange={(val) => setData('payment_method', val)}
                     />

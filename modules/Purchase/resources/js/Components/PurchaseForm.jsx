@@ -1,22 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 import FormDrawer from '@/Components/Overlays/FormDrawer'
 import { useForm } from '@inertiajs/react'
 import { DatePicker, HStack, Input, InputGroup, SelectPicker } from 'rsuite'
-import { SearchIcon } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setDiscount, setPurchaseProduct, setShipping, setTax } from '@/Store/Reducers/PurchaseProductSlice'
 import { formattedNumber } from '@/Lib/Utils'
 import { toast } from 'sonner'
 import InputError from '@/Components/InputError'
-import { paymentMethods, purchaseStatus } from '../Lib/Constants'
+import { purchaseStatus } from '../Lib/Constants'
 import ProductTable from './ProductTable'
 import SupplierPicker from '@/Components/Picker/SupplierPicker'
+import ProductPicker from '@/Components/Picker/ProductPicker'
+import { paymentMethods } from '@/Lib/Constants'
 
 
 const PurchaseForm = ({ drawerRef, selected, type }) => {
 
-    const searchRef = useRef(null)
-    const [searchItems, setSearchItems] = useState([])
     const { products, total, taxPercent, taxAmount, discount, shipping } = useSelector(state => state.purchaseProductSlice)
     const { data, setData, post, processing, errors, reset } = useForm({
         date: new Date(),
@@ -50,25 +49,9 @@ const PurchaseForm = ({ drawerRef, selected, type }) => {
         })
     }, [products, total, taxPercent, taxAmount, discount, shipping])
 
-    const handleSearch = async (value) => {
-        if (value.length > 3) {
-            try {
-                const res = await axios.get(route('products.search', { search_qry: value }));
-                setSearchItems(res.data.length ? res.data : []);
-            } catch (error) {
-                console.error("Search error:", error);
-                setSearchItems([]);
-            }
-        } else {
-            setSearchItems([])
-        }
-    }
-
-    const onClickSearchItem = (item) => {
+    const handleProductClick = (item) => {
         dispatch(setPurchaseProduct({ ...item, qty: 1 }))
-        setSearchItems([])
-        if (!searchRef.current) return
-        searchRef.current.value = ''
+
     }
 
     const onSubmit = () => {
@@ -97,32 +80,10 @@ const PurchaseForm = ({ drawerRef, selected, type }) => {
             reset={formClear}
             size='lg'
         >
-            <div className="form-item mb-4 relative">
-                <InputGroup>
-                    <Input
-                        placeholder='Search Product by name or code...'
-                        size='md'
-                        ref={searchRef}
-                        onChange={(val) => handleSearch(val)}
-                    />
-                    <InputGroup.Addon>
-                        <SearchIcon color="gray" strokeWidth={1.5} />
-                    </InputGroup.Addon>
-                </InputGroup>
-                {searchItems.length > 0 && (
-                    <div className="search-result absolute z-10 w-full bg-white top-11 border-x px-2">
-                        <ul>
-                            {searchItems.map((item, index) => (
-                                <li className="item border-b py-2 cursor-pointer" key={index}>
-                                    <div className='flex items-center justify-between' onClick={() => onClickSearchItem(item)}>
-                                        <p>{item.title}</p>
-                                        <p>{item.sku}</p>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+            <div className="form-item mb-4">
+                <ProductPicker
+                    handleProductClick={handleProductClick}
+                />
             </div>
             <HStack spacing={20} className='mb-4'>
                 <div className="form-item w-1/3">

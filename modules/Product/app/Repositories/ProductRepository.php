@@ -53,6 +53,7 @@ class ProductRepository implements CrudRepositoryInterface, SearchRepositoryInte
     public function search(string $search_qry)
     {
         return $this->model
+            ->select(['id', 'title', 'bar_code', 'sku', 'unit_price', 'sale_price'])
             ->where('title', 'like', '%' . $search_qry . '%')
             ->orWhere('bar_code', 'like', '%' . $search_qry . '%')
             ->orWhere('sku', 'like', '%' . $search_qry . '%')

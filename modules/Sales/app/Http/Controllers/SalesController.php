@@ -8,14 +8,18 @@ use Inertia\Inertia;
 use Modules\Sales\Http\Requests\StoreRequest;
 use Modules\Sales\Http\Requests\UpdateRequest;
 use Modules\Sales\Repositories\SaleRepository;
+use Modules\Sales\Services\SaleService;
 
 class SalesController extends Controller
 {
-    protected $saleRepository;
+    protected $saleRepository, $saleService;
 
-    public function __construct(SaleRepository $saleRepository)
-    {
+    public function __construct(
+        SaleRepository $saleRepository,
+        SaleService $saleService
+    ) {
         $this->saleRepository = $saleRepository;
+        $this->saleService = $saleService;
     }
 
     public function index(Request $request)
@@ -27,6 +31,8 @@ class SalesController extends Controller
     {
         $item = $this->saleRepository->store($request->getValidated());
         if ($item) {
+            $this->saleService->createSaleDetail($request->getValidatedProducts(), $item->id);
+            $this->saleService->createSalePayment($request->getValidatedPayment(), $item->id);
             return to_route('sales.index');
         }
     }

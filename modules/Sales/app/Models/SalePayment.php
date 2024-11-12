@@ -13,7 +13,23 @@ class SalePayment extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'sale_id',
+        'amount',
+        'date',
+        'reference',
+        'payment_method',
+        'note',
+    ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $number = SalePayment::max('id') + 1;
+            $model->reference = make_reference_id('SALE-PAY', $number);
+        });
+    }
 
     // protected static function newFactory(): SalePaymentFactory
     // {

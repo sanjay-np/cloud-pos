@@ -55,21 +55,7 @@ const ProductTable = (props) => {
                 </Cell>
             </Column>
             <Column flexGrow={1}>
-                <HeaderCell><span className="text-base font-semibold text-gray-600">P.Price</span></HeaderCell>
-                <Cell>
-                    {(rowData) => (
-                        <InputGroup>
-                            <Input
-                                value={rowData?.unit_price}
-                                size='sm'
-                                onChange={(price) => handleProductPrice(rowData?.id, price, 'purchase')}
-                            />
-                        </InputGroup>
-                    )}
-                </Cell>
-            </Column>
-            <Column flexGrow={1}>
-                <HeaderCell><span className="text-base font-semibold text-gray-600">S.Price</span></HeaderCell>
+                <HeaderCell><span className="text-base font-semibold text-gray-600">Price</span></HeaderCell>
                 <Cell>
                     {(rowData) => (
                         <InputGroup>
@@ -86,7 +72,7 @@ const ProductTable = (props) => {
                 <HeaderCell><span className="text-base font-semibold text-gray-600">Total</span></HeaderCell>
                 <Cell>
                     {(rowData) => (
-                        <span>{formattedNumber(rowData?.unit_price * rowData?.qty)}</span>
+                        <span>{formattedNumber(rowData?.sale_price * rowData?.qty)}</span>
                     )}
                 </Cell>
             </Column>
