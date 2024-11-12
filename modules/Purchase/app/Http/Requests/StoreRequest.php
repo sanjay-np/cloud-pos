@@ -47,37 +47,45 @@ class StoreRequest extends FormRequest
         $paymentStatus = ($paidAmount >= $totalAmount) ? 'paid' : ($paidAmount > 0 ? 'due' : 'unpaid');
         $dueAmount = $totalAmount - $paidAmount;
 
-        return [
-            'purchase' => array_merge(
-                $this->only(keys: [
-                    'supplier_id',
-                    'tax_percentage',
-                    'tax_amount',
-                    'discount_amount',
-                    'shipping_amount',
-                    'total_amount',
-                    'paid_amount',
-                    'status',
-                    'note',
-                    'payment_method',
-                ]),
-                [
-                    'date' => Carbon::parse($this->input('date'))->format('Y-m-d H:i:s'),
-                    'payment_status' => $paymentStatus,
-                    'due_amount' => $dueAmount
-                ]
-            ),
-            'products' => $this->only(keys: ['products']),
-            'payments' => array_merge(
-                $this->only(keys: [
-                    'payment_method',
-                    'note',
-                ]),
-                [
-                    'date' => Carbon::parse($this->input('date'))->format('Y-m-d H:i:s'),
-                    'amount' => $this->input('paid_amount')
-                ]
-            )
-        ];
+        return array_merge(
+            $this->only(keys: [
+                'supplier_id',
+                'tax_percentage',
+                'tax_amount',
+                'discount_amount',
+                'shipping_amount',
+                'total_amount',
+                'paid_amount',
+                'status',
+                'note',
+                'payment_method',
+            ]),
+            [
+                'date' => Carbon::parse($this->input('date'))->format('Y-m-d H:i:s'),
+                'payment_status' => $paymentStatus,
+                'due_amount' => $dueAmount
+            ]
+        );
+    }
+
+    public function getValidatedProducts(): array
+    {
+        return $this->only(keys: [
+            'products'
+        ]);
+    }
+
+    public function getValidatedPayment(): array
+    {
+        return array_merge(
+            $this->only(keys: [
+                'payment_method',
+                'note',
+            ]),
+            [
+                'date' => Carbon::parse($this->input('date'))->format('Y-m-d H:i:s'),
+                'amount' => $this->input('paid_amount')
+            ]
+        );
     }
 }

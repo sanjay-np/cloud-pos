@@ -2,36 +2,34 @@
 
 namespace Modules\Purchase\Services;
 
-use Modules\Purchase\Actions\PurchaseDetailAction;
-use Modules\Purchase\Actions\PurchasePaymentAction;
+use Modules\Purchase\Models\PurchaseDetail;
+use Modules\Purchase\Models\PurchasePayment;
 
 class PurchaseService
 {
-    protected $purchaseRepository, $purchaseDetail, $purchasePayment;
+    protected $purchaseDetailModal, $purchasePaymentModal;
 
     public function __construct(
-        PurchaseDetailAction $purchaseDetail,
-        PurchasePaymentAction $purchasePayment
+        PurchaseDetail $purchaseDetailModal,
+        PurchasePayment $purchasePaymentModal
     ) {
-        $this->purchaseRepository = $purchaseRepository;
-        $this->purchaseDetail = $purchaseDetail;
-        $this->purchasePayment = $purchasePayment;
+        $this->purchaseDetailModal = $purchaseDetailModal;
+        $this->purchasePaymentModal = $purchasePaymentModal;
     }
 
-    public function store(array $data)
+    public function createPurchaseDetail(array $data, int $purchaseId)
     {
-        $item = $this->purchaseRepository->store($data['purchase']);
-        if ($item) {
-            $products = $data['products']['products'] ?? [];
-            if (!empty($products)) {
-                foreach ($products as $product) {
-                    $this->purchaseDetail->create($product, $item->id);
-                }
-            }
-            if (!empty($data['payments'])) {
-                $this->purchasePayment->create($data['payments'], $item->id);
-            }
+        $data['purchase_id'] = $purchaseId;
+        foreach ($data['products'] as $product) {
+            $product['product_id'] = $product['id'] ?? null;
+            $product['sub_total'] = $product['unit_price'] * $product['qty'];
+            $this->purchaseDetailModal->create($product);
         }
-        return $item;
+    }
+
+    public function createPurchasePayment(array $data, int $purchaseId)
+    {
+        $data['purchase_id'] = $purchaseId;
+        $this->purchasePaymentModal->create($data);
     }
 }

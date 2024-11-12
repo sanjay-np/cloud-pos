@@ -30,7 +30,7 @@ class PurchaseRepository implements CrudRepositoryInterface
 
     public function store(array $data)
     {
-        return $this->model->create($data);
+        return $this->model->create($data['purchase']);
     }
 
     public function findOrFail(int $id)

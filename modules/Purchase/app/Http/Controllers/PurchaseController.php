@@ -8,14 +8,16 @@ use Inertia\Inertia;
 use Modules\Purchase\Http\Requests\StoreRequest;
 use Modules\Purchase\Http\Requests\UpdateRequest;
 use Modules\Purchase\Repositories\PurchaseRepository;
+use Modules\Purchase\Services\PurchaseService;
 
 class PurchaseController extends Controller
 {
-    protected $purchaseRepository;
+    protected $purchaseRepository, $purchaseService;
 
-    public function __construct(PurchaseRepository $purchaseRepository)
+    public function __construct(PurchaseRepository $purchaseRepository, PurchaseService $purchaseService)
     {
         $this->purchaseRepository = $purchaseRepository;
+        $this->purchaseService = $purchaseService;
     }
     /**
      * Display a listing of the resource.
@@ -32,6 +34,8 @@ class PurchaseController extends Controller
     {
         $item = $this->purchaseRepository->store($request->getValidated());
         if ($item) {
+            $this->purchaseService->createPurchaseDetail($request->getValidatedProducts(), $item->id);
+            $this->purchaseService->createPurchasePayment($request->getValidatedPayment(), $item->id);
             return to_route('purchases.index');
         }
     }
