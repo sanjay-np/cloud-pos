@@ -5,6 +5,7 @@ namespace Modules\Sales\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Modules\Sales\Events\SaleCreated;
 use Modules\Sales\Http\Requests\StoreRequest;
 use Modules\Sales\Http\Requests\UpdateRequest;
 use Modules\Sales\Repositories\SaleRepository;
@@ -30,6 +31,7 @@ class SalesController extends Controller
     public function store(StoreRequest $request)
     {
         $item = $this->saleRepository->store($request->getValidated());
+        event(new SaleCreated($item));
         if ($item) {
             $this->saleService->createSaleDetail($request->getValidatedProducts(), $item->id);
             $this->saleService->createSalePayment($request->getValidatedPayment(), $item->id);

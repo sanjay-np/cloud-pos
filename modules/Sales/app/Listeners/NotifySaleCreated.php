@@ -2,9 +2,10 @@
 
 namespace Modules\Sales\Listeners;
 
-use Modules\Sales\app\Events\SaleCreated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Modules\Sales\Events\SaleCreated;
+use Spatie\LaravelPdf\Facades\Pdf;
 
 class NotifySaleCreated
 {
@@ -21,6 +22,7 @@ class NotifySaleCreated
      */
     public function handle(SaleCreated $event): void
     {
-        //
+        $sale = $event->sale;
+        Pdf::view('invoices.sale', compact('sale'))->format('a4')->save('pdf/' . $sale->reference . '.pdf');
     }
 }
