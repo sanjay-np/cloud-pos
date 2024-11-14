@@ -6,6 +6,7 @@ use App\Traits\CurrentFiscalYear;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Customer\Models\Customer;
 
 // use Modules\Sales\Database\Factories\SaleFactory;
 
@@ -52,6 +53,11 @@ class Sale extends Model
     public function payments()
     {
         return $this->hasMany(SalePayment::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 
     // protected static function newFactory(): SaleFactory

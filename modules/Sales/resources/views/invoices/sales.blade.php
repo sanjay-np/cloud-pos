@@ -6,12 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
+        @page {
+            margin: 50px 20px;
+        }
+
         body {
             font-family: Arial, sans-serif;
             color: #333;
             line-height: 0.5em;
             margin-bottom: 0;
             font-size: 14px;
+            padding: 0;
+            margin: 0;
         }
 
         .invoice-container {
@@ -25,12 +31,7 @@
         .invoice-header h1 {
             margin: 0;
             font-size: 24px;
-
-        }
-
-        .client-details div {
-            width: 50%;
-            float: left;
+            text-align: right;
         }
 
         .item-table {
@@ -39,23 +40,26 @@
             border-collapse: collapse;
             margin-top: 50px;
             padding-top: 30px;
+            margin-bottom: 30px;
         }
 
         .item-table th,
         .item-table td {
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 15px 10px;
             text-align: left;
+            margin-bottom: 0;
         }
 
         .item-table th {
-            background-color: #f4f4f4;
+            background-color: #f3f3f3;
         }
 
         .total {
             text-align: right;
             font-weight: bold;
-            margin-top: 20px;
+            margin-bottom: 15px;
+            padding-right: 10px;
         }
     </style>
 </head>
@@ -64,58 +68,59 @@
     <div class="invoice-container">
         <div class="invoice-header">
             <h1>Sales Invoice</h1>
-            <p>Invoice Number: #12345</p>
-            <p>Date: 2023-10-01</p>
+            <p>Invoice Number: {{ $sales->reference }}</p>
+            <p>Date: {{$sales->date}}</p>
         </div>
 
         <!-- Client and Company Details -->
         <div class="client-details">
-            <div>
+            <div style="width: 60%; float: left;">
                 <h3>From:</h3>
                 <p>Chaudhary Gas Suppliers</p>
                 <p>Butwal-11, RangaShala Road</p>
                 <p>Rupandehi, Nepal</p>
                 <p>Email: <a href="mailto:sanjayc2051@gmail.com">sanjayc2051@gmail.com</a></p>
             </div>
-            <div>
+            <div style="width: 30%; float: right;">
                 <h3>Bill To:</h3>
-                <p>Sanjay Chaudhary</p>
-                <p>Butwal-11, RangaShala Road</p>
-                <p>Rupandehi, Nepal</p>
-                <p>Phone: +977-1-1234567</p>
+                <p>{{ $sales->customer->name }}</p>
+                <p style="line-height: 1.5;">{{ $sales->customer->address }}</p>
+                <p>Phone: {{ $sales->customer->phone }}</p>
             </div>
         </div>
 
         <!-- Itemized Charges -->
         <table class="item-table">
             <tr>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Amount</th>
+                <th>Item</th>
+                <th style="width: 50px;">Qty</th>
+                <th style="width: 80px;">Price</th>
+                <th style="width: 80px">Amt</th>
             </tr>
+            @php
+            $subTotal = 0;
+            @endphp
+            @foreach ($sales->details as $detail)
             <tr>
-                <td>Item 1</td>
-                <td>2</td>
-                <td>$50.00</td>
-                <td>$100.00</td>
+                <td>{{ $detail->product->title }}</td>
+                <td>{{ $detail->qty }}</td>
+                <td>{{ $detail->unit_price }}</td>
+                <td>{{ $detail->sub_total }}</td>
             </tr>
-            <tr>
-                <td>Item 2</td>
-                <td>1</td>
-                <td>$200.00</td>
-                <td>$200.00</td>
-            </tr>
-            <tr>
-                <td>Service Fee</td>
-                <td>1</td>
-                <td>$75.00</td>
-                <td>$75.00</td>
-            </tr>
+            @php
+            $subTotal += $detail->sub_total;
+            @endphp
+            @endforeach
+
         </table>
 
         <!-- Total Amount -->
-        <p class="total">Total: $375.00</p>
+        <p class="total">Sub Total: {{ $subTotal }}</p>
+        <p class="total">Tax Total: {{ $sales->tax_amount }}</p>
+        <p class="total">Discount Total: {{ $sales->discount_amount }}</p>
+        <p class="total"> Total: {{ $sales->total_amount }}</p>
+        <p class="total"> Paid Amount: {{ $sales->paid_amount }}</p>
+        <p class="total"> Due Amount: {{ $sales->due_amount }}</p>
     </div>
 </body>
 

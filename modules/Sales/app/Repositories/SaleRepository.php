@@ -16,7 +16,9 @@ class SaleRepository implements CrudRepositoryInterface
 
     public function paginate(int $perPage)
     {
-        return $this->model->paginate($perPage);
+        return $this->model
+            ->with('customer:id,name')
+            ->paginate($perPage);
     }
 
     public function findAll()

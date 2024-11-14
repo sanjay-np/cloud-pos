@@ -9,7 +9,7 @@ export default function ProductPicker(props) {
 
 
     const handleProductSearch = async (value) => {
-        if (value.length > 3) {
+        if (value.length >= 3) {
             try {
                 const res = await axios.get(route('products.search', { search_qry: value }));
                 setProductItems(res.data.length ? res.data : []);

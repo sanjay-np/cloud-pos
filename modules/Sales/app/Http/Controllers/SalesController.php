@@ -3,7 +3,6 @@
 namespace Modules\Sales\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Sales\Events\SaleCreated;
@@ -26,16 +25,17 @@ class SalesController extends Controller
 
     public function index(Request $request)
     {
-        return Inertia::render('Sales::Index');
+        $sales = $this->saleRepository->paginate(10);
+        return Inertia::render('Sales::Index', ['sales' => $sales]);
     }
 
     public function store(StoreRequest $request)
     {
         $item = $this->saleRepository->store($request->getValidated());
-        event(new SaleCreated($item));
         if ($item) {
             $this->saleService->createSaleDetail($request->getValidatedProducts(), $item->id);
             $this->saleService->createSalePayment($request->getValidatedPayment(), $item->id);
+            event(new SaleCreated($item));
             return to_route('sales.index');
         }
     }
@@ -59,12 +59,5 @@ class SalesController extends Controller
         if ($item) {
             return to_route('sales.index');
         }
-    }
-
-    public function test()
-    {
-        $pdf = Pdf::loadView('sales::invoices.sales');
-        return $pdf->stream('invoice.pdf');
-        // return view('');
     }
 }

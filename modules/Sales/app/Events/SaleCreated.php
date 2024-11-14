@@ -15,14 +15,14 @@ class SaleCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $sale;
+    public $sales;
 
     /**
      * Create a new event instance.
      */
     public function __construct(Sale $sale)
     {
-        $this->sale = $sale;
+        $this->sales = $sale;
     }
 
     /**
