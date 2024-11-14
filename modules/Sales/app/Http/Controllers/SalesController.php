@@ -3,6 +3,7 @@
 namespace Modules\Sales\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Sales\Events\SaleCreated;
@@ -58,5 +59,12 @@ class SalesController extends Controller
         if ($item) {
             return to_route('sales.index');
         }
+    }
+
+    public function test()
+    {
+        $pdf = Pdf::loadView('sales::invoices.sales');
+        return $pdf->stream('invoice.pdf');
+        // return view('');
     }
 }

@@ -18,3 +18,5 @@ Route::resource('sales', SalesController::class)
     ->names('sales')
     ->only(['index', 'store', 'show', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
+
+Route::get('/test', [SalesController::class, 'test']);
