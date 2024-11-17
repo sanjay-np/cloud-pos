@@ -6,5 +6,7 @@
     "PurchaseReturn": true,
     "SalesReturn": true,
     "Sales": true,
-    "Setting": true
+    "Setting": true,
+    "Pos": true,
+    "Expenses": true
 }
