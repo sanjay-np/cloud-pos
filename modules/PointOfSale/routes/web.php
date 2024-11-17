@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Pos\Http\Controllers\PosController;
+use Modules\PointOfSale\Http\Controllers\PointOfSaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +15,5 @@ use Modules\Pos\Http\Controllers\PosController;
 */
 
 Route::group([], function () {
-    Route::resource('pos', PosController::class)->names('pos');
+    Route::resource('pointofsale', PointOfSaleController::class)->names('pointofsale');
 });

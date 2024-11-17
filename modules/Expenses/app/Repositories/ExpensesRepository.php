@@ -26,7 +26,18 @@ class ExpensesRepository implements CrudRepositoryInterface
 
     public function store(array $data)
     {
-        return $this->model->create($data);
+        try {
+            $this->model->create($data);
+            return [
+                'success' => true,
+                'message' => 'Expense created successfully'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
     }
 
     public function findorFail($id)
@@ -36,11 +47,33 @@ class ExpensesRepository implements CrudRepositoryInterface
 
     public function update(array $data, int  $id)
     {
-        return $this->model->find($id)->update($data);
+        try {
+            $this->model->findOrFail($id)->update($data);
+            return [
+                'success' => true,
+                'message' => 'Expense updated successfully'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
     }
 
     public function delete(int $id)
     {
-        return $this->model->find($id)->delete();
+        try {
+            $this->model->findOrFail($id)->delete();
+            return [
+                'success' => true,
+                'message' => 'Expense deleted successfully'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
     }
 }

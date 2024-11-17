@@ -3,6 +3,7 @@
 namespace Modules\Product\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Product\Http\Requests\Supplier\StoreRequest;
@@ -12,6 +13,8 @@ use Modules\Product\Repositories\SupplierRepository;
 
 class SupplierController extends Controller
 {
+    use InertiaResponseTrait;
+    
     protected $supplierRepository, $brandRepository;
 
     public function __construct(

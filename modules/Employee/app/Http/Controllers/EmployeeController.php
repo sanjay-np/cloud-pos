@@ -3,6 +3,7 @@
 namespace Modules\Employee\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Employee\Http\Requests\StoreRequest;
@@ -11,6 +12,7 @@ use Modules\Employee\Repositories\EmployeeRepository;
 
 class EmployeeController extends Controller
 {
+    use InertiaResponseTrait;
     protected $employeeRepository;
 
     public function __construct(EmployeeRepository $employeeRepository)

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Pos\Providers;
+namespace Modules\PointOfSale\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -8,13 +8,13 @@ use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-class PosServiceProvider extends ServiceProvider
+class PointOfSaleServiceProvider extends ServiceProvider
 {
     use PathNamespace;
 
-    protected string $name = 'Pos';
+    protected string $name = 'PointOfSale';
 
-    protected string $nameLower = 'pos';
+    protected string $nameLower = 'pointofsale';
 
     /**
      * Boot the application events.

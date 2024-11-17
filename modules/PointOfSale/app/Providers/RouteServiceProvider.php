@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Pos\Providers;
+namespace Modules\PointOfSale\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected string $name = 'Pos';
+    protected string $name = 'PointOfSale';
 
     /**
      * Called before routes are registered.

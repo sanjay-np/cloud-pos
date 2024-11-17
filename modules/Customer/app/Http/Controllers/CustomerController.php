@@ -3,6 +3,7 @@
 namespace Modules\Customer\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Customer\Http\Requests\StoreRequest;
@@ -11,6 +12,8 @@ use Modules\Customer\Repositories\CustomerRepository;
 
 class CustomerController extends Controller
 {
+    use InertiaResponseTrait;
+    
     protected $customerRepository;
 
     public function __construct(CustomerRepository $customerRepository)

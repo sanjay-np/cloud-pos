@@ -25,14 +25,17 @@ class ExpensesController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Expenses::Index');
+        $expenses = $this->expensesRepository->paginate(10);
+        return Inertia::render('Expenses::Index', [
+            'expenses' => $expenses
+        ]);
     }
 
     public function store(StoreRequest $request)
     {
         try {
             $item = $this->expensesRepository->store($request->getValidated());
-            $this->handleInertiaResponse($item, 'Expense created successfully');
+            $this->handleInertiaResponse($item, 'expenses.index');
         } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
@@ -48,7 +51,7 @@ class ExpensesController extends Controller
     {
         try {
             $item = $this->expensesRepository->update($request->getValidated(), $id);
-            $this->handleInertiaResponse($item, 'Expense updated successfully');
+            $this->handleInertiaResponse($item, 'expenses.index');
         } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
@@ -57,8 +60,8 @@ class ExpensesController extends Controller
     public function destroy(int $id)
     {
         try {
-            $this->expensesRepository->delete($id);
-            $this->success('Expense deleted successfully');
+            $item = $this->expensesRepository->delete($id);
+            $this->handleInertiaResponse($item, 'expenses.index');
         } catch (\Exception $e) {
             $this->error($e->getMessage());
         }

@@ -14,6 +14,6 @@ use Modules\Expenses\Http\Controllers\ExpensesController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('expenses', ExpensesController::class)->names('expenses');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('expenses', ExpensesController::class)->names('expenses');
+// });

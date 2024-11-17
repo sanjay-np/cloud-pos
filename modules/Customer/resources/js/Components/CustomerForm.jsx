@@ -8,9 +8,8 @@ import { previewFile } from '@/Lib/Utils'
 import { User2Icon } from 'lucide-react'
 import { toast } from 'sonner'
 
-export default function CustomerForm(props) {
+export default function CustomerForm({ drawerRef, selected, type }) {
 
-    const { drawerRef, selected, type } = props
     const [loading, setLoading] = useState(false)
     const [avatar, setAvatar] = useState(null)
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -73,7 +72,6 @@ export default function CustomerForm(props) {
     return (
         <FormDrawer
             ref={drawerRef}
-            processing={false}
             onSubmit={onSubmit}
             drawerTitle={selected ? 'Edit Customer' : 'Add Customer'}
             reset={formClear}

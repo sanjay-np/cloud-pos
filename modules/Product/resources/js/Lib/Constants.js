@@ -1,30 +1,30 @@
 export const brandTableHeader = [
-    { title: "Brand Name", dataKey: "name", flexGrow: 2 },
-    { title: "Description", dataKey: "description", flexGrow: 2 }
+    { title: "Brand Name", dataKey: "name", flexGrow: 1 },
+    { title: "Description", dataKey: "description", flexGrow: 1 }
 ]
 
 export const supplierTableHeader = [
-    { title: "Supplier Name", dataKey: "name" },
-    { title: "Phone", dataKey: "phone" },
-    { title: "Contact Person", dataKey: "contact_person" },
-    { title: "PAN No.", dataKey: "pan" }
+    { title: "Supplier Name", dataKey: "name", flexGrow: 1 },
+    { title: "Phone", dataKey: "phone", width: 150 },
+    { title: "Contact Person", dataKey: "contact_person", width: 150 },
+    { title: "PAN No.", dataKey: "pan", width: 150 }
 ]
 
 export const categoryTableHeader = [
-    { title: "Category Name", dataKey: "name", flexGrow: 2 },
-    { title: "Parent Category", dataKey: "parent_id", flexGrow: 2 },
-    { title: "Status", dataKey: "status", flexGrow: 2 }
+    { title: "Category Name", dataKey: "name", flexGrow: 1 },
+    { title: "Parent Category", dataKey: "parent_id", flexGrow: 1 },
+    { title: "Status", dataKey: "status", flexGrow: 1 }
 ]
 
 export const attributeTableHeader = [
-    { title: "Attribute Name", dataKey: "name", flexGrow: 2 },
-    { title: "Description", dataKey: "description", flexGrow: 2 },
-    { title: "Status", dataKey: "status", flexGrow: 2 }
+    { title: "Attribute Name", dataKey: "name", flexGrow: 1 },
+    { title: "Description", dataKey: "description", flexGrow: 1 },
+    { title: "Status", dataKey: "status", flexGrow: 1 }
 ]
 
 export const productTableHeader = [
-    { title: "Product Name", dataKey: "title", flexGrow: 4 },
-    { title: "SKU", dataKey: "sku" },
+    { title: "Product Name", dataKey: "title", flexGrow: 1 },
+    { title: "SKU", dataKey: "sku", width: 150 },
     { title: "Stock", dataKey: "stock_qty" },
     { title: "P.Price", dataKey: "unit_price" },
     { title: "S.Price", dataKey: "sale_price" },

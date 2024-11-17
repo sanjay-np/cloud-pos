@@ -1,5 +1,5 @@
 {
-    "name": "nwidart/pos",
+    "name": "nwidart/pointofsale",
     "description": "",
     "authors": [
         {
@@ -17,14 +17,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\Pos\\": "app/",
-            "Modules\\Pos\\Database\\Factories\\": "database/factories/",
-            "Modules\\Pos\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\PointOfSale\\": "app/",
+            "Modules\\PointOfSale\\Database\\Factories\\": "database/factories/",
+            "Modules\\PointOfSale\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Modules\\Pos\\Tests\\": "tests/"
+            "Modules\\PointOfSale\\Tests\\": "tests/"
         }
     }
 }

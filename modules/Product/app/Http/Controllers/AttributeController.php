@@ -3,6 +3,7 @@
 namespace Modules\Product\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Product\Http\Requests\Attribute\StoreRequest;
@@ -11,6 +12,8 @@ use Modules\Product\Repositories\AttributeRepository;
 
 class AttributeController extends Controller
 {
+    use InertiaResponseTrait;
+    
     protected $attributeRepository;
 
     public function __construct(AttributeRepository $attributeRepository)

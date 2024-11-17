@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Pos\Database\Seeders;
+namespace Modules\PointOfSale\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class PosDatabaseSeeder extends Seeder
+class PointOfSaleDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.

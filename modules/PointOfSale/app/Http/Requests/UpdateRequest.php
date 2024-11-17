@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Pos\Http\Requests;
+namespace Modules\PointOfSale\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

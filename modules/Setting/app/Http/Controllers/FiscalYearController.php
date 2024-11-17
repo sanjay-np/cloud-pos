@@ -3,6 +3,7 @@
 namespace Modules\Setting\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Setting\Http\Requests\FiscalYear\StoreRequest;
@@ -11,6 +12,8 @@ use Modules\Setting\Repositories\FiscalYearRepository;
 
 class FiscalYearController extends Controller
 {
+    use InertiaResponseTrait;
+    
     protected $fiscalYearRepository;
 
     public function __construct(FiscalYearRepository $fiscalYearRepository)

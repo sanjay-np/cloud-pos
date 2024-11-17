@@ -2,6 +2,7 @@
 
 namespace Modules\Expenses\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -12,7 +13,10 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'date' => 'required|date',
+            'title' => 'required|string|max:255',
+            'amount' => 'required|numeric|min:0',
+            'description' => 'nullable|string',
         ];
     }
 
@@ -22,5 +26,19 @@ class StoreRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function getValidated(): array
+    {
+        return array_merge(
+            $this->only(keys: [
+                'title',
+                'amount',
+                'description'
+            ]),
+            [
+                'date' => Carbon::parse($this->input('date'))->format('Y-m-d H:i:s'),
+            ]
+        );
     }
 }

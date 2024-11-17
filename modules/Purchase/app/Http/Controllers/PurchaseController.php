@@ -3,6 +3,7 @@
 namespace Modules\Purchase\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Purchase\Http\Requests\StoreRequest;
@@ -12,6 +13,8 @@ use Modules\Purchase\Services\PurchaseService;
 
 class PurchaseController extends Controller
 {
+    use InertiaResponseTrait;
+
     protected $purchaseRepository, $purchaseService;
 
     public function __construct(PurchaseRepository $purchaseRepository, PurchaseService $purchaseService)

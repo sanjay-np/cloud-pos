@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react'
-import { BadgeDollarSignIcon, BadgePercentIcon, BookUserIcon, ClipboardCheckIcon, ContactRoundIcon, CornerDownLeftIcon, CornerDownRightIcon, GaugeIcon, MailIcon, PackageIcon, PieChartIcon, ReceiptIcon, Settings2Icon } from 'lucide-react'
+import { BadgeDollarSignIcon, BadgePercentIcon, BookUserIcon, ClipboardCheckIcon, ContactRoundIcon, CornerDownLeftIcon, CornerDownRightIcon, GaugeIcon, MailIcon, PackageIcon, PieChartIcon, ReceiptIcon, ReceiptTextIcon, Settings2Icon } from 'lucide-react'
 import React from 'react'
 import { Nav, Sidenav } from 'rsuite'
 
@@ -49,18 +49,21 @@ export default function SiderbarComp(props) {
                         <Nav.Item icon={<BadgeDollarSignIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('sales.index')}>Sales</Link>
                         </Nav.Item>
+                        <Nav.Item icon={<ReceiptTextIcon strokeWidth={1.5} size={20} />} as={'div'}>
+                            <Link href={route('expenses.index')}>Expenses</Link>
+                        </Nav.Item>
 
                         {/* <Nav.Item icon={<CornerDownLeftIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('sales.returns.index')}>Sales Return</Link>
                         </Nav.Item> */}
 
-                        <Nav.Item panel>Miscellaneous</Nav.Item>
+                        {/* <Nav.Item panel>Miscellaneous</Nav.Item>
                         <Nav.Item icon={<BadgePercentIcon strokeWidth={1.5} size={20} />} as={'div'}>Coupons</Nav.Item>
                         <Nav.Item icon={<MailIcon strokeWidth={1.5} size={20} />} as={'div'}>Messages</Nav.Item>
 
                         <Nav.Item panel>Analytics</Nav.Item>
                         <Nav.Item icon={<ClipboardCheckIcon strokeWidth={1.5} size={20} />} as={'div'}>Reports</Nav.Item>
-                        <Nav.Item icon={<PieChartIcon strokeWidth={1.5} size={20} />} as={'div'}>Analysis</Nav.Item>
+                        <Nav.Item icon={<PieChartIcon strokeWidth={1.5} size={20} />} as={'div'}>Analysis</Nav.Item> */}
 
                         <Nav.Item panel>Users</Nav.Item>
                         <Nav.Item icon={<BookUserIcon strokeWidth={1.5} size={20} />} as={'div'}>

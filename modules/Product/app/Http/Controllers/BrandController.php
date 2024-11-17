@@ -3,6 +3,7 @@
 namespace Modules\Product\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Product\Http\Requests\Brand\StoreRequest;
@@ -11,6 +12,8 @@ use Modules\Product\Repositories\BrandRepository;
 
 class BrandController extends Controller
 {
+    use InertiaResponseTrait;
+    
     protected $brandRepository;
 
     public function __construct(BrandRepository $brandRepository)

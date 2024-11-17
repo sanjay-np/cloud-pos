@@ -14,6 +14,6 @@ use Modules\PurchaseReturn\Http\Controllers\PurchaseReturnController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('purchasereturn', PurchaseReturnController::class)->names('purchasereturn');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('purchasereturn', PurchaseReturnController::class)->names('purchasereturn');
+// });

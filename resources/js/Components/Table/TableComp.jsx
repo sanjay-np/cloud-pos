@@ -34,14 +34,22 @@ const TableComp = (props) => {
                     {props?.columns?.map((column, index) => {
                         if (column?.type === 'toggle') {
                             return (
-                                <Column flexGrow={column?.flexGrow ?? 1} key={index}>
+                                <Column
+                                    key={index}
+                                    {...(column?.flexGrow && { flexGrow: column.flexGrow })}
+                                    {...(column?.width && { width: column.width })}
+                                >
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">{column.title}</span></HeaderCell>
                                     <ToggleCell dataKey={column.dataKey} />
                                 </Column>
                             )
                         }
                         return (
-                            <Column flexGrow={column?.flexGrow ?? 1} key={index}>
+                            <Column
+                                key={index}
+                                {...(column?.flexGrow && { flexGrow: column.flexGrow })}
+                                {...(column?.width && { width: column.width })}
+                            >
                                 <HeaderCell><span className="text-base font-semibold text-gray-600">{column.title}</span></HeaderCell>
                                 <Cell dataKey={column.dataKey} />
                             </Column>
@@ -49,7 +57,7 @@ const TableComp = (props) => {
                     })}
                     {/* Action Cell */}
                     {props?.actions && (
-                        <Column width={120}>
+                        <Column width={100}>
                             <HeaderCell><span className="text-base font-semibold text-gray-600">Actions</span></HeaderCell>
                             <ActionCell dataKey="id" actions={props?.actions} />
                         </Column>

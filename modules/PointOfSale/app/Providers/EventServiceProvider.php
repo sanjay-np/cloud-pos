@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Pos\Providers;
+namespace Modules\PointOfSale\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 

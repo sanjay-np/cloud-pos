@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Pos\Http\Controllers\PosController;
+use Modules\PointOfSale\Http\Controllers\PointOfSaleController;
 
 /*
  *--------------------------------------------------------------------------
@@ -14,6 +14,6 @@ use Modules\Pos\Http\Controllers\PosController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('pos', PosController::class)->names('pos');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('pointofsale', PointOfSaleController::class)->names('pointofsale');
+// });

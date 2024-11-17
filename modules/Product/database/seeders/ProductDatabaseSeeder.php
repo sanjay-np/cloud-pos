@@ -14,8 +14,8 @@ class ProductDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Brand::factory()->count(20)->create();
-        // Supplier::factory()->count(20)->create();
+        Brand::factory()->count(20)->create();
+        Supplier::factory()->count(20)->create();
         Product::factory()->count(20)->create();
     }
 }

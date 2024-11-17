@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Pos\Models;
+namespace Modules\PointOfSale\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Pos\Database\Factories\PointOfSaleFactory;
+// use Modules\PointOfSale\Database\Factories\PointOfSaleFactory;
 
 class PointOfSale extends Model
 {

@@ -14,6 +14,6 @@ use Modules\SalesReturn\Http\Controllers\SalesReturnController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('salesreturn', SalesReturnController::class)->names('salesreturn');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('salesreturn', SalesReturnController::class)->names('salesreturn');
+// });

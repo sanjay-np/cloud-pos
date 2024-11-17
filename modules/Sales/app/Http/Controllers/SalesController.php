@@ -3,6 +3,7 @@
 namespace Modules\Sales\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Sales\Events\SaleCreated;
@@ -13,6 +14,8 @@ use Modules\Sales\Services\SaleService;
 
 class SalesController extends Controller
 {
+    use InertiaResponseTrait;
+    
     protected $saleRepository, $saleService;
 
     public function __construct(
