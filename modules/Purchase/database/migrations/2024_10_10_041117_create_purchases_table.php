@@ -21,9 +21,9 @@ return new class extends Migration
             $table->float('tax_amount')->default(0);
             $table->float('discount_amount')->default(0);
             $table->float('shipping_amount')->default(0);
-            $table->float('total_amount');
-            $table->float('paid_amount');
-            $table->float('due_amount');
+            $table->float('total_amount')->default(0);
+            $table->float('paid_amount')->default(0);
+            $table->float('due_amount')->default(0);
             $table->string('status');
             $table->string('payment_status');
             $table->string('payment_method');

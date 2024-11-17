@@ -18,9 +18,9 @@ class CreateSaleDetailsTable extends Migration
             $table->unsignedBigInteger('sale_id');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->integer('qty');
-            $table->integer('unit_price');
-            $table->integer('sale_price');
-            $table->integer('sub_total');
+            $table->float('unit_price')->default(0);
+            $table->float('sale_price')->default(0);
+            $table->float('sub_total')->default(0);
             $table->foreign('sale_id')->references('id')->on('sales')->cascadeOnDelete();
             $table->foreign('product_id')->references('id')->on('products')->nullOnDelete();
             $table->timestamps();
