@@ -1,9 +1,9 @@
 import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+// import InputLabel from '@/Components/InputLabel';
+// import PrimaryButton from '@/Components/PrimaryButton';
+// import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
+// import { Transition } from '@headlessui/react';
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
     const user = usePage().props.auth.user;
@@ -21,7 +21,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
     return (
         <section className={className}>
-            <header>
+            {/* <header>
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Profile Information</h2>
 
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -98,6 +98,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     </Transition>
                 </div>
             </form>
+            */}
         </section>
     );
 }

@@ -1,8 +1,8 @@
 import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+// import InputError from '@/Components/InputError';
+// import InputLabel from '@/Components/InputLabel';
+// import PrimaryButton from '@/Components/PrimaryButton';
+// import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function ConfirmPassword() {
@@ -27,7 +27,7 @@ export default function ConfirmPassword() {
             </div>
 
             <form onSubmit={submit}>
-                <div className="mt-4">
+                {/* <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
 
                     <TextInput
@@ -47,7 +47,7 @@ export default function ConfirmPassword() {
                     <PrimaryButton className="ms-4" disabled={processing}>
                         Confirm
                     </PrimaryButton>
-                </div>
+                </div> */}
             </form>
         </GuestLayout>
     );

@@ -1,5 +1,5 @@
 import GuestLayout from '@/Layouts/GuestLayout';
-import PrimaryButton from '@/Components/PrimaryButton';
+// import PrimaryButton from '@/Components/PrimaryButton';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function VerifyEmail({ status }) {
@@ -13,7 +13,7 @@ export default function VerifyEmail({ status }) {
 
     return (
         <GuestLayout>
-            <Head title="Email Verification" />
+            {/* <Head title="Email Verification" />
 
             <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
                 Thanks for signing up! Before getting started, could you verify your email address by clicking on the
@@ -39,7 +39,7 @@ export default function VerifyEmail({ status }) {
                         Log Out
                     </Link>
                 </div>
-            </form>
+            </form> */}
         </GuestLayout>
     );
 }
