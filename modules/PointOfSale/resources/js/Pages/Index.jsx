@@ -13,11 +13,11 @@ const Index = ({ auth }) => {
     const { Column, Cell, HeaderCell } = Table
     return (
         <Authenticated user={auth.user}>
-            <Head title='Point of Sale' />
+            <Head title="Point of Sale" />
             <div className="page-content">
                 <div className="top-section">
                     <div className='title-wrapper'>
-                        <h1 className='title'>Point of Sale</h1>
+                        <h1 className='title'>POS</h1>
                         <ul className='breadcrumb'>
                             <li><LayoutGridIcon color='gray' size={20} /></li>
                             <li><ChevronRightIcon color='gray' size={14} /></li>
@@ -112,6 +112,7 @@ const Index = ({ auth }) => {
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </Authenticated>
