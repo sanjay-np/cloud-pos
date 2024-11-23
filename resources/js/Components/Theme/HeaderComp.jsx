@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { AlignLeftIcon, BellIcon, GripIcon, LanguagesIcon, MessageSquareTextIcon, PowerIcon, SearchIcon, SettingsIcon, SunIcon, User2Icon } from 'lucide-react'
+import { AlignLeftIcon, BadgeIndianRupee, BellIcon, GripIcon, LanguagesIcon, MessageSquareTextIcon, PowerIcon, SearchIcon, SettingsIcon, SunIcon, User2Icon } from 'lucide-react'
 import React from 'react'
 import { Avatar, Badge, Divider, Dropdown, FlexboxGrid, HStack, IconButton, Input, InputGroup, Popover, Stack, Whisper } from 'rsuite'
 
@@ -51,6 +51,12 @@ export default function HeaderComp() {
                 <FlexboxGrid.Item colSpan={12}>
                     <Stack>
                         <HStack divider={<Divider vertical />} spacing={4}>
+                            <Link href={route('pointofsale.index')} className='no-underline hover:no-underline'>
+                                <div className="flex items-center gap-2">
+                                    <BadgeIndianRupee color='gray' size={20} />
+                                    <span className='text-gray-600 font-medium text-base'>POS</span>
+                                </div>
+                            </Link>
                             <Stack spacing={20}>
                                 <div className="notification-section">
                                     <Badge color='red' content={4}>

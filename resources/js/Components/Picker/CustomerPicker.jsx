@@ -28,10 +28,13 @@ export default function CustomerPicker(props) {
 
     return (
         <SelectPicker
+            placeholder='Select Customer...'
             data={customers}
             onSearch={handleCustomerSearch}
             block
             onChange={(value) => props.onChange(value)}
+            className='w-full'
+            size={props.size ?? 'md'}
         />
     )
 }

@@ -4,6 +4,7 @@ namespace Modules\PointOfSale\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PointOfSaleController extends Controller
 {
@@ -12,7 +13,7 @@ class PointOfSaleController extends Controller
      */
     public function index()
     {
-        return view('pointofsale::index');
+        return Inertia::render('PointOfSale::Index');
     }
 
     /**
