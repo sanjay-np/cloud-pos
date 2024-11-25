@@ -23,4 +23,9 @@ class StoreRequest extends FormRequest
     {
         return true;
     }
+
+    public function getRequested(): array
+    {
+        return $this->all();
+    }
 }

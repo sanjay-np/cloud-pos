@@ -6,7 +6,7 @@ import { Head } from "@inertiajs/react"
 import { ChevronRightIcon, LayoutGridIcon } from "lucide-react"
 import { useRef, useState } from "react"
 import { Toggle } from "rsuite"
-import { purchaseTableHeader } from "../Lib/Constants"
+import { PURCHASE_TABLE_HEADER } from "../Lib/Constants"
 import PurchaseForm from "../Components/PurchaseForm"
 
 export default function Index({ auth, purchases }) {
@@ -67,7 +67,7 @@ export default function Index({ auth, purchases }) {
                     <div className="table-wrapper">
                         <TableComp
                             items={purchases}
-                            columns={purchaseTableHeader}
+                            columns={PURCHASE_TABLE_HEADER}
                             actions={{ editAction, deleteAction }}
                             pagination
                             serialize

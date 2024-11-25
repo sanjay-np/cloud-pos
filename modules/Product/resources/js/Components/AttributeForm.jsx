@@ -4,7 +4,7 @@ import { Input, InputGroup, Loader, SelectPicker, TagInput } from 'rsuite';
 import InputError from '@/Components/InputError';
 import FormDrawer from '@/Components/Overlays/FormDrawer';
 import { toast } from 'sonner';
-import { loadingText } from '@/Lib/Constants';
+import { LOADING_TEXT } from '@/Lib/Constants';
 
 export default function AttributeForm(props) {
 
@@ -73,7 +73,7 @@ export default function AttributeForm(props) {
             drawerTitle={selected ? "Edit Attribute" : "Create New Attribute"}
             reset={formClear}
         >
-            {loading ? <Loader backdrop content={loadingText} vertical /> :
+            {loading ? <Loader backdrop content={LOADING_TEXT} vertical /> :
                 <>
                     <div className="mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Attribute Name</label>

@@ -27,13 +27,18 @@ class UpdateRequest extends FormRequest
         return true;
     }
 
-    public function getValidated(): array
+    public function getRequested(): array
     {
-        return $this->only(keys: [
-            'name',
-            'description',
-            'status'
-        ]);
+        return array_merge(
+            $this->only(keys: [
+                'name',
+                'description',
+                'status'
+            ]),
+            [
+                'image' => $this->getImage()
+            ]
+        );
     }
 
     public function getImage(): string

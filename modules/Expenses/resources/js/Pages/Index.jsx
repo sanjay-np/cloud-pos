@@ -5,7 +5,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import React, { useRef, useState } from 'react'
-import { expensesTableHeader } from '../Lib/Constants'
+import { EXPENSES_TABLE_HEADER } from '../Lib/Constants'
 import ExpensesForm from '../Components/ExpensesForm'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
 import { toast } from 'sonner'
@@ -74,7 +74,7 @@ export default function Index({ auth, expenses }) {
                     <div className="table-wrapper">
                         <TableComp
                             items={expenses}
-                            columns={expensesTableHeader}
+                            columns={EXPENSES_TABLE_HEADER}
                             actions={{ editAction, deleteAction }}
                             pagination
                             serialize

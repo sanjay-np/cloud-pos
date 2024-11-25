@@ -8,7 +8,7 @@ import DeleteModal from '@/Components/Overlays/DeleteModal'
 import TableComp from '@/Components/Table/TableComp'
 import { toast } from 'sonner'
 import AttributeForm from '../Components/AttributeForm'
-import { attributeTableHeader } from '../Lib/Constants'
+import { ATTRIBUTE_TABLE_HEADER } from '../Lib/Constants'
 
 export default function Attribute({ auth, attributes }) {
     const [selected, setSelected] = useState(null)
@@ -73,7 +73,7 @@ export default function Attribute({ auth, attributes }) {
                     </div>
                     <TableComp
                         data={attributes}
-                        columns={attributeTableHeader}
+                        columns={ATTRIBUTE_TABLE_HEADER}
                         checkboxCell={true}
                         actions={{
                             editAction,

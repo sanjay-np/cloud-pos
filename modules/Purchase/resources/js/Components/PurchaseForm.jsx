@@ -7,11 +7,11 @@ import { setDiscount, setPurchaseProduct, setShipping, setTax } from '@/Store/Re
 import { formattedNumber } from '@/Lib/Utils'
 import { toast } from 'sonner'
 import InputError from '@/Components/InputError'
-import { purchaseStatus } from '../Lib/Constants'
+import { PURCHASE_STATUS } from '../Lib/Constants'
 import ProductTable from './ProductTable'
 import SupplierPicker from '@/Components/Picker/SupplierPicker'
 import ProductPicker from '@/Components/Picker/ProductPicker'
-import { paymentMethods } from '@/Lib/Constants'
+import { PAYMENT_METHODS } from '@/Lib/Constants'
 
 
 const PurchaseForm = ({ drawerRef, selected, type }) => {
@@ -176,7 +176,7 @@ const PurchaseForm = ({ drawerRef, selected, type }) => {
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Status</label>
                     <SelectPicker
-                        data={purchaseStatus}
+                        data={PURCHASE_STATUS}
                         className='w-full'
                         onChange={(val) => setData('status', val)}
                     />
@@ -185,7 +185,7 @@ const PurchaseForm = ({ drawerRef, selected, type }) => {
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Payment Method</label>
                     <SelectPicker
-                        data={paymentMethods}
+                        data={PAYMENT_METHODS}
                         className='w-full'
                         onChange={(val) => setData('payment_method', val)}
                     />

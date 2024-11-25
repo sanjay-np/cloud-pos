@@ -3,29 +3,19 @@
 namespace Modules\Setting\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Setting\Http\Requests\FiscalYear\StoreRequest;
 use Modules\Setting\Http\Requests\FiscalYear\UpdateRequest;
-use Modules\Setting\Repositories\FiscalYearRepository;
+use Modules\Setting\Models\FiscalYear;
 
 class FiscalYearController extends Controller
 {
-    use InertiaResponseTrait;
-    
-    protected $fiscalYearRepository;
+    public function __construct(private FiscalYear $model) {}
 
-    public function __construct(FiscalYearRepository $fiscalYearRepository)
-    {
-        $this->fiscalYearRepository = $fiscalYearRepository;
-    }
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        $fiscalYears = $this->fiscalYearRepository->paginate(perPage: 10);
+        $fiscalYears = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
         return Inertia::render('Setting::FiscalYear', [
             'fiscalYears' => $fiscalYears
         ]);
@@ -33,7 +23,7 @@ class FiscalYearController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $item = $this->fiscalYearRepository->store($request->getValidated());
+        $item = $this->model->create($request->getRequested());
         if ($item) {
             return to_route('fiscal-years.index');
         }
@@ -41,12 +31,12 @@ class FiscalYearController extends Controller
 
     public function show($id)
     {
-        return $this->fiscalYearRepository->findOrFail($id);
+        return $this->model->findOrFail($id);
     }
 
     public function update(UpdateRequest $request, $id)
     {
-        $item = $this->fiscalYearRepository->update($request->getValidated(), $id);
+        $item = $this->model->findOrFail($id)->update($request->getRequested());
         if ($item) {
             return to_route('fiscal-years.index');
         }
@@ -54,7 +44,7 @@ class FiscalYearController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->fiscalYearRepository->delete($id);
+        $item = $this->model->findOrFail($id)->delete();
         if ($item) {
             return to_route('fiscal-years.index');
         }

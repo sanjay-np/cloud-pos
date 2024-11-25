@@ -31,24 +31,30 @@ class StoreRequest extends FormRequest
     }
 
 
-    public function getValidated()
+    public function getRequested()
     {
-        return $this->only(keys: [
-            'title',
-            'sku',
-            'bar_code',
-            'description',
-            'unit_price',
-            'sale_price',
-            'stock_qty',
-            'category_ids',
-            'brand_id',
-            'supplier_id',
-            'tags',
-            'product_type',
-            'unit',
-            'status',
-        ]);
+        return array_merge(
+            $this->only(keys: [
+                'title',
+                'sku',
+                'bar_code',
+                'description',
+                'unit_price',
+                'sale_price',
+                'stock_qty',
+                'category_ids',
+                'brand_id',
+                'supplier_id',
+                'tags',
+                'product_type',
+                'unit',
+                'status',
+            ]),
+            [
+                'main_image' => $this->getMainImage(),
+                'gallery_images' => $this->getGalleryImages(),
+            ]
+        );
     }
 
     public function getMainImage(): string

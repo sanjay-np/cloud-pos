@@ -1,6 +1,6 @@
 import InputError from '@/Components/InputError'
 import FormDrawer from '@/Components/Overlays/FormDrawer'
-import { loadingText } from '@/Lib/Constants'
+import { LOADING_TEXT } from '@/Lib/Constants'
 import { previewFile } from '@/Lib/Utils'
 import { router, useForm } from '@inertiajs/react'
 import axios from 'axios'
@@ -82,7 +82,7 @@ export default function BrandForm(props) {
             reset={formClear}
         >
             {loading ? (
-                <Loader center content={loadingText} vertical />
+                <Loader center content={LOADING_TEXT} vertical />
             ) : (
                 <>
                     <div className="mb-4">

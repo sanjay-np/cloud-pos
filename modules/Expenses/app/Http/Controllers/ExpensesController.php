@@ -3,29 +3,18 @@
 namespace Modules\Expenses\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Traits\InertiaResponseTrait;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Expenses\Http\Requests\StoreRequest;
 use Modules\Expenses\Http\Requests\UpdateRequest;
-use Modules\Expenses\Repositories\ExpensesRepository;
+use Modules\Expenses\Models\Expense;
 
 class ExpensesController extends Controller
 {
-    use InertiaResponseTrait;
+    public function __construct(private Expense $model) {}
 
-    protected $expensesRepository;
-
-    public function __construct(ExpensesRepository $expensesRepository)
-    {
-        $this->expensesRepository = $expensesRepository;
-    }
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $expenses = $this->expensesRepository->paginate(10);
+        $expenses = $this->model->orderBy('id', 'desc')->paginate(10);
         return Inertia::render('Expenses::Index', [
             'expenses' => $expenses
         ]);
@@ -33,37 +22,30 @@ class ExpensesController extends Controller
 
     public function store(StoreRequest $request)
     {
-        try {
-            $item = $this->expensesRepository->store($request->getValidated());
-            $this->handleInertiaResponse($item, 'expenses.index');
-        } catch (\Exception $e) {
-            $this->error($e->getMessage());
+        $item = $this->model->create($request->getRequested());
+        if ($item) {
+            return to_route('expenses.index');
         }
     }
 
     public function show(int $id)
     {
-        $item = $this->expensesRepository->findOrFail($id);
-        return $item;
+        return $this->model->findOrFail($id);
     }
 
     public function update(UpdateRequest $request, int $id)
     {
-        try {
-            $item = $this->expensesRepository->update($request->getValidated(), $id);
-            $this->handleInertiaResponse($item, 'expenses.index');
-        } catch (\Exception $e) {
-            $this->error($e->getMessage());
+        $item = $this->model->findOrFail($id)->update($request->getRequested());
+        if ($item) {
+            return to_route('expenses.index');
         }
     }
 
     public function destroy(int $id)
     {
-        try {
-            $item = $this->expensesRepository->delete($id);
-            $this->handleInertiaResponse($item, 'expenses.index');
-        } catch (\Exception $e) {
-            $this->error($e->getMessage());
+        $item = $this->model->findOrFail($id)->delete();
+        if ($item) {
+            return to_route('expenses.index');
         }
     }
 }

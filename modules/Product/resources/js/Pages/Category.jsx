@@ -4,7 +4,7 @@ import TableComp from '@/Components/Table/TableComp'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import { categoryTableHeader } from '../Lib/Constants'
+import { CATEGORY_TABLE_HEADER } from '../Lib/Constants'
 import { useRef, useState } from 'react'
 import CategoryForm from '../Components/CategoryForm'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
@@ -76,7 +76,7 @@ export default function Category({ auth, categories }) {
                     <TableComp
                         items={categories}
                         checkboxCell={true}
-                        columns={categoryTableHeader}
+                        columns={CATEGORY_TABLE_HEADER}
                         actions={{ editAction, deleteAction }}
                         pagination={true}
                     />

@@ -1,6 +1,6 @@
 import FormDrawer from '@/Components/Overlays/FormDrawer'
 import InputError from '@/Components/InputError'
-import { loadingText } from '@/Lib/Constants'
+import { LOADING_TEXT } from '@/Lib/Constants'
 import { router, useForm } from '@inertiajs/react'
 import React, { useEffect, useState } from 'react'
 import { DatePicker, Input, InputGroup, Loader } from 'rsuite'
@@ -74,7 +74,7 @@ export default function ExpensesForm({ drawerRef, selected, type }) {
             size={'xs'}
             reset={formClear}
         >
-            {loading ? <Loader backdrop content={loadingText} vertical /> :
+            {loading ? <Loader backdrop content={LOADING_TEXT} vertical /> :
                 <div className='form-wrapper'>
                     <div className="form-item mb-4">
                         <label className="text-gray-600 font-semibold mb-1 block">Expense Date</label>

@@ -5,7 +5,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, Link, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
-import { fiscalYearTableHeader } from '../Lib/Constants'
+import { FISCAL_YEAR_TABLE_HEADER } from '../Lib/Constants'
 import FiscalYearForm from '../Components/FiscalYearForm'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
 import { toast } from 'sonner'
@@ -73,10 +73,11 @@ export default function FiscalYear({ auth, fiscalYears }) {
                         </div>
                     </div>
                     <div className="table-wrapper">
+                        {/* Todo: Add toggle component */}
                         <TableComp
                             items={fiscalYears}
                             checkboxCell={false}
-                            columns={fiscalYearTableHeader}
+                            columns={FISCAL_YEAR_TABLE_HEADER}
                             actions={{
                                 editAction,
                                 deleteAction

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import FormDrawer from '@/Components/Overlays/FormDrawer'
 import { router, useForm } from '@inertiajs/react'
 import { HStack, Input, InputGroup, Loader, SelectPicker, Uploader } from 'rsuite'
-import { loadingText } from '@/Lib/Constants'
+import { LOADING_TEXT } from '@/Lib/Constants'
 import InputError from '@/Components/InputError'
 import { previewFile } from '@/Lib/Utils'
 import { User2Icon } from 'lucide-react'
@@ -77,7 +77,7 @@ export default function CustomerForm({ drawerRef, selected, type }) {
             reset={formClear}
             size={'sm'}
         >
-            {loading ? <Loader backdrop content={loadingText} vertical /> :
+            {loading ? <Loader backdrop content={LOADING_TEXT} vertical /> :
                 <>
                     <HStack spacing={20}>
                         <div className="w-3/4">

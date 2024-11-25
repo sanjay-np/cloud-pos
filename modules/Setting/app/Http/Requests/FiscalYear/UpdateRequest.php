@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
         return true;
     }
 
-    public function getValidated(): array
+    public function getRequested(): array
     {
         return $this->only(keys: [
             'label',

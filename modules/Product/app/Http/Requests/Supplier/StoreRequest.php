@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
         ];
     }
 
-    public function getValidated(): array
+    public function getRequested(): array
     {
         return $this->only(keys: [
             'name',

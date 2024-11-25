@@ -28,7 +28,7 @@ class UpdateRequest extends FormRequest
         return true;
     }
 
-    public function getValidated(): array
+    public function getRequested(): array
     {
         return array_merge(
             $this->only(keys: [

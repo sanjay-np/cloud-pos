@@ -31,14 +31,16 @@ class StoreRequest extends FormRequest
         return true;
     }
 
-    public function getValidated(): array
+    public function getRequested(): array
     {
-        return $this->only(keys: [
+        return array_merge($this->only(keys: [
             'name',
             'phone',
             'whatsapp',
             'address',
             'status'
+        ]), [
+            'avatar' => $this->getAvatar()
         ]);
     }
 

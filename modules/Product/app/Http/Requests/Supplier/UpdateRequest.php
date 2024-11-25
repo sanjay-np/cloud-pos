@@ -23,4 +23,16 @@ class UpdateRequest extends FormRequest
     {
         return true;
     }
+
+    public function getRequested(): array
+    {
+        return $this->only(keys: [
+            'name',
+            'phone',
+            'address',
+            'pan',
+            'contact_person',
+            'brands',
+        ]);
+    }
 }

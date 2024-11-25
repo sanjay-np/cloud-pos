@@ -8,8 +8,8 @@ import { setDiscount, setSaleProduct, setShipping, setTax } from '@/Store/Reduce
 import FormDrawer from '@/Components/Overlays/FormDrawer'
 import InputError from '@/Components/InputError'
 import ProductTable from './ProductTable'
-import { paymentMethods } from '@/Lib/Constants'
-import { saleStatus } from '../Lib/Constants'
+import { PAYMENT_METHODS } from '@/Lib/Constants'
+import { SALE_STATUS } from '../Lib/Constants'
 import { useEffect } from 'react'
 import { toast } from 'sonner'
 
@@ -172,7 +172,7 @@ export default function SalesForm({ drawerRef, selected, type }) {
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Status</label>
                     <SelectPicker
-                        data={saleStatus}
+                        data={SALE_STATUS}
                         className='w-full'
                         onChange={(val) => setData('status', val)}
                     />
@@ -181,7 +181,7 @@ export default function SalesForm({ drawerRef, selected, type }) {
                 <div className="form-item w-1/3">
                     <label className='text-gray-600 font-semibold mb-1 block'>Payment Method</label>
                     <SelectPicker
-                        data={paymentMethods}
+                        data={PAYMENT_METHODS}
                         className='w-full'
                         onChange={(val) => setData('payment_method', val)}
                     />

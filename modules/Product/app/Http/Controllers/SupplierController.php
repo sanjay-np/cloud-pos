@@ -3,45 +3,38 @@
 namespace Modules\Product\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Product\Http\Requests\Supplier\StoreRequest;
 use Modules\Product\Http\Requests\Supplier\UpdateRequest;
-use Modules\Product\Repositories\BrandRepository;
-use Modules\Product\Repositories\SupplierRepository;
+use Modules\Product\Models\Brand;
+use Modules\Product\Models\Supplier;
 
 class SupplierController extends Controller
 {
-    use InertiaResponseTrait;
-    
-    protected $supplierRepository, $brandRepository;
-
     public function __construct(
-        SupplierRepository $supplierRepository,
-        BrandRepository $brandRepository
-    ) {
-        $this->supplierRepository = $supplierRepository;
-        $this->brandRepository = $brandRepository;
-    }
+        private Brand $brandModel,
+        private Supplier $model,
+    ) {}
+
     public function index(Request $request)
     {
-        $suppliers = $this->supplierRepository->paginate(perPage: 10);
-        $brands = $this->brandRepository->findAll()->map(function ($brand) {
+        $brands = $this->brandModel->all()->map(function ($brand) {
             return [
                 'value' => $brand->id,
                 'label' => $brand->name,
             ];
         });
+        $suppliers = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
         return Inertia::render('Product::Supplier', [
+            'brands' => $brands,
             'suppliers' => $suppliers,
-            'brands' => $brands
         ]);
     }
 
     public function store(StoreRequest $request)
     {
-        $item = $this->supplierRepository->store($request->getValidated());
+        $item = $this->model->create($request->getRequested());
         if ($item) {
             return to_route('suppliers.index');
         }
@@ -49,12 +42,12 @@ class SupplierController extends Controller
 
     public function show($id)
     {
-        return $this->supplierRepository->findorFail($id);
+        return $this->model->findOrFail($id);
     }
 
     public function update(UpdateRequest $request, $id)
     {
-        $item = $this->supplierRepository->update($request->getValidated(), $id);
+        $item = $this->model->findOrFail($id)->update($request->getRequested());
         if ($item) {
             return to_route('suppliers.index');
         }
@@ -62,34 +55,9 @@ class SupplierController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->supplierRepository->delete($id);
+        $item = $this->model->findOrFail($id)->delete();
         if ($item) {
             return to_route('suppliers.index');
         }
-    }
-
-    public function take(int $count)
-    {
-        return $this->supplierRepository->take($count);
-    }
-
-    public function search(Request $request)
-    {
-        return $this->supplierRepository->search($request->get('q'));
-    }
-
-    public function picker(Request $request)
-    {
-        if ($request->has('search_qry')) {
-            $items = $this->supplierRepository->search($request->search_qry);
-        } else {
-            $items = $this->supplierRepository->take($request->count ?? 10);
-        }
-        return $items->map(function ($item) {
-            return [
-                'value' => $item->id,
-                'label' => $item->name,
-            ];
-        });
     }
 }

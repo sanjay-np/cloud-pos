@@ -4,7 +4,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
-import { brandTableHeader } from '../Lib/Constants'
+import { BRAND_TABLE_HEADER } from '../Lib/Constants'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
 import BrandForm from '../Components/BrandForm'
 import SearchBar from '@/Components/Search/Index'
@@ -75,7 +75,7 @@ export default function Brand({ auth, brands }) {
                         </div>
                     </div>
                     <TableComp
-                        columns={brandTableHeader}
+                        columns={BRAND_TABLE_HEADER}
                         items={brands}
                         checkboxCell={true}
                         actions={{ editAction, deleteAction }}

@@ -5,7 +5,7 @@ import Authenticated from "@/Layouts/AuthenticatedLayout"
 import { Head, router } from "@inertiajs/react"
 import { ChevronRightIcon, LayoutGridIcon } from "lucide-react"
 import { useRef, useState } from "react"
-import { customerTableHeader } from "../Lib/Constants"
+import { CUSTOMER_TABLE_HEADER } from "../Lib/Constants"
 import CustomerForm from "../Components/CustomerForm"
 import DeleteModal from "@/Components/Overlays/DeleteModal"
 
@@ -75,7 +75,7 @@ export default function Index({ auth, customers }) {
                     <TableComp
                         items={customers}
                         checkboxCell={true}
-                        columns={customerTableHeader}
+                        columns={CUSTOMER_TABLE_HEADER}
                         actions={{ editAction, deleteAction }}
                         pagination={true}
                     />

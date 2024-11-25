@@ -4,7 +4,7 @@ import InputError from "@/Components/InputError";
 import { router, useForm } from "@inertiajs/react";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { loadingText } from "@/Lib/Constants";
+import { LOADING_TEXT } from "@/Lib/Constants";
 
 export default function SupplierForm(props) {
     const { drawerRef, selected, type, brands } = props
@@ -75,7 +75,7 @@ export default function SupplierForm(props) {
             drawerTitle={selected ? "Edit Supplier" : "Create New Supplier"}
             reset={formClear}
         >
-            {loading ? <Loader center content={loadingText} vertical /> :
+            {loading ? <Loader center content={LOADING_TEXT} vertical /> :
                 <>
                     <div className="mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Firm Name</label>

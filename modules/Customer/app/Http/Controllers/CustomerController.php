@@ -3,27 +3,21 @@
 namespace Modules\Customer\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Customer\Http\Requests\StoreRequest;
 use Modules\Customer\Http\Requests\UpdateRequest;
-use Modules\Customer\Repositories\CustomerRepository;
+use Modules\Customer\Models\Customer;
 
 class CustomerController extends Controller
 {
-    use InertiaResponseTrait;
-    
     protected $customerRepository;
 
-    public function __construct(CustomerRepository $customerRepository)
-    {
-        $this->customerRepository = $customerRepository;
-    }
+    public function __construct(private Customer $model) {}
 
     public function index()
     {
-        $customers = $this->customerRepository->paginate(perPage: 10);
+        $customers = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
         return Inertia::render('Customer::Index', [
             'customers' => $customers
         ]);
@@ -31,7 +25,7 @@ class CustomerController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $item = $this->customerRepository->store($request->getValidated() + ['avatar' => $request->getAvatar()]);
+        $item = $this->model->create($request->getRequested());
         if ($item) {
             return to_route('customers.index');
         }
@@ -39,13 +33,13 @@ class CustomerController extends Controller
 
     public function show($id)
     {
-        return $this->customerRepository->findOrFail($id);
+        return $this->model->findOrFail($id);
     }
 
     public function update(UpdateRequest $request, $id)
     {
-        // Todo: update avatar
-        $item = $this->customerRepository->update($request->getValidated() + ['avatar' => $request->getAvatar()], $id);
+        // Todo: file validation
+        $item = $this->model->findOrFail($id)->update($request->getRequested());
         if ($item) {
             return to_route('customers.index');
         }
@@ -53,7 +47,7 @@ class CustomerController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->customerRepository->delete($id);
+        $item = $this->model->findOrFail($id)->delete();
         if ($item) {
             return to_route('customers.index');
         }
@@ -61,30 +55,10 @@ class CustomerController extends Controller
 
     public function search(Request $request)
     {
-        $customers = $this->customerRepository->search($request->search_qry);
-        if (isset($request->show_type) && $request->show_type === 'picker') {
-            return $customers->map(function ($customer) {
-                return [
-                    'value' => $customer->id,
-                    'label' => $customer->name
-                ];
-            });
-        }
-        return $customers;
-    }
-    
-    public function picker(Request $request)
-    {
-        if ($request->has('search_qry')) {
-            $items = $this->customerRepository->search($request->search_qry);
-        } else {
-            $items = $this->customerRepository->take($request->count ?? 10);
-        }
-        return $items->map(function ($item) {
-            return [
-                'value' => $item->id,
-                'label' => $item->name,
-            ];
-        });
+        return $this->model->where('name', 'like', '%' . $request->search_qry . '%')
+            ->orWhere('code', 'like', '%' . $request->search_qry . '%')
+            ->orWhere('phone', 'like', '%' . $request->search_qry . '%')
+            ->take(10)
+            ->get();
     }
 }

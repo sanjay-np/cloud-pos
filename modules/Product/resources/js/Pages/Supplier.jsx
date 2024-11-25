@@ -5,7 +5,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
-import { supplierTableHeader } from '../Lib/Constants'
+import { SUPPLIER_TABLE_HEADER } from '../Lib/Constants'
 import SupplierForm from '../Components/SupplierForm'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
 import { toast } from 'sonner'
@@ -78,7 +78,7 @@ export default function Supplier({ auth, brands, suppliers }) {
                     <TableComp
                         items={suppliers}
                         checkboxCell={true}
-                        columns={supplierTableHeader}
+                        columns={SUPPLIER_TABLE_HEADER}
                         actions={{ editAction, deleteAction }}
                         pagination={true}
                     />

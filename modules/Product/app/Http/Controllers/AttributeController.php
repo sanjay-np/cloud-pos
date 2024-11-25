@@ -3,30 +3,19 @@
 namespace Modules\Product\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Product\Http\Requests\Attribute\StoreRequest;
 use Modules\Product\Http\Requests\Attribute\UpdateRequest;
-use Modules\Product\Repositories\AttributeRepository;
+use Modules\Product\Models\Attribute;
 
 class AttributeController extends Controller
 {
-    use InertiaResponseTrait;
-    
-    protected $attributeRepository;
+    public function __construct(private Attribute $model) {}
 
-    public function __construct(AttributeRepository $attributeRepository)
-    {
-        $this->attributeRepository = $attributeRepository;
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        $attributes = $this->attributeRepository->paginate(perPage: 10);
+        $attributes = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
         return Inertia::render('Product::Attribute', [
             'attributes' => $attributes
         ]);
@@ -34,7 +23,7 @@ class AttributeController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $item = $this->attributeRepository->store($request->getValidated());
+        $item = $this->model->create($request->getRequested());
         if ($item) {
             return to_route('attributes.index');
         }
@@ -42,12 +31,12 @@ class AttributeController extends Controller
 
     public function show($id)
     {
-        return $this->attributeRepository->findOrFail($id);
+        return $this->model->findOrFail($id);
     }
 
     public function update(UpdateRequest $request, $id)
     {
-        $item = $this->attributeRepository->update($request->getValidated(), $id);
+        $item = $this->model->findOrFail($id)->update($request->getRequested());
         if ($item) {
             return to_route('attributes.index');
         }
@@ -55,7 +44,7 @@ class AttributeController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->attributeRepository->delete($id);
+        $item = $this->model->findOrFail($id)->delete();
         if ($item) {
             return to_route('attributes.index');
         }

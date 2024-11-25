@@ -3,9 +3,9 @@ import FormDrawer from '@/Components/Overlays/FormDrawer'
 import { router, useForm } from '@inertiajs/react'
 import { HStack, Input, InputGroup, InputNumber, Loader, SelectPicker, Uploader } from 'rsuite'
 import InputError from '@/Components/InputError'
-import { loadingText } from '@/Lib/Constants'
+import { LOADING_TEXT } from '@/Lib/Constants'
 import { toast } from 'sonner'
-import { productStatus, productType, productUnit } from '../Lib/Constants'
+import { PRODUCT_STATUS, PRODUCT_TYPE, PRODUCT_UNIT } from '../Lib/Constants'
 
 export default function ProductForm(props) {
 
@@ -85,7 +85,7 @@ export default function ProductForm(props) {
             reset={formClear}
             size='sm'
         >
-            {loading ? <Loader backdrop content={loadingText} vertical /> :
+            {loading ? <Loader backdrop content={LOADING_TEXT} vertical /> :
                 <>
                     <div className="mb-4">
                         <label className='text-gray-600 font-semibold mb-1 block'>Product Title</label>
@@ -205,7 +205,7 @@ export default function ProductForm(props) {
                         <label className='text-gray-600 font-semibold mb-1 block'>Product Type</label>
                         <SelectPicker
                             className='w-full'
-                            data={productType}
+                            data={PRODUCT_TYPE}
                             placement='auto'
                             value={data.product_type}
                             onChange={(value) => setData('product_type', value)}
@@ -251,7 +251,7 @@ export default function ProductForm(props) {
                                 <SelectPicker
                                     searchable={false}
                                     className='w-full'
-                                    data={productUnit}
+                                    data={PRODUCT_UNIT}
                                     value={data.unit}
                                     onChange={(value) => setData('unit', value)}
                                     placement='top'
@@ -263,7 +263,7 @@ export default function ProductForm(props) {
                                 <SelectPicker
                                     searchable={false}
                                     className='w-full'
-                                    data={productStatus}
+                                    data={PRODUCT_STATUS}
                                     value={data.status}
                                     onChange={(value) => setData('status', value)}
                                     placement='top'

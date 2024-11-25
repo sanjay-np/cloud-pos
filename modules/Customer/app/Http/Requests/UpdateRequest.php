@@ -24,20 +24,25 @@ class UpdateRequest extends FormRequest
         return true;
     }
 
-    public function getValidated(): array
+    public function getRequested(): array
     {
-        $data = $this->only(keys: [
+        return array_merge($this->only(keys: [
             'name',
             'phone',
             'whatsapp',
             'address',
             'status'
+        ]), [
+            'avatar' => $this->getAvatar()
         ]);
-        return $data;
     }
 
     public function getAvatar(): array | null
     {
-        return $this->file('avatar');
+        if (!$this->hasFile('avatar')) {
+            return null;
+        }
+        $file = $this->file('avatar')['blobFile'];
+        return $this->uploadImage($file, 'Customers/Avatar');
     }
 }

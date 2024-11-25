@@ -40,7 +40,7 @@ class StoreRequest extends FormRequest
         return true;
     }
 
-    public function getValidated(): array
+    public function getRequested(): array
     {
         $totalAmount = $this->input('total_amount');
         $paidAmount = $this->input('paid_amount');
@@ -68,14 +68,14 @@ class StoreRequest extends FormRequest
         );
     }
 
-    public function getValidatedProducts(): array
+    public function getRequestedProducts(): array
     {
         return $this->only(keys: [
             'products'
         ]);
     }
 
-    public function getValidatedPayment(): array
+    public function getRequestedPayment(): array
     {
         return array_merge(
             $this->only(keys: [

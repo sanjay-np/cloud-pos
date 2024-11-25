@@ -24,18 +24,23 @@ class UpdateRequest extends FormRequest
         return true;
     }
 
-    public function getValidated(): array
+    public function getRequested(): array
     {
-        $data = $this->only(keys: [
-            'name',
-            'phone',
-            'department',
-            'position',
-            'document_type',
-            'document_number',
-            'status'
-        ]);
-        return $data;
+        return array_merge(
+            $this->only(keys: [
+                'name',
+                'phone',
+                'department',
+                'position',
+                'document_type',
+                'document_number',
+                'status'
+            ]),
+            [
+                'avatar' => $this->getAvatar(),
+                'document_files' => $this->getDocuments(),
+            ]
+        );
     }
 
     public function getAvatar(): string | null
@@ -58,6 +63,6 @@ class UpdateRequest extends FormRequest
                 $files[] = $this->uploadImage($file['blobFile'], 'Employees/Documents');
             }
         }
-        return $files;
+        return $files ?? null;
     }
 }

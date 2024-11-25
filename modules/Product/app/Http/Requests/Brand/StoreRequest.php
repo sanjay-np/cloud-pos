@@ -29,15 +29,20 @@ class StoreRequest extends FormRequest
         return true;
     }
 
-    public function getValidated(): array
+    public function getRequested(): array
     {
-        return $this->only(keys: [
-            'name',
-            'description',
-        ]);
+        return array_merge(
+            $this->only(keys: [
+                'name',
+                'description',
+            ]),
+            [
+                'image' => $this->getImage()
+            ]
+        );
     }
 
-    public function getImage(): string
+    public function getImage(): string |null
     {
         if (!$this->hasFile('image')) {
             return null;

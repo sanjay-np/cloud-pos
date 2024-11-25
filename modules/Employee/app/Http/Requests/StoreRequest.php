@@ -34,20 +34,26 @@ class StoreRequest extends FormRequest
         return true;
     }
 
-    public function getValidated(): array
+    public function getRequested(): array
     {
-        return $this->only(keys: [
-            'name',
-            'phone',
-            'department',
-            'position',
-            'document_type',
-            'document_number',
-            'status'
-        ]);
+        return array_merge(
+            $this->only(keys: [
+                'name',
+                'phone',
+                'department',
+                'position',
+                'document_type',
+                'document_number',
+                'status'
+            ]),
+            [
+                'avatar' => $this->getAvatar(),
+                'document_files' => $this->getDocuments(),
+            ]
+        );
     }
 
-    public function getAvatar(): string
+    public function getAvatar(): string | null
     {
         if (!$this->hasFile('avatar')) {
             return null;
@@ -56,7 +62,7 @@ class StoreRequest extends FormRequest
         return $this->uploadImage($file, 'Employees/Avatar');
     }
 
-    public function getDocuments(): array
+    public function getDocuments(): array | null
     {
         if (!$this->has('document_files')) {
             return null;
@@ -65,6 +71,6 @@ class StoreRequest extends FormRequest
         foreach ($this->document_files as $file) {
             $files[] = $this->uploadImage($file['blobFile'], 'Employees/Documents');
         }
-        return $files;
+        return $files ?? null;
     }
 }

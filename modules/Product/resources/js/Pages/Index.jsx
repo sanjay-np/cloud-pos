@@ -7,7 +7,7 @@ import AddButton from '@/Components/Button/AddButton'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
 import TableComp from '@/Components/Table/TableComp'
 import ProductForm from '../Components/ProductForm'
-import { productTableHeader } from '../Lib/Constants'
+import { PRODUCT_TABLE_HEADER } from '../Lib/Constants'
 
 
 export default function Index({ auth, products, brands, suppliers }) {
@@ -64,7 +64,7 @@ export default function Index({ auth, products, brands, suppliers }) {
                         <TableComp
                             items={products}
                             checkboxCell={true}
-                            columns={productTableHeader}
+                            columns={PRODUCT_TABLE_HEADER}
                             actions={{ editAction, deleteAction }}
                             pagination={true}
                         />

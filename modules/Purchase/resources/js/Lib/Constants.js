@@ -1,4 +1,4 @@
-export const purchaseFormTableHeader = [
+export const PURCHASE_FORM_TABLE_HEADER = [
     { title: "Product Name", dataKey: "title", flexGrow: 1 },
     { title: "Qty", dataKey: "sku" },
     { title: "P.Price", dataKey: "bar_code" },
@@ -6,13 +6,13 @@ export const purchaseFormTableHeader = [
     { title: "Total", dataKey: "total" },
 ]
 
-export const purchaseStatus = [
+export const PURCHASE_STATUS = [
     { label: 'Pending', value: "pending" },
     { label: 'Ordered', value: "ordered" },
     { label: 'Completed', value: "completed" },
 ]
 
-export const purchaseTableHeader = [
+export const PURCHASE_TABLE_HEADER = [
     { title: 'Date', dataKey: 'date', width: 100 },
     { title: 'Reference', dataKey: 'reference', width: 150 },
     { title: 'Supplier', dataKey: 'supplier.name', flexGrow: 1 },

@@ -6,7 +6,7 @@ import { Head } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import React, { useRef, useState } from 'react'
 import { Toggle } from 'rsuite'
-import { salesTableHeader } from '../Lib/Constants'
+import { SALES_TABLE_HEADER } from '../Lib/Constants'
 import SalesForm from '../Components/SalesForm'
 
 export default function Index({ auth, sales }) {
@@ -62,7 +62,7 @@ export default function Index({ auth, sales }) {
                     <div className="table-wrapper">
                         <TableComp
                             items={sales}
-                            columns={salesTableHeader}
+                            columns={SALES_TABLE_HEADER}
                             actions={{ editAction, deleteAction }}
                             pagination
                             serialize

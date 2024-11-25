@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import InputError from "@/Components/InputError";
 import FormDrawer from "@/Components/Overlays/FormDrawer";
 import { previewFile } from "@/Lib/Utils";
-import { department, documentType, employeeStatus, position, } from "../Lib/Constants";
+import { DEPARTMENT, DOCUMENT_TYPE, EMPLOYEE_STATUS, POSITION } from "../Lib/Constants";
 
 export default function EmployeeForm(props) {
     const { drawerRef, selected, type } = props;
@@ -167,7 +167,7 @@ export default function EmployeeForm(props) {
                             Department
                         </label>
                         <SelectPicker
-                            data={department}
+                            data={DEPARTMENT}
                             className="text-base w-full"
                             placeholder="Select Department"
                             value={data.department}
@@ -183,7 +183,7 @@ export default function EmployeeForm(props) {
                             Position
                         </label>
                         <SelectPicker
-                            data={position}
+                            data={POSITION}
                             className="text-base w-full"
                             placeholder="Select Position"
                             value={data.position}
@@ -199,7 +199,7 @@ export default function EmployeeForm(props) {
                             Document Validation Type
                         </label>
                         <SelectPicker
-                            data={documentType}
+                            data={DOCUMENT_TYPE}
                             className="text-base w-full"
                             placeholder="Select Validation Document"
                             value={data.document_type}
@@ -266,7 +266,7 @@ export default function EmployeeForm(props) {
                             Employee Status
                         </label>
                         <SelectPicker
-                            data={employeeStatus}
+                            data={EMPLOYEE_STATUS}
                             className="text-base w-full"
                             placeholder="Select Status"
                             value={data.status}

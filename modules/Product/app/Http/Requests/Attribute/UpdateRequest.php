@@ -23,4 +23,10 @@ class UpdateRequest extends FormRequest
     {
         return true;
     }
+
+    public function getRequested(): array
+    {
+        // Todo: Add validation for the request
+        return $this->all();
+    }
 }

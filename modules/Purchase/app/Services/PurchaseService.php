@@ -7,15 +7,10 @@ use Modules\Purchase\Models\PurchasePayment;
 
 class PurchaseService
 {
-    protected $purchaseDetailModal, $purchasePaymentModal;
-
     public function __construct(
-        PurchaseDetail $purchaseDetailModal,
-        PurchasePayment $purchasePaymentModal
-    ) {
-        $this->purchaseDetailModal = $purchaseDetailModal;
-        $this->purchasePaymentModal = $purchasePaymentModal;
-    }
+        private PurchaseDetail $purchaseDetailModal,
+        private PurchasePayment $purchasePaymentModal
+    ) {}
 
     public function createPurchaseDetail(array $data, int $purchaseId)
     {

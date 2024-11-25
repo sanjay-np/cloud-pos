@@ -3,41 +3,36 @@
 namespace Modules\Sales\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Traits\InertiaResponseTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Modules\Sales\Events\SaleCreated;
 use Modules\Sales\Http\Requests\StoreRequest;
 use Modules\Sales\Http\Requests\UpdateRequest;
-use Modules\Sales\Repositories\SaleRepository;
+use Modules\Sales\Models\Sale;
 use Modules\Sales\Services\SaleService;
 
 class SalesController extends Controller
 {
-    use InertiaResponseTrait;
-    
-    protected $saleRepository, $saleService;
-
     public function __construct(
-        SaleRepository $saleRepository,
-        SaleService $saleService
-    ) {
-        $this->saleRepository = $saleRepository;
-        $this->saleService = $saleService;
-    }
+        private Sale $model,
+        private SaleService $saleService
+    ) {}
 
     public function index(Request $request)
     {
-        $sales = $this->saleRepository->paginate(10);
+        $sales = $this->model
+            ->with('customer:id,name')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
         return Inertia::render('Sales::Index', ['sales' => $sales]);
     }
 
     public function store(StoreRequest $request)
     {
-        $item = $this->saleRepository->store($request->getValidated());
+        $item = $this->model->create($request->getRequested());
         if ($item) {
-            $this->saleService->createSaleDetail($request->getValidatedProducts(), $item->id);
-            $this->saleService->createSalePayment($request->getValidatedPayment(), $item->id);
+            $this->saleService->createSaleDetail($request->getRequestedProducts(), $item->id);
+            $this->saleService->createSalePayment($request->getRequestedPayment(), $item->id);
             event(new SaleCreated($item));
             return to_route('sales.index');
         }
@@ -45,12 +40,12 @@ class SalesController extends Controller
 
     public function show(int $id)
     {
-        return $this->saleRepository->findOrFail($id);
+        return $this->model->findOrFail($id);
     }
 
     public function update(UpdateRequest $request, int $id)
     {
-        $item = $this->saleRepository->update($request->getValidated(), $id);
+        $item = $this->model->findOrFail($id)->update($request->getRequested());
         if ($item) {
             return to_route('sales.index');
         }
@@ -58,7 +53,7 @@ class SalesController extends Controller
 
     public function destroy(int $id)
     {
-        $item = $this->saleRepository->delete($id);
+        $item = $this->model->findOrFail($id)->delete();
         if ($item) {
             return to_route('sales.index');
         }
