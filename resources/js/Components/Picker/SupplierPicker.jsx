@@ -6,7 +6,12 @@ export default function SupplierPicker(props) {
 
     useEffect(() => {
         const fetchItems = async () => {
-            const res = await axios.get(route('suppliers.picker'), { params: { count: 10 } });
+            const res = await axios.get(route('suppliers.search'), {
+                params: {
+                    count: 10,
+                    type: 'picker'
+                }
+            });
             if (res?.data?.length > 0) {
                 setSuppliers(res?.data)
             }
@@ -17,9 +22,10 @@ export default function SupplierPicker(props) {
     const handleSupplierSearch = async (searchTerm) => {
         if (searchTerm.length >= 2) {
             try {
-                const res = await axios.get(route('suppliers.picker'), {
+                const res = await axios.get(route('suppliers.search'), {
                     params: {
                         search_qry: searchTerm,
+                        type: 'picker',
                     },
                 });
                 if (res?.data?.length > 0) {

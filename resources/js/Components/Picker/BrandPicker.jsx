@@ -6,7 +6,12 @@ export default function BrandPicker() {
 
     useEffect(() => {
         const fetchItems = async () => {
-            const res = await axios.get(route('brands.picker'), { params: { count: 10 } });
+            const res = await axios.get(route('brands.search'), {
+                params: {
+                    count: 10,
+                    type: 'picker'
+                }
+            });
             if (res?.data?.length > 0) {
                 setBrands(res?.data)
             }
@@ -20,7 +25,7 @@ export default function BrandPicker() {
                 const res = await axios.get(route('brands.search'), {
                     params: {
                         search_qry: searchTerm,
-                        show_type: "picker"
+                        type: "picker"
                     },
                 });
                 if (res?.data?.length > 0) {

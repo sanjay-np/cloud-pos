@@ -5,6 +5,7 @@ namespace Modules\Product\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Modules\Product\Actions\SupplierAction;
 use Modules\Product\Http\Requests\Supplier\StoreRequest;
 use Modules\Product\Http\Requests\Supplier\UpdateRequest;
 use Modules\Product\Models\Brand;
@@ -59,5 +60,24 @@ class SupplierController extends Controller
         if ($item) {
             return to_route('suppliers.index');
         }
+    }
+
+    public function search(Request $request, SupplierAction $action)
+    {
+        $items = null;
+        if ($request->has('search_qry')) {
+            $items = $action->search($request->search_qry);
+        } else {
+            $items = $this->model->take($request->count ?? 10)->get();
+        }
+        if ($request->has('type') && $request->type == 'picker') {
+            return $items->map(function ($item) {
+                return [
+                    'value' => $item->id,
+                    'label' => $item->name,
+                ];
+            });
+        }
+        return $items;
     }
 }

@@ -48,6 +48,5 @@ Route::resource('suppliers', SupplierController::class)
     ->middleware(['auth', 'verified']);
 
 Route::controller(SupplierController::class)->group(function () {
-    Route::get('supplier-picker', 'picker')->name('suppliers.picker');
     Route::get('supplier-search', 'search')->name('suppliers.search');
 })->middleware(['auth', 'verified']);

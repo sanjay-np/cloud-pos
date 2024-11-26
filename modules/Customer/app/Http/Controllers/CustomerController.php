@@ -5,6 +5,7 @@ namespace Modules\Customer\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Modules\Customer\Actions\CustomerAction;
 use Modules\Customer\Http\Requests\StoreRequest;
 use Modules\Customer\Http\Requests\UpdateRequest;
 use Modules\Customer\Models\Customer;
@@ -53,12 +54,22 @@ class CustomerController extends Controller
         }
     }
 
-    public function search(Request $request)
+    public function search(Request $request, CustomerAction $action)
     {
-        return $this->model->where('name', 'like', '%' . $request->search_qry . '%')
-            ->orWhere('code', 'like', '%' . $request->search_qry . '%')
-            ->orWhere('phone', 'like', '%' . $request->search_qry . '%')
-            ->take(10)
-            ->get();
+        $items = null;
+        if ($request->has('search_qry')) {
+            $items = $action->search($request->search_qry);
+        } else {
+            $items = $this->model->take($request->count ?? 10)->get();
+        }
+        if ($request->has('type') && $request->type == 'picker') {
+            return $items->map(function ($item) {
+                return [
+                    'value' => $item->id,
+                    'label' => $item->name,
+                ];
+            });
+        }
+        return $items;
     }
 }

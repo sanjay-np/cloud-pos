@@ -5,6 +5,7 @@ namespace Modules\Product\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Modules\Product\Actions\BrandAction;
 use Modules\Product\Http\Requests\Brand\StoreRequest;
 use Modules\Product\Http\Requests\Brand\UpdateRequest;
 use Modules\Product\Models\Brand;
@@ -48,6 +49,24 @@ class BrandController extends Controller
         $item = $this->model->findOrFail($id)->delete();
         if ($item) {
             return to_route('brands.index');
+        }
+    }
+
+    public function search(Request $request, BrandAction $action)
+    {
+        $items = null;
+        if ($request->has('search_qry')) {
+            $items = $action->search($request->search_qry);
+        } else {
+            $items = $this->model->take($request->count ?? 10)->get();
+        }
+        if ($request->has('type') && $request->type == 'picker') {
+            return $items->map(function ($item) {
+                return [
+                    'value' => $item->id,
+                    'label' => $item->name,
+                ];
+            });
         }
     }
 }
