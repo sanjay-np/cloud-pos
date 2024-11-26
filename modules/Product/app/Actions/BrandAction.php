@@ -12,4 +12,14 @@ class BrandAction
             ->take(10)
             ->get();
     }
+
+    public function pickerItems()
+    {
+        return Brand::all()->map(function ($brand) {
+            return [
+                'value' => $brand->id,
+                'label' => $brand->name,
+            ];
+        });
+    }
 }

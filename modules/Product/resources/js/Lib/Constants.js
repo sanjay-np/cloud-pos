@@ -12,14 +12,18 @@ export const SUPPLIER_TABLE_HEADER = [
 
 export const CATEGORY_TABLE_HEADER = [
     { title: "Category Name", dataKey: "name", flexGrow: 1 },
-    { title: "Parent Category", dataKey: "parent_id", flexGrow: 1 },
-    { title: "Status", dataKey: "status", flexGrow: 1 }
+    { title: "Parent Category", dataKey: "parent_id", width: 150 },
+    { title: "Status", dataKey: "status" }
+]
+export const CATEGORY_STATUS = [
+    { label: 'Published', value: 'published' },
+    { label: 'Draft', value: 'draft' }
 ]
 
 export const ATTRIBUTE_TABLE_HEADER = [
     { title: "Attribute Name", dataKey: "name", flexGrow: 1 },
     { title: "Description", dataKey: "description", flexGrow: 1 },
-    { title: "Status", dataKey: "status", flexGrow: 1 }
+    { title: "Status", dataKey: "status" }
 ]
 
 export const PRODUCT_TABLE_HEADER = [

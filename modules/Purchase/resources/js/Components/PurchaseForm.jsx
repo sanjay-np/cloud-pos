@@ -179,6 +179,7 @@ const PurchaseForm = ({ drawerRef, selected, type }) => {
                         data={PURCHASE_STATUS}
                         className='w-full'
                         onChange={(val) => setData('status', val)}
+                        searchable={false}
                     />
                     <InputError message={errors.status} className='mt-2' />
                 </div>
@@ -188,6 +189,7 @@ const PurchaseForm = ({ drawerRef, selected, type }) => {
                         data={PAYMENT_METHODS}
                         className='w-full'
                         onChange={(val) => setData('payment_method', val)}
+                        searchable={false}
                     />
                     <InputError message={errors.payment_method} className='mt-2' />
                 </div>

@@ -1,4 +1,4 @@
-import { calculateTax, calculateTotal } from "@/Lib/Utils";
+import { calculateTax, calculateSaleTotal } from "@/Lib/Utils";
 import { createSlice } from "@reduxjs/toolkit";
 
 export const SaleProductSlice = createSlice({
@@ -28,7 +28,7 @@ export const SaleProductSlice = createSlice({
                 state.products = [...state.products, { ...action.payload, qty: action.payload.qty }];
             }
             state.taxAmount = calculateTax(state.products, state.taxPercent);
-            state.total = calculateTotal(state.products, state.taxPercent, state.discount, state.shipping);
+            state.total = calculateSaleTotal(state.products, state.taxPercent, state.discount, state.shipping);
         },
 
         /**
@@ -39,7 +39,7 @@ export const SaleProductSlice = createSlice({
         removeSaleProduct(state, action) {
             state.products = state.products.filter(item => item.id !== action.payload);
             state.taxAmount = calculateTax(state.products, state.taxPercent);
-            state.total = calculateTotal(state.products, state.taxPercent, state.discount, state.shipping);
+            state.total = calculateSaleTotal(state.products, state.taxPercent, state.discount, state.shipping);
         },
 
         /**
@@ -56,7 +56,7 @@ export const SaleProductSlice = createSlice({
                 return item
             })
             state.taxAmount = calculateTax(state.products, state.taxPercent);
-            state.total = calculateTotal(state.products, state.taxPercent, state.discount, state.shipping);
+            state.total = calculateSaleTotal(state.products, state.taxPercent, state.discount, state.shipping);
         },
 
         /**
@@ -76,7 +76,7 @@ export const SaleProductSlice = createSlice({
                 return item
             })
             state.taxAmount = calculateTax(state.products, state.taxPercent);
-            state.total = calculateTotal(state.products, state.taxPercent, state.discount, state.shipping);
+            state.total = calculateSaleTotal(state.products, state.taxPercent, state.discount, state.shipping);
         },
 
         /**
@@ -87,7 +87,7 @@ export const SaleProductSlice = createSlice({
         setTax(state, action) {
             state.taxPercent = action.payload;
             state.taxAmount = calculateTax(state.products, action.payload);
-            state.total = calculateTotal(state.products, state.taxPercent, state.discount, state.shipping);
+            state.total = calculateSaleTotal(state.products, state.taxPercent, state.discount, state.shipping);
         },
 
         /**
@@ -97,7 +97,7 @@ export const SaleProductSlice = createSlice({
 
         setDiscount(state, action) {
             state.discount = parseFloat(action.payload);
-            state.total = calculateTotal(state.products, state.taxPercent, state.discount, state.shipping);
+            state.total = calculateSaleTotal(state.products, state.taxPercent, state.discount, state.shipping);
         },
 
         /**
@@ -107,7 +107,7 @@ export const SaleProductSlice = createSlice({
 
         setShipping(state, action) {
             state.shipping = parseFloat(action.payload);
-            state.total = calculateTotal(state.products, state.taxPercent, state.discount, state.shipping);
+            state.total = calculateSaleTotal(state.products, state.taxPercent, state.discount, state.shipping);
         },
     }
 })

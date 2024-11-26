@@ -51,7 +51,7 @@ export default function HeaderComp() {
                 <FlexboxGrid.Item colSpan={12}>
                     <Stack>
                         <HStack divider={<Divider vertical />} spacing={4}>
-                            <Link href={route('pointofsale.index')} className='no-underline hover:no-underline'>
+                            <Link href={route('pos.index')} className='no-underline hover:no-underline'>
                                 <div className="flex items-center gap-2">
                                     <BadgeIndianRupee color='gray' size={20} />
                                     <span className='text-gray-600 font-medium text-base'>POS</span>

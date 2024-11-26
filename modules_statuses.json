@@ -7,6 +7,5 @@
     "SalesReturn": true,
     "Sales": true,
     "Setting": true,
-    "Expenses": true,
-    "PointOfSale": true
+    "Expenses": true
 }

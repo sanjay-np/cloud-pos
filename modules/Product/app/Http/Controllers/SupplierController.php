@@ -5,27 +5,19 @@ namespace Modules\Product\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Modules\Product\Actions\BrandAction;
 use Modules\Product\Actions\SupplierAction;
 use Modules\Product\Http\Requests\Supplier\StoreRequest;
 use Modules\Product\Http\Requests\Supplier\UpdateRequest;
-use Modules\Product\Models\Brand;
 use Modules\Product\Models\Supplier;
 
 class SupplierController extends Controller
 {
-    public function __construct(
-        private Brand $brandModel,
-        private Supplier $model,
-    ) {}
+    public function __construct(private Supplier $model) {}
 
-    public function index(Request $request)
+    public function index(Request $request, BrandAction $brandAction)
     {
-        $brands = $this->brandModel->all()->map(function ($brand) {
-            return [
-                'value' => $brand->id,
-                'label' => $brand->name,
-            ];
-        });
+        $brands = $brandAction->pickerItems();
         $suppliers = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
         return Inertia::render('Product::Supplier', [
             'brands' => $brands,

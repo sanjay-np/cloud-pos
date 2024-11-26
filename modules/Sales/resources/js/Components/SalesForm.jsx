@@ -9,9 +9,9 @@ import FormDrawer from '@/Components/Overlays/FormDrawer'
 import InputError from '@/Components/InputError'
 import ProductTable from './ProductTable'
 import { PAYMENT_METHODS } from '@/Lib/Constants'
-import { SALE_STATUS } from '../Lib/Constants'
 import { useEffect } from 'react'
 import { toast } from 'sonner'
+import { SALE_STATUS } from '../Lib/Constants'
 
 export default function SalesForm({ drawerRef, selected, type }) {
 
@@ -175,6 +175,7 @@ export default function SalesForm({ drawerRef, selected, type }) {
                         data={SALE_STATUS}
                         className='w-full'
                         onChange={(val) => setData('status', val)}
+                        searchable={false}
                     />
                     <InputError message={errors.status} className='mt-2' />
                 </div>
@@ -184,6 +185,7 @@ export default function SalesForm({ drawerRef, selected, type }) {
                         data={PAYMENT_METHODS}
                         className='w-full'
                         onChange={(val) => setData('payment_method', val)}
+                        searchable={false}
                     />
                     <InputError message={errors.payment_method} className='mt-2' />
                 </div>

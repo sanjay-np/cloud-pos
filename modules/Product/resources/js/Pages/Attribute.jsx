@@ -72,7 +72,7 @@ export default function Attribute({ auth, attributes }) {
                         </div>
                     </div>
                     <TableComp
-                        data={attributes}
+                        items={attributes}
                         columns={ATTRIBUTE_TABLE_HEADER}
                         checkboxCell={true}
                         actions={{

@@ -9,6 +9,7 @@ import { AirplayIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Input, InputGroup, Loader, SelectPicker, Uploader } from 'rsuite'
 import { toast } from 'sonner'
+import { CATEGORY_STATUS } from '../Lib/Constants'
 
 export default function CategoryForm(props) {
 
@@ -146,10 +147,8 @@ export default function CategoryForm(props) {
                     <div className="mb-4">
                         <label className="text-gray-600 font-semibold mb-1 block">Status</label>
                         <SelectPicker
-                            data={[
-                                { value: 'published', label: 'Published' },
-                                { value: 'draft', label: 'Draft' }
-                            ]}
+                            data={CATEGORY_STATUS}
+                            searchable={false}
                             placeholder="Select status..."
                             className="text-base w-full"
                             value={data.status}

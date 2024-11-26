@@ -23,6 +23,13 @@ export const calculateTotal = (products, tax, discount, shipping) => {
     return totalWithDiscount + shipping;
 };
 
+export const calculateSaleTotal = (products, tax, discount, shipping) => {
+    const subtotal = products.reduce((sum, product) => sum + parseFloat(product.sale_price * product.qty), 0);
+    const totalWithTax = subtotal + (subtotal * tax / 100);
+    const totalWithDiscount = totalWithTax - discount;
+    return totalWithDiscount + shipping;
+};
+
 /**
  * Calculates the tax amount of a given list of products.
  *

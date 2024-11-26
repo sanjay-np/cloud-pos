@@ -123,6 +123,7 @@ export default function AttributeForm(props) {
                             value={data.status}
                             onChange={value => setData('status', value)}
                             placement="top"
+                            searchable={false}
                         />
                         <InputError message={errors.status} className="mt-2" />
                     </div>

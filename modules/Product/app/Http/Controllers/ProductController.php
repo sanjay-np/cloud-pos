@@ -5,21 +5,25 @@ namespace Modules\Product\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Modules\Product\Actions\BrandAction;
+use Modules\Product\Actions\SupplierAction;
 use Modules\Product\Http\Requests\Product\StoreRequest;
 use Modules\Product\Http\Requests\Product\UpdateRequest;
 use Modules\Product\Models\Product;
 
 class ProductController extends Controller
 {
-    public function __construct(
-        private Product $model
-    ) {}
+    public function __construct(private Product $model) {}
 
-    public function index(Request $request)
+    public function index(Request $request, BrandAction $brandAction, SupplierAction $supplierAction)
     {
         $products = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
+        $brands = $brandAction->pickerItems();
+        $suppliers = $supplierAction->pickerItems();
         return Inertia::render('Product::Index', [
-            'products' => $products
+            'products' => $products,
+            'brands' => $brands,
+            'suppliers' => $suppliers,
         ]);
     }
 
@@ -55,8 +59,14 @@ class ProductController extends Controller
         }
     }
 
-    // public function search(Request $request)
-    // {
-    //     return $this->model->search($request->search_qry);
-    // }
+    public function search(Request $request)
+    {
+        return $this->model
+            ->select(['id', 'title', 'bar_code', 'sku', 'unit_price', 'sale_price'])
+            ->where('title', 'like', '%' . $request->search_qry . '%')
+            ->orWhere('bar_code', 'like', '%' . $request->search_qry . '%')
+            ->orWhere('sku', 'like', '%' . $request->search_qry . '%')
+            ->take(10)
+            ->get();
+    }
 }

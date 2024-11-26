@@ -206,6 +206,7 @@ export default function EmployeeForm(props) {
                             onChange={(value) =>
                                 setData("document_type", value)
                             }
+                            searchable={false}
                         />
                         <InputError
                             message={errors.document_type}
@@ -272,6 +273,7 @@ export default function EmployeeForm(props) {
                             value={data.status}
                             onChange={(value) => setData("status", value)}
                             placement="auto"
+                            searchable={false}
                         />
                         <InputError message={errors.status} className="mt-2" />
                     </div>

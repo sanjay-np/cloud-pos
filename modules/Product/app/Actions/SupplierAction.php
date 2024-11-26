@@ -12,4 +12,14 @@ class SupplierAction
             ->take(10)
             ->get();
     }
+
+    public function pickerItems()
+    {
+        return Supplier::all()->map(function ($supplier) {
+            return [
+                'value' => $supplier->id,
+                'label' => $supplier->name,
+            ];
+        });
+    }
 }
