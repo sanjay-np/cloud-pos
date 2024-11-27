@@ -3,8 +3,6 @@
     "Employee": true,
     "Product": true,
     "Purchase": true,
-    "PurchaseReturn": true,
-    "SalesReturn": true,
     "Sales": true,
     "Setting": true,
     "Expenses": true

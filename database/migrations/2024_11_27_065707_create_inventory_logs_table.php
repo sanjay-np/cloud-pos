@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('purchase_returns', function (Blueprint $table) {
+        Schema::create('inventory_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->constrained('products');
+            $table->integer('qty');
+            $table->unsignedBigInteger('causer_id');
+            $table->string('causer_type');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('purchase_returns');
+        Schema::dropIfExists('inventory_logs');
     }
 };

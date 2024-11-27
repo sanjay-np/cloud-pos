@@ -1,5 +1,5 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import React, { useRef, useState } from 'react'
 import SearchBar from '@/Components/Search/Index'
@@ -29,7 +29,13 @@ export default function Index({ auth, products, brands, suppliers }) {
     };
 
     const handleDelete = () => {
-
+        router.delete(route('products.destroy', selected), {
+            onSuccess: () => {
+                toast.success('Product deleted successfully');
+                setSelected(null);
+                deleteModalRef.current.close();
+            }
+        })
     }
     return (
         <Authenticated user={auth?.user} activeKey={['products']}>

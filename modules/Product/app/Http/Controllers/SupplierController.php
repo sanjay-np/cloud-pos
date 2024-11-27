@@ -5,24 +5,22 @@ namespace Modules\Product\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Modules\Product\Actions\BrandAction;
-use Modules\Product\Actions\SupplierAction;
 use Modules\Product\Http\Requests\Supplier\StoreRequest;
 use Modules\Product\Http\Requests\Supplier\UpdateRequest;
 use Modules\Product\Models\Supplier;
+use Modules\Product\Services\SupplierService;
 
 class SupplierController extends Controller
 {
-    public function __construct(private Supplier $model) {}
+    public function __construct(
+        private Supplier $model,
+        private SupplierService $service
+    ) {}
 
-    public function index(Request $request, BrandAction $brandAction)
+    public function index(Request $request)
     {
-        $brands = $brandAction->pickerItems();
-        $suppliers = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
-        return Inertia::render('Product::Supplier', [
-            'brands' => $brands,
-            'suppliers' => $suppliers,
-        ]);
+        $data = $this->service->index();
+        return Inertia::render('Product::Supplier', $data);
     }
 
     public function store(StoreRequest $request)
@@ -54,22 +52,8 @@ class SupplierController extends Controller
         }
     }
 
-    public function search(Request $request, SupplierAction $action)
+    public function search(Request $request)
     {
-        $items = null;
-        if ($request->has('search_qry')) {
-            $items = $action->search($request->search_qry);
-        } else {
-            $items = $this->model->take($request->count ?? 10)->get();
-        }
-        if ($request->has('type') && $request->type == 'picker') {
-            return $items->map(function ($item) {
-                return [
-                    'value' => $item->id,
-                    'label' => $item->name,
-                ];
-            });
-        }
-        return $items;
+        return $this->service->search($request->all());
     }
 }

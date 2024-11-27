@@ -5,18 +5,21 @@ namespace Modules\Product\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Modules\Product\Actions\BrandAction;
 use Modules\Product\Http\Requests\Brand\StoreRequest;
 use Modules\Product\Http\Requests\Brand\UpdateRequest;
 use Modules\Product\Models\Brand;
+use Modules\Product\Services\BrandService;
 
 class BrandController extends Controller
 {
-    public function __construct(private Brand $model) {}
+    public function __construct(
+        private Brand $model,
+        private BrandService $service
+    ) {}
 
     public function index(Request $request)
     {
-        $brands = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
+        $brands = $this->service->index();
         return Inertia::render('Product::Brand', [
             'brands' => $brands
         ]);
@@ -52,21 +55,8 @@ class BrandController extends Controller
         }
     }
 
-    public function search(Request $request, BrandAction $action)
+    public function search(Request $request)
     {
-        $items = null;
-        if ($request->has('search_qry')) {
-            $items = $action->search($request->search_qry);
-        } else {
-            $items = $this->model->take($request->count ?? 10)->get();
-        }
-        if ($request->has('type') && $request->type == 'picker') {
-            return $items->map(function ($item) {
-                return [
-                    'value' => $item->id,
-                    'label' => $item->name,
-                ];
-            });
-        }
+        return $this->service->search($request->all());
     }
 }

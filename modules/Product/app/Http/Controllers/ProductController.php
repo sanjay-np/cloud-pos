@@ -5,34 +5,27 @@ namespace Modules\Product\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Modules\Product\Actions\BrandAction;
-use Modules\Product\Actions\SupplierAction;
 use Modules\Product\Http\Requests\Product\StoreRequest;
 use Modules\Product\Http\Requests\Product\UpdateRequest;
 use Modules\Product\Models\Product;
+use Modules\Product\Services\ProductService;
 
 class ProductController extends Controller
 {
-    public function __construct(private Product $model) {}
+    public function __construct(
+        private Product $model,
+        private ProductService $service
+    ) {}
 
-    public function index(Request $request, BrandAction $brandAction, SupplierAction $supplierAction)
+    public function index(Request $request)
     {
-        $products = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
-        $brands = $brandAction->pickerItems();
-        $suppliers = $supplierAction->pickerItems();
-        return Inertia::render('Product::Index', [
-            'products' => $products,
-            'brands' => $brands,
-            'suppliers' => $suppliers,
-        ]);
+        $data = $this->service->index();
+        return Inertia::render('Product::Index', $data);
     }
 
     public function store(StoreRequest $request)
     {
-        $item = $this->model->create($request->getRequested() + [
-            'main_image' => $request->getMainImage(),
-            'gallery_images' => $request->getGalleryImages()
-        ]);
+        $item = $this->model->create($request->getRequested());
         if ($item) {
             return to_route('products.index');
         }
@@ -61,12 +54,6 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        return $this->model
-            ->select(['id', 'title', 'bar_code', 'sku', 'unit_price', 'sale_price'])
-            ->where('title', 'like', '%' . $request->search_qry . '%')
-            ->orWhere('bar_code', 'like', '%' . $request->search_qry . '%')
-            ->orWhere('sku', 'like', '%' . $request->search_qry . '%')
-            ->take(10)
-            ->get();
+        return $this->service->search($request->all());
     }
 }
