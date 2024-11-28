@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react'
-import { BadgeDollarSignIcon, BadgePercentIcon, BookUserIcon, ClipboardCheckIcon, ContactRoundIcon, CornerDownLeftIcon, CornerDownRightIcon, GaugeIcon, MailIcon, PackageIcon, PieChartIcon, ReceiptIcon, ReceiptTextIcon, Settings2Icon } from 'lucide-react'
+import { BadgeDollarSignIcon, BookUserIcon, ContactRoundIcon, GaugeIcon, PackageIcon, ReceiptIcon, ReceiptTextIcon, Settings2Icon } from 'lucide-react'
 import React from 'react'
 import { Nav, Sidenav } from 'rsuite'
 
@@ -40,22 +40,12 @@ export default function SiderbarComp(props) {
                             <Link href={route('purchases.index')}>Purchase</Link>
                         </Nav.Item>
 
-                        {/*
-                        <Nav.Item icon={<CornerDownRightIcon strokeWidth={1.5} size={20} />} as={'div'}>
-                            <Link href={route('purchases.returns.index')}>Purchase Return</Link>
-                        </Nav.Item>
-                        */}
-
                         <Nav.Item icon={<BadgeDollarSignIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('sales.index')}>Sales</Link>
                         </Nav.Item>
                         <Nav.Item icon={<ReceiptTextIcon strokeWidth={1.5} size={20} />} as={'div'}>
                             <Link href={route('expenses.index')}>Expenses</Link>
                         </Nav.Item>
-
-                        {/* <Nav.Item icon={<CornerDownLeftIcon strokeWidth={1.5} size={20} />} as={'div'}>
-                            <Link href={route('sales.returns.index')}>Sales Return</Link>
-                        </Nav.Item> */}
 
                         {/* <Nav.Item panel>Miscellaneous</Nav.Item>
                         <Nav.Item icon={<BadgePercentIcon strokeWidth={1.5} size={20} />} as={'div'}>Coupons</Nav.Item>

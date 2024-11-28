@@ -193,7 +193,7 @@ export default function SalesForm({ drawerRef, selected, type }) {
                     <label className='text-gray-600 font-semibold mb-1 block'>Paid Amount</label>
                     <InputGroup>
                         <Input
-                            value={data?.paid_amount}
+                            defaultValue={data?.paid_amount}
                             onChange={(val) => setData('paid_amount', parseFloat(val))}
                         />
                     </InputGroup>

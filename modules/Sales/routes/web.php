@@ -22,5 +22,3 @@ Route::resource('sales', SalesController::class)
 
 Route::get('pos', [POSController::class, 'index'])
     ->name('pos.index');
-
-Route::get('/test', [SalesController::class, 'test']);
