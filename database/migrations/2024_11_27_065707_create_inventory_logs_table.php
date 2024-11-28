@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products');
             $table->integer('qty');
             $table->unsignedBigInteger('causer_id');
-            $table->string('causer_type');
+            $table->string('type');
             $table->timestamps();
             $table->softDeletes();
         });

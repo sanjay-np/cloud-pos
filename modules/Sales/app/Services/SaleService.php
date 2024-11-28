@@ -2,26 +2,54 @@
 
 namespace Modules\Sales\Services;
 
+use App\Services\InventoryService;
+use App\Services\PriceService;
 use Modules\Sales\Models\SaleDetail;
 use Modules\Sales\Models\SalePayment;
 
 class SaleService
 {
-    protected $saleDetailModel, $salePaymentModel;
-
-    public function __construct(SaleDetail $saleDetailModel, SalePayment $salePaymentModel)
-    {
+    public function __construct(
+        private SaleDetail $saleDetailModel,
+        private SalePayment $salePaymentModel,
+        private InventoryService $inventoryService,
+        private PriceService $priceService
+    ) {
         $this->saleDetailModel = $saleDetailModel;
         $this->salePaymentModel = $salePaymentModel;
     }
 
     public function createSaleDetail(array $data, int $saleId)
     {
-        foreach ($data['products'] as $product) {
-            $product['product_id'] = $product['id'] ?? null;
-            $product['sub_total'] = $product['unit_price'] * $product['qty'];
-            $this->saleDetailModel->create($product + ['sale_id' => $saleId]);
-        }
+        $products = array_map(function ($product) use ($saleId) {
+            return [
+                'product_id' => $product['id'] ?? null,
+                'sub_total' => ($product['sale_price'] ?? 0) * ($product['qty'] ?? 0),
+                'purchase_id' => $saleId,
+                'qty' => $product['qty'] ?? 0
+            ];
+        }, $data['products']);
+        $this->saleDetailModel->insert($products);
+
+        $inventoryLogs = array_map(function ($product) use ($saleId) {
+            return [
+                'product_id' => $product['product_id'],
+                'qty' => $product['qty'],
+                'type' => 'purchase',
+                'causer_id' => $saleId
+            ];
+        }, $products);
+        $this->inventoryService->createBulkLog($inventoryLogs);
+
+        $priceLogs = array_map(function ($product) use ($saleId) {
+            return [
+                'product_id' => $product['product_id'],
+                'price' => $product['sale_price'] ?? 0,
+                'causer_id' => $saleId,
+                'type' => 'purchase'
+            ];
+        }, $products);
+        $this->priceService->createBulkLog($priceLogs);
     }
 
     public function createSalePayment(array $data, int $saleId)

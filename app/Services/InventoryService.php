@@ -12,4 +12,9 @@ class InventoryService
     {
         return $this->model->create($data);
     }
+
+    public function createBulkLog(array $logs): void
+    {
+        $this->model->insert($logs);
+    }
 }
