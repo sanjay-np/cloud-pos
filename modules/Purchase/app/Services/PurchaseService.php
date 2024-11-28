@@ -2,6 +2,7 @@
 
 namespace Modules\Purchase\Services;
 
+use App\Services\InventoryService;
 use Modules\Purchase\Models\PurchaseDetail;
 use Modules\Purchase\Models\PurchasePayment;
 
@@ -9,7 +10,8 @@ class PurchaseService
 {
     public function __construct(
         private PurchaseDetail $purchaseDetailModal,
-        private PurchasePayment $purchasePaymentModal
+        private PurchasePayment $purchasePaymentModal,
+        private InventoryService $inventoryService
     ) {}
 
     public function createPurchaseDetail(array $data, int $purchaseId)

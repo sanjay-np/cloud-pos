@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Service;
+namespace App\Services;
 
 use App\Models\InventoryLog;
 
 class InventoryService
 {
-    /**
-     * Create a new class instance.
-     */
     public function __construct(private InventoryLog $model) {}
 
     public function createLog(array $data)

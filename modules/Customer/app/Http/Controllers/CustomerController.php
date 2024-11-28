@@ -5,23 +5,22 @@ namespace Modules\Customer\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Modules\Customer\Actions\CustomerAction;
 use Modules\Customer\Http\Requests\StoreRequest;
 use Modules\Customer\Http\Requests\UpdateRequest;
 use Modules\Customer\Models\Customer;
+use Modules\Customer\Services\CustomerService;
 
 class CustomerController extends Controller
 {
-    protected $customerRepository;
-
-    public function __construct(private Customer $model) {}
+    public function __construct(
+        private Customer $model,
+        private CustomerService $service
+    ) {}
 
     public function index()
     {
-        $customers = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
-        return Inertia::render('Customer::Index', [
-            'customers' => $customers
-        ]);
+        $customers = $this->service->index();
+        return Inertia::render('Customer::Index', compact('customers'));
     }
 
     public function store(StoreRequest $request)
@@ -54,22 +53,8 @@ class CustomerController extends Controller
         }
     }
 
-    public function search(Request $request, CustomerAction $action)
+    public function search(Request $request)
     {
-        $items = null;
-        if ($request->has('search_qry')) {
-            $items = $action->search($request->search_qry);
-        } else {
-            $items = $this->model->take($request->count ?? 10)->get();
-        }
-        if ($request->has('type') && $request->type == 'picker') {
-            return $items->map(function ($item) {
-                return [
-                    'value' => $item->id,
-                    'label' => $item->name,
-                ];
-            });
-        }
-        return $items;
+        return $this->service->search($request->all());
     }
 }
