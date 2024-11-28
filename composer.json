@@ -13,6 +13,7 @@
         "inertiajs/inertia-laravel": "^1.0",
         "laravel/framework": "^11.28",
         "laravel/sanctum": "^4.0",
+        "laravel/slack-notification-channel": "^3.4",
         "laravel/tinker": "^2.9",
         "nwidart/laravel-modules": "^11.1",
         "tightenco/ziggy": "^2.0"

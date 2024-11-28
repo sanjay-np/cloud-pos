@@ -12,6 +12,8 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/dashboard', 'index')
         ->middleware(['auth', 'verified'])
         ->name('dashboard');
+
+    Route::get('/slack', 'slack');
 });
 
 Route::middleware('auth')->group(function () {
