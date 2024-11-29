@@ -30,26 +30,8 @@ class SaleService
             ];
         }, $data['products']);
         $this->saleDetailModel->insert($products);
-
-        $inventoryLogs = array_map(function ($product) use ($saleId) {
-            return [
-                'product_id' => $product['product_id'],
-                'qty' => $product['qty'],
-                'type' => 'purchase',
-                'causer_id' => $saleId
-            ];
-        }, $products);
-        $this->inventoryService->createBulkLog($inventoryLogs);
-
-        $priceLogs = array_map(function ($product) use ($saleId) {
-            return [
-                'product_id' => $product['product_id'],
-                'price' => $product['sale_price'] ?? 0,
-                'causer_id' => $saleId,
-                'type' => 'purchase'
-            ];
-        }, $products);
-        $this->priceService->createBulkLog($priceLogs);
+        $this->inventoryService->createBulkLog($products, $saleId, 'sales');
+        $this->priceService->createBulkLog($products, $saleId, 'sales');
     }
 
     public function createSalePayment(array $data, int $saleId)

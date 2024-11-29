@@ -4,17 +4,29 @@ namespace Modules\Purchase\Services;
 
 use App\Services\InventoryService;
 use App\Services\PriceService;
+use Modules\Purchase\Models\Purchase;
 use Modules\Purchase\Models\PurchaseDetail;
 use Modules\Purchase\Models\PurchasePayment;
 
 class PurchaseService
 {
     public function __construct(
+        private Purchase $model,
         private PurchaseDetail $purchaseDetailModal,
         private PurchasePayment $purchasePaymentModal,
         private InventoryService $inventoryService,
         private PriceService $priceService
     ) {}
+
+    public function index($data)
+    {
+        return $this->model
+            ->current()
+            ->with(['supplier'])
+            ->withCount('items')
+            ->orderBy('id', 'desc')
+            ->paginate(perPage: 10);
+    }
 
     public function createPurchaseDetail(array $data, int $purchaseId)
     {
@@ -27,26 +39,8 @@ class PurchaseService
             ];
         }, $data['products']);
         $this->purchaseDetailModal->insert($products);
-
-        $inventoryLogs = array_map(function ($product) use ($purchaseId) {
-            return [
-                'product_id' => $product['product_id'],
-                'qty' => $product['qty'],
-                'type' => 'purchase',
-                'causer_id' => $purchaseId
-            ];
-        }, $products);
-        $this->inventoryService->createBulkLog($inventoryLogs);
-
-        $priceLogs = array_map(function ($product) use ($purchaseId) {
-            return [
-                'product_id' => $product['product_id'],
-                'price' => $product['amount'] ?? 0,
-                'causer_id' => $purchaseId,
-                'type' => 'purchase'
-            ];
-        }, $products);
-        $this->priceService->createBulkLog($priceLogs);
+        $this->inventoryService->createBulkLog($products, $purchaseId, 'purchase');
+        $this->priceService->createBulkLog($products, $purchaseId, 'purchase');
     }
 
     public function createPurchasePayment(array $data, int $purchaseId)

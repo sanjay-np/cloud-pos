@@ -13,8 +13,16 @@ class PriceService
         return $this->model->create($data);
     }
 
-    public function createBulkLog(array $logs): void
+    public function createBulkLog(array $products, $id, $type): void
     {
+        $logs = array_map(function ($product) use ($id, $type) {
+            return [
+                'product_id' => $product['product_id'],
+                'price' => $type === 'sales' ? $product['sale_price'] : $product['unit_price'],
+                'causer_id' => $id,
+                'type' => $type
+            ];
+        }, $products);
         $this->model->insert($logs);
     }
 }
