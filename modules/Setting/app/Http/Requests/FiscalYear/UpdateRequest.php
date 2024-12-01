@@ -3,6 +3,7 @@
 namespace Modules\Setting\Http\Requests\FiscalYear;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'label' => ['required', 'string', 'max:255', 'unique:fiscal_years'],
+            'label' => ['required', 'string', 'max:255', Rule::unique('fiscal_years')->ignore($this->fiscal_year)],
             'is_current' => ['required', 'boolean'],
         ];
     }

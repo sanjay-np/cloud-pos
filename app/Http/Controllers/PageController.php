@@ -11,6 +11,6 @@ class PageController extends Controller
     public function index(DashboardService $service)
     {
         $items = $service->index();
-        return Inertia::render('Dashboard', compact('items'));
+        return Inertia::render('Dashboard', $items);
     }
 }

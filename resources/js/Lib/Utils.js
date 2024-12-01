@@ -54,3 +54,10 @@ export const calculateTax = (products, tax) => {
 export const formattedNumber = (number) => {
     return number.toFixed(2);
 }
+
+export const formattedAmount = (number) => {
+    const fixedNumber = Number(number).toFixed(2);
+    const [wholePart, decimalPart] = fixedNumber.split('.');
+    const formattedWholePart = parseInt(wholePart).toLocaleString('en-IN');
+    return `${formattedWholePart}.${decimalPart}`;
+}
