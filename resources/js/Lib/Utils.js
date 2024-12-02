@@ -61,3 +61,17 @@ export const formattedAmount = (number) => {
     const formattedWholePart = parseInt(wholePart).toLocaleString('en-IN');
     return `${formattedWholePart}.${decimalPart}`;
 }
+
+export const getCurrentMonthName = () => {
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    const date = new Date();
+    return monthNames[date.getMonth()];
+}
+
+export const getCurrentYear = () => {
+    const date = new Date();
+    return date.getFullYear();
+}

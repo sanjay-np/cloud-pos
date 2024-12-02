@@ -4,6 +4,8 @@ namespace Modules\Sales\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Sales\Interfaces\SalesReportRepositoryInterface;
+use Modules\Sales\Repositories\SalesReportRepository;
 use Nwidart\Modules\Traits\PathNamespace;
 
 class SalesServiceProvider extends ServiceProvider
@@ -34,6 +36,7 @@ class SalesServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+        $this->app->bind(SalesReportRepositoryInterface::class, SalesReportRepository::class);
     }
 
     /**

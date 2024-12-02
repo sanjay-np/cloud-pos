@@ -1,6 +1,6 @@
 import Clock from '@/Components/Clock/Clock';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { formattedAmount } from '@/Lib/Utils';
+import { formattedAmount, getCurrentMonthName, getCurrentYear } from '@/Lib/Utils';
 import { Head, usePage } from '@inertiajs/react';
 import { BadgeDollarSignIcon, ReceiptIcon, ReceiptTextIcon, TrophyIcon } from 'lucide-react';
 import { Panel } from 'rsuite';
@@ -19,63 +19,7 @@ import {
 } from 'recharts';
 
 export default function Dashboard({ auth }) {
-    const {
-        purchases,
-        sales,
-        expenses
-    } = usePage().props;
-
-    const data = [
-        {
-            name: 'Page A',
-            purchase: 4000,
-            sales: 2400,
-            expenses: 2400,
-        },
-        {
-            name: 'Page B',
-            purchase: 3000,
-            sales: 1398,
-            expenses: 2210,
-        },
-        {
-            name: 'Page C',
-            purchase: 2000,
-            sales: 9800,
-            expenses: 2290,
-        },
-        {
-            name: 'Page D',
-            purchase: 2780,
-            sales: 3908,
-            expenses: 2000,
-        },
-        {
-            name: 'Page E',
-            purchase: 1890,
-            sales: 4800,
-            expenses: 2181,
-        },
-        {
-            name: 'Page F',
-            purchase: 2390,
-            sales: 3800,
-            expenses: 2500,
-        },
-        {
-            name: 'Page G',
-            purchase: 3490,
-            sales: 4300,
-            expenses: 2100,
-        },
-    ];
-
-    const pieData = [
-        { name: 'Group A', value: 400 },
-        { name: 'Group B', value: 300 },
-        { name: 'Group C', value: 300 },
-        { name: 'Group D', value: 200 },
-    ];
+    const { salesTotal, purchasesTotal, expensesTotal, barChart, pieChart } = usePage().props;
 
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
@@ -97,7 +41,7 @@ export default function Dashboard({ auth }) {
                                         <ReceiptIcon size={48} color='gray' strokeWidth={1.2} />
                                     </div>
                                     <div className="content">
-                                        <h2 className="font-medium text-gray-400 text-3xl">${formattedAmount(purchases.total)}</h2>
+                                        <h2 className="font-medium text-gray-400 text-3xl">${formattedAmount(purchasesTotal)}</h2>
                                         <p className='text-gray-600 font-semibold'>Total Purchases</p>
                                     </div>
                                 </div>
@@ -110,7 +54,7 @@ export default function Dashboard({ auth }) {
                                         <BadgeDollarSignIcon size={48} color='gray' strokeWidth={1.2} />
                                     </div>
                                     <div className="content">
-                                        <h2 className="font-medium text-gray-400 text-3xl">${formattedAmount(sales.total)}</h2>
+                                        <h2 className="font-medium text-gray-400 text-3xl">${formattedAmount(salesTotal)}</h2>
                                         <p className='text-gray-600 font-semibold'>Total Sales</p>
                                     </div>
                                 </div>
@@ -123,7 +67,7 @@ export default function Dashboard({ auth }) {
                                         <ReceiptTextIcon size={48} color='gray' strokeWidth={1.2} />
                                     </div>
                                     <div className="content">
-                                        <h2 className="font-medium text-gray-400 text-3xl">${formattedAmount(expenses.total)}</h2>
+                                        <h2 className="font-medium text-gray-400 text-3xl">${formattedAmount(expensesTotal)}</h2>
                                         <p className='text-gray-600 font-semibold'>Total Expenses</p>
                                     </div>
                                 </div>
@@ -136,7 +80,7 @@ export default function Dashboard({ auth }) {
                                         <TrophyIcon size={48} color='gray' strokeWidth={1.2} />
                                     </div>
                                     <div className="content">
-                                        <h2 className="font-medium text-gray-400 text-3xl">$10,000</h2>
+                                        <h2 className="font-medium text-gray-400 text-3xl">${formattedAmount(salesTotal - expensesTotal - purchasesTotal)}</h2>
                                         <p className='text-gray-600 font-semibold'>Total Profit</p>
                                     </div>
                                 </div>
@@ -153,7 +97,7 @@ export default function Dashboard({ auth }) {
                                         <BarChart
                                             width={500}
                                             height={300}
-                                            data={data}
+                                            data={barChart}
                                             margin={{
                                                 top: 5,
                                                 right: 0,
@@ -162,25 +106,25 @@ export default function Dashboard({ auth }) {
                                             }}
                                         >
                                             <CartesianGrid strokeDasharray="3 3" />
-                                            <XAxis dataKey="name" />
+                                            <XAxis dataKey="date" />
                                             <YAxis />
                                             <Tooltip />
                                             <Legend />
                                             <Bar dataKey="sales" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
-                                            <Bar dataKey="purchase" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
-                                            <Bar dataKey="expenses" fill="#83ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+                                            <Bar dataKey="purchases" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+                                            <Bar dataKey="expenses" fill="#0088FE" activeBar={<Rectangle fill="gold" stroke="purple" />} />
                                         </BarChart>
                                     </ResponsiveContainer>
                                 </div>
                             </Panel>
                         </div>
                         <div className="item bg-white">
-                            <Panel header="Monthly Overview" shaded>
+                            <Panel header={`Overview of ${getCurrentMonthName()}, ${getCurrentYear()}`} shaded>
                                 <div className="h-[500px]">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <PieChart width={500} height={500}>
                                             <Pie
-                                                data={pieData}
+                                                data={pieChart}
                                                 cx={'50%'}
                                                 cy={'50%'}
                                                 innerRadius={80}
@@ -189,12 +133,11 @@ export default function Dashboard({ auth }) {
                                                 paddingAngle={4}
                                                 dataKey="value"
                                             >
-                                                {pieData.map((entry, index) => (
+                                                {pieChart.map((entry, index) => (
                                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                                 ))}
                                             </Pie>
                                         </PieChart>
-
                                     </ResponsiveContainer>
                                 </div>
                             </Panel>
