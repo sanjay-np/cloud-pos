@@ -5,11 +5,11 @@ import Authenticated from "@/Layouts/AuthenticatedLayout"
 import { Head } from "@inertiajs/react"
 import { ChevronRightIcon, LayoutGridIcon } from "lucide-react"
 import { useRef, useState } from "react"
-import { Toggle } from "rsuite"
 import { PURCHASE_TABLE_HEADER } from "../Lib/Constants"
 import PurchaseForm from "../Components/PurchaseForm"
 
 export default function Index({ auth, purchases }) {
+    console.log(purchases);
 
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add");
@@ -46,13 +46,6 @@ export default function Index({ auth, purchases }) {
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
                                 <SearchBar title={'Purhcases'} />
-                            </div>
-                            <div className="toggle">
-                                <div className="flex items-center gap-2">
-                                    <label className="font-medium text-lg text-gray-500">Unofficial</label>
-                                    <Toggle size={'lg'} color="green" />
-                                    <label className="font-medium text-lg text-gray-500">Official</label>
-                                </div>
                             </div>
                             <div className="add-category">
                                 <AddButton

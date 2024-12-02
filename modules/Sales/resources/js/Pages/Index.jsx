@@ -5,7 +5,6 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import React, { useRef, useState } from 'react'
-import { Toggle } from 'rsuite'
 import { SALES_TABLE_HEADER } from '../Lib/Constants'
 import SalesForm from '../Components/SalesForm'
 
@@ -41,13 +40,6 @@ export default function Index({ auth, sales }) {
                         <div className="flex items-center justify-between gap-4">
                             <div className='w-full'>
                                 <SearchBar title={'Sales'} />
-                            </div>
-                            <div className="toggle">
-                                <div className="flex items-center gap-2">
-                                    <label className="font-medium text-lg text-gray-500">Unofficial</label>
-                                    <Toggle size={'lg'} color="green" />
-                                    <label className="font-medium text-lg text-gray-500">Official</label>
-                                </div>
                             </div>
                             <div className="add-category">
                                 <AddButton

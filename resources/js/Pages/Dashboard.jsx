@@ -10,7 +10,6 @@ import {
     Cell,
     PieChart,
     Pie,
-    Rectangle,
     XAxis, YAxis,
     CartesianGrid,
     Tooltip,
@@ -29,7 +28,7 @@ export default function Dashboard({ auth }) {
             <Head title="Dashboard" />
             <div className="page-content dashboard-page">
                 <div className="greetings-section">
-                    <h1 className='title'>Hello {auth?.user?.name},</h1>
+                    <h1 className='title'>Welcome {auth?.user?.name},</h1>
                     <Clock />
                 </div>
                 <div className="stats-container mt-6">
@@ -109,10 +108,12 @@ export default function Dashboard({ auth }) {
                                             <XAxis dataKey="date" />
                                             <YAxis />
                                             <Tooltip />
-                                            <Legend />
-                                            <Bar dataKey="sales" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
-                                            <Bar dataKey="purchases" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
-                                            <Bar dataKey="expenses" fill="#0088FE" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+                                            <Legend wrapperStyle={{
+                                                textTransform: 'capitalize'
+                                            }} />
+                                            <Bar dataKey="sales" fill="#0088FE" />
+                                            <Bar dataKey="purchases" fill="#00C49F" />
+                                            <Bar dataKey="expenses" fill="#FFBB28" />
                                         </BarChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -120,7 +121,7 @@ export default function Dashboard({ auth }) {
                         </div>
                         <div className="item bg-white">
                             <Panel header={`Overview of ${getCurrentMonthName()}, ${getCurrentYear()}`} shaded>
-                                <div className="h-[500px]">
+                                <div className="h-[500px] relative">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <PieChart width={500} height={500}>
                                             <Pie
@@ -139,6 +140,14 @@ export default function Dashboard({ auth }) {
                                             </Pie>
                                         </PieChart>
                                     </ResponsiveContainer>
+                                    <div className='absolute bottom-8 flex justify-center items-center gap-2 w-full'>
+                                        {pieChart.map((item, index) => (
+                                            <div key={index} className='flex items-center gap-2'>
+                                                <span className="dot w-4 h-4 block" style={{ backgroundColor: COLORS[index % COLORS.length] }} />
+                                                <span className='capitalize'>{item.name}</span>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </Panel>
                         </div>

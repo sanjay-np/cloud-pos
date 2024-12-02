@@ -9,7 +9,7 @@ export default function SiderbarComp(props) {
         <React.Fragment>
             <Sidenav appearance='subtle' className='side-nav' defaultOpenKeys={props?.activeKey ?? []} >
                 <Sidenav.Header className='side-nav-header'>
-                    <div>CGS-Application</div>
+                    <div>CGS-POS</div>
                 </Sidenav.Header>
                 <Sidenav.Body className='side-nav-body'>
                     <Nav className='menu'>
