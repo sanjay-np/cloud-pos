@@ -2,7 +2,8 @@
 
 A comprehensive Enterprise Resource Planning (ERP) system designed for small vendors to manage their business operations efficiently.
 
-![Screen Shot 2024-12-02 at 7 21 07 PM](https://github.com/user-attachments/assets/59874396-6ac2-4bd6-b001-62f6cb7765a3)
+![Screen Shot 2024-12-03 at 7 41 02 PM](https://github.com/user-attachments/assets/29a81269-6e6e-40c1-84e0-26b772c60dc2)
+
 
 ## Features
 
