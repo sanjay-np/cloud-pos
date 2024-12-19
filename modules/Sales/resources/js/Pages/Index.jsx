@@ -19,6 +19,8 @@ export default function Index({ auth, sales }) {
 
     const deleteAction = (id) => { }
 
+    const paymentAction = (id) => { }
+
     return (
         <Authenticated user={auth.user}>
             <Head title='Sales' />
@@ -55,7 +57,7 @@ export default function Index({ auth, sales }) {
                         <TableComp
                             items={sales}
                             columns={SALES_TABLE_HEADER}
-                            actions={{ editAction, deleteAction }}
+                            actions={{ editAction, deleteAction, paymentAction }}
                             pagination
                             serialize
                         />

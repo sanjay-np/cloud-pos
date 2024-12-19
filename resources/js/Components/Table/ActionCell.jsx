@@ -12,9 +12,19 @@ import { IconButton, Table } from "rsuite"
 const ActionCell = ({ rowData, dataKey, ...props }) => {
     const { Cell } = Table
     const { actions } = props
+
     if (actions) {
         return (
             <Cell {...props} className="link-group">
+                {actions?.paymentAction && (
+                    <IconButton
+                        appearance="subtle"
+                        size='xs'
+                        icon={<FilePenLineIcon size={17} />}
+                        onClick={() => actions?.paymentAction(rowData[dataKey])}
+                    />
+                )}
+
                 {actions?.editAction && (
                     <IconButton
                         appearance="subtle"
@@ -23,6 +33,7 @@ const ActionCell = ({ rowData, dataKey, ...props }) => {
                         onClick={() => actions?.editAction(rowData[dataKey])}
                     />
                 )}
+
                 {actions?.deleteAction && (
                     <IconButton
                         appearance="subtle"

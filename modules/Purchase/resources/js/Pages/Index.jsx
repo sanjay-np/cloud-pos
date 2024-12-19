@@ -9,7 +9,6 @@ import { PURCHASE_TABLE_HEADER } from "../Lib/Constants"
 import PurchaseForm from "../Components/PurchaseForm"
 
 export default function Index({ auth, purchases }) {
-    console.log(purchases);
 
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add");
@@ -22,6 +21,10 @@ export default function Index({ auth, purchases }) {
 
     const deleteAction = (id) => {
         // Todo: Delete action
+    }
+
+    const paymentAction = (id) => {
+
     }
 
 
@@ -61,7 +64,7 @@ export default function Index({ auth, purchases }) {
                         <TableComp
                             items={purchases}
                             columns={PURCHASE_TABLE_HEADER}
-                            actions={{ editAction, deleteAction }}
+                            actions={{ editAction, deleteAction, paymentAction }}
                             pagination
                             serialize
                         />

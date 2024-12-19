@@ -12,4 +12,14 @@ class PageController extends Controller
         $items = $service->index();
         return Inertia::render('Dashboard', $items);
     }
+
+    public function inventoryBook()
+    {
+        return Inertia::render('InventoryBook');
+    }
+
+    public function priceBook()
+    {
+        return Inertia::render('PriceBook');
+    }
 }
