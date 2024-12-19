@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Modules\Expenses\Interfaces\ExpensesReportRepositoryInterface;
 use Modules\Purchase\Interfaces\PurchaseReportRepositoryInterface;
 use Modules\Sales\Interfaces\SalesReportRepositoryInterface;

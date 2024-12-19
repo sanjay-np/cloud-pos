@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.2",
         "barryvdh/laravel-dompdf": "^3.0",
-        "inertiajs/inertia-laravel": "^1.0",
+        "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^11.28",
         "laravel/sanctum": "^4.0",
         "laravel/slack-notification-channel": "^3.4",
