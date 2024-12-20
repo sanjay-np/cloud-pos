@@ -10,7 +10,13 @@ export default defineConfig({
         }),
         react(),
     ],
-    scss: {
-        api: 'legacy-compiler', // or "modern", ""        
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    rsuite: ['rsuite/esm'],
+                },
+            },
+        },
     },
 });

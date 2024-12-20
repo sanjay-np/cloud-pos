@@ -1,8 +1,8 @@
-@import 'inc/variables';
-@import 'inc/globals';
-@import 'inc/register';
-@import 'inc/login';
-@import 'inc/sidebar';
-@import 'inc/header';
-@import 'inc/footer';
-@import 'inc/pages';
+@use 'inc/variables' as vars;
+@use 'inc/globals' as globals;
+@use 'inc/register' as register;
+@use 'inc/login' as login;
+@use 'inc/sidebar' as sidebar;
+@use 'inc/header' as header;
+@use 'inc/footer' as footer;
+@use 'inc/pages' as pages;
