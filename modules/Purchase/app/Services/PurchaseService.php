@@ -14,19 +14,7 @@ class PurchaseService
         private Purchase $model,
         private PurchaseDetail $purchaseDetailModal,
         private PurchasePayment $purchasePaymentModal,
-        private InventoryService $inventoryService,
-        private PriceService $priceService
     ) {}
-
-    public function index($data)
-    {
-        return $this->model
-            ->current()
-            ->with(['supplier'])
-            ->withCount('items')
-            ->orderBy('id', 'desc')
-            ->paginate(perPage: 10);
-    }
 
     public function createPurchaseDetail(array $data, int $purchaseId)
     {
@@ -39,8 +27,6 @@ class PurchaseService
             ];
         }, $data['products']);
         $this->purchaseDetailModal->insert($products);
-        $this->inventoryService->createBulkLog($products, $purchaseId, 'purchase');
-        $this->priceService->createBulkLog($products, $purchaseId, 'purchase');
     }
 
     public function createPurchasePayment(array $data, int $purchaseId)

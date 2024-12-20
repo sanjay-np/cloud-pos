@@ -23,11 +23,7 @@ class ProductService
 
         $brands = $this->brandService->pickerItems();
         $suppliers = $this->supplierService->pickerItems();
-        return [
-            'products' => $products,
-            'brands' => $brands,
-            'suppliers' => $suppliers,
-        ];
+        return compact('products', 'brands', 'suppliers');
     }
 
     public function search($data)

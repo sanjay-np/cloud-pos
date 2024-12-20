@@ -19,7 +19,12 @@ class PurchaseController extends Controller
 
     public function index(Request $request)
     {
-        $purchases = $this->purchaseService->index($request->all());
+        $purchases = $this->model
+            ->current()
+            ->with(['supplier'])
+            ->withCount('items')
+            ->orderBy('id', 'desc')
+            ->paginate(perPage: 10);
         return Inertia::render('Purchase::Index', compact('purchases'));
     }
 

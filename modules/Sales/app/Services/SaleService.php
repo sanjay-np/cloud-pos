@@ -11,9 +11,7 @@ class SaleService
 {
     public function __construct(
         private SaleDetail $saleDetailModel,
-        private SalePayment $salePaymentModel,
-        private InventoryService $inventoryService,
-        private PriceService $priceService
+        private SalePayment $salePaymentModel,        
     ) {
         $this->saleDetailModel = $saleDetailModel;
         $this->salePaymentModel = $salePaymentModel;
@@ -29,9 +27,7 @@ class SaleService
                 'qty' => $product['qty'] ?? 0
             ];
         }, $data['products']);
-        $this->saleDetailModel->insert($products);
-        $this->inventoryService->createBulkLog($products, $saleId, 'sales');
-        $this->priceService->createBulkLog($products, $saleId, 'sales');
+        $this->saleDetailModel->insert($products);        
     }
 
     public function createSalePayment(array $data, int $saleId)
