@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Modules\Product\Database\Factories\ProductFactory;
+use Modules\Purchase\Models\PurchaseDetail;
+use Modules\Sales\Models\SaleDetail;
 
 class Product extends Model
 {
@@ -47,6 +49,21 @@ class Product extends Model
             $number = Product::max('id') + 1;
             $model->sku = make_reference_id('PROD', $number);
         });
+    }
+
+    public function purchase()
+    {
+        return $this->hasMany(PurchaseDetail::class, 'product_id');
+    }
+
+    public function latestPurchase()
+    {
+        return $this->hasOne(PurchaseDetail::class, 'product_id')->latest('created_at');
+    }
+
+    public function sale()
+    {
+        return $this->hasMany(SaleDetail::class, 'product_id');
     }
 
     protected static function newFactory(): ProductFactory

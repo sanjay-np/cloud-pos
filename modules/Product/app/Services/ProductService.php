@@ -14,7 +14,13 @@ class ProductService
 
     public function index()
     {
-        $products = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
+        $products = $this->model
+            ->orderBy('id', 'desc')
+            ->withSum('purchase', 'qty')
+            ->withSum('sale', 'qty')
+            ->with('latestPurchase')
+            ->paginate(perPage: 10);
+
         $brands = $this->brandService->pickerItems();
         $suppliers = $this->supplierService->pickerItems();
         return [
