@@ -5,12 +5,13 @@ import { useRef, useState } from 'react'
 import SearchBar from '@/Components/Search/Index'
 import AddButton from '@/Components/Button/AddButton'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
-import TableComp from '@/Components/Table/TableComp'
 import { toast } from 'sonner'
 import AttributeForm from '../Components/AttributeForm'
-import { ATTRIBUTE_TABLE_HEADER } from '../Lib/Constants'
+import { Table } from 'rsuite'
+import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
 
 export default function Attribute({ auth, attributes }) {
+    const { Column, HeaderCell, Cell } = Table;
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add");
     const drawerRef = useRef(false);
@@ -71,27 +72,46 @@ export default function Attribute({ auth, attributes }) {
                             </div>
                         </div>
                     </div>
-                    <TableComp
-                        items={attributes}
-                        columns={ATTRIBUTE_TABLE_HEADER}
-                        checkboxCell={true}
-                        actions={{
-                            editAction,
-                            deleteAction
-                        }}
-                    />
+                    <div className="table-wrapper">
+                        <div className="table-container">
+                            <Table data={attributes?.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
+                                <Column width={50}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
+                                    <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
+                                </Column>
+
+                                <Column flexGrow={1}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Attribute Name</span></HeaderCell>
+                                    <Cell dataKey="name" />
+                                </Column>
+
+                                <Column flexGrow={1}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Description</span></HeaderCell>
+                                    <Cell dataKey="description" />
+                                </Column>
+                                <Column width={100}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Status</span></HeaderCell>
+                                    <Cell dataKey="status" />
+                                </Column>
+
+                                <Column width={100}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Actions</span></HeaderCell>
+                                    <Cell className="link-group">
+                                        {(rowData) => (
+                                            <>
+                                                <EditActionButton action={() => editAction(rowData.id)} />
+                                                <DeleteActionButton action={() => deleteAction(rowData.id)} />
+                                            </>
+                                        )}
+                                    </Cell>
+                                </Column>
+                            </Table>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <AttributeForm
-                drawerRef={drawerRef}
-                selected={selected}
-                type={type}
-            />
-            <DeleteModal
-                ref={deleteModalRef}
-                title="Delete Attribute"
-                deleteAction={handleDelete}
-            />
+            <AttributeForm drawerRef={drawerRef} selected={selected} type={type} />
+            <DeleteModal title="Delete Attribute" ref={deleteModalRef} deleteAction={handleDelete} />
         </Authenticated>
     )
 }

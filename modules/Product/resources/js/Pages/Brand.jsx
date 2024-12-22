@@ -1,17 +1,17 @@
 import AddButton from '@/Components/Button/AddButton'
-import TableComp from '@/Components/Table/TableComp'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
-import { BRAND_TABLE_HEADER } from '../Lib/Constants'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
 import BrandForm from '../Components/BrandForm'
 import SearchBar from '@/Components/Search/Index'
 import { toast } from 'sonner'
+import { Table } from 'rsuite'
+import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
 
 export default function Brand({ auth, brands }) {
-
+    const { Column, HeaderCell, Cell } = Table;
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState('add')
     const drawerRef = useRef(false)
@@ -74,22 +74,43 @@ export default function Brand({ auth, brands }) {
                             </div>
                         </div>
                     </div>
-                    <TableComp
-                        columns={BRAND_TABLE_HEADER}
-                        items={brands}
-                        checkboxCell={true}
-                        actions={{ editAction, deleteAction }}
-                        pagination={true}
-                    />
+                    <div className="tableWrapper">
+                        <div className="tableContainer">
+                            <Table data={brands?.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
+                                <Column width={50}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
+                                    <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
+                                </Column>
+
+                                <Column flexGrow={1}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Brand Name</span></HeaderCell>
+                                    <Cell dataKey="name" />
+                                </Column>
+
+                                <Column flexGrow={1}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Description</span></HeaderCell>
+                                    <Cell dataKey="description" />
+                                </Column>
+
+                                <Column width={100}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Actions</span></HeaderCell>
+                                    <Cell className="link-group">
+                                        {(rowData) => (
+                                            <>
+                                                <EditActionButton action={() => editAction(rowData.id)} />
+                                                <DeleteActionButton action={() => deleteAction(rowData.id)} />
+                                            </>
+                                        )}
+                                    </Cell>
+                                </Column>
+                            </Table>
+                        </div>
+                    </div>
 
                 </div>
             </div>
             <BrandForm drawerRef={drawerRef} selected={selected} type={type} />
-            <DeleteModal
-                ref={deleteModalRef}
-                heading="Brand"
-                deleteAction={handleDelete}
-            />
+            <DeleteModal title="Brand" ref={deleteModalRef} deleteAction={handleDelete} />
         </Authenticated>
     )
 }

@@ -1,15 +1,15 @@
-import AddButton from '@/Components/Button/AddButton'
-import SearchBar from '@/Components/Search/Index'
-import TableComp from '@/Components/Table/TableComp'
-import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import React, { useRef, useState } from 'react'
-import { SALES_TABLE_HEADER } from '../Lib/Constants'
+import { Table } from 'rsuite'
+import AddButton from '@/Components/Button/AddButton'
+import SearchBar from '@/Components/Search/Index'
+import Authenticated from '@/Layouts/AuthenticatedLayout'
 import SalesForm from '../Components/SalesForm'
+import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
 
 export default function Index({ auth, sales }) {
-
+    const { Column, HeaderCell, Cell } = Table
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add");
     const drawerRef = useRef(false)
@@ -53,22 +53,61 @@ export default function Index({ auth, sales }) {
                             </div>
                         </div>
                     </div>
-                    <div className="table-wrapper">
-                        <TableComp
-                            items={sales}
-                            columns={SALES_TABLE_HEADER}
-                            actions={{ editAction, deleteAction, paymentAction }}
-                            pagination
-                            serialize
-                        />
+                    <div className="tableWrapper">
+                        <div className="tableContainer">
+                            <Table data={sales.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
+                                <Column width={50}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
+                                    <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
+                                </Column>
+                                <Column width={110}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Date</span></HeaderCell>
+                                    <Cell dataKey='date' />
+                                </Column>
+
+                                <Column width={120}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Reference</span></HeaderCell>
+                                    <Cell dataKey='reference' />
+                                </Column>
+
+                                <Column flexGrow={1}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Customer Name</span></HeaderCell>
+                                    <Cell dataKey='customer.name' />
+                                </Column>
+
+                                <Column width={80}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Total</span></HeaderCell>
+                                    <Cell dataKey='total_amount' />
+                                </Column>
+
+                                <Column width={120}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Payment Status</span></HeaderCell>
+                                    <Cell dataKey='payment_status' />
+                                </Column>
+
+                                <Column width={110}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Status</span></HeaderCell>
+                                    <Cell dataKey='status' />
+                                </Column>
+
+                                <Column width={100}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Actions</span></HeaderCell>
+                                    <Cell className="link-group">
+                                        {(rowData) => (
+                                            <>
+                                                <EditActionButton action={() => editAction(rowData.id)} />
+                                                <DeleteActionButton action={() => deleteAction(rowData.id)} />
+                                            </>
+                                        )}
+                                    </Cell>
+                                </Column>
+
+                            </Table>
+                        </div>
                     </div>
                 </div>
             </div>
-            <SalesForm
-                drawerRef={drawerRef}
-                selected={selected}
-                type={type}
-            />
+            <SalesForm drawerRef={drawerRef} selected={selected} type={type} />
         </Authenticated>
     )
 }

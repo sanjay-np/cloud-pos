@@ -5,13 +5,13 @@ import React, { useRef, useState } from 'react'
 import SearchBar from '@/Components/Search/Index'
 import AddButton from '@/Components/Button/AddButton'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
-import TableComp from '@/Components/Table/TableComp'
 import ProductForm from '../Components/ProductForm'
-import { PRODUCT_TABLE_HEADER } from '../Lib/Constants'
+import { Table } from 'rsuite'
+import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
 
 
 export default function Index({ auth, products, brands, suppliers }) {
-
+    const { Column, HeaderCell, Cell } = Table;
     const [selected, setSelected] = useState(null);
     const [type, setType] = useState("add")
     const drawerRef = useRef(false)
@@ -66,29 +66,63 @@ export default function Index({ auth, products, brands, suppliers }) {
                             </div>
                         </div>
                     </div>
-                    <div className="table-wrapper">
-                        <TableComp
-                            items={products}
-                            checkboxCell={true}
-                            columns={PRODUCT_TABLE_HEADER}
-                            actions={{ editAction, deleteAction }}
-                            pagination={true}
-                        />
+                    <div className="tableWrapper">
+                        <div className="tableContainer">
+                            <Table data={products?.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
+
+                                <Column width={50}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
+                                    <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
+                                </Column>
+
+                                <Column flexGrow={1}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Product Name</span></HeaderCell>
+                                    <Cell dataKey="title" />
+                                </Column>
+
+                                <Column width={120}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">SKU</span></HeaderCell>
+                                    <Cell dataKey="sku" />
+                                </Column>
+
+                                <Column>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Stock</span></HeaderCell>
+                                    <Cell dataKey="stock_qty" />
+                                </Column>
+
+                                <Column>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Purchase Price</span></HeaderCell>
+                                    <Cell dataKey="unit_price" />
+                                </Column>
+
+                                <Column>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Sale Price</span></HeaderCell>
+                                    <Cell dataKey="sale_price" />
+                                </Column>
+
+                                <Column>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Status</span></HeaderCell>
+                                    <Cell dataKey="status" />
+                                </Column>
+
+                                <Column width={100}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Actions</span></HeaderCell>
+                                    <Cell className="link-group">
+                                        {(rowData) => (
+                                            <>
+                                                <EditActionButton action={() => editAction(rowData.id)} />
+                                                <DeleteActionButton action={() => deleteAction(rowData.id)} />
+                                            </>
+                                        )}
+                                    </Cell>
+                                </Column>
+                            </Table>
+                        </div>
                     </div>
                 </div>
             </div>
-            <ProductForm
-                drawerRef={drawerRef}
-                type={type}
-                brands={brands}
-                suppliers={suppliers}
-                selected={selected}
-            />
-            <DeleteModal
-                ref={deleteModalRef}
-                title={'Product'}
-                deleteAction={handleDelete}
-            />
+            <ProductForm drawerRef={drawerRef} type={type} brands={brands} suppliers={suppliers} selected={selected} />
+            <DeleteModal ref={deleteModalRef} title={'Product'} deleteAction={handleDelete} />
         </Authenticated>
     )
 }

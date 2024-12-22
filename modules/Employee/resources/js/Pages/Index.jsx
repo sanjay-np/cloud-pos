@@ -1,17 +1,19 @@
 import AddButton from '@/Components/Button/AddButton'
 import SearchBar from '@/Components/Search/Index'
-import TableComp from '@/Components/Table/TableComp'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, router } from '@inertiajs/react'
 import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { toast } from 'sonner'
-import { EMPLOYEE_TABLE_HEADER } from '../Lib/Constants'
 import EmployeeForm from '../Components/EmployeeForm'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
+import { Table } from 'rsuite'
+import Pagination from '@/Components/Table/Pagination'
+import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
 
 export default function Index({ auth, employees }) {
 
+    const { Column, HeaderCell, Cell } = Table;
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add")
     const drawerRef = useRef(false)
@@ -72,25 +74,63 @@ export default function Index({ auth, employees }) {
                             </div>
                         </div>
                     </div>
-                    <TableComp
-                        items={employees}
-                        checkboxCell={true}
-                        columns={EMPLOYEE_TABLE_HEADER}
-                        actions={{ editAction, deleteAction }}
-                        pagination={true}
-                    />
+                    <div className="tableWrapper">
+                        <div className="tableContainer">
+                            <Table data={employees?.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
+                                <Column width={50}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
+                                    <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
+                                </Column>
+                                <Column flexGrow={1}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Employee Name</span></HeaderCell>
+                                    <Cell dataKey="name" />
+                                </Column>
+
+                                <Column width={120}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Phone No.</span></HeaderCell>
+                                    <Cell dataKey="phone" />
+                                </Column>
+
+                                <Column width={120}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Department</span></HeaderCell>
+                                    <Cell dataKey="department" />
+                                </Column>
+
+                                <Column width={120}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Position</span></HeaderCell>
+                                    <Cell dataKey="position" />
+                                </Column>
+
+                                <Column width={120}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Status</span></HeaderCell>
+                                    <Cell dataKey="status" />
+                                </Column>
+
+                                <Column>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Actions</span></HeaderCell>
+                                    <Cell className="link-group">
+                                        {(rowData) => {
+                                            return (
+                                                <>
+                                                    <EditActionButton action={() => editAction(rowData.id)} />
+                                                    <DeleteActionButton action={() => deleteAction(rowData.id)} />
+                                                </>
+                                            )
+                                        }}
+                                    </Cell>
+                                </Column>
+                            </Table>
+                        </div>
+                        {employees && employees?.links && (
+                            <div className="pagination-wrapper">
+                                <Pagination data={employees} />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
-            <EmployeeForm
-                drawerRef={drawerRef}
-                selected={selected}
-                type={type}
-            />
-            <DeleteModal
-                title={'Employee'}
-                ref={deleteModalRef}
-                deleteAction={handleDelete}
-            />
+            <EmployeeForm drawerRef={drawerRef} selected={selected} type={type} />
+            <DeleteModal title={'Employee'} ref={deleteModalRef} deleteAction={handleDelete} />
         </Authenticated>
     )
 }

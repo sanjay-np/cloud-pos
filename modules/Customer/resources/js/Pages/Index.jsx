@@ -1,17 +1,19 @@
-import AddButton from "@/Components/Button/AddButton"
-import SearchBar from "@/Components/Search/Index"
-import TableComp from "@/Components/Table/TableComp"
 import Authenticated from "@/Layouts/AuthenticatedLayout"
 import { Head, router } from "@inertiajs/react"
 import { ChevronRightIcon, LayoutGridIcon } from "lucide-react"
 import { useRef, useState } from "react"
-import { CUSTOMER_TABLE_HEADER } from "../Lib/Constants"
+import { Table } from "rsuite"
+import { toast } from "sonner"
+import AddButton from "@/Components/Button/AddButton"
+import SearchBar from "@/Components/Search/Index"
 import CustomerForm from "../Components/CustomerForm"
 import DeleteModal from "@/Components/Overlays/DeleteModal"
+import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
 
 
 export default function Index({ auth, customers }) {
 
+    const { Column, HeaderCell, Cell } = Table
     const [selected, setSelected] = useState(null);
     const [type, setType] = useState("add");
     const drawerRef = useRef(false);
@@ -72,25 +74,46 @@ export default function Index({ auth, customers }) {
                             </div>
                         </div>
                     </div>
-                    <TableComp
-                        items={customers}
-                        checkboxCell={true}
-                        columns={CUSTOMER_TABLE_HEADER}
-                        actions={{ editAction, deleteAction }}
-                        pagination={true}
-                    />
+                    <div className="tableWrapper">
+                        <div className="tableContainer">
+                            <Table data={customers?.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
+                                <Column width={50}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
+                                    <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
+                                </Column>
+                                <Column flexGrow={1}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Customer Name</span></HeaderCell>
+                                    <Cell dataKey="name" />
+                                </Column>
+
+                                <Column width={200}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Phone</span></HeaderCell>
+                                    <Cell dataKey="phone" />
+                                </Column>
+
+                                <Column width={200}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Status</span></HeaderCell>
+                                    <Cell dataKey="status" />
+                                </Column>
+
+                                <Column>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Actions</span></HeaderCell>
+                                    <Cell className="link-group">
+                                        {(rowData) => (
+                                            <>
+                                                <EditActionButton action={() => editAction(rowData.id)} />
+                                                <DeleteActionButton action={() => deleteAction(rowData.id)} />
+                                            </>
+                                        )}
+                                    </Cell>
+                                </Column>
+                            </Table>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <CustomerForm
-                drawerRef={drawerRef}
-                selected={selected}
-                type={type}
-            />
-            <DeleteModal
-                title={'Customer'}
-                ref={deleteModalRef}
-                deleteAction={handleDelete}
-            />
+            <CustomerForm drawerRef={drawerRef} selected={selected} type={type} />
+            <DeleteModal title={'Customer'} ref={deleteModalRef} deleteAction={handleDelete} />
         </Authenticated>
     )
 }

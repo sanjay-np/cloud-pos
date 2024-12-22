@@ -1,18 +1,19 @@
+import { Head, Link, router } from '@inertiajs/react'
+import { useRef, useState } from 'react'
+import { toast } from 'sonner'
+import { Table } from 'rsuite'
+import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
 import AddButton from '@/Components/Button/AddButton'
 import SearchBar from '@/Components/Search/Index'
-import TableComp from '@/Components/Table/TableComp'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, Link, router } from '@inertiajs/react'
-import { ChevronRightIcon, LayoutGridIcon } from 'lucide-react'
-import { useRef, useState } from 'react'
-import { FISCAL_YEAR_TABLE_HEADER } from '../Lib/Constants'
 import FiscalYearForm from '../Components/FiscalYearForm'
 import DeleteModal from '@/Components/Overlays/DeleteModal'
-import { toast } from 'sonner'
+import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
+import ToggleCell from '@/Components/Table/ToggleCell'
 
 
 export default function FiscalYear({ auth, fiscalYears }) {
-
+    const { Column, HeaderCell, Cell } = Table;
     const modalRef = useRef(false)
     const deleteModalRef = useRef(false)
     const [selected, setSelected] = useState(null)
@@ -72,32 +73,41 @@ export default function FiscalYear({ auth, fiscalYears }) {
                             </div>
                         </div>
                     </div>
-                    <div className="table-wrapper">
-                        {/* Todo: Add toggle component */}
-                        <TableComp
-                            items={fiscalYears}
-                            checkboxCell={false}
-                            columns={FISCAL_YEAR_TABLE_HEADER}
-                            actions={{
-                                editAction,
-                                deleteAction
-                            }}
-                            pagination={true}
-                            serialize
-                        />
+                    <div className="tableWrapper">
+                        <div className="tableContainer">
+                            <Table data={fiscalYears?.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
+                                <Column width={50} align='center'>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
+                                    <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
+                                </Column>
+                                <Column flexGrow={1}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Fiscal Year</span></HeaderCell>
+                                    <Cell dataKey='label' />
+                                </Column>
+
+                                <Column>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Status</span></HeaderCell>
+                                    <ToggleCell dataKey='is_current' />
+                                </Column>
+
+                                <Column width={100}>
+                                    <HeaderCell><span className="text-base font-semibold text-gray-600">Actions</span></HeaderCell>
+                                    <Cell className="link-group">
+                                        {(rowData) => (
+                                            <>
+                                                <EditActionButton action={() => editAction(rowData.id)} />
+                                                <DeleteActionButton action={() => deleteAction(rowData.id)} />
+                                            </>
+                                        )}
+                                    </Cell>
+                                </Column>
+                            </Table>
+                        </div>
                     </div>
                 </div>
             </div>
-            <FiscalYearForm
-                drawerRef={modalRef}
-                selected={selected}
-                type={type}
-            />
-            <DeleteModal
-                ref={deleteModalRef}
-                deleteAction={handleDelete}
-                title=" Fiscal Year"
-            />
+            <FiscalYearForm drawerRef={modalRef} selected={selected} type={type} />
+            <DeleteModal title=" Fiscal Year" ref={deleteModalRef} deleteAction={handleDelete} />
         </Authenticated>
     )
 }

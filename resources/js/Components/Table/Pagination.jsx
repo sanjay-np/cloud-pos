@@ -16,7 +16,9 @@ import React from 'react'
  *
  * @returns {React.ReactElement}
  */
-const Pagination = ({ links, total, from, to }) => {
+const Pagination = (props) => {
+
+    const { links, total, from, to } = props?.data
 
     function getClassName(active) {
         if (active) {

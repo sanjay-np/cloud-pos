@@ -1,11 +1,3 @@
-export const EMPLOYEE_TABLE_HEADER = [
-    { title: "Employee Name", dataKey: "name", flexGrow: 1 },
-    { title: "Phone No.", dataKey: "phone", width: 120 },
-    { title: "Department", dataKey: "department", width: 120 },
-    { title: "Position", dataKey: "position", width: 120 },
-    { title: "Status", dataKey: "status", width: 120 }
-]
-
 export const DEPARTMENT = [
     { label: 'IT', value: "IT" },
     { label: 'HR', value: "HR" },
