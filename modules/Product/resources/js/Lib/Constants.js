@@ -30,8 +30,8 @@ export const PRODUCT_TABLE_HEADER = [
     { title: "Product Name", dataKey: "title", flexGrow: 1 },
     { title: "SKU", dataKey: "sku", width: 150 },
     { title: "Stock", dataKey: "stock_qty" },
-    { title: "P.Price", dataKey: "unit_price" },
-    { title: "S.Price", dataKey: "sale_price" },
+    { title: "Purchase Price", dataKey: "unit_price" },
+    { title: "Sale Price", dataKey: "sale_price" },
     { title: "Status", dataKey: "status" }
 ]
 
