@@ -2,11 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Traits\CurrentCurrency;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
 {
+    use CurrentCurrency;
     /**
      * The root template that is loaded on the first page visit.
      *
@@ -34,6 +36,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'currency' => $this->getCurrenctCurrency()
         ];
     }
 }

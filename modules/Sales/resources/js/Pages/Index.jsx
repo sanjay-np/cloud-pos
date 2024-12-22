@@ -8,7 +8,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import SalesForm from '../Components/SalesForm'
 import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
 
-export default function Index({ auth, sales }) {
+export default function Index({ auth, sales, currency }) {
     const { Column, HeaderCell, Cell } = Table
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add");
@@ -56,7 +56,7 @@ export default function Index({ auth, sales }) {
                     <div className="tableWrapper">
                         <div className="tableContainer">
                             <Table data={sales.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
-                                <Column width={50}>
+                                <Column width={50} align='center'>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
                                     <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
                                 </Column>
@@ -77,10 +77,10 @@ export default function Index({ auth, sales }) {
 
                                 <Column width={80}>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Total</span></HeaderCell>
-                                    <Cell dataKey='total_amount' />
+                                    <Cell>{(rowData) => (<span>{currency} {rowData.total_amount}</span>)}</Cell>
                                 </Column>
 
-                                <Column width={120}>
+                                <Column width={140}>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Payment Status</span></HeaderCell>
                                     <Cell dataKey='payment_status' />
                                 </Column>

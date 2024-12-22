@@ -40,7 +40,11 @@ class Product extends Model
         'gallery_images' => 'array',
         'category_ids' => 'array',
         'tags' => 'array',
+        'purchase_sum_qty' => 'integer',
+        'sale_sum_qty' => 'integer',
+        'stock_qty' => 'integer'
     ];
+
 
     public static function boot()
     {

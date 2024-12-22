@@ -10,7 +10,7 @@ import { Table } from 'rsuite'
 import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
 
 
-export default function Index({ auth, products, brands, suppliers }) {
+export default function Index({ auth, products, brands, suppliers, currency }) {
     const { Column, HeaderCell, Cell } = Table;
     const [selected, setSelected] = useState(null);
     const [type, setType] = useState("add")
@@ -72,7 +72,7 @@ export default function Index({ auth, products, brands, suppliers }) {
                                 data={products?.data}
                                 onRowClick={() => { }}
                             >
-                                <Column width={50}>
+                                <Column width={50} align='center'>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
                                     <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
                                 </Column>
@@ -89,17 +89,17 @@ export default function Index({ auth, products, brands, suppliers }) {
 
                                 <Column>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Stock</span></HeaderCell>
-                                    <Cell>{(rowData) => (<span>{rowData.stock_qty + rowData.purchase_qty_sum - rowData.sale_qty_sum}</span>)}</Cell>
+                                    <Cell>{(rowData) => (<span>{rowData.stock_qty + rowData.purchase_sum_qty - rowData.sale_sum_qty}</span>)}</Cell>
                                 </Column>
 
-                                <Column>
+                                <Column width={130}>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Purchase Price</span></HeaderCell>
-                                    <Cell dataKey="latestPurchase.unit_price" />
+                                    <Cell>{(rowData) => (<span>{currency} {rowData?.latestPurchase ? '' : rowData.unit_price}</span>)}</Cell>
                                 </Column>
 
                                 <Column>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Sale Price</span></HeaderCell>
-                                    <Cell dataKey="latestPurchase.sale_price" />
+                                    <Cell>{(rowData) => (<span>{currency} {rowData.sale_price}</span>)}</Cell>
                                 </Column>
 
                                 <Column>
