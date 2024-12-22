@@ -68,8 +68,10 @@ export default function Index({ auth, products, brands, suppliers }) {
                     </div>
                     <div className="tableWrapper">
                         <div className="tableContainer">
-                            <Table data={products?.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
-
+                            <Table hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}
+                                data={products?.data}
+                                onRowClick={() => { }}
+                            >
                                 <Column width={50}>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
                                     <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
@@ -87,17 +89,17 @@ export default function Index({ auth, products, brands, suppliers }) {
 
                                 <Column>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Stock</span></HeaderCell>
-                                    <Cell dataKey="stock_qty" />
+                                    <Cell>{(rowData) => (<span>{rowData.stock_qty + rowData.purchase_qty_sum - rowData.sale_qty_sum}</span>)}</Cell>
                                 </Column>
 
                                 <Column>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Purchase Price</span></HeaderCell>
-                                    <Cell dataKey="unit_price" />
+                                    <Cell dataKey="latestPurchase.unit_price" />
                                 </Column>
 
                                 <Column>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Sale Price</span></HeaderCell>
-                                    <Cell dataKey="sale_price" />
+                                    <Cell dataKey="latestPurchase.sale_price" />
                                 </Column>
 
                                 <Column>
