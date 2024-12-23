@@ -5,6 +5,7 @@ namespace Modules\Setting\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
 
 // use Modules\Setting\Database\Factories\CurrencyFactory;
 
@@ -40,6 +41,13 @@ class Currency extends Model
                 static::where('id', '!=', $model->id)
                     ->update(['is_current' => false]);
             }
+        });
+    }
+
+    protected static function booted()
+    {
+        static::updated(function ($model) {
+            Cache::forget('current_currency');
         });
     }
 

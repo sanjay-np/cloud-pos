@@ -36,7 +36,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'currency' => $this->getCurrenctCurrency()
+            'currency' => $this->getCurrentCurrency()
         ];
     }
 }
