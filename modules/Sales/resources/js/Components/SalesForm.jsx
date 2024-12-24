@@ -1,6 +1,6 @@
 import { useForm } from '@inertiajs/react'
 import { DatePicker, HStack, Input, InputGroup, SelectPicker } from 'rsuite'
-import { formattedNumber } from '@/Lib/Utils'
+import { currency, formattedNumber } from '@/Lib/Utils'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomerPicker from '@/Components/Picker/CustomerPicker'
 import ProductPicker from '@/Components/Picker/ProductPicker'
@@ -120,19 +120,19 @@ export default function SalesForm({ drawerRef, selected, type }) {
                 <div className="w-1/3">
                     <div className="item flex mb-2">
                         <label className='text-gray-600 font-semibold mb-1 block w-[150px]'>Tax</label>
-                        <p className="text-gray-600 font-semibold mb-1 block ml-auto">(+) {formattedNumber(taxAmount)}</p>
+                        <p className="text-gray-600 font-semibold mb-1 block ml-auto">(+) {currency}{formattedNumber(taxAmount)}</p>
                     </div>
                     <div className="item flex mb-2">
                         <label className='text-gray-600 font-semibold mb-1 block w-[150px]'>Discount</label>
-                        <p className="text-gray-600 font-semibold mb-1 block ml-auto">(-) {formattedNumber(discount)}</p>
+                        <p className="text-gray-600 font-semibold mb-1 block ml-auto">(-) {currency}{formattedNumber(discount)}</p>
                     </div>
                     <div className="item flex mb-2">
                         <label className='text-gray-600 font-semibold mb-1 block w-[150px]'>Shipping</label>
-                        <p className="text-gray-600 font-semibold mb-1 block ml-auto">(+) {formattedNumber(shipping)}</p>
+                        <p className="text-gray-600 font-semibold mb-1 block ml-auto">(+) {currency}{formattedNumber(shipping)}</p>
                     </div>
                     <div className="item flex mb-2">
                         <label className='text-gray-600 font-semibold mb-1 block w-[150px]'>Grand Total</label>
-                        <p className="text-gray-600 font-semibold mb-1 block ml-auto">(=) {formattedNumber(total)}</p>
+                        <p className="text-gray-600 font-semibold mb-1 block ml-auto">(=) {currency}{formattedNumber(total)}</p>
                     </div>
                 </div>
             </div>

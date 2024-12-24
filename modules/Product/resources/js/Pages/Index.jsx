@@ -8,6 +8,7 @@ import DeleteModal from '@/Components/Overlays/DeleteModal'
 import ProductForm from '../Components/ProductForm'
 import { Table } from 'rsuite'
 import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
+import { currency, formattedNumber } from '@/Lib/Utils'
 
 
 export default function Index({ auth, products, brands, suppliers }) {
@@ -94,12 +95,12 @@ export default function Index({ auth, products, brands, suppliers }) {
 
                                 <Column width={130}>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Purchase Price</span></HeaderCell>
-                                    <Cell>{(rowData) => (<span>{rowData?.latestPurchase ? '' : rowData.unit_price}</span>)}</Cell>
+                                    <Cell>{(rowData) => (<span>{currency}{formattedNumber(rowData?.latestPurchase ? '' : rowData.unit_price)}</span>)}</Cell>
                                 </Column>
 
                                 <Column>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Sale Price</span></HeaderCell>
-                                    <Cell>{(rowData) => (<span>{rowData.sale_price}</span>)}</Cell>
+                                    <Cell>{(rowData) => (<span>{currency}{formattedNumber(rowData.sale_price)}</span>)}</Cell>
                                 </Column>
 
                                 <Column>

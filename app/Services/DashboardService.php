@@ -21,12 +21,13 @@ class DashboardService
     public function index()
     {
         $currency = $this->getCurrentCurrency();
-        $salesTotal = "{$currency} " . format_number($this->sale->total());
-        $purchasesTotal = "{$currency} " . format_number($this->purchase->total());
-        $expensesTotal = "{$currency} " . format_number($this->expense->total());
-        $profitTotal = "{$currency} " . format_number(
-            $this->sale->total() - $this->purchase->total() - $this->expense->total()
-        );
+        $saleTotal = $this->sale->total();
+        $purchaseTotal = $this->purchase->total();
+        $expenseTotal = $this->expense->total();
+        $salesTotal = "{$currency} " . format_number($saleTotal);
+        $purchasesTotal = "{$currency} " . format_number($purchaseTotal);
+        $expensesTotal = "{$currency} " . format_number($expenseTotal);
+        $profitTotal = "{$currency} " . format_number($saleTotal - $purchaseTotal - $expenseTotal);
         $barChart = $this->barChartContent();
         $pieChart = $this->pieChartContent();
         return compact('salesTotal', 'purchasesTotal', 'expensesTotal', 'profitTotal', 'barChart', 'pieChart');
@@ -37,7 +38,6 @@ class DashboardService
         $sales = $this->sale->lastSevenDaysTotal();
         $purchases = $this->purchase->lastSevenDaysTotal();
         $expenses = $this->expense->lastSevenDaysTotal();
-
         $result = [];
         for ($i = 6; $i >= 0; $i--) {
             $date = Carbon::today()->subDays($i)->toDateString();
@@ -45,7 +45,7 @@ class DashboardService
                 'date' => $date,
                 'sales' => isset($sales[$date]) ? $sales[$date]->total_sales : 0,
                 'purchases' => isset($purchases[$date]) ? $purchases[$date]->total_purchase : 0,
-                'expenses' => isset($expenses[$date]) ? $expenses[$date]->total_expense : 0
+                'expenses' => isset($expenses[$date]) ? $expenses[$date]->total_expenses : 0
             ];
         }
         return $result;

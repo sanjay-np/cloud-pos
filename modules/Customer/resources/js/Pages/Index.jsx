@@ -6,10 +6,10 @@ import { Table } from "rsuite"
 import { toast } from "sonner"
 import AddButton from "@/Components/Button/AddButton"
 import SearchBar from "@/Components/Search/Index"
-import CustomerForm from "../Components/CustomerForm"
 import DeleteModal from "@/Components/Overlays/DeleteModal"
 import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
-
+import CustomerForm from "../Components/CustomerForm"
+import CustomerView from "../Components/CustomerView"
 
 export default function Index({ auth, customers }) {
 
@@ -17,7 +17,14 @@ export default function Index({ auth, customers }) {
     const [selected, setSelected] = useState(null);
     const [type, setType] = useState("add");
     const drawerRef = useRef(false);
+    const viewModelRef = useRef(false);
     const deleteModalRef = useRef(false);
+
+    const viewAction = (id) => {
+        setType("view");
+        setSelected(id);
+        viewModelRef.current.open();
+    };
 
     const editAction = (id) => {
         setType("edit");
@@ -76,7 +83,10 @@ export default function Index({ auth, customers }) {
                     </div>
                     <div className="tableWrapper">
                         <div className="tableContainer">
-                            <Table data={customers?.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
+                            <Table hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}
+                                data={customers?.data}
+                                onRowClick={(rowData) => router.push(route('customers.show', rowData.id))}
+                            >
                                 <Column width={50} align="center">
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
                                     <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
@@ -112,6 +122,7 @@ export default function Index({ auth, customers }) {
                     </div>
                 </div>
             </div>
+            <CustomerView modelRef={viewModelRef} selected={selected} />
             <CustomerForm drawerRef={drawerRef} selected={selected} type={type} />
             <DeleteModal title={'Customer'} ref={deleteModalRef} deleteAction={handleDelete} />
         </Authenticated>

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, DatePicker, HStack, Input, InputGroup, SelectPicker } from 'rsuite'
 import ProductTable from '../Components/ProductTable'
 import InputError from '@/Components/InputError'
-import { formattedNumber } from '@/Lib/Utils'
+import { currency, formattedNumber } from '@/Lib/Utils'
 import { SALE_STATUS } from '../Lib/Constants'
 import { PAYMENT_METHODS } from '@/Lib/Constants'
 
@@ -113,19 +113,19 @@ export default function POS({ auth }) {
                             <div className="w-1/4">
                                 <div className="item flex mb-2">
                                     <label className='text-gray-600 font-semibold mb-1 block w-[150px]'>Tax</label>
-                                    <p className="text-gray-600 font-semibold mb-1 block ml-auto">(+) {formattedNumber(taxAmount)}</p>
+                                    <p className="text-gray-600 font-semibold mb-1 block ml-auto">(+) {currency}{formattedNumber(taxAmount)}</p>
                                 </div>
                                 <div className="item flex mb-2">
                                     <label className='text-gray-600 font-semibold mb-1 block w-[150px]'>Discount</label>
-                                    <p className="text-gray-600 font-semibold mb-1 block ml-auto">(-) {formattedNumber(discount)}</p>
+                                    <p className="text-gray-600 font-semibold mb-1 block ml-auto">(-) {currency}{formattedNumber(discount)}</p>
                                 </div>
                                 <div className="item flex mb-2">
                                     <label className='text-gray-600 font-semibold mb-1 block w-[150px]'>Shipping</label>
-                                    <p className="text-gray-600 font-semibold mb-1 block ml-auto">(+) {formattedNumber(shipping)}</p>
+                                    <p className="text-gray-600 font-semibold mb-1 block ml-auto">(+) {currency}{formattedNumber(shipping)}</p>
                                 </div>
                                 <div className="item flex mb-2">
                                     <label className='text-gray-600 font-semibold mb-1 block w-[150px]'>Grand Total</label>
-                                    <p className="text-gray-600 font-semibold mb-1 block ml-auto">(=) {formattedNumber(total)}</p>
+                                    <p className="text-gray-600 font-semibold mb-1 block ml-auto">(=) {currency}{formattedNumber(total)}</p>
                                 </div>
                             </div>
                         </div>

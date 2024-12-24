@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Cache;
 use Modules\Setting\Models\FiscalYear;
 
 trait CurrentFiscalYear
@@ -13,7 +14,9 @@ trait CurrentFiscalYear
      */
     public function getCurrentFY()
     {
-        $item = FiscalYear::where('is_current', 1)->first();
-        return  $item->id ?? 0;
+        $item = Cache::remember('current_fiscal_year', now()->addMinutes(60), function () {
+            return FiscalYear::where('is_current', 1)->first();
+        });
+        return $item ? $item->id : 0;
     }
 }

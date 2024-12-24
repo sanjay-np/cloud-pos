@@ -76,6 +76,7 @@ export default function CustomerForm({ drawerRef, selected, type }) {
             drawerTitle={selected ? 'Edit Customer' : 'Add Customer'}
             reset={formClear}
             size={'sm'}
+            processing={processing}
         >
             {loading ? <Loader backdrop content={LOADING_TEXT} vertical /> :
                 <>

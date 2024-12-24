@@ -1,4 +1,4 @@
-import { formattedNumber } from '@/Lib/Utils';
+import { currency, formattedNumber } from '@/Lib/Utils';
 import { removePurchaseProduct, setProductPrice, setQty } from '@/Store/Reducers/PurchaseProductSlice';
 import { Trash2Icon } from 'lucide-react';
 import { useDispatch } from 'react-redux';
@@ -72,7 +72,7 @@ const ProductTable = (props) => {
                 <HeaderCell><span className="text-base font-semibold text-gray-600">Total</span></HeaderCell>
                 <Cell>
                     {(rowData) => (
-                        <span>{formattedNumber(rowData?.unit_price * rowData?.qty)}</span>
+                        <span>{currency}{formattedNumber(rowData?.unit_price * rowData?.qty)}</span>
                     )}
                 </Cell>
             </Column>

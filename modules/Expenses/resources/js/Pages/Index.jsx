@@ -9,6 +9,7 @@ import DeleteModal from '@/Components/Overlays/DeleteModal'
 import { toast } from 'sonner'
 import { Table } from 'rsuite'
 import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
+import { currency } from '@/Lib/Utils'
 
 export default function Index({ auth, expenses }) {
 
@@ -91,7 +92,7 @@ export default function Index({ auth, expenses }) {
 
                                 <Column>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Amount</span></HeaderCell>
-                                    <Cell dataKey="amount" />
+                                    <Cell>{(rowData) => (<span>{currency}{rowData.amount}</span>)}</Cell>
                                 </Column>
 
                                 <Column width={100}>

@@ -1,6 +1,21 @@
 import { forwardRef, useImperativeHandle, useState } from 'react'
 import { Button, Modal } from 'rsuite'
 
+/**
+ * FormModal component that renders a modal with a form.
+ * 
+ * @component
+ * @param {Object} props - The properties object.
+ * @param {React.ReactNode} props.children - The content to be displayed inside the modal body.
+ * @param {string} [props.title] - The title of the modal.
+ * @param {string} [props.size='xs'] - The size of the modal.
+ * @param {Function} [props.onSubmit] - The function to be called when the submit button is clicked.
+ * @param {boolean} [props.processing] - Indicates if the form is in a processing state.
+ * @param {Function} [props.reset] - The function to be called when the modal is closed.
+ * @param {React.Ref} ref - The reference object to control the modal's open and close actions.
+ * 
+ * @returns {JSX.Element} The rendered FormModal component.
+ */
 const FormModal = forwardRef(({ children, ...props }, ref) => {
     const [isOpen, setIsOpen] = useState(false)
 

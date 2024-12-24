@@ -7,6 +7,7 @@ import SearchBar from '@/Components/Search/Index'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import SalesForm from '../Components/SalesForm'
 import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
+import { currency } from '@/Lib/Utils'
 
 export default function Index({ auth, sales }) {
     const { Column, HeaderCell, Cell } = Table
@@ -77,7 +78,7 @@ export default function Index({ auth, sales }) {
 
                                 <Column width={120}>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Total</span></HeaderCell>
-                                    <Cell dataKey='total_amount' />
+                                    <Cell>{(rowData) => (<span>{currency}{rowData.total_amount}</span>)}</Cell>
                                 </Column>
 
                                 <Column width={140} align='center'>

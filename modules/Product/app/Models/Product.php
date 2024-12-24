@@ -2,7 +2,6 @@
 
 namespace Modules\Product\Models;
 
-use App\Traits\CurrentCurrency;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +12,7 @@ use Modules\Sales\Models\SaleDetail;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes, CurrentCurrency;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -45,17 +44,6 @@ class Product extends Model
         'sale_sum_qty' => 'integer',
         'stock_qty' => 'integer'
     ];
-
-    public function getUnitPriceAttribute($value)
-    {
-        return "{$this->getCurrentCurrency()} " . format_number($value, 2);
-    }
-
-    public function getSalePriceAttribute($value)
-    {
-        return "{$this->getCurrentCurrency()} " . format_number($value, 2);
-    }
-
 
     public static function boot()
     {

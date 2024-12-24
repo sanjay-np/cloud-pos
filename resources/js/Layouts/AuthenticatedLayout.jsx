@@ -5,9 +5,15 @@ import { Toaster } from 'sonner';
 import CheckOutlineIcon from '@rsuite/icons/CheckOutline';
 import CloseOutlineIcon from '@rsuite/icons/CloseOutline';
 import FooterComp from '@/Components/Theme/FooterComp';
+import { useEffect } from 'react';
+import { usePage } from '@inertiajs/react';
 
 export default function Authenticated({ user, children, activeKey }) {
     if (user) {
+        const currency = usePage().props?.currency;
+        useEffect(() => {
+            if (currency) { localStorage.setItem('currency', currency) }
+        }, [currency])
         return (
             <div className="auth-main-content">
                 <Container>
@@ -28,5 +34,4 @@ export default function Authenticated({ user, children, activeKey }) {
             </div>
         );
     }
-
 }
