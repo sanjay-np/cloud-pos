@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Traits\CurrentCurrency;
 use Carbon\Carbon;
 use Modules\Expenses\Interfaces\ExpensesReportRepositoryInterface;
 use Modules\Purchase\Interfaces\PurchaseReportRepositoryInterface;
@@ -9,6 +10,8 @@ use Modules\Sales\Interfaces\SalesReportRepositoryInterface;
 
 class DashboardService
 {
+    use CurrentCurrency;
+
     public function __construct(
         private SalesReportRepositoryInterface $sale,
         private PurchaseReportRepositoryInterface $purchase,
@@ -17,12 +20,16 @@ class DashboardService
 
     public function index()
     {
-        $salesTotal =  $this->sale->total();
-        $purchasesTotal =  $this->purchase->total();
-        $expensesTotal =  $this->expense->total();
+        $currency = $this->getCurrentCurrency();
+        $salesTotal = "{$currency} " . format_number($this->sale->total());
+        $purchasesTotal = "{$currency} " . format_number($this->purchase->total());
+        $expensesTotal = "{$currency} " . format_number($this->expense->total());
+        $profitTotal = "{$currency} " . format_number(
+            $this->sale->total() - $this->purchase->total() - $this->expense->total()
+        );
         $barChart = $this->barChartContent();
         $pieChart = $this->pieChartContent();
-        return compact('salesTotal', 'purchasesTotal', 'expensesTotal', 'barChart', 'pieChart');
+        return compact('salesTotal', 'purchasesTotal', 'expensesTotal', 'profitTotal', 'barChart', 'pieChart');
     }
 
     public function barChartContent()

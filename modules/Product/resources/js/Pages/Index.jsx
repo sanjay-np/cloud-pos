@@ -10,7 +10,7 @@ import { Table } from 'rsuite'
 import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
 
 
-export default function Index({ auth, products, brands, suppliers, currency }) {
+export default function Index({ auth, products, brands, suppliers }) {
     const { Column, HeaderCell, Cell } = Table;
     const [selected, setSelected] = useState(null);
     const [type, setType] = useState("add")
@@ -94,17 +94,17 @@ export default function Index({ auth, products, brands, suppliers, currency }) {
 
                                 <Column width={130}>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Purchase Price</span></HeaderCell>
-                                    <Cell>{(rowData) => (<span>{currency} {rowData?.latestPurchase ? '' : rowData.unit_price}</span>)}</Cell>
+                                    <Cell>{(rowData) => (<span>{rowData?.latestPurchase ? '' : rowData.unit_price}</span>)}</Cell>
                                 </Column>
 
                                 <Column>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Sale Price</span></HeaderCell>
-                                    <Cell>{(rowData) => (<span>{currency} {rowData.sale_price}</span>)}</Cell>
+                                    <Cell>{(rowData) => (<span>{rowData.sale_price}</span>)}</Cell>
                                 </Column>
 
                                 <Column>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Status</span></HeaderCell>
-                                    <Cell dataKey="status" />
+                                    <Cell dataKey="status" className='capitalize' />
                                 </Column>
 
                                 <Column width={100}>

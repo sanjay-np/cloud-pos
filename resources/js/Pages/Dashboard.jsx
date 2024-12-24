@@ -1,6 +1,6 @@
 import Clock from '@/Components/Clock/Clock';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { formattedAmount, getCurrentMonthName, getCurrentYear } from '@/Lib/Utils';
+import { getCurrentMonthName, getCurrentYear } from '@/Lib/Utils';
 import { Head, usePage } from '@inertiajs/react';
 import { BadgeDollarSignIcon, ReceiptIcon, ReceiptTextIcon, TrophyIcon } from 'lucide-react';
 import { Panel } from 'rsuite';
@@ -18,12 +18,10 @@ import {
 } from 'recharts';
 
 export default function Dashboard({ auth }) {
-    const { salesTotal, purchasesTotal, expensesTotal, barChart, pieChart } = usePage().props;
-
+    const { salesTotal, purchasesTotal, expensesTotal, profitTotal, barChart, pieChart } = usePage().props;
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
     return (
-
         <AuthenticatedLayout user={auth.user}>
             <Head title="Dashboard" />
             <div className="page-content dashboard-page">
@@ -40,7 +38,7 @@ export default function Dashboard({ auth }) {
                                         <ReceiptIcon size={48} color='gray' strokeWidth={1.2} />
                                     </div>
                                     <div className="content">
-                                        <h2 className="font-medium text-gray-400 text-3xl">${formattedAmount(purchasesTotal)}</h2>
+                                        <h2 className="font-medium text-gray-400 text-3xl">{purchasesTotal}</h2>
                                         <p className='text-gray-600 font-semibold'>Total Purchases</p>
                                     </div>
                                 </div>
@@ -53,7 +51,7 @@ export default function Dashboard({ auth }) {
                                         <BadgeDollarSignIcon size={48} color='gray' strokeWidth={1.2} />
                                     </div>
                                     <div className="content">
-                                        <h2 className="font-medium text-gray-400 text-3xl">${formattedAmount(salesTotal)}</h2>
+                                        <h2 className="font-medium text-gray-400 text-3xl">{salesTotal}</h2>
                                         <p className='text-gray-600 font-semibold'>Total Sales</p>
                                     </div>
                                 </div>
@@ -66,7 +64,7 @@ export default function Dashboard({ auth }) {
                                         <ReceiptTextIcon size={48} color='gray' strokeWidth={1.2} />
                                     </div>
                                     <div className="content">
-                                        <h2 className="font-medium text-gray-400 text-3xl">${formattedAmount(expensesTotal)}</h2>
+                                        <h2 className="font-medium text-gray-400 text-3xl">{expensesTotal}</h2>
                                         <p className='text-gray-600 font-semibold'>Total Expenses</p>
                                     </div>
                                 </div>
@@ -79,7 +77,7 @@ export default function Dashboard({ auth }) {
                                         <TrophyIcon size={48} color='gray' strokeWidth={1.2} />
                                     </div>
                                     <div className="content">
-                                        <h2 className="font-medium text-gray-400 text-3xl">${formattedAmount(salesTotal - expensesTotal - purchasesTotal)}</h2>
+                                        <h2 className="font-medium text-gray-400 text-3xl">{profitTotal}</h2>
                                         <p className='text-gray-600 font-semibold'>Total Profit</p>
                                     </div>
                                 </div>

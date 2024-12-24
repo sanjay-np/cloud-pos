@@ -33,6 +33,12 @@ class Currency extends Model
         static::creating(function ($model) {
             if (static::count() === 0) {
                 $model->is_current = true;
+            } else {
+                if ($model->is_current) {
+                    static::where('is_current', true)
+                        ->where('id', '!=', $model->id)
+                        ->update(['is_current' => false]);
+                }
             }
         });
 

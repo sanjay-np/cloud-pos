@@ -8,7 +8,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import SalesForm from '../Components/SalesForm'
 import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
 
-export default function Index({ auth, sales, currency }) {
+export default function Index({ auth, sales }) {
     const { Column, HeaderCell, Cell } = Table
     const [selected, setSelected] = useState(null)
     const [type, setType] = useState("add");
@@ -75,19 +75,19 @@ export default function Index({ auth, sales, currency }) {
                                     <Cell dataKey='customer.name' />
                                 </Column>
 
-                                <Column width={80}>
+                                <Column width={120}>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Total</span></HeaderCell>
-                                    <Cell>{(rowData) => (<span>{currency} {rowData.total_amount}</span>)}</Cell>
+                                    <Cell dataKey='total_amount' />
                                 </Column>
 
-                                <Column width={140}>
+                                <Column width={140} align='center'>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Payment Status</span></HeaderCell>
-                                    <Cell dataKey='payment_status' />
+                                    <Cell dataKey='payment_status' className='capitalize' />
                                 </Column>
 
-                                <Column width={110}>
+                                <Column width={110} align='center'>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Status</span></HeaderCell>
-                                    <Cell dataKey='status' />
+                                    <Cell dataKey='status' className='capitalize' />
                                 </Column>
 
                                 <Column width={100}>

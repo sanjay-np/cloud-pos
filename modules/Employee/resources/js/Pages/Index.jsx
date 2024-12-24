@@ -77,7 +77,7 @@ export default function Index({ auth, employees }) {
                     <div className="tableWrapper">
                         <div className="tableContainer">
                             <Table data={employees?.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
-                                <Column width={50}>
+                                <Column width={50} align='center'>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
                                     <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
                                 </Column>

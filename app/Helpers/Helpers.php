@@ -7,3 +7,10 @@ if (!function_exists('make_reference_id')) {
         return $padded_text;
     }
 }
+
+if (!function_exists('format_number')) {
+    function format_number($number)
+    {
+        return number_format($number, 2, '.', ',');
+    }
+}

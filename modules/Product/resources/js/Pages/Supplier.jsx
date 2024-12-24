@@ -79,7 +79,7 @@ export default function Supplier({ auth, brands, suppliers }) {
                         <div className="tableContainer">
                             <Table data={suppliers?.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
 
-                                <Column width={50}>
+                                <Column width={50} align='center'>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
                                     <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
                                 </Column>
@@ -94,7 +94,7 @@ export default function Supplier({ auth, brands, suppliers }) {
                                     <Cell dataKey='contact_person' />
                                 </Column>
 
-                                <Column width={150}>
+                                <Column width={150} fullText>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Phone</span></HeaderCell>
                                     <Cell dataKey='phone' />
                                 </Column>

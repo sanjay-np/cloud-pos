@@ -2,6 +2,7 @@
 
 namespace Modules\Sales\Models;
 
+use App\Traits\CurrentCurrency;
 use App\Traits\CurrentFiscalYear;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Modules\Customer\Models\Customer;
 
 class Sale extends Model
 {
-    use HasFactory, SoftDeletes, CurrentFiscalYear;
+    use HasFactory, SoftDeletes, CurrentFiscalYear, CurrentCurrency;
 
     /**
      * The attributes that are mass assignable.
@@ -34,6 +35,11 @@ class Sale extends Model
         'payment_method',
         'note',
     ];
+
+    public function getTotalAmountAttribute($value)
+    {
+        return "{$this->getCurrentCurrency()} " . format_number($value, 2);
+    }
 
     public static function boot()
     {
