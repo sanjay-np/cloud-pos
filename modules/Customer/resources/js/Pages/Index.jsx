@@ -7,7 +7,7 @@ import { toast } from "sonner"
 import AddButton from "@/Components/Button/AddButton"
 import SearchBar from "@/Components/Search/Index"
 import DeleteModal from "@/Components/Overlays/DeleteModal"
-import { DeleteActionButton, EditActionButton } from "@/Components/Table/TableActions"
+import { DeleteActionButton, EditActionButton, ViewActionButton } from "@/Components/Table/TableActions"
 import CustomerForm from "../Components/CustomerForm"
 import CustomerView from "../Components/CustomerView"
 
@@ -83,10 +83,7 @@ export default function Index({ auth, customers }) {
                     </div>
                     <div className="tableWrapper">
                         <div className="tableContainer">
-                            <Table hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}
-                                data={customers?.data}
-                                onRowClick={(rowData) => router.push(route('customers.show', rowData.id))}
-                            >
+                            <Table data={customers?.data} hover bordered headerHeight={45} cellBordered autoHeight={true} rowHeight={50}>
                                 <Column width={50} align="center">
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">SN</span></HeaderCell>
                                     <Cell>{(_, rowIndex) => rowIndex + 1}</Cell>
@@ -106,11 +103,12 @@ export default function Index({ auth, customers }) {
                                     <Cell dataKey="status" />
                                 </Column>
 
-                                <Column>
+                                <Column width={130}>
                                     <HeaderCell><span className="text-base font-semibold text-gray-600">Actions</span></HeaderCell>
                                     <Cell className="link-group">
                                         {(rowData) => (
                                             <>
+                                                <ViewActionButton action={() => viewAction(rowData.id)} />
                                                 <EditActionButton action={() => editAction(rowData.id)} />
                                                 <DeleteActionButton action={() => deleteAction(rowData.id)} />
                                             </>
