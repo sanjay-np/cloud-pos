@@ -11,7 +11,7 @@
         "php": "^8.2",
         "barryvdh/laravel-dompdf": "^3.0",
         "inertiajs/inertia-laravel": "^2.0",
-        "laravel/framework": "^11.28",
+        "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/slack-notification-channel": "^3.4",
         "laravel/tinker": "^2.9",
@@ -26,7 +26,7 @@
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.0",
-        "phpunit/phpunit": "^11.0.1"
+        "phpunit/phpunit": "^11.0"
     },
     "autoload": {
         "psr-4": {
