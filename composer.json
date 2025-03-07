@@ -15,7 +15,6 @@
         "laravel/sanctum": "^4.0",
         "laravel/slack-notification-channel": "^3.4",
         "laravel/tinker": "^2.9",
-        "nwidart/laravel-modules": "^11.1",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {
