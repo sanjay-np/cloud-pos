@@ -1,32 +1,26 @@
+import { Link } from '@inertiajs/react';
+import AppLogo from '@/components/app/app-logo';
 import { NavFooter } from '@/components/nav/nav-footer';
 import { NavMain } from '@/components/nav/nav-main';
 import { NavUser } from '@/components/nav/nav-user';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
-import AppLogo from './app-logo';
-
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        url: '/dashboard',
-        icon: LayoutGrid,
-    },
-];
-
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        url: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        url: 'https://laravel.com/docs/starter-kits',
-        icon: BookOpen,
-    },
-];
+import {
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarGroupLabel,
+    SidebarHeader,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem
+} from '@/components/ui/sidebar';
+import {
+    footerNavItems,
+    mainNavItems,
+    operationMenuItems,
+    productMenuItems,
+    userMenuItems,
+} from '@/lib/app-menu';
+import NavDropdown from '../nav/nav-dropdown';
 
 export function AppSidebar() {
     return (
@@ -45,6 +39,15 @@ export function AppSidebar() {
 
             <SidebarContent>
                 <NavMain items={mainNavItems} />
+
+                <SidebarGroupLabel>Products</SidebarGroupLabel>
+                <NavMain items={productMenuItems} />
+
+                <SidebarGroupLabel>Operations</SidebarGroupLabel>
+                <NavMain items={operationMenuItems} />
+
+                <SidebarGroupLabel>Users</SidebarGroupLabel>
+                <NavMain items={userMenuItems} />
             </SidebarContent>
 
             <SidebarFooter>
