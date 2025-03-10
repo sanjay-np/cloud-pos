@@ -1,7 +1,8 @@
 import AppLayout from "@/layouts/app-layout";
 import { BreadcrumbItem } from "@/types";
 import { Head } from "@inertiajs/react";
-import { DataTableDemo } from "./_components/data-table";
+import { EmployeeTable } from "./_components/data-table";
+import { EmployeeDrawer } from "./_components/employee-drawer";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -18,9 +19,8 @@ const Index = () => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Employees" />
-            <div>
-                <DataTableDemo />
-            </div>
+                <EmployeeTable />
+            <EmployeeDrawer />
         </AppLayout>
     )
 }
