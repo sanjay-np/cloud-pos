@@ -40,11 +40,11 @@ export function AppSidebar() {
             <SidebarContent>
                 <NavMain items={mainNavItems} />
 
-                <SidebarGroupLabel>Products</SidebarGroupLabel>
-                <NavMain items={productMenuItems} />
-
                 <SidebarGroupLabel>Operations</SidebarGroupLabel>
                 <NavMain items={operationMenuItems} />
+
+                <SidebarGroupLabel>Products</SidebarGroupLabel>
+                <NavMain items={productMenuItems} />
 
                 <SidebarGroupLabel>Users</SidebarGroupLabel>
                 <NavMain items={userMenuItems} />

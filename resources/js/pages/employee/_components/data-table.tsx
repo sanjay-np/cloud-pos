@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
     DropdownMenu,
-    DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
@@ -34,6 +33,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { useSheet } from "@/hooks/use-sheet"
 
 const data: Payment[] = [
     {
@@ -148,6 +148,8 @@ export function EmployeeTable() {
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = React.useState({})
 
+    const sheetOptions = useSheet()
+
     const table = useReactTable({
         data,
         columns,
@@ -169,12 +171,16 @@ export function EmployeeTable() {
 
     return (
         <div className="w-full">
-
             <div className="flex items-center justify-between py-4 gap-2">
                 <Input placeholder="Search Employees..." />
-                <Button variant="default" className="ml-auto">Add New</Button>
+                <Button
+                    variant="outline"
+                    className="ml-auto"
+                    onClick={sheetOptions.onOpen}
+                >
+                    Add New
+                </Button>
             </div>
-            
             <div className="rounded-md border">
                 <Table>
                     <TableHeader>
