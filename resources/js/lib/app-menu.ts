@@ -94,7 +94,7 @@ export const userMenuItems: NavItem[] = [
         icon: BookUserIcon
     }, {
         title: 'Employees',
-        url: '/invoices',
+        url: '/employees',
         icon: ContactRoundIcon
     }
 ]
