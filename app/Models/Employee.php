@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Employee extends Model
 {
@@ -35,6 +37,7 @@ class Employee extends Model
         'updated_at',
         'deleted_at',
     ];
+
     protected $casts = [
         'document_files' => 'array',
     ];
@@ -66,7 +69,8 @@ class Employee extends Model
         parent::boot();
         static::creating(function ($model) {
             $number = Employee::max('id') + 1;
-            $model->code = make_reference_id('EMP', $number);
+            $model->code = Helpers::makeReferenceId('EMP', $number);
+            $model->created_by = Auth::id();
         });
     }
 }

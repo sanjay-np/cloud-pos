@@ -15,5 +15,6 @@ Route::middleware(['auth', 'verified'])
     });
 
 require __DIR__ . '/employees.php';
+require __DIR__ . '/customers.php';
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

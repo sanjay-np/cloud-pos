@@ -14,12 +14,38 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:255'],
-            'whatsapp' => ['required', 'string', 'max:255'],
-            'address' => ['required', 'string', 'max:255'],
-            'avatar' => ['nullable'],
-            'status' => ['required', 'string'],
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'email' => [
+                'nullable',
+                'string',
+                'max:255'
+            ],
+            'whatsapp' => [
+                'nullable',
+                'string',
+                'max:255'
+            ],
+            'address' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'avatar' => [
+                'nullable'
+            ],
+            'status' => [
+                'required',
+                'string'
+            ],
         ];
     }
 
@@ -36,6 +62,7 @@ class StoreRequest extends FormRequest
         return array_merge($this->only(keys: [
             'name',
             'phone',
+            'email',
             'whatsapp',
             'address',
             'status'

@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->string('code')->unique();
             $table->string('name');
             $table->string('phone');
+            $table->string('address');
+            $table->date('joined_at');
             $table->string('department');
             $table->string('position');
             $table->string('document_type');
@@ -22,6 +24,7 @@ return new class extends Migration {
             $table->string('avatar')->nullable();
             $table->json('document_files')->nullable();
             $table->string('status');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Services\CustomerService;
+use App\Http\Requests\Customer\StoreRequest;
+use App\Http\Requests\Customer\UpdateRequest;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,13 +13,15 @@ class CustomerController extends Controller
 {
     public function __construct(
         private Customer $model,
-        private CustomerService $service
     ) {}
 
-    public function index()
+    public function index(Request $request)
     {
-        $customers = $this->service->index();
-        return Inertia::render('Customer::Index', compact('customers'));
+        $customers = $this->model->query()
+            ->orderBy('id', 'desc')
+            ->simplePaginate(perPage: $request->per_page ?? 10);
+
+        return Inertia::render('customer/index', compact('customers'));
     }
 
     public function store(StoreRequest $request)
@@ -48,10 +52,5 @@ class CustomerController extends Controller
         if ($item) {
             return to_route('customers.index');
         }
-    }
-
-    public function search(Request $request)
-    {
-        return $this->service->search($request->all());
     }
 }

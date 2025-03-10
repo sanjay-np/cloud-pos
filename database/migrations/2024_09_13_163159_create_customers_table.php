@@ -16,10 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('code')->unique();
             $table->string('phone')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('whatsapp')->unique()->nullable();
             $table->text('address')->nullable();
             $table->string('avatar')->nullable();
             $table->string('status')->default('active');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

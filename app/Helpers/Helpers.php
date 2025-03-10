@@ -10,6 +10,7 @@ class Helpers
         return $padded_text;
     }
 
+
     public static function formatNumber($number)
     {
         return number_format($number, 2, '.', ',');

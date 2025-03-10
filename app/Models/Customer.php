@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Customer extends Model
 {
@@ -14,13 +16,17 @@ class Customer extends Model
         'name',
         'code',
         'phone',
+        'email',
         'whatsapp',
         'address',
         'avatar',
-        'status'
+        'status',
+        'created_by',
     ];
 
-    protected $appends = ['avatar_url'];
+    protected $appends = [
+        'avatar_url'
+    ];
 
     public function getAvatarUrlAttribute()
     {
@@ -35,7 +41,8 @@ class Customer extends Model
         parent::boot();
         static::creating(function ($model) {
             $number = Customer::max('id') + 1;
-            $model->code = make_reference_id('CUS', $number);
+            $model->code = Helpers::makeReferenceId('CUS', $number);
+            $model->created_by = Auth::id();
         });
     }
 }
