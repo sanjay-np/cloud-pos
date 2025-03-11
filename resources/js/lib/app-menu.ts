@@ -1,23 +1,19 @@
 import {
     ArchiveIcon,
     BadgeDollarSignIcon,
-    BookOpenIcon,
     BookUserIcon,
-    BoxIcon,
     ContactRoundIcon,
     FolderIcon,
-    LayersIcon,
     LayoutGridIcon,
     PackageIcon,
     ReceiptIcon,
     ReceiptTextIcon,
     Settings2Icon,
     SettingsIcon,
-    Sliders,
     SlidersIcon,
     TruckIcon
 } from 'lucide-react';
-import { NavGroup, type NavItem } from '@/types';
+import { type NavItem } from '@/types';
 
 export const mainNavItems: NavItem[] = [
     {

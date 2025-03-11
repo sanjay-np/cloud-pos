@@ -1,4 +1,3 @@
-import AppSelect from "@/components/form/app-select"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,13 +9,13 @@ import {
     SheetFooter,
     SheetHeader,
     SheetTitle,
-    SheetTrigger,
 } from "@/components/ui/sheet"
 import { Textarea } from "@/components/ui/textarea"
 import { useSheet } from "@/hooks/use-sheet"
 import { useForm } from "@inertiajs/react"
 import { toast } from "sonner"
 import { customerForm } from "./customer"
+import AppSelect from "@/components/app/app-select"
 
 type customerDrawerProps = {
     itemId: number | null,

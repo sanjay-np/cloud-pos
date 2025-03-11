@@ -7,11 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class CustomerFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Customer::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array
@@ -20,9 +15,10 @@ class CustomerFactory extends Factory
             'name' => fake()->name(),
             'phone' => fake()->unique()->phoneNumber(),
             'whatsapp' => fake()->unique()->phoneNumber(),
+            'email' => fake()->unique()->safeEmail(),
             'address' => fake()->address(),
             'avatar' => null,
-            'status' => 'active',
+            'status' => fake()->randomElement(['active', 'inactive']),
         ];
     }
 }
