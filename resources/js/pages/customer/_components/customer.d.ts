@@ -12,12 +12,7 @@ export interface customer {
     name: string,
     phone: string,
     email: string,
-    address: string,
-    whatsapp: string,
     status: string,
-    created_at: string,
-    updated_at: string | null,
-    deleted_at: string | null,
 }
 
 export interface customersPagination {
@@ -30,4 +25,16 @@ export interface customersPagination {
     per_page: number,
     prev_page_url: string | null,
     to: number,
+}
+
+export interface customerItem {
+    id: number,
+    name: string,
+    phone: string,
+    email: string,
+    status: string,
+    whatsapp: string | null,
+    address: string | null,
+    avatar: string | null,
+    created_by: string,
 }

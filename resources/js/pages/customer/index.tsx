@@ -43,6 +43,10 @@ const Index = ({ customers }: { customers: customersPagination }) => {
                 <AppTable
                     data={customers.data}
                     columns={columns}
+                    meta={{
+                        next_page_url: customers.next_page_url,
+                        prev_page_url: customers.prev_page_url,
+                    }}
                 />
             </div>
             <CustomerDrawer itemId={itemId} />

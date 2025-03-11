@@ -28,6 +28,12 @@ class Customer extends Model
         'avatar_url'
     ];
 
+    protected $hidden = [
+        'created_by',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function getAvatarUrlAttribute()
     {
         if ($this->avatar) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Customer;
 
+use App\Models\Customer;
 use App\Traits\ImageUpload;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,17 +23,20 @@ class StoreRequest extends FormRequest
             'phone' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
+                'unique:' . Customer::class
             ],
             'email' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
+                'unique:' . Customer::class
             ],
             'whatsapp' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
+                'unique:' . Customer::class
             ],
             'address' => [
                 'required',

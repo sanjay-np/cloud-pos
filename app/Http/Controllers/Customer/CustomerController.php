@@ -15,27 +15,36 @@ class CustomerController extends Controller
         private Customer $model,
     ) {}
 
+
     public function index(Request $request)
     {
         $customers = $this->model->query()
+            ->select(['id', 'name', 'email', 'phone', 'status'])
             ->orderBy('id', 'desc')
             ->simplePaginate(perPage: $request->per_page ?? 10);
 
         return Inertia::render('customer/index', compact('customers'));
     }
 
+
     public function store(StoreRequest $request)
     {
-        $item = $this->model->create($request->getRequested());
-        if ($item) {
-            return to_route('customers.index');
+        try {
+            $item = $this->model->create($request->getRequested());
+            if ($item) {
+                return to_route('customers.index');
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
     }
+
 
     public function show($id)
     {
         return $this->model->findOrFail($id);
     }
+
 
     public function update(UpdateRequest $request, $id)
     {
@@ -45,6 +54,7 @@ class CustomerController extends Controller
             return to_route('customers.index');
         }
     }
+
 
     public function destroy($id)
     {
