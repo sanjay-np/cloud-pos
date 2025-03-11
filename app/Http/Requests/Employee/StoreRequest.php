@@ -14,15 +14,39 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:10'],
-            'department' => ['required'],
-            'position' => ['required'],
-            'document_type' => ['required'],
-            'document_number' => ['required', 'string', 'max:255'],
-            'avatar' => ['nullable'],
-            'document_files' => ['array'],
-            'status' => ['required'],
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'max:10'
+            ],
+            'department' => [
+                'required'
+            ],
+            'position' => [
+                'required'
+            ],
+            'document_type' => [
+                'required'
+            ],
+            'document_number' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'avatar' => [
+                'nullable'
+            ],
+            'document_files' => [
+                'array'
+            ],
+            'status' => [
+                'required'
+            ],
         ];
     }
 
@@ -40,6 +64,8 @@ class StoreRequest extends FormRequest
             $this->only(keys: [
                 'name',
                 'phone',
+                'address',
+                'joined_at',
                 'department',
                 'position',
                 'document_type',
@@ -53,6 +79,7 @@ class StoreRequest extends FormRequest
         );
     }
 
+
     public function getAvatar(): string | null
     {
         if (!$this->hasFile('avatar')) {
@@ -61,6 +88,7 @@ class StoreRequest extends FormRequest
         $file = $this->file('avatar')['blobFile'];
         return $this->uploadImage($file, 'Employees/Avatar');
     }
+
 
     public function getDocuments(): array | null
     {

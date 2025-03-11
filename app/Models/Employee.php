@@ -17,14 +17,18 @@ class Employee extends Model
      */
     protected $fillable = [
         'name',
+        'code',
         'phone',
+        'address',
+        'joined_at',
         'department',
         'position',
         'document_type',
         'document_number',
         'avatar',
         'document_files',
-        'status'
+        'status',
+        'created_by'
     ];
 
     protected $appends = [

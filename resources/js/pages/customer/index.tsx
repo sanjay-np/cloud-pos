@@ -30,7 +30,7 @@ const Index = ({ customers }: { customers: customersPagination }) => {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Customers" />
             <div className="table-wrapper">
-                <div className="flex items-center justify-between py-4 gap-2">
+                <div className="flex items-center justify-between py-2 gap-2">
                     <Input placeholder="Search Customers..." />
                     <Button
                         variant="outline"

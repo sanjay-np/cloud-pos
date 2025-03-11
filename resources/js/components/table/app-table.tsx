@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button";
 import { router } from "@inertiajs/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 export interface dataTableProps {
     data: any[];
@@ -97,16 +98,14 @@ export default function AppTable({ data, columns, meta }: dataTableProps) {
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="flex-1 text-sm text-muted-foreground">
-                    {
-                        table.getFilteredSelectedRowModel().rows.length ? (`${table.getFilteredSelectedRowModel().rows.length} of{" "}`) : null
-                    }
-                    {table.getFilteredRowModel().rows.length} row(s)
+                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                    {table.getFilteredRowModel().rows.length} row(s) selected.
                 </div>
                 {meta && (
                     <div className="space-x-2">
                         <Button
                             variant="outline"
-                            size="sm"
+                            size="icon"
                             onClick={() => {
                                 if (meta.prev_page_url) {
                                     router.visit(meta.prev_page_url || "")
@@ -115,11 +114,11 @@ export default function AppTable({ data, columns, meta }: dataTableProps) {
                             disabled={meta.prev_page_url === null}
                             className="cursor-pointer"
                         >
-                            Previous
+                            <ChevronLeftIcon />
                         </Button>
                         <Button
                             variant="outline"
-                            size="sm"
+                            size="icon"
                             onClick={() => {
                                 if (meta.next_page_url) {
                                     router.visit(meta.next_page_url || "")
@@ -128,7 +127,7 @@ export default function AppTable({ data, columns, meta }: dataTableProps) {
                             disabled={meta.next_page_url === null}
                             className="cursor-pointer"
                         >
-                            Next
+                            <ChevronRightIcon />
                         </Button>
                     </div>
                 )}
