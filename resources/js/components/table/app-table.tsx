@@ -14,10 +14,9 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-
 export interface dataTableProps {
     data: any[];
-    columns: ColumnDef<any, any>[];
+    columns: ColumnDef<any>[];
 }
 
 export default function AppTable({ data, columns }: dataTableProps) {
@@ -52,8 +51,8 @@ export default function AppTable({ data, columns }: dataTableProps) {
                         ))}
                     </TableHeader>
                     <TableBody>
-                        {table.getRowModel().rows?.length ? (
-                            table.getRowModel().rows.map((row) => (
+                        {table.getRowModel().rows?.length
+                            ? (table.getRowModel().rows.map((row) => (
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
@@ -67,28 +66,29 @@ export default function AppTable({ data, columns }: dataTableProps) {
                                         </TableCell>
                                     ))}
                                 </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell
-                                    colSpan={columns.length}
-                                    className="h-24 flex-auto"
-                                >
-                                    <div className="flex justify-center">
-                                        No results
-                                    </div>
-                                </TableCell>
-                            </TableRow>
-                        )}
+                            )))
+                            : (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={columns.length}
+                                        className="h-24 flex-auto"
+                                    >
+                                        <div className="flex justify-center">
+                                            No results
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            )
+                        }
                     </TableBody>
                 </Table>
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="flex-1 text-sm text-muted-foreground">
                     {
-                        table.getFilteredSelectedRowModel().rows.length ? (
-                            `${table.getFilteredSelectedRowModel().rows.length} of{" "}`
-                        ) : null
+                        table.getFilteredSelectedRowModel().rows.length
+                            ? (`${table.getFilteredSelectedRowModel().rows.length} of{" "}`)
+                            : null
                     }
                     {table.getFilteredRowModel().rows.length} row(s)
                 </div>

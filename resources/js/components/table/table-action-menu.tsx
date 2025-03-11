@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { LucideIcon, MoreHorizontal } from "lucide-react"
+import React from "react"
 
 type tableActionMenuProps = {
     items: {
@@ -27,16 +28,15 @@ export default function ActionMenu({ items }: tableActionMenuProps) {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                <DropdownMenuSeparator />
+                <DropdownMenuLabel>Options</DropdownMenuLabel>
                 {items.map((item, index) => (
-                    <DropdownMenuItem
-                        key={index}
-                        onClick={item.onClick}
-                    >
-                        <span>{item.icon && <item.icon size={32} />}</span>
-                        {item.label}
-                    </DropdownMenuItem>
+                    <React.Fragment key={index}>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={item.onClick}>
+                            <span>{item.icon && <item.icon size={32} />}</span>
+                            {item.label}
+                        </DropdownMenuItem>
+                    </React.Fragment>
                 ))}
             </DropdownMenuContent>
         </DropdownMenu>
