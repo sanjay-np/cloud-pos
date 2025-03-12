@@ -21,7 +21,8 @@ class CustomerController extends Controller
         $customers = $this->model->query()
             ->select(['id', 'name', 'email', 'phone', 'status'])
             ->orderBy('id', 'desc')
-            ->simplePaginate(perPage: $request->per_page ?? 10);
+            ->simplePaginate(perPage: $request->per_page ?? 20)
+            ->withQueryString();
 
         return Inertia::render('customer/index', compact('customers'));
     }
@@ -30,10 +31,8 @@ class CustomerController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            $item = $this->model->create($request->getRequested());
-            if ($item) {
-                return to_route('customers.index');
-            }
+            $this->model->create($request->getRequested());
+            return to_route('customers.index');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -58,9 +57,11 @@ class CustomerController extends Controller
 
     public function destroy($id)
     {
-        $item = $this->model->findOrFail($id)->delete();
-        if ($item) {
+        try {
+            $this->model->findOrFail($id)->delete();
             return to_route('customers.index');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
     }
 }

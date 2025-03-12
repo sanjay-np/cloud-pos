@@ -11,15 +11,16 @@ export type employeeForm = {
     document_files: string[],
     status: string,
 }
-export type employee = {
-    id: number,
-    department: string | null,
-    name: string,
-    phone: string,
-    position: string,
-    status: status
-}
 
+export type employee = {
+    id: number;
+    department: string | null;
+    name: string;
+    phone: string;
+    joined_at: string;
+    position: string;
+    status: status;
+}
 
 export type employeesPagination = {
     current_page: number,

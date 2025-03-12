@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Tablet, TrashIcon } from "lucide-react";
+import { router } from "@inertiajs/react";
+import { toast } from "sonner";
 
 import ActionMenu from "@/components/table/table-action-menu";
 import { Badge } from "@/components/ui/badge";
@@ -16,25 +18,20 @@ export const useColumns = () => {
     const { openAlert, closeAlert } = useAlertStore()
 
     const handleDelete = (customerId: number) => {
-        console.log(customerId);
-        // closeAlert()
+        if (customerId) {
+            router.delete(route('customers.destroy', customerId), {
+                onSuccess: () => {
+                    closeAlert()
+                    toast.success('Customer deleted successfully')
+                }
+            })
+        }
 
     }
 
     const triggerDeleteAlert = (id: number): void => {
         openAlert(() => handleDelete(id));
     };
-
-    // const onDelete = async (customerId: number) => {
-    //     if (customerId) {
-    //         console.log('Deleting customer with ID:', customerId);
-    //         await new Promise((resolve) => setTimeout(resolve, 1000));
-    //         console.log('Customer deleted');
-    //     } else {
-    //         console.error('No customer ID provided for deletion.');
-    //     }
-    // };
-
 
     const columns: ColumnDef<customer>[] = [
         {

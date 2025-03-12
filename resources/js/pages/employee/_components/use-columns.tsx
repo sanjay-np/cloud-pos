@@ -1,6 +1,9 @@
 import { useState } from "react"
 import { ColumnDef } from "@tanstack/react-table"
 import { Edit, Tablet, TrashIcon } from "lucide-react";
+import { format } from "date-fns";
+import { router } from "@inertiajs/react";
+import { toast } from "sonner";
 
 import ActionMenu from "@/components/table/table-action-menu";
 import { Badge } from "@/components/ui/badge";
@@ -8,11 +11,25 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useSheetStore } from "@/hooks/use-sheet"
 import { useAlertStore } from "@/hooks/use-alert";
 
+
 export const useColumns = () => {
 
     const [itemId, setItemId] = useState<number | null>(null)
     const { openSheet } = useSheetStore()
-    const { openAlert } = useAlertStore()
+    const { openAlert, closeAlert } = useAlertStore()
+
+    const handleDelete = (employeeId: number) => {
+        router.delete(route('employees.destroy', employeeId), {
+            onSuccess: () => {
+                closeAlert()
+                toast.success('Employee deleted successfully')
+            }
+        })
+    }
+
+    const triggerDeleteAlert = (id: number): void => {
+        openAlert(() => handleDelete(id));
+    };
 
     const columns: ColumnDef<any>[] = [
         {
@@ -60,6 +77,11 @@ export const useColumns = () => {
             cell: ({ row }) => <div className="capitalize">{row.getValue("position")}</div>,
         },
         {
+            accessorKey: "joined_at",
+            header: "Joined At",
+            cell: ({ row }) => <div className="capitalize">{format(row.getValue("joined_at"), 'PPP')}</div>,
+        },
+        {
             accessorKey: "status",
             header: "Status",
             cell: ({ row }) => {
@@ -75,7 +97,7 @@ export const useColumns = () => {
             id: "actions",
             enableHiding: false,
             cell: ({ row }) => {
-                const customer = row.original
+                const employee = row.original
                 return (
                     <ActionMenu
                         items={[
@@ -83,7 +105,7 @@ export const useColumns = () => {
                                 label: "Edit",
                                 icon: Edit,
                                 onClick: () => {
-                                    setItemId(customer.id)
+                                    setItemId(employee.id)
                                     openSheet()
                                 }
                             },
@@ -96,7 +118,7 @@ export const useColumns = () => {
                                 label: "Delete",
                                 icon: TrashIcon,
                                 onClick: () => {
-                                    openAlert()
+                                    triggerDeleteAlert(employee.id)
                                 }
                             },
                         ]}
