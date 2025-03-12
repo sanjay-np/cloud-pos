@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Tablet, TrashIcon } from "lucide-react";
 
@@ -13,18 +13,27 @@ export const useColumns = () => {
 
     const [itemId, setItemId] = useState<number | null>(null);
     const { openSheet } = useSheetStore()
-    const { openAlert, setOnConfirm } = useAlertStore()
+    const { openAlert, closeAlert } = useAlertStore()
 
+    const handleDelete = (customerId: number) => {
+        console.log(customerId);
+        // closeAlert()
 
-    const handleItem = () => {
-        console.log('working')
     }
 
-    useEffect(() => {
-        if (itemId) {
-            setOnConfirm(handleItem)
-        }
-    }, [itemId])
+    const triggerDeleteAlert = (id: number): void => {
+        openAlert(() => handleDelete(id));
+    };
+
+    // const onDelete = async (customerId: number) => {
+    //     if (customerId) {
+    //         console.log('Deleting customer with ID:', customerId);
+    //         await new Promise((resolve) => setTimeout(resolve, 1000));
+    //         console.log('Customer deleted');
+    //     } else {
+    //         console.error('No customer ID provided for deletion.');
+    //     }
+    // };
 
 
     const columns: ColumnDef<customer>[] = [
@@ -104,10 +113,9 @@ export const useColumns = () => {
                                 label: "Delete",
                                 icon: TrashIcon,
                                 onClick: () => {
-                                    setItemId(customer.id)
-                                    openAlert()
+                                    triggerDeleteAlert(customer.id)
                                 }
-                            },
+                            }
                         ]}
                     />
                 )

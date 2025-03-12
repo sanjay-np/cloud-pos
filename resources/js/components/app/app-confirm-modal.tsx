@@ -10,22 +10,22 @@ import {
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { useAlertStore } from "@/hooks/use-alert"
+import { buttonVariants } from "@/components/ui/button"
 
 
 export function AppConfirmModal() {
 
     const { isOpen, closeAlert, onConfirm } = useAlertStore()
 
-    const handleConfirm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.stopPropagation()
-        onConfirm()
-    }
+    const handleConfirm = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation();
+        if (onConfirm) {
+            onConfirm()
+        }
+    };
 
     return (
-        <AlertDialog
-            open={isOpen}
-            onOpenChange={closeAlert}
-        >
+        <AlertDialog open={isOpen} >
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>
@@ -37,12 +37,13 @@ export function AppConfirmModal() {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel
-                        onClick={e => e.stopPropagation()}
+                        onClick={() => closeAlert()}
                     >
                         Cancel
                     </AlertDialogCancel>
                     <AlertDialogAction
                         onClick={handleConfirm}
+                        className={buttonVariants({ variant: "destructive" })}
                     >
                         Confirm
                     </AlertDialogAction>

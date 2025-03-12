@@ -2,16 +2,20 @@ import { create } from 'zustand';
 
 type AlertStore = {
     isOpen: boolean;
-    openAlert: () => void;
+    onConfirm: (() => void) | null;
+    openAlert: (onConfirm: () => void) => void;
     closeAlert: () => void;
-    onConfirm: () => void | null;
-    setOnConfirm: (onConfirm: () => void | null) => void;
-};
+}
 
 export const useAlertStore = create<AlertStore>((set) => ({
     isOpen: false,
-    openAlert: () => set({ isOpen: true }),
-    closeAlert: () => set({ isOpen: false }),
-    onConfirm: () => null,
-    setOnConfirm: (onConfirm) => set({ onConfirm }),
-}));
+    onConfirm: null,
+    openAlert: (onConfirm: () => void) => set({
+        isOpen: true,
+        onConfirm
+    }),
+    closeAlert: () => set({
+        isOpen: false,
+        onConfirm: null
+    })
+}))

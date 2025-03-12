@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/popover"
 
 type DatePickerProps = {
-    value: Date | null, // Keep this as Date | null
-    onChange: (date: Date | null) => void // Accept Date or null
+    value: Date | null,
+    onChange: (date: Date | null) => void
 }
 
 export function DatePicker({ value, onChange }: DatePickerProps) {
 
     return (
-        <Popover>
+        <Popover modal={true}>
             <PopoverTrigger asChild>
                 <Button
                     variant={"outline"}
@@ -35,10 +35,11 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
             <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
                     mode="single"
-                    selected={value || undefined} // Use undefined instead of null
+                    selected={value || undefined}
                     onSelect={(date) => {
                         onChange(date ? date : null);
                     }}
+                    initialFocus
                 />
             </PopoverContent>
         </Popover>
