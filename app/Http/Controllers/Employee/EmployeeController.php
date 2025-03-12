@@ -35,7 +35,6 @@ class EmployeeController extends Controller
 
     public function store(StoreRequest $request)
     {
-        dd($request->getRequested());
         try {
             $item = $this->model->create($request->getRequested());
             if ($item) {

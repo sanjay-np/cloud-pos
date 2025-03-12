@@ -1,17 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Tablet, TrashIcon } from "lucide-react";
 
 import ActionMenu from "@/components/table/table-action-menu";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useSheet } from "@/hooks/use-sheet";
+import { useSheetStore } from "@/hooks/use-sheet";
 import { customer } from "./customer";
+import { useAlertStore } from "@/hooks/use-alert";
 
 export const useColumns = () => {
 
     const [itemId, setItemId] = useState<number | null>(null);
-    const sheetOptions = useSheet();
+    const { openSheet } = useSheetStore()
+    const { openAlert, setOnConfirm } = useAlertStore()
+
+
+    const handleItem = () => {
+        console.log('working')
+    }
+
+    useEffect(() => {
+        if (itemId) {
+            setOnConfirm(handleItem)
+        }
+    }, [itemId])
+
 
     const columns: ColumnDef<customer>[] = [
         {
@@ -78,7 +92,7 @@ export const useColumns = () => {
                                 icon: Edit,
                                 onClick: () => {
                                     setItemId(customer.id)
-                                    sheetOptions.onOpen()
+                                    openSheet()
                                 }
                             },
                             {
@@ -89,7 +103,10 @@ export const useColumns = () => {
                             {
                                 label: "Delete",
                                 icon: TrashIcon,
-                                onClick: () => { }
+                                onClick: () => {
+                                    setItemId(customer.id)
+                                    openAlert()
+                                }
                             },
                         ]}
                     />

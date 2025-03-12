@@ -10,7 +10,7 @@ import {
     SheetHeader,
     SheetTitle,
 } from "@/components/ui/sheet"
-import { useSheet } from "@/hooks/use-sheet"
+import { useSheetStore } from "@/hooks/use-sheet"
 import { useForm } from "@inertiajs/react"
 import { toast } from "sonner"
 import { employeeForm } from "./employee"
@@ -25,8 +25,8 @@ type employeeDrawerProps = {
 
 export function EmployeeDrawer({ itemId }: employeeDrawerProps) {
 
-    const sheetOptions = useSheet()
     const drawerTitle = itemId != null ? 'Edit' : 'Add'
+    const { isOpen, closeSheet } = useSheetStore();
 
     const { data, setData, post, processing, errors, reset } = useForm<Required<employeeForm>>({
         name: "",
@@ -60,8 +60,8 @@ export function EmployeeDrawer({ itemId }: employeeDrawerProps) {
 
     return (
         <Sheet
-            open={sheetOptions.isOpen}
-            onOpenChange={sheetOptions.onClose}
+            open={isOpen}
+            onOpenChange={closeSheet}
         >
             <SheetContent className="sm:max-w-[420px] overflow-y-scroll">
                 <SheetHeader>

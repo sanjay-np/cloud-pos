@@ -11,7 +11,7 @@ import {
     SheetTitle,
 } from "@/components/ui/sheet"
 import { Textarea } from "@/components/ui/textarea"
-import { useSheet } from "@/hooks/use-sheet"
+import { useSheetStore } from "@/hooks/use-sheet"
 import { useForm } from "@inertiajs/react"
 import { toast } from "sonner"
 import { customerForm } from "./customer"
@@ -23,8 +23,8 @@ type customerDrawerProps = {
 
 export function CustomerDrawer({ itemId }: customerDrawerProps) {
 
-    const sheetOptions = useSheet()
     const drawerTitle = itemId != null ? 'Edit' : 'Add'
+    const { isOpen, closeSheet } = useSheetStore();
 
     const { data, setData, post, errors, processing } = useForm<Required<customerForm>>({
         name: "",
@@ -39,7 +39,7 @@ export function CustomerDrawer({ itemId }: customerDrawerProps) {
         if (!itemId) {
             post(route('customers.store'), {
                 onFinish: () => {
-                    sheetOptions.onClose()
+                    closeSheet()
                     toast.success('Customer created successfully')
                 }
             })
@@ -49,8 +49,8 @@ export function CustomerDrawer({ itemId }: customerDrawerProps) {
 
     return (
         <Sheet
-            open={sheetOptions.isOpen}
-            onOpenChange={sheetOptions.onClose}
+            open={isOpen}
+            onOpenChange={closeSheet}
         >
             <SheetContent className="sm:max-w-[420px]">
                 <SheetHeader>

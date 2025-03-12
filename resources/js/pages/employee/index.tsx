@@ -2,7 +2,7 @@ import { Head } from "@inertiajs/react";
 import AppLayout from "@/layouts/app-layout";
 import { BreadcrumbItem } from "@/types";
 import { EmployeeDrawer } from "./_components/employee-drawer";
-import { useSheet } from "@/hooks/use-sheet";
+import { useSheetStore } from "@/hooks/use-sheet";
 import { useColumns } from "./_components/use-columns";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -22,8 +22,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const Index = ({ employees }: { employees: employeesPagination }) => {
 
-    const sheetOptions = useSheet();
     const { columns, itemId, setItemId } = useColumns()
+    const { openSheet } = useSheetStore();
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -34,7 +34,7 @@ const Index = ({ employees }: { employees: employeesPagination }) => {
                     <Button
                         variant="outline"
                         className="ml-auto"
-                        onClick={sheetOptions.onOpen}
+                        onClick={openSheet}
                     >
                         Add New
                     </Button>

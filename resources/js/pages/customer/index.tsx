@@ -3,7 +3,7 @@ import AppTable from "@/components/table/app-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import AppLayout from "@/layouts/app-layout";
-import { useSheet } from "@/hooks/use-sheet";
+import { useSheetStore } from "@/hooks/use-sheet";
 import { BreadcrumbItem } from "@/types";
 
 import { CustomerDrawer } from "./_components/customer-drawer";
@@ -23,8 +23,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const Index = ({ customers }: { customers: customersPagination }) => {
 
-    const sheetOptions = useSheet()
-    const { columns, itemId, setItemId } = useColumns();
+    const { columns, itemId } = useColumns();
+    const { openSheet } = useSheetStore();
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -35,7 +35,7 @@ const Index = ({ customers }: { customers: customersPagination }) => {
                     <Button
                         variant="outline"
                         className="ml-auto"
-                        onClick={sheetOptions.onOpen}
+                        onClick={openSheet}
                     >
                         Add New
                     </Button>

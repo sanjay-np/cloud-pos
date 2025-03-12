@@ -1,3 +1,4 @@
+import { AppConfirmModal } from '@/components/app/app-confirm-modal';
 import { useAppearance } from '@/hooks/use-appearance';
 import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
 import { type BreadcrumbItem } from '@/types';
@@ -10,11 +11,15 @@ interface AppLayoutProps {
 }
 
 export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => {
-    const { appearance, updateAppearance } = useAppearance();
+    const { appearance } = useAppearance();
     return (
-        <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
+        <AppLayoutTemplate
+            breadcrumbs={breadcrumbs}
+            {...props}
+        >
             {children}
             <Toaster theme={appearance} />
+            <AppConfirmModal />
         </AppLayoutTemplate>
     )
 }
