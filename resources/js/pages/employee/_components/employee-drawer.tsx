@@ -18,6 +18,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { DatePicker } from "@/components/ui/date-picker"
 import AppSelect from "@/components/app/app-select"
 import { DEPARTMENT, DOCUMENT_TYPE, EMPLOYEE_STATUS, POSITION } from "./constants"
+import AvatarUpload from "@/components/ui/avatar-upload"
+import { validateImageFile } from "@/lib/utils"
 
 type employeeDrawerProps = {
     itemId: number | null,
@@ -58,6 +60,12 @@ export function EmployeeDrawer({ itemId }: employeeDrawerProps) {
         }
     }
 
+    const handleImageUpload = async (file: File) => {
+        const isValid = validateImageFile(file);
+        if (!isValid) return;
+        setData('avatar', file)
+    }
+
     return (
         <Sheet
             open={isOpen}
@@ -71,6 +79,19 @@ export function EmployeeDrawer({ itemId }: employeeDrawerProps) {
                     </SheetDescription>
                 </SheetHeader>
                 <div className="grid gap-4 px-4">
+                    <div className="flex w-full gap-4 items-center justify-between mb-2">
+                        <div className="text-right">
+                            <h2 className="font-semibold text-lg">Employee Profile Picture</h2>
+                            <p className="text-muted-foreground text-xs text-center">Upload a profile picture to personalize employees's account</p>
+                        </div>
+                        <div className="relative">
+                            <AvatarUpload
+                                onImageUpload={handleImageUpload}
+                                fallback="AP"
+                                size="lg"
+                            />
+                        </div>
+                    </div>
                     <div className="grid w-full gap-2">
                         <Label>Employee Name</Label>
                         <Input

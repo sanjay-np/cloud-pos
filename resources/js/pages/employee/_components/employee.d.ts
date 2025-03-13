@@ -7,7 +7,7 @@ export type employeeForm = {
     position: string,
     document_type: string,
     document_number: string,
-    avatar: null,
+    avatar: null | string | File,
     document_files: string[],
     status: string,
 }

@@ -16,6 +16,8 @@ import { useForm } from "@inertiajs/react"
 import { toast } from "sonner"
 import { customerForm } from "./customer"
 import AppSelect from "@/components/app/app-select"
+import AvatarUpload from "@/components/ui/avatar-upload"
+import { validateImageFile } from "@/lib/utils"
 
 type customerDrawerProps = {
     itemId: number | null,
@@ -33,6 +35,7 @@ export function CustomerDrawer({ itemId }: customerDrawerProps) {
         address: "",
         whatsapp: "",
         status: "",
+        avatar: null,
     })
 
     const handleSubmit = () => {
@@ -44,7 +47,12 @@ export function CustomerDrawer({ itemId }: customerDrawerProps) {
                 }
             })
         }
+    }
 
+    const handleImageUpload = async (file: File) => {
+        const isValid = validateImageFile(file);
+        if (!isValid) return;
+        setData('avatar', file)
     }
 
     return (
@@ -52,7 +60,7 @@ export function CustomerDrawer({ itemId }: customerDrawerProps) {
             open={isOpen}
             onOpenChange={closeSheet}
         >
-            <SheetContent className="sm:max-w-[420px]">
+            <SheetContent className="sm:max-w-[420px] overflow-y-scroll">
                 <SheetHeader>
                     <SheetTitle>{drawerTitle} Customer</SheetTitle>
                     <SheetDescription>
@@ -60,6 +68,19 @@ export function CustomerDrawer({ itemId }: customerDrawerProps) {
                     </SheetDescription>
                 </SheetHeader>
                 <div className="grid gap-4 px-4">
+                    <div className="flex w-full gap-4 items-center justify-between mb-2">
+                        <div className="text-right">
+                            <h2 className="font-semibold text-lg">Customer Profile Picture</h2>
+                            <p className="text-muted-foreground text-xs text-center">Upload a profile picture to personalize customer's account</p>
+                        </div>
+                        <div className="relative">
+                            <AvatarUpload
+                                onImageUpload={handleImageUpload}
+                                fallback="AP"
+                                size="lg"
+                            />
+                        </div>
+                    </div>
                     <div className="grid w-full gap-2">
                         <Label>Full Name</Label>
                         <Input

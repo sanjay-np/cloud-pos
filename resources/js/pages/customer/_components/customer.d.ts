@@ -5,6 +5,7 @@ export interface customerForm {
     address: string,
     whatsapp: string,
     status: string,
+    avatar: File | null | string
 }
 
 export interface customer {
