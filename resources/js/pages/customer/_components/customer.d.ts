@@ -1,4 +1,12 @@
-export interface customerForm {
+export interface CustomerColumnProps {
+    id: number,
+    name: string,
+    phone: string,
+    email: string,
+    status: string,
+}
+
+export interface CustomerFormProps {
     name: string,
     phone: string,
     email: string,
@@ -8,15 +16,7 @@ export interface customerForm {
     avatar: File | null | string
 }
 
-export interface customer {
-    id: number,
-    name: string,
-    phone: string,
-    email: string,
-    status: string,
-}
-
-export interface customersPagination {
+export interface PaginatedCustomerProps {
     current_page: number,
     data: customer[],
     first_page_url: string,
@@ -28,7 +28,7 @@ export interface customersPagination {
     to: number,
 }
 
-export interface customerItem {
+export interface CustomerResponseProps {
     id: number,
     name: string,
     phone: string,

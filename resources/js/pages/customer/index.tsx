@@ -6,9 +6,9 @@ import AppLayout from "@/layouts/app-layout";
 import { useSheetStore } from "@/hooks/use-sheet";
 import { BreadcrumbItem } from "@/types";
 
-import { CustomerDrawer } from "./_components/customer-drawer";
-import { customersPagination } from "./_components/customer";
+import { PaginatedCustomerProps } from "./_components/customer";
 import { useColumns } from "./_components/use-columns";
+import { CustomerOperation } from "./_components/customer-operation";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -21,9 +21,9 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ];
 
-const Index = ({ customers }: { customers: customersPagination }) => {
+const Index = ({ customers }: { customers: PaginatedCustomerProps }) => {
 
-    const { columns, itemId } = useColumns();
+    const { columns, itemId, mode, setMode } = useColumns();
     const { openSheet } = useSheetStore();
 
     return (
@@ -35,7 +35,10 @@ const Index = ({ customers }: { customers: customersPagination }) => {
                     <Button
                         variant="outline"
                         className="ml-auto"
-                        onClick={openSheet}
+                        onClick={() => {
+                            setMode("add")
+                            openSheet()
+                        }}
                     >
                         Add New
                     </Button>
@@ -49,7 +52,7 @@ const Index = ({ customers }: { customers: customersPagination }) => {
                     }}
                 />
             </div>
-            <CustomerDrawer itemId={itemId} />
+            <CustomerOperation customerId={itemId} mode={mode} />
         </AppLayout>
     )
 }

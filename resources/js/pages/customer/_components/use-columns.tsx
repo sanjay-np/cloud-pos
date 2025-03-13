@@ -8,12 +8,13 @@ import ActionMenu from "@/components/table/table-action-menu";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSheetStore } from "@/hooks/use-sheet";
-import { customer } from "./customer";
+import { CustomerColumnProps } from "./customer";
 import { useAlertStore } from "@/hooks/use-alert";
 
 export const useColumns = () => {
 
     const [itemId, setItemId] = useState<number | null>(null);
+    const [mode, setMode] = useState<"add" | "edit" | "view" | null>(null)
     const { openSheet } = useSheetStore()
     const { openAlert, closeAlert } = useAlertStore()
 
@@ -33,7 +34,7 @@ export const useColumns = () => {
         openAlert(() => handleDelete(id));
     };
 
-    const columns: ColumnDef<customer>[] = [
+    const columns: ColumnDef<CustomerColumnProps>[] = [
         {
             id: "select",
             header: ({ table }) => (
@@ -98,13 +99,18 @@ export const useColumns = () => {
                                 icon: Edit,
                                 onClick: () => {
                                     setItemId(customer.id)
+                                    setMode("edit")
                                     openSheet()
                                 }
                             },
                             {
                                 label: "View",
                                 icon: Tablet,
-                                onClick: () => { }
+                                onClick: () => {
+                                    setItemId(customer.id)
+                                    setMode("view")
+                                    openSheet()
+                                }
                             },
                             {
                                 label: "Delete",
@@ -120,5 +126,5 @@ export const useColumns = () => {
         },
     ]
 
-    return { itemId, setItemId, columns }
+    return { itemId, setItemId, mode, setMode, columns }
 };
