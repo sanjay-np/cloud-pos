@@ -6,10 +6,11 @@ import AppSheet from "@/components/app/app-sheet"
 import CustomerForm from "./customer-form"
 import { CustomerFormProps, CustomerResponseProps } from "./customer"
 import { useEffect, useState } from "react"
+import { Mode } from "@/types"
 
 type CustomerOperationProps = {
     customerId: number | null,
-    mode: "add" | "edit" | "view" | null
+    mode: Mode
 }
 
 export const CustomerOperation = ({ customerId, mode }: CustomerOperationProps) => {
@@ -71,8 +72,8 @@ export const CustomerOperation = ({ customerId, mode }: CustomerOperationProps) 
                 }
             })
         }
-        if (mode == 'edit') {
-            router.post(route('customers.update'), {
+        if (mode == 'edit' && customerId) {
+            router.post(route('customers.update', customerId), {
                 _method: 'put',
                 ...data
             }, {

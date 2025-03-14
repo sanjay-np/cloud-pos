@@ -22,16 +22,16 @@ const CustomerForm = ({ data, setData, errors }: CustomerFormProps) => {
     return (
         <div className="grid gap-4 px-4">
             <div className="flex w-full gap-4 items-center justify-between mb-2">
-                <div className="text-right">
-                    <h2 className="font-semibold text-lg">Customer Profile Picture</h2>
-                    <p className="text-muted-foreground text-xs text-center">Upload a profile picture to personalize customer's account</p>
-                </div>
                 <div className="relative">
                     <AvatarUpload
                         onImageUpload={handleImageUpload}
-                        fallback="AP"
+                        fallback="CP"
                         size="lg"
                     />
+                </div>
+                <div className="text-left">
+                    <h2 className="font-semibold text-lg">Customer Profile Picture</h2>
+                    <p className="text-muted-foreground text-xs">Upload a profile picture to personalize customer's account</p>
                 </div>
             </div>
             <div className="grid w-full gap-2">

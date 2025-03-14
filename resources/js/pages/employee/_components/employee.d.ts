@@ -1,4 +1,14 @@
-export type employeeForm = {
+export type employeeTableProps = {
+    id: number;
+    department: string | null;
+    name: string;
+    phone: string;
+    joined_at: string;
+    position: string;
+    status: status;
+}
+
+export type EmployeeFormProps = {
     name: string,
     phone: string,
     address: string,
@@ -12,17 +22,8 @@ export type employeeForm = {
     status: string,
 }
 
-export type employee = {
-    id: number;
-    department: string | null;
-    name: string;
-    phone: string;
-    joined_at: string;
-    position: string;
-    status: status;
-}
 
-export type employeesPagination = {
+export type PaginatiedEmployeeProps = {
     current_page: number,
     data: employee[],
     first_page_url: string,
@@ -32,4 +33,9 @@ export type employeesPagination = {
     per_page: number,
     prev_page_url: string | null,
     to: number,
+}
+
+export type EmployeeResponseProps = {
+    id: number;
+    name: string;
 }

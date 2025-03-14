@@ -10,11 +10,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useSheetStore } from "@/hooks/use-sheet";
 import { CustomerColumnProps } from "./customer";
 import { useAlertStore } from "@/hooks/use-alert";
+import { Mode } from "@/types";
 
 export const useColumns = () => {
 
     const [itemId, setItemId] = useState<number | null>(null);
-    const [mode, setMode] = useState<"add" | "edit" | "view" | null>(null)
+    const [mode, setMode] = useState<Mode>(null)
     const { openSheet } = useSheetStore()
     const { openAlert, closeAlert } = useAlertStore()
 

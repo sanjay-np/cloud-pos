@@ -1,13 +1,13 @@
 import { Head } from "@inertiajs/react";
 import AppLayout from "@/layouts/app-layout";
 import { BreadcrumbItem } from "@/types";
-import { EmployeeDrawer } from "./_components/employee-drawer";
 import { useSheetStore } from "@/hooks/use-sheet";
 import { useColumns } from "./_components/use-columns";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import AppTable from "@/components/table/app-table";
-import { employeesPagination } from "./_components/employee";
+import { EmployeeOperation } from "./_components/employee-operation";
+import { PaginatiedEmployeeProps } from "./_components/employee";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -20,9 +20,9 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ];
 
-const Index = ({ employees }: { employees: employeesPagination }) => {
+const Index = ({ employees }: { employees: PaginatiedEmployeeProps }) => {
 
-    const { columns, itemId, setItemId } = useColumns()
+    const { columns, itemId, mode, setMode } = useColumns()
     const { openSheet } = useSheetStore();
 
     return (
@@ -49,9 +49,7 @@ const Index = ({ employees }: { employees: employeesPagination }) => {
                 />
             </div>
 
-            <EmployeeDrawer
-                itemId={itemId}
-            />
+            <EmployeeOperation employeeId={itemId} mode={mode} />
         </AppLayout>
     )
 }
