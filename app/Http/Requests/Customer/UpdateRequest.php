@@ -2,17 +2,51 @@
 
 namespace App\Http\Requests\Customer;
 
+use App\Traits\ImageUpload;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
 {
+    use ImageUpload;
+
     /**
      * Get the validation rules that apply to the request.
      */
     public function rules(): array
     {
         return [
-            //
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'email' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
+            'whatsapp' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
+            'address' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'avatar' => [
+                'nullable'
+            ],
+            'status' => [
+                'required',
+                'string'
+            ],
         ];
     }
 
@@ -26,23 +60,26 @@ class UpdateRequest extends FormRequest
 
     public function getRequested(): array
     {
-        return array_merge($this->only(keys: [
+        $requestedItems = $this->only(keys: [
             'name',
             'phone',
             'whatsapp',
             'address',
             'status'
-        ]), [
-            'avatar' => $this->getAvatar()
         ]);
+        $avatar = $this->getAvatar();
+        if ($avatar !== null) {
+            $requestedItems['avatar'] = $avatar;
+        }
+        return $requestedItems;
     }
 
-    public function getAvatar(): array | null
+    public function getAvatar(): string | null
     {
         if (!$this->hasFile('avatar')) {
             return null;
         }
-        $file = $this->file('avatar')['blobFile'];
+        $file = $this->file('avatar');
         return $this->uploadImage($file, 'Customers/Avatar');
     }
 }

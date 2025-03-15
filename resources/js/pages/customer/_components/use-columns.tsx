@@ -11,6 +11,7 @@ import { useSheetStore } from "@/hooks/use-sheet";
 import { CustomerColumnProps } from "./customer";
 import { useAlertStore } from "@/hooks/use-alert";
 import { Mode } from "@/types";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const useColumns = () => {
 
@@ -57,6 +58,22 @@ export const useColumns = () => {
             ),
             enableSorting: false,
             enableHiding: false,
+        },
+        {
+            accessorKey: "avatar_url",
+            header: "",
+            cell: ({ row }) => (
+                <>
+                    <Avatar className={`size-16 border-2 border-dashed group-hover:border-primary transition-colors`}>
+                        <AvatarImage
+                            src={row.getValue("avatar_url") as string | undefined}
+                            alt="Profile picture"
+                            className="object-cover"
+                        />
+                        <AvatarFallback className="text-2xl">{"CP"}</AvatarFallback>
+                    </Avatar>
+                </>
+            )
         },
         {
             accessorKey: "name",

@@ -80,7 +80,7 @@ class StoreRequest extends FormRequest
         if (!$this->hasFile('avatar')) {
             return null;
         }
-        $file = $this->file('avatar')['blobFile'];
+        $file = $this->file('avatar');
         return $this->uploadImage($file, 'Customers/Avatar');
     }
 }

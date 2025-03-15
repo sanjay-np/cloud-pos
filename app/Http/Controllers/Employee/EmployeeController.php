@@ -19,15 +19,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $employees = $this->model->query()
-            ->select([
-                'id',
-                'name',
-                'phone',
-                'joined_at',
-                'department',
-                'position',
-                'status'
-            ])
+            ->select(['id', 'name', 'phone', 'joined_at', 'department', 'position', 'status', 'avatar'])
             ->orderBy('id', 'desc')
             ->simplePaginate(perPage: $request->per_page ?? 20)
             ->withQueryString();
@@ -55,7 +47,6 @@ class EmployeeController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
-        // Todo: update avatar and document if deleted
         $item = $this->model->findorFail($id)->update($request->getRequested());
         if ($item) {
             return to_route('employees.index');

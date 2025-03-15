@@ -2,10 +2,11 @@
 import { router, useForm } from "@inertiajs/react"
 import { toast } from "sonner"
 import { Mode } from "@/types"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { EmployeeFormProps, EmployeeResponseProps } from "./employee"
 import AppSheet from "@/components/app/app-sheet"
 import EmployeeForm from "./employee-form"
+import { useSheetStore } from "@/hooks/use-sheet"
 
 type EmployeeOperationProps = {
     employeeId: number | null,
@@ -22,6 +23,7 @@ export function EmployeeOperation({ employeeId, mode }: EmployeeOperationProps) 
 
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
     const [employee, setEmployee] = useState<EmployeeResponseProps | null>(null)
+    const { closeSheet } = useSheetStore()
 
     const {
         data,
@@ -29,7 +31,7 @@ export function EmployeeOperation({ employeeId, mode }: EmployeeOperationProps) 
         post,
         processing,
         errors,
-        reset
+        reset,
     } = useForm<Required<EmployeeFormProps>>({
         name: "",
         phone: "",
@@ -44,11 +46,36 @@ export function EmployeeOperation({ employeeId, mode }: EmployeeOperationProps) 
         status: "",
     })
 
+    useEffect(() => {
+        if (!employeeId) return
+        setIsProcessing(true)
+        const fetchEmployee = async () => {
+            try {
+                const result = await fetch(route('employees.show', employeeId))
+                const response = await result.json()
+                if (response) {
+                    setEmployee(response)
+                    setData(response)
+                    setIsProcessing(false)
+                }
+            } catch (err: any) {
+                console.log(err);
+            } finally {
+                setIsProcessing(false)
+            }
+
+        }
+        fetchEmployee()
+    }, [employeeId])
+
+
     const handleSubmit = () => {
         if (mode == "add") {
             post(route('employees.store'), {
-                onFinish: () => {
+                onSuccess: () => {
                     toast.success('Employee created successfully')
+                    closeSheet()
+                    reset();
                 }
             })
         }
@@ -57,8 +84,10 @@ export function EmployeeOperation({ employeeId, mode }: EmployeeOperationProps) 
                 _method: "put",
                 ...data
             }, {
-                onFinish: () => {
+                onSuccess: () => {
                     toast.success('Employee updated successfully')
+                    closeSheet()
+                    reset();
                 }
             })
         }
@@ -67,12 +96,16 @@ export function EmployeeOperation({ employeeId, mode }: EmployeeOperationProps) 
     return (
         <AppSheet
             title={drawerTitle}
+            subTitle="Employee"
+            onConfirm={handleSubmit}
+            processing={processing}
         >
             {(mode == 'add' || mode == 'edit') && (
                 <EmployeeForm
                     data={data}
                     setData={setData}
                     errors={errors}
+                    isProcessing={isProcessing}
                 />
             )}
             {mode == 'view' && (

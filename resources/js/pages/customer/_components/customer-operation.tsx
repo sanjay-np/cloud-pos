@@ -1,12 +1,13 @@
 
+import { useEffect, useState } from "react"
 import { router, useForm } from "@inertiajs/react"
 import { toast } from "sonner"
 
 import AppSheet from "@/components/app/app-sheet"
 import CustomerForm from "./customer-form"
 import { CustomerFormProps, CustomerResponseProps } from "./customer"
-import { useEffect, useState } from "react"
 import { Mode } from "@/types"
+import { useSheetStore } from "@/hooks/use-sheet"
 
 type CustomerOperationProps = {
     customerId: number | null,
@@ -23,35 +24,15 @@ export const CustomerOperation = ({ customerId, mode }: CustomerOperationProps) 
 
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
     const [customer, setCustomer] = useState<CustomerResponseProps | null>(null)
-
-    useEffect(() => {
-        if (!customerId) return
-        setIsProcessing(true)
-        const fetchCustomer = async () => {
-            try {
-                const result = await fetch(route('customers.show', customerId))
-                const response = await result.json()
-                if (response) {
-                    setCustomer(response)
-                    setIsProcessing(false)
-                }
-            } catch (err: any) {
-                console.log(err);
-            } finally {
-                setIsProcessing(false)
-            }
-
-        }
-        fetchCustomer()
-
-    }, [customerId])
+    const { closeSheet } = useSheetStore()
 
     const {
         data,
         setData,
         post,
         errors,
-        processing
+        processing,
+        reset
     } = useForm<Required<CustomerFormProps>>({
         name: "",
         phone: "",
@@ -62,14 +43,36 @@ export const CustomerOperation = ({ customerId, mode }: CustomerOperationProps) 
         avatar: null,
     })
 
+    useEffect(() => {
+        if (!customerId) return
+        setIsProcessing(true)
+        const fetchCustomer = async () => {
+            try {
+                const result = await fetch(route('customers.show', customerId))
+                const response = await result.json()
+                if (response) {
+                    setCustomer(response)
+                    setData(response)
+                    setIsProcessing(false)
+                }
+            } catch (err: any) {
+                console.log(err);
+            } finally {
+                setIsProcessing(false)
+            }
+
+        }
+        fetchCustomer()
+    }, [customerId])
+
     const handleSubmit = () => {
         if (mode == 'add') {
             post(route('customers.store'), {
                 onSuccess: () => {
                     toast.success('Customer created successfully')
+                    closeSheet()
+                    reset();
                 },
-                onFinish: () => {
-                }
             })
         }
         if (mode == 'edit' && customerId) {
@@ -79,6 +82,8 @@ export const CustomerOperation = ({ customerId, mode }: CustomerOperationProps) 
             }, {
                 onSuccess: () => {
                     toast.success('Customer Updated successfully')
+                    closeSheet()
+                    reset()
                 }
             })
         }
@@ -89,12 +94,14 @@ export const CustomerOperation = ({ customerId, mode }: CustomerOperationProps) 
             title={drawerTitle}
             subTitle="Make changes to your profile here. Click save when you're done."
             onConfirm={handleSubmit}
+            processing={processing}
         >
             {(mode == 'add' || mode == 'edit') && (
                 <CustomerForm
                     data={data}
                     setData={setData}
                     errors={errors}
+                    isProcessing={isProcessing}
                 />
             )}
             {mode == 'view' && (

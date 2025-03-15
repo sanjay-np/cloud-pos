@@ -12,9 +12,10 @@ type EmployeeFormProps = {
     data: any;
     setData: any;
     errors: any;
+    isProcessing: boolean
 }
 
-const EmployeeForm = ({ data, setData, errors }: EmployeeFormProps) => {
+const EmployeeForm = ({ data, setData, errors, isProcessing }: EmployeeFormProps) => {
 
     const handleImageUpload = async (file: File) => {
         const isValid = validateImageFile(file);
@@ -22,19 +23,29 @@ const EmployeeForm = ({ data, setData, errors }: EmployeeFormProps) => {
         setData('avatar', file)
     }
 
+    if (isProcessing) {
+        return (
+            <div>
+                {/* Todo: Add Skeletion */}
+                Loading...
+            </div>
+        )
+    }
+
     return (
         <div className="grid gap-4 px-4">
             <div className="flex w-full gap-4 items-center justify-between mb-2">
-                <div className="text-right">
-                    <h2 className="font-semibold text-lg">Employee Profile Picture</h2>
-                    <p className="text-muted-foreground text-xs text-center">Upload a profile picture to personalize employees's account</p>
-                </div>
                 <div className="relative">
                     <AvatarUpload
                         onImageUpload={handleImageUpload}
-                        fallback="AP"
+                        fallback="EP"
                         size="lg"
+                        initialImage={data?.avatar_url}
                     />
+                </div>
+                <div className="text-left">
+                    <h2 className="font-semibold text-lg">Employee Profile Picture</h2>
+                    <p className="text-muted-foreground text-xs text-left">Upload a profile picture to personalize employees's account</p>
                 </div>
             </div>
             <div className="grid w-full gap-2">
@@ -77,6 +88,7 @@ const EmployeeForm = ({ data, setData, errors }: EmployeeFormProps) => {
                 <AppSelect
                     placeholder="Select Department"
                     options={DEPARTMENT}
+                    selected={data.department}
                     onChange={(val) => setData('department', val)}
                 />
             </div>
@@ -85,6 +97,7 @@ const EmployeeForm = ({ data, setData, errors }: EmployeeFormProps) => {
                 <AppSelect
                     placeholder="Select Position"
                     options={POSITION}
+                    selected={data.position}
                     onChange={(val) => setData('position', val)}
                 />
             </div>
@@ -93,6 +106,7 @@ const EmployeeForm = ({ data, setData, errors }: EmployeeFormProps) => {
                 <AppSelect
                     placeholder="Select Document"
                     options={DOCUMENT_TYPE}
+                    selected={data.document_type}
                     onChange={(val) => setData('document_type', val)}
                 />
             </div>
@@ -110,6 +124,7 @@ const EmployeeForm = ({ data, setData, errors }: EmployeeFormProps) => {
                 <AppSelect
                     placeholder="Select Status"
                     options={EMPLOYEE_STATUS}
+                    selected={data.status}
                     onChange={(val) => setData('status', val)}
                 />
             </div>

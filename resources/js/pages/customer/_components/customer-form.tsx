@@ -8,15 +8,25 @@ import { validateImageFile } from "@/lib/utils"
 type CustomerFormProps = {
     data: any;
     setData: any
-    errors: any
+    errors: any,
+    isProcessing: boolean
 }
 
-const CustomerForm = ({ data, setData, errors }: CustomerFormProps) => {
+const CustomerForm = ({ data, setData, errors, isProcessing }: CustomerFormProps) => {
 
     const handleImageUpload = async (file: File) => {
         const isValid = validateImageFile(file);
         if (!isValid) return;
         setData('avatar', file)
+    }
+
+    if (isProcessing) {
+        return (
+            <div>
+                {/* Todo: Add Skeletion */}
+                Loading...
+            </div>
+        )
     }
 
     return (
@@ -27,6 +37,7 @@ const CustomerForm = ({ data, setData, errors }: CustomerFormProps) => {
                         onImageUpload={handleImageUpload}
                         fallback="CP"
                         size="lg"
+                        initialImage={data?.avatar_url}
                     />
                 </div>
                 <div className="text-left">
@@ -84,15 +95,10 @@ const CustomerForm = ({ data, setData, errors }: CustomerFormProps) => {
                 <Label>Status</Label>
                 <AppSelect
                     placeholder="Select Status"
+                    selected={data.status}
                     options={[
-                        {
-                            label: "Active",
-                            value: "active"
-                        },
-                        {
-                            label: "Inactive",
-                            value: "inactive"
-                        }
+                        { label: "Active", value: "active" },
+                        { label: "Inactive", value: "inactive" }
                     ]}
                     onChange={(val) => setData("status", val)}
                 />

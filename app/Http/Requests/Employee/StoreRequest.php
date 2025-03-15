@@ -42,6 +42,7 @@ class StoreRequest extends FormRequest
                 'nullable'
             ],
             'document_files' => [
+                'nullable',
                 'array'
             ],
             'status' => [
@@ -85,7 +86,7 @@ class StoreRequest extends FormRequest
         if (!$this->hasFile('avatar')) {
             return null;
         }
-        $file = $this->file('avatar')['blobFile'];
+        $file = $this->file('avatar');
         return $this->uploadImage($file, 'Employees/Avatar');
     }
 
@@ -97,7 +98,7 @@ class StoreRequest extends FormRequest
         }
         $files = [];
         foreach ($this->document_files as $file) {
-            $files[] = $this->uploadImage($file['blobFile'], 'Employees/Documents');
+            $files[] = $this->uploadImage($file, 'Employees/Documents');
         }
         return $files ?? null;
     }

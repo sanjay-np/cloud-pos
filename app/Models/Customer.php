@@ -29,6 +29,7 @@ class Customer extends Model
     ];
 
     protected $hidden = [
+        'avatar',
         'created_by',
         'updated_at',
         'deleted_at',

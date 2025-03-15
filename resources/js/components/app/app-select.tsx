@@ -6,8 +6,9 @@ import {
     SelectValue
 } from "@/components/ui/select"
 
-type appSelectProps = {
+type AppSelectProps = {
     placeholder: string,
+    selected?: string | undefined
     options: {
         label: string,
         value: string
@@ -15,9 +16,9 @@ type appSelectProps = {
     onChange: (value: string) => void
 }
 
-const AppSelect = ({ placeholder, options, onChange, ...props }: appSelectProps) => {
+const AppSelect = ({ placeholder, options, onChange, selected, ...props }: AppSelectProps) => {
     return (
-        <Select onValueChange={onChange}>
+        <Select onValueChange={onChange} defaultValue={selected}>
             <SelectTrigger {...props}>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>

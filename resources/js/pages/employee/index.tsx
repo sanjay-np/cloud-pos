@@ -34,7 +34,10 @@ const Index = ({ employees }: { employees: PaginatiedEmployeeProps }) => {
                     <Button
                         variant="outline"
                         className="ml-auto"
-                        onClick={openSheet}
+                        onClick={() => {
+                            setMode("add")
+                            openSheet()
+                        }}
                     >
                         Add New
                     </Button>
@@ -48,7 +51,6 @@ const Index = ({ employees }: { employees: PaginatiedEmployeeProps }) => {
                     }}
                 />
             </div>
-
             <EmployeeOperation employeeId={itemId} mode={mode} />
         </AppLayout>
     )

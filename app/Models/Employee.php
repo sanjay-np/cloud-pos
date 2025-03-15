@@ -37,6 +37,7 @@ class Employee extends Model
     ];
 
     protected $hidden = [
+        'avatar',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -46,6 +47,7 @@ class Employee extends Model
         'document_files' => 'array',
     ];
 
+
     public function getAvatarUrlAttribute()
     {
         if ($this->avatar) {
@@ -53,6 +55,7 @@ class Employee extends Model
         }
         return null;
     }
+
 
     public function getDocumentListAttribute()
     {
@@ -67,6 +70,7 @@ class Employee extends Model
         }
         return [];
     }
+
 
     public static function boot()
     {

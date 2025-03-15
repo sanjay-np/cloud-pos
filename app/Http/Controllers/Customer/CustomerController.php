@@ -19,9 +19,9 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $customers = $this->model->query()
-            ->select(['id', 'name', 'email', 'phone', 'status'])
+            ->select(['id', 'name', 'email', 'phone', 'status', 'avatar'])
             ->orderBy('id', 'desc')
-            ->simplePaginate(perPage: $request->per_page ?? 20)
+            ->simplePaginate(perPage: $request->per_page ?? 15)
             ->withQueryString();
 
         return Inertia::render('customer/index', compact('customers'));
@@ -47,7 +47,6 @@ class CustomerController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
-        // Todo: file validation
         $item = $this->model->findOrFail($id)->update($request->getRequested());
         if ($item) {
             return to_route('customers.index');

@@ -1,9 +1,10 @@
 export interface CustomerColumnProps {
-    id: number,
-    name: string,
-    phone: string,
-    email: string,
-    status: string,
+    id: number;
+    name: string;
+    phone: string;
+    email: string;
+    status: string;
+    avatar_url: string | null;
 }
 
 export interface CustomerFormProps {
@@ -18,7 +19,7 @@ export interface CustomerFormProps {
 
 export interface PaginatedCustomerProps {
     current_page: number,
-    data: customer[],
+    data: CustomerColumnProps[],
     first_page_url: string,
     from: number,
     next_page_url: string | null,
