@@ -6,14 +6,12 @@ import AppSheet from "@/components/app/app-sheet";
 import { useSheetStore } from "@/hooks/use-sheet";
 import { Mode } from "@/types";
 import SupplierForm from "./supplier-form";
+import { Brand } from "./supplier";
 
 type SupplierOperationProps = {
     supplierId: number | null;
     mode: Mode,
-    brands: {
-        id: number,
-        name: string
-    }[]
+    brands: Brand[]
 }
 
 const SupplierOperation = ({ supplierId, mode, brands }: SupplierOperationProps) => {

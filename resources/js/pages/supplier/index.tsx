@@ -7,6 +7,7 @@ import AppTable from '@/components/table/app-table'
 import { useSheetStore } from '@/hooks/use-sheet'
 import { useColumns } from './_components/use-columns'
 import SupplierOperation from './_components/supplier-operation'
+import { SupplierIndexProps } from './_components/supplier'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -18,7 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/suppliers',
     }
 ]
-const Index = ({ suppliers, brands }: any) => {
+const Index = ({ suppliers, brands }: SupplierIndexProps) => {
 
     const { columns, itemId, mode, setMode } = useColumns()
     const { openSheet } = useSheetStore();
