@@ -21,6 +21,7 @@ class Supplier extends Model
         'contact_person',
         'brands'
     ];
+
     protected $hidden = [
         'created_at',
         'updated_at',
@@ -30,4 +31,15 @@ class Supplier extends Model
     protected $casts = [
         'brands' => 'array'
     ];
+
+    protected $appends = [
+        'brands_items'
+    ];
+
+    public function getBrandsItemsAttribute()
+    {
+        if ($this->brands) {
+            return Brand::whereIn('id', $this->brands)->select(['id', 'name'])->get();
+        }
+    }
 }

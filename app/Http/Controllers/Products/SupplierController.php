@@ -21,6 +21,8 @@ class SupplierController extends Controller
         $suppliers = $this->model->query()
             ->simplePaginate(perPage: $request->per_page ?? config('pos.per_page'))
             ->withQueryString();
+
+        Brand::$disabledAppends = true;
         $brands = Brand::query()
             ->select(['id', 'name'])
             ->get();

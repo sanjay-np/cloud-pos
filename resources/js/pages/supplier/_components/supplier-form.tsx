@@ -20,17 +20,48 @@ type SupplierFormProps = {
 
 const SupplierForm = ({ data, setData, errors, isProcessing, brands }: SupplierFormProps) => {
 
-    const [selectedTags, setSelectedTags] = useState<Brand[]>([])
+    const [selectedTagIds, setSelectedTagIds] = useState<number[]>([])
 
-    const handleTagSelect = (tag: Brand) => {
-        setSelectedTags((prev) => [...prev, tag])
+    const handleTagSelect = (tagId: number) => {
+        setSelectedTagIds((prev) => [...prev, tagId])
     }
 
     const handleTagRemove = (tagId: number) => {
-        setSelectedTags((prev) => prev.filter((tag) => tag.id !== tagId))
+        setSelectedTagIds((prev) => prev.filter((id) => id !== tagId))
     }
 
-    useEffect(() => { setData('brands', selectedTags) }, [selectedTags])
+    // Get the selected tag names for display in the summary
+    const selectedTagNames = selectedTagIds
+        .map((id) => brands.find((tag) => tag.id === id)?.name)
+        .filter((name): name is string => name !== undefined)
+
+
+    // const [selectedTags, setSelectedTags] = useState<number[]>([]);
+
+    // const handleTagSelect = (tag: Brand) => {
+    //     setSelectedTags((prev) => [...prev, tag.id]);
+    // };
+
+
+    // const handleTagRemove = (tagId: number) => {
+    //     setSelectedTags((prev) => prev.filter((id) => id !== tagId));
+    // };
+
+    // useEffect(() => { setData('brands', selectedTags) }, [selectedTags])
+
+    // This will hold the selected brand IDs
+
+    // const handleTagSelect = (tag: Brand) => {
+    //     setData('brands', [...data.brands, tag.id]);
+    // };
+
+    // const handleTagRemove = (tagId: number) => {
+    //     setData('brands', data.brands.filter((id: number) => id !== tagId));
+
+    // };
+
+    console.log(data.brands);
+
 
     if (isProcessing) {
         return (
@@ -74,7 +105,7 @@ const SupplierForm = ({ data, setData, errors, isProcessing, brands }: SupplierF
                 <Label>Contact Person</Label>
                 <Input
                     type="text"
-                    placeholder="name@example.com"
+                    placeholder="John Doe"
                     value={data.contact_person}
                     onChange={(e) => setData('contact_person', e.target.value)}
                 />
@@ -93,7 +124,7 @@ const SupplierForm = ({ data, setData, errors, isProcessing, brands }: SupplierF
                 <Label>Brands</Label>
                 <TagPicker
                     tags={brands}
-                    selectedTags={selectedTags}
+                    selectedTags={data?.brands}
                     onTagSelect={handleTagSelect}
                     onTagRemove={handleTagRemove}
                     placeholder="Search for brands..."

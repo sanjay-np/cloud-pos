@@ -56,22 +56,6 @@ export const useColumns = () => {
             enableHiding: false,
         },
         {
-            accessorKey: "avatar_url",
-            header: "",
-            cell: ({ row }) => (
-                <>
-                    <Avatar className={`size-16 border-2 border-dashed group-hover:border-primary transition-colors`}>
-                        <AvatarImage
-                            src={row.getValue("avatar_url") as string | undefined}
-                            alt="Profile picture"
-                            className="object-cover"
-                        />
-                        <AvatarFallback className="text-2xl">{"EP"}</AvatarFallback>
-                    </Avatar>
-                </>
-            )
-        },
-        {
             accessorKey: "name",
             header: "Supplier Name",
             cell: ({ row }) => (
@@ -79,14 +63,27 @@ export const useColumns = () => {
             ),
         },
         {
+            accessorKey: "contact_person",
+            header: "Contact Person",
+            cell: ({ row }) => <div className="capitalize">{row.getValue("contact_person")}</div>,
+        },
+        {
             accessorKey: "phone",
             header: "Contact",
             cell: ({ row }) => <div className="lowercase">{row.getValue("phone")}</div>,
         },
         {
-            accessorKey: "department",
-            header: "Contact Person",
-            cell: ({ row }) => <div className="capitalize">{row.getValue("department")}</div>,
+            accessorKey: "brands",
+            header: "Brands",
+            cell: ({ row }) => {
+                const brands = row.getValue("brands") as []
+                {
+                    brands?.length > 0 && brands.map((item, index) => (
+                        <div>{item}</div>
+                    ))
+                }
+
+            },
         },
         {
             id: "actions",

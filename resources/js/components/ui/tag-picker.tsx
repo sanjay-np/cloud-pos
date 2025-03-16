@@ -1,21 +1,19 @@
-"use client"
-
 import * as React from "react"
-import { X } from 'lucide-react'
+import { X } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
 
 type Tag = {
     id: number
-    name: string
+    text: string
 }
 
 type TagPickerProps = {
     placeholder?: string
     tags: Tag[]
-    selectedTags: Tag[]
-    onTagSelect: (tag: Tag) => void
+    selectedTagIds: number[]
+    onTagSelect: (tagId: number) => void
     onTagRemove: (tagId: number) => void
     emptyMessage?: string
 }
@@ -23,7 +21,7 @@ type TagPickerProps = {
 export function TagPicker({
     placeholder = "Search tags...",
     tags,
-    selectedTags,
+    selectedTagIds,
     onTagSelect,
     onTagRemove,
     emptyMessage = "No tags found.",
@@ -33,22 +31,27 @@ export function TagPicker({
     const containerRef = React.useRef<HTMLDivElement>(null)
     const inputRef = React.useRef<HTMLInputElement>(null)
 
+    // Get selected tags data for display
+    const selectedTags = React.useMemo(() => {
+        return selectedTagIds.map((id) => tags.find((tag) => tag.id === id)).filter((tag): tag is Tag => tag !== undefined)
+    }, [tags, selectedTagIds])
+
     const availableTags = React.useMemo(() => {
-        return tags.filter((tag) => !selectedTags.some((selectedTag) => selectedTag.id === tag.id))
-    }, [tags, selectedTags])
+        return tags.filter((tag) => !selectedTagIds.includes(tag.id))
+    }, [tags, selectedTagIds])
 
     const filteredTags = React.useMemo(() => {
         // If input is empty, show all available tags
         if (!inputValue) return availableTags
 
         // Otherwise filter by input text
-        return availableTags.filter((tag) => tag.name.toLowerCase().includes(inputValue.toLowerCase()))
+        return availableTags.filter((tag) => tag.text.toLowerCase().includes(inputValue.toLowerCase()))
     }, [availableTags, inputValue])
 
     const handleKeyDown = React.useCallback(
         (e: React.KeyboardEvent<HTMLInputElement>) => {
-            if (e.key === "Backspace" && !inputValue && selectedTags.length > 0) {
-                onTagRemove(selectedTags[selectedTags.length - 1].id)
+            if (e.key === "Backspace" && !inputValue && selectedTagIds.length > 0) {
+                onTagRemove(selectedTagIds[selectedTagIds.length - 1])
             }
 
             // Close dropdown on escape
@@ -57,24 +60,23 @@ export function TagPicker({
                 inputRef.current?.blur()
             }
         },
-        [inputValue, selectedTags, onTagRemove],
+        [inputValue, selectedTagIds, onTagRemove],
     )
 
     const handleSelect = React.useCallback(
         (value: string) => {
             // Convert the string value to a number
-            const numericId = parseInt(value, 10)
-            const selectedTag = availableTags.find(tag => tag.id === numericId)
+            const tagId = Number.parseInt(value, 10)
 
-            if (selectedTag) {
-                onTagSelect(selectedTag)
+            if (!isNaN(tagId)) {
+                onTagSelect(tagId)
                 setInputValue("")
                 setOpen(false)
                 // Blur the input after selection
                 inputRef.current?.blur()
             }
         },
-        [availableTags, onTagSelect]
+        [onTagSelect],
     )
 
     // Handle clicks outside to close the dropdown
@@ -101,7 +103,7 @@ export function TagPicker({
             >
                 {selectedTags.map((tag) => (
                     <Badge key={tag.id} variant="secondary" className="h-7 px-2 text-sm">
-                        {tag.name}
+                        {tag.text}
                         <button
                             type="button"
                             className="ml-1 rounded-full outline-none focus:ring-2 focus:ring-ring"
@@ -112,7 +114,7 @@ export function TagPicker({
                             onClick={() => onTagRemove(tag.id)}
                         >
                             <X className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground" />
-                            <span className="sr-only">Remove {tag.name}</span>
+                            <span className="sr-only">Remove {tag.text}</span>
                         </button>
                     </Badge>
                 ))}
@@ -151,7 +153,7 @@ export function TagPicker({
                                             onSelect={handleSelect}
                                             className="gap-2"
                                         >
-                                            {tag.name}
+                                            {tag.text}
                                         </CommandItem>
                                     ))}
                                 </CommandGroup>
@@ -165,3 +167,4 @@ export function TagPicker({
         </div>
     )
 }
+
