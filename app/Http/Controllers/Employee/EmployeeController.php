@@ -21,7 +21,7 @@ class EmployeeController extends Controller
         $employees = $this->model->query()
             ->select(['id', 'name', 'phone', 'joined_at', 'department', 'position', 'status', 'avatar'])
             ->orderBy('id', 'desc')
-            ->simplePaginate(perPage: $request->per_page ?? 20)
+            ->simplePaginate(perPage: $request->per_page ?? config('pos.per_page'))
             ->withQueryString();
 
         return Inertia::render('employee/index', compact('employees'));

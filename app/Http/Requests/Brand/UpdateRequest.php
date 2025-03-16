@@ -2,19 +2,30 @@
 
 namespace App\Http\Requests\Brand;
 
+use App\Traits\ImageUpload;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
 {
+    use ImageUpload;
     /**
      * Get the validation rules that apply to the request.
      */
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'image' => ['nullable']
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'description' => [
+                'nullable',
+                'string'
+            ],
+            'image' => [
+                'nullable'
+            ]
         ];
     }
 
@@ -28,15 +39,15 @@ class UpdateRequest extends FormRequest
 
     public function getRequested(): array
     {
-        return array_merge(
-            $this->only(keys: [
-                'name',
-                'description',
-            ]),
-            [
-                'image' => $this->getImage()
-            ]
-        );
+        $requestedItem = $this->only(keys: [
+            'name',
+            'description',
+        ]);
+        $image = $this->getImage();
+        if ($image !== null) {
+            $requestedItem['image'] = $image;
+        }
+        return $requestedItem;
     }
 
     public function getImage(): string | null
@@ -44,7 +55,7 @@ class UpdateRequest extends FormRequest
         if (!$this->hasFile('image')) {
             return null;
         }
-        $file = $this->file('image')['blobFile'];
+        $file = $this->file('image');
         return $this->uploadImage($file, 'Brand');
     }
 }

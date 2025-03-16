@@ -19,10 +19,22 @@ class Brand extends Model
         'image'
     ];
 
-    protected $appends = ['image_url'];
+    protected $appends = [
+        'image_url'
+    ];
+
+    protected $hidden = [
+        'image',
+        'created_by',
+        'updated_at',
+        'deleted_at',
+    ];
 
     public function getImageUrlAttribute()
     {
-        return asset($this->image);
+        if ($this->image) {
+            return asset($this->image);
+        }
+        return null;
     }
 }

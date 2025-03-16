@@ -30,9 +30,4 @@ class Supplier extends Model
     protected $casts = [
         'brands' => 'array'
     ];
-
-    protected static function newFactory(): SupplierFactory
-    {
-        return SupplierFactory::new();
-    }
 }

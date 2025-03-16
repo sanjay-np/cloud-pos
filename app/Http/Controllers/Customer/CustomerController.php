@@ -21,7 +21,7 @@ class CustomerController extends Controller
         $customers = $this->model->query()
             ->select(['id', 'name', 'email', 'phone', 'status', 'avatar'])
             ->orderBy('id', 'desc')
-            ->simplePaginate(perPage: $request->per_page ?? 15)
+            ->simplePaginate(perPage: $request->per_page ?? config('pos.per_page'))
             ->withQueryString();
 
         return Inertia::render('customer/index', compact('customers'));

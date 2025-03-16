@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\User;
@@ -24,5 +25,6 @@ class DatabaseSeeder extends Seeder
         ]);
         Customer::factory(20)->create();
         Employee::factory(20)->create();
+        Brand::factory(20)->create();
     }
 }

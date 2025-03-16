@@ -15,9 +15,18 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'image' => ['nullable']
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'description' => [
+                'nullable',
+                'string'
+            ],
+            'image' => [
+                'nullable'
+            ]
         ];
     }
 
@@ -47,7 +56,7 @@ class StoreRequest extends FormRequest
         if (!$this->hasFile('image')) {
             return null;
         }
-        $file = $this->file('image')['blobFile'];
+        $file = $this->file('image');
         return $this->uploadImage($file, 'Brand');
     }
 }

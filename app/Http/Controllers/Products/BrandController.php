@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Brand\StoreRequest;
+use App\Http\Requests\Brand\UpdateRequest;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,15 +13,16 @@ class BrandController extends Controller
 {
     public function __construct(
         private Brand $model,
-        private BrandService $service
     ) {}
 
     public function index(Request $request)
     {
-        $brands = $this->service->index();
-        return Inertia::render('Product::Brand', [
-            'brands' => $brands
-        ]);
+        $brands = $this->model->query()
+            ->select(['id', 'name', 'image'])
+            ->simplePaginate(perPage: $request->per_page ?? config('pos.per_page'))
+            ->withQueryString();
+
+        return Inertia::render('brand/index', compact('brands'));
     }
 
     public function store(StoreRequest $request)
@@ -36,7 +40,6 @@ class BrandController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
-        // Todo: update image
         $item = $this->model->findOrFail($id)->update($request->getRequested());
         if ($item) {
             return to_route('brands.index');
@@ -49,10 +52,5 @@ class BrandController extends Controller
         if ($item) {
             return to_route('brands.index');
         }
-    }
-
-    public function search(Request $request)
-    {
-        return $this->service->search($request->all());
     }
 }

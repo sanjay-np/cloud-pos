@@ -44,7 +44,7 @@ export const productMenuItems: NavItem[] = [
     },
     {
         title: "Brands",
-        url: '/products',
+        url: '/brands',
         icon: ArchiveIcon
     },
     {
@@ -59,7 +59,7 @@ export const productMenuItems: NavItem[] = [
     },
     {
         title: "Suppliers",
-        url: '/products',
+        url: '/suppliers',
         icon: TruckIcon
     }
 

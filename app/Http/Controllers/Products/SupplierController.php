@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Supplier\StoreRequest;
+use App\Http\Requests\Supplier\UpdateRequest;
+use App\Models\Brand;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,13 +14,17 @@ class SupplierController extends Controller
 {
     public function __construct(
         private Supplier $model,
-        private SupplierService $service
     ) {}
 
     public function index(Request $request)
     {
-        $data = $this->service->index();
-        return Inertia::render('Product::Supplier', $data);
+        $suppliers = $this->model->query()
+            ->simplePaginate(perPage: $request->per_page ?? config('pos.per_page'))
+            ->withQueryString();
+        $brands = Brand::query()
+            ->select(['id', 'name'])
+            ->get();
+        return Inertia::render('supplier/index', compact('suppliers', 'brands'));
     }
 
     public function store(StoreRequest $request)
@@ -46,10 +54,5 @@ class SupplierController extends Controller
         if ($item) {
             return to_route('suppliers.index');
         }
-    }
-
-    public function search(Request $request)
-    {
-        return $this->service->search($request->all());
     }
 }
