@@ -2,15 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Brand;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SupplierFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Supplier::class;
-
     /**
      * Define the model's default state.
      */

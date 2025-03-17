@@ -14,10 +14,21 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'image' => ['nullable'],
-            'description' => ['nullable', 'string'],
-            'status' => ['required'],
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'image' => [
+                'nullable'
+            ],
+            'description' => [
+                'nullable',
+                'string'
+            ],
+            'status' => [
+                'required'
+            ],
         ];
     }
 
@@ -28,6 +39,7 @@ class StoreRequest extends FormRequest
     {
         return true;
     }
+
 
     public function getRequested(): array
     {
@@ -43,12 +55,13 @@ class StoreRequest extends FormRequest
         );
     }
 
-    public function getImage(): string
+
+    public function getImage(): string | null
     {
         if (!$this->hasFile('image')) {
             return null;
         }
-        $file = $this->file('image')['blobFile'];
+        $file = $this->file('image');
         return $this->uploadImage($file, 'Category');
     }
 }

@@ -39,7 +39,7 @@ export const footerNavItems: NavItem[] = [
 export const productMenuItems: NavItem[] = [
     {
         title: "Attributes",
-        url: '/products',
+        url: '/attributes',
         icon: SlidersIcon
     },
     {
@@ -49,7 +49,7 @@ export const productMenuItems: NavItem[] = [
     },
     {
         title: "Categories",
-        url: '/products',
+        url: '/categories',
         icon: FolderIcon
     },
     {
