@@ -2,56 +2,85 @@ import * as React from "react"
 import { X } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
-import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandItem,
+    CommandList
+} from "@/components/ui/command"
 
 type Tag = {
     id: number
-    text: string
+    name: string
 }
 
 type TagPickerProps = {
     placeholder?: string
     tags: Tag[]
     selectedTagIds: number[]
-    onTagSelect: (tagId: number) => void
-    onTagRemove: (tagId: number) => void
+    setSelectedTagIds: React.Dispatch<React.SetStateAction<number[]>>
     emptyMessage?: string
+    noTagsMessage?: string
 }
 
 export function TagPicker({
     placeholder = "Search tags...",
-    tags,
-    selectedTagIds,
-    onTagSelect,
-    onTagRemove,
+    tags = [],
+    selectedTagIds = [],
+    setSelectedTagIds,
     emptyMessage = "No tags found.",
+    noTagsMessage = "No tags available.",
 }: TagPickerProps) {
+
     const [open, setOpen] = React.useState(false)
     const [inputValue, setInputValue] = React.useState("")
     const containerRef = React.useRef<HTMLDivElement>(null)
     const inputRef = React.useRef<HTMLInputElement>(null)
+
 
     // Get selected tags data for display
     const selectedTags = React.useMemo(() => {
         return selectedTagIds.map((id) => tags.find((tag) => tag.id === id)).filter((tag): tag is Tag => tag !== undefined)
     }, [tags, selectedTagIds])
 
+
     const availableTags = React.useMemo(() => {
         return tags.filter((tag) => !selectedTagIds.includes(tag.id))
     }, [tags, selectedTagIds])
+
 
     const filteredTags = React.useMemo(() => {
         // If input is empty, show all available tags
         if (!inputValue) return availableTags
 
-        // Otherwise filter by input text
-        return availableTags.filter((tag) => tag.text.toLowerCase().includes(inputValue.toLowerCase()))
+        // Otherwise filter by input name
+        return availableTags.filter((tag) => tag.name.toLowerCase().includes(inputValue.toLowerCase()))
     }, [availableTags, inputValue])
+
+
+    // Handle tag selection
+    const handleTagSelect = React.useCallback(
+        (tagId: number) => {
+            setSelectedTagIds((prev) => [...prev, tagId])
+        },
+        [setSelectedTagIds],
+    )
+
+
+    // Handle tag removal
+    const handleTagRemove = React.useCallback(
+        (tagId: number) => {
+            setSelectedTagIds((prev) => prev.filter((id) => id !== tagId))
+        },
+        [setSelectedTagIds],
+    )
+
 
     const handleKeyDown = React.useCallback(
         (e: React.KeyboardEvent<HTMLInputElement>) => {
             if (e.key === "Backspace" && !inputValue && selectedTagIds.length > 0) {
-                onTagRemove(selectedTagIds[selectedTagIds.length - 1])
+                handleTagRemove(selectedTagIds[selectedTagIds.length - 1])
             }
 
             // Close dropdown on escape
@@ -60,24 +89,26 @@ export function TagPicker({
                 inputRef.current?.blur()
             }
         },
-        [inputValue, selectedTagIds, onTagRemove],
+        [inputValue, selectedTagIds, handleTagRemove],
     )
 
-    const handleSelect = React.useCallback(
+
+    const handleCommandSelect = React.useCallback(
         (value: string) => {
             // Convert the string value to a number
             const tagId = Number.parseInt(value, 10)
 
             if (!isNaN(tagId)) {
-                onTagSelect(tagId)
+                handleTagSelect(tagId)
                 setInputValue("")
                 setOpen(false)
                 // Blur the input after selection
                 inputRef.current?.blur()
             }
         },
-        [onTagSelect],
+        [handleTagSelect],
     )
+
 
     // Handle clicks outside to close the dropdown
     React.useEffect(() => {
@@ -93,6 +124,7 @@ export function TagPicker({
         }
     }, [])
 
+
     return (
         <div className="relative" ref={containerRef}>
             <div
@@ -103,7 +135,7 @@ export function TagPicker({
             >
                 {selectedTags.map((tag) => (
                     <Badge key={tag.id} variant="secondary" className="h-7 px-2 text-sm">
-                        {tag.text}
+                        {tag.name}
                         <button
                             type="button"
                             className="ml-1 rounded-full outline-none focus:ring-2 focus:ring-ring"
@@ -111,10 +143,10 @@ export function TagPicker({
                                 e.preventDefault()
                                 e.stopPropagation()
                             }}
-                            onClick={() => onTagRemove(tag.id)}
+                            onClick={() => handleTagRemove(tag.id)}
                         >
                             <X className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground" />
-                            <span className="sr-only">Remove {tag.text}</span>
+                            <span className="sr-only">Remove {tag.name}</span>
                         </button>
                     </Badge>
                 ))}
@@ -135,8 +167,9 @@ export function TagPicker({
                         }
                     }}
                     onKeyDown={handleKeyDown}
-                    placeholder={placeholder}
-                    className="flex-1 h-7 px-1 py-0 text-sm bg-transparent border-0 outline-none focus:ring-0"
+                    placeholder={tags.length > 0 ? placeholder : noTagsMessage}
+                    disabled={tags.length === 0}
+                    className="flex-1 h-7 px-1 py-0 text-sm bg-transparent border-0 outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
                 />
             </div>
 
@@ -150,10 +183,10 @@ export function TagPicker({
                                         <CommandItem
                                             key={tag.id}
                                             value={tag.id.toString()} // Convert number to string for CommandItem
-                                            onSelect={handleSelect}
+                                            onSelect={handleCommandSelect}
                                             className="gap-2"
                                         >
-                                            {tag.text}
+                                            {tag.name}
                                         </CommandItem>
                                     ))}
                                 </CommandGroup>

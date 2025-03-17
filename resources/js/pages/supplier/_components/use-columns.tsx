@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useSheetStore } from "@/hooks/use-sheet"
 import { useAlertStore } from "@/hooks/use-alert";
 import { Mode } from "@/types";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 
 export const useColumns = () => {
@@ -73,16 +73,17 @@ export const useColumns = () => {
             cell: ({ row }) => <div className="lowercase">{row.getValue("phone")}</div>,
         },
         {
-            accessorKey: "brands",
+            accessorKey: "brand_items",
             header: "Brands",
             cell: ({ row }) => {
-                const brands = row.getValue("brands") as []
-                {
-                    brands?.length > 0 && brands.map((item, index) => (
-                        <div>{item}</div>
-                    ))
-                }
-
+                const items = row.getValue("brand_items")
+                return (
+                    <div className="flex gap-2">
+                        {items?.length > 0 && items.map((item, index) => (
+                            <Badge variant={"outline"} key={index}>{item?.name}</Badge>
+                        ))}
+                    </div>
+                )
             },
         },
         {

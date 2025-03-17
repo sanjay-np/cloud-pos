@@ -18,7 +18,7 @@ class BrandController extends Controller
     public function index(Request $request)
     {
         $brands = $this->model->query()
-            ->select(['id', 'name', 'image'])
+            ->select(['id', 'name', 'image','description'])
             ->simplePaginate(perPage: $request->per_page ?? config('pos.per_page'))
             ->withQueryString();
 

@@ -1,5 +1,5 @@
 import { router, useForm } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import AppSheet from "@/components/app/app-sheet";
@@ -41,6 +41,28 @@ const SupplierOperation = ({ supplierId, mode, brands }: SupplierOperationProps)
         contact_person: "",
         brands: []
     })
+
+    useEffect(() => {
+        if (!supplierId) return
+        setIsProcessing(true)
+        const fetchSupplier = async () => {
+            try {
+                const result = await fetch(route('suppliers.show', supplierId))
+                const response = await result.json()
+                if (response) {
+                    setSupplier(response)
+                    setData(response)
+                    setIsProcessing(false)
+                }
+            } catch (err: any) {
+                console.log(err);
+            } finally {
+                setIsProcessing(false)
+            }
+
+        }
+        fetchSupplier()
+    }, [supplierId])
 
     const handleSubmit = () => {
         if (mode == "add") {

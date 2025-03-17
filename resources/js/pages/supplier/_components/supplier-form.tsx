@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TagPicker } from "@/components/ui/tag-picker";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
 
 
 type Brand = {
@@ -20,48 +20,15 @@ type SupplierFormProps = {
 
 const SupplierForm = ({ data, setData, errors, isProcessing, brands }: SupplierFormProps) => {
 
-    const [selectedTagIds, setSelectedTagIds] = useState<number[]>([])
+    const [selectedBrands, setSelectedBrands] = useState<number[]>(data?.brands ?? [])
 
-    const handleTagSelect = (tagId: number) => {
-        setSelectedTagIds((prev) => [...prev, tagId])
-    }
+    useEffect(() => {
+        setData('brands', selectedBrands)
+    }, [selectedBrands])
 
-    const handleTagRemove = (tagId: number) => {
-        setSelectedTagIds((prev) => prev.filter((id) => id !== tagId))
-    }
-
-    // Get the selected tag names for display in the summary
-    const selectedTagNames = selectedTagIds
-        .map((id) => brands.find((tag) => tag.id === id)?.name)
-        .filter((name): name is string => name !== undefined)
-
-
-    // const [selectedTags, setSelectedTags] = useState<number[]>([]);
-
-    // const handleTagSelect = (tag: Brand) => {
-    //     setSelectedTags((prev) => [...prev, tag.id]);
-    // };
-
-
-    // const handleTagRemove = (tagId: number) => {
-    //     setSelectedTags((prev) => prev.filter((id) => id !== tagId));
-    // };
-
-    // useEffect(() => { setData('brands', selectedTags) }, [selectedTags])
-
-    // This will hold the selected brand IDs
-
-    // const handleTagSelect = (tag: Brand) => {
-    //     setData('brands', [...data.brands, tag.id]);
-    // };
-
-    // const handleTagRemove = (tagId: number) => {
-    //     setData('brands', data.brands.filter((id: number) => id !== tagId));
-
-    // };
-
-    console.log(data.brands);
-
+    useEffect(() => {
+        setSelectedBrands(data?.brands);
+    }, [data?.brands])
 
     if (isProcessing) {
         return (
@@ -124,11 +91,11 @@ const SupplierForm = ({ data, setData, errors, isProcessing, brands }: SupplierF
                 <Label>Brands</Label>
                 <TagPicker
                     tags={brands}
-                    selectedTags={data?.brands}
-                    onTagSelect={handleTagSelect}
-                    onTagRemove={handleTagRemove}
+                    selectedTagIds={selectedBrands}
+                    setSelectedTagIds={setSelectedBrands}
                     placeholder="Search for brands..."
                     emptyMessage="No matching brands found"
+                    noTagsMessage="No brands available"
                 />
             </div>
         </div>

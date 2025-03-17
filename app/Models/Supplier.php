@@ -33,10 +33,10 @@ class Supplier extends Model
     ];
 
     protected $appends = [
-        'brands_items'
+        'brand_items'
     ];
 
-    public function getBrandsItemsAttribute()
+    public function getBrandItemsAttribute()
     {
         if ($this->brands) {
             return Brand::whereIn('id', $this->brands)->select(['id', 'name'])->get();

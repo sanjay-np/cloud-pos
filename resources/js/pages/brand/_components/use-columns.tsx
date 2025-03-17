@@ -75,7 +75,15 @@ export const useColumns = () => {
             header: "Name",
             accessorKey: "name",
             cell: ({ row }) => (
-                <div className="truncate w-96">{row.getValue("name")}</div>
+                <div className="truncate max-w-3xs">{row.getValue("name")}</div>
+            )
+        },
+        {
+            id: "description",
+            header: "Description",
+            accessorKey: "description",
+            cell: ({ row }) => (
+                <div className="truncate w-96">{row.getValue("description")}</div>
             )
         },
         {
