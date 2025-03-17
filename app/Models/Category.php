@@ -21,7 +21,9 @@ class Category extends Model
         'status'
     ];
 
-    protected $appends = ['image_url'];
+    protected $appends = [
+        'image_url'
+    ];
 
     public function getImageUrlAttribute()
     {

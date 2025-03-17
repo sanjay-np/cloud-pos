@@ -24,6 +24,9 @@ class UpdateRequest extends FormRequest
                 'nullable',
                 'string'
             ],
+            'parent_id' => [
+                'nullable'
+            ],
             'status' => [
                 'required'
             ],
@@ -44,12 +47,13 @@ class UpdateRequest extends FormRequest
         $requestedItems = $this->only(keys: [
             'name',
             'description',
-            'status'
+            'status',
+            'parent_id'
         ]);
 
         $image = $this->getImage();
         if ($image == null) {
-            $requestedItems = $image;
+            $requestedItems['image'] = $image;
         }
 
         return $requestedItems;

@@ -4,8 +4,9 @@ import { router, useForm } from "@inertiajs/react"
 import { toast } from "sonner"
 
 import AppSheet from "@/components/app/app-sheet"
-import { Mode } from "@/types"
+import { CategoryForm } from "./category-form"
 import { useSheetStore } from "@/hooks/use-sheet"
+import { Mode } from "@/types"
 
 type CateoryOperationProps = {
     categoryId: number | null,
@@ -21,7 +22,7 @@ export const CategoryOperation = ({ categoryId, mode }: CateoryOperationProps) =
             : 'Cateory Details'
 
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
-    const [category, setCatgory] = useState<CategoryResponseProps | null>(null)
+    const [category, setCatgory] = useState<any>(null)
     const { closeSheet } = useSheetStore()
 
     const {
@@ -31,14 +32,12 @@ export const CategoryOperation = ({ categoryId, mode }: CateoryOperationProps) =
         errors,
         processing,
         reset
-    } = useForm<Required<CategoryFormProps>>({
+    } = useForm<Required<any>>({
         name: "",
-        phone: "",
-        email: "",
-        address: "",
-        whatsapp: "",
-        status: "",
-        avatar: null,
+        image: null,
+        description: "",
+        parent_id: "",
+        status: ""
     })
 
     useEffect(() => {
@@ -95,8 +94,12 @@ export const CategoryOperation = ({ categoryId, mode }: CateoryOperationProps) =
             processing={processing}
         >
             {(mode == 'add' || mode == 'edit') && (
-                <>
-                </>
+                <CategoryForm
+                    data={data}
+                    setData={setData}
+                    errors={errors}
+                    isProcessing={isProcessing}
+                />
             )}
             {mode == 'view' && (
                 <div className="grid gap-4 px-4">

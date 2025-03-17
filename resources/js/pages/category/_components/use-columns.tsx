@@ -5,12 +5,12 @@ import { router } from "@inertiajs/react";
 import { toast } from "sonner";
 
 import ActionMenu from "@/components/table/table-action-menu";
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import { useSheetStore } from "@/hooks/use-sheet";
 import { useAlertStore } from "@/hooks/use-alert";
 import { Mode } from "@/types";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const useColumns = () => {
 
@@ -77,8 +77,16 @@ export const useColumns = () => {
             accessorKey: "name",
             header: "Category Name",
             cell: ({ row }) => (
-                <div className="capitalize">{row.getValue("name")}</div>
+                <div className="truncate max-w-3xs">{row.getValue("name")}</div>
             ),
+        },
+        {
+            id: "description",
+            header: "Description",
+            accessorKey: "description",
+            cell: ({ row }) => (
+                <div className="truncate w-96">{row.getValue("description")}</div>
+            )
         },
         {
             id: "actions",

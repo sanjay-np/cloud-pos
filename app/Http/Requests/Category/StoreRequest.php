@@ -26,6 +26,9 @@ class StoreRequest extends FormRequest
                 'nullable',
                 'string'
             ],
+            'parent_id' => [
+                'nullable'
+            ],
             'status' => [
                 'required'
             ],
@@ -47,7 +50,8 @@ class StoreRequest extends FormRequest
             $this->only(keys: [
                 'name',
                 'description',
-                'status'
+                'status',
+                'parent_id'
             ]),
             [
                 'image' => $this->getImage()

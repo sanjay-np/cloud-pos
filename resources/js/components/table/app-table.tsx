@@ -4,6 +4,8 @@ import {
     getCoreRowModel,
     useReactTable,
 } from "@tanstack/react-table"
+import { router } from "@inertiajs/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 import {
     Table,
@@ -14,8 +16,6 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button";
-import { router } from "@inertiajs/react";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 export interface dataTableProps {
     data: any[];
