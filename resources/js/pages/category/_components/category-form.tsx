@@ -4,15 +4,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { validateImageFile } from '@/lib/utils';
+import { ParentCategory } from './category';
 
 type CategoryFormProps = {
     data: any;
     setData: any;
     errors: any;
     isProcessing: boolean,
+    parents?: ParentCategory[] | null
 }
 
-export const CategoryForm = ({ data, setData, errors, isProcessing }: CategoryFormProps) => {
+export const CategoryForm = ({ data, setData, errors, isProcessing, parents }: CategoryFormProps) => {
 
     const handleImageUpload = async (file: File) => {
         const isValid = validateImageFile(file);
@@ -37,7 +39,7 @@ export const CategoryForm = ({ data, setData, errors, isProcessing }: CategoryFo
                         onImageUpload={handleImageUpload}
                         fallback="CI"
                         size="lg"
-                        initialImage={data?.image}
+                        initialImage={data?.image_url}
                     />
                 </div>
                 <div className="text-left">
@@ -69,10 +71,7 @@ export const CategoryForm = ({ data, setData, errors, isProcessing }: CategoryFo
                 <AppSelect
                     placeholder="Select Parent Category"
                     selected={data.parent_id}
-                    options={[
-                        { label: "Active", value: "active" },
-                        { label: "Inactive", value: "inactive" }
-                    ]}
+                    options={parents ?? []}
                     onChange={(val) => setData("parent_id", val)}
                 />
             </div>

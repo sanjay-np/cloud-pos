@@ -23,7 +23,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 
-const Index = ({ categories }: any) => {
+const Index = ({ categories, parentCategories }: any) => {
+
+    console.log(categories);
+
 
     const { columns, itemId, mode, setMode } = useColumns();
     const { openSheet } = useSheetStore();
@@ -54,7 +57,11 @@ const Index = ({ categories }: any) => {
                     }}
                 />
             </div>
-            <CategoryOperation categoryId={itemId} mode={mode} />
+            <CategoryOperation
+                categoryId={itemId}
+                mode={mode}
+                parents={parentCategories}
+            />
         </AppLayout>
     )
 }

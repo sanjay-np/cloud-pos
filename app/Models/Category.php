@@ -25,8 +25,20 @@ class Category extends Model
         'image_url'
     ];
 
+    protected $hidden = [
+        'image',
+        'created_by',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function getImageUrlAttribute()
     {
         return asset($this->image);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id', 'id')->withTrashed();
     }
 }

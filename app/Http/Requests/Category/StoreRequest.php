@@ -51,9 +51,9 @@ class StoreRequest extends FormRequest
                 'name',
                 'description',
                 'status',
-                'parent_id'
             ]),
             [
+                'parent_id' => $this->parent_id ?? 0,
                 'image' => $this->getImage()
             ]
         );

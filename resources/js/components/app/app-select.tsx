@@ -12,7 +12,7 @@ type AppSelectProps = {
     options: {
         label: string,
         value: string
-    }[],
+    }[] | null,
     onChange: (value: string) => void
 }
 
@@ -23,7 +23,8 @@ const AppSelect = ({ placeholder, options, onChange, selected, ...props }: AppSe
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
-                {options.map((option, index) => (
+
+                {options?.length && options.map((option, index) => (
                     <SelectItem value={option.value} key={index}>{option.label}</SelectItem>
                 ))}
             </SelectContent>

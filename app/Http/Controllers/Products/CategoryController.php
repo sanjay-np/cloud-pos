@@ -19,11 +19,20 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories = $this->model->query()
+            ->with(['parent:id,name'])
             ->orderBy('id', 'desc')
-            ->simplePaginate(perPage: $request->per_page ?? config('pos.per_page'))
+            ->simplePaginate($request->per_page ?? config('pos.per_page'))
             ->withQueryString();
 
-        return Inertia::render('category/index', compact('categories'));
+
+        $parentCategories = $this->model->query()
+            ->select(["id", "name"])
+            ->get()?->map(fn($item) => [
+                'label' => $item->name,
+                'value' => $item->id
+            ]);
+
+        return Inertia::render('category/index', compact('categories', 'parentCategories'));
     }
 
 

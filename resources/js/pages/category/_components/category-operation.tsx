@@ -7,13 +7,15 @@ import AppSheet from "@/components/app/app-sheet"
 import { CategoryForm } from "./category-form"
 import { useSheetStore } from "@/hooks/use-sheet"
 import { Mode } from "@/types"
+import { ParentCategory } from "./category"
 
 type CateoryOperationProps = {
     categoryId: number | null,
-    mode: Mode
+    mode: Mode,
+    parents: ParentCategory[] | null
 }
 
-export const CategoryOperation = ({ categoryId, mode }: CateoryOperationProps) => {
+export const CategoryOperation = ({ categoryId, mode, parents }: CateoryOperationProps) => {
 
     const drawerTitle = mode == 'add'
         ? 'Add Cateory'
@@ -24,6 +26,7 @@ export const CategoryOperation = ({ categoryId, mode }: CateoryOperationProps) =
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
     const [category, setCatgory] = useState<any>(null)
     const { closeSheet } = useSheetStore()
+    const [parentCategories, setParentCatgories] = useState<any>([])
 
     const {
         data,
@@ -59,6 +62,8 @@ export const CategoryOperation = ({ categoryId, mode }: CateoryOperationProps) =
             }
 
         }
+        let filteredCatories = parents?.filter((item) => parseInt(item?.value) != categoryId)
+        setParentCatgories(filteredCatories)
         fetchCustomer()
     }, [categoryId])
 
@@ -99,6 +104,7 @@ export const CategoryOperation = ({ categoryId, mode }: CateoryOperationProps) =
                     setData={setData}
                     errors={errors}
                     isProcessing={isProcessing}
+                    parents={parentCategories}
                 />
             )}
             {mode == 'view' && (

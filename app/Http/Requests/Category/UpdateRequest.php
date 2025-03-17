@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests\Category;
 
+use App\Traits\ImageUpload;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
 {
+    use ImageUpload;
     /**
      * Get the validation rules that apply to the request.
      */
@@ -44,15 +46,20 @@ class UpdateRequest extends FormRequest
 
     public function getRequested(): array
     {
-        $requestedItems = $this->only(keys: [
-            'name',
-            'description',
-            'status',
-            'parent_id'
-        ]);
+        $requestedItems = array_merge(
+            $this->only(keys: [
+                'name',
+                'description',
+                'status',
+                'parent_id'
+            ]),
+            [
+                'parent_id' => $this->parent_id
+            ]
+        );
 
         $image = $this->getImage();
-        if ($image == null) {
+        if (!$image == null) {
             $requestedItems['image'] = $image;
         }
 

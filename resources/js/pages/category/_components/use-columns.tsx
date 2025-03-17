@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSheetStore } from "@/hooks/use-sheet";
 import { useAlertStore } from "@/hooks/use-alert";
 import { Mode } from "@/types";
+import { Badge } from "@/components/ui/badge";
 
 export const useColumns = () => {
 
@@ -58,13 +59,13 @@ export const useColumns = () => {
             enableHiding: false,
         },
         {
-            accessorKey: "avatar_url",
+            accessorKey: "image_url",
             header: "",
             cell: ({ row }) => (
                 <>
                     <Avatar className={`size-16 border-2 border-dashed group-hover:border-primary transition-colors`}>
                         <AvatarImage
-                            src={row.getValue("avatar_url") as string | undefined}
+                            src={row.getValue("image_url") as string | undefined}
                             alt="Profile picture"
                             className="object-cover"
                         />
@@ -81,12 +82,32 @@ export const useColumns = () => {
             ),
         },
         {
-            id: "description",
-            header: "Description",
-            accessorKey: "description",
-            cell: ({ row }) => (
-                <div className="truncate w-96">{row.getValue("description")}</div>
-            )
+            id: "parent",
+            header: "Parent Category",
+            accessorKey: "parent",
+            cell: ({ row }) => {
+                const parent = row.getValue('parent') as any
+                if (parent)
+                    return (
+                        <div className="capitalize">{parent?.name}</div>
+                    )
+
+                return (
+                    <div className="capitalize">-</div>
+                )
+            }
+        },
+        {
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+                const status = (row.getValue("status") as string) === "active" ? "success" : "error";
+                return (
+                    <Badge variant={status} className='capitalize'>
+                        {row.getValue("status")}
+                    </Badge>
+                )
+            },
         },
         {
             id: "actions",
