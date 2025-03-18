@@ -7,6 +7,7 @@ use App\Http\Requests\Customer\StoreRequest;
 use App\Http\Requests\Customer\UpdateRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 class CustomerController extends Controller
@@ -21,10 +22,13 @@ class CustomerController extends Controller
         $customers = $this->model->query()
             ->select(['id', 'name', 'email', 'phone', 'status', 'avatar'])
             ->orderBy('id', 'desc')
-            ->simplePaginate(perPage: $request->per_page ?? config('pos.per_page'))
+            ->paginate(perPage: $request->per_page ?? config('pos.per_page'))
             ->withQueryString();
 
-        return Inertia::render('customer/index', compact('customers'));
+        return Inertia::render('customer/index', [
+            'customers' => Inertia::merge($customers->items()),
+            'pagination' => Arr::except($customers->toArray(), ['data', 'links'])
+        ]);
     }
 
 

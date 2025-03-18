@@ -121,7 +121,9 @@ export default function AppTable({ data, columns, meta }: dataTableProps) {
                             size="icon"
                             onClick={() => {
                                 if (meta.next_page_url) {
-                                    router.visit(meta.next_page_url || "")
+                                    router.reload({
+                                        only: ['customers'],                                        
+                                    })
                                 }
                             }}
                             disabled={meta.next_page_url === null}

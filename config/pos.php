@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'per_page' => 15
+    'per_page' => 5
 ];

@@ -1,4 +1,4 @@
-import { Head } from "@inertiajs/react";
+import { Head, WhenVisible } from "@inertiajs/react";
 import AppTable from "@/components/table/app-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,7 +6,6 @@ import AppLayout from "@/layouts/app-layout";
 import { useSheetStore } from "@/hooks/use-sheet";
 import { BreadcrumbItem } from "@/types";
 
-import { PaginatedCustomerProps } from "./_components/customer";
 import { useColumns } from "./_components/use-columns";
 import { CustomerOperation } from "./_components/customer-operation";
 
@@ -21,11 +20,12 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ];
 
-const Index = ({ customers }: { customers: PaginatedCustomerProps }) => {
+const Index = ({ customers, pagination }: any) => {
 
     const { columns, itemId, mode, setMode } = useColumns();
     const { openSheet } = useSheetStore();
 
+    let reachedEnd = pagination.current_page >= pagination.last_page
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Customers" />
@@ -44,13 +44,22 @@ const Index = ({ customers }: { customers: PaginatedCustomerProps }) => {
                     </Button>
                 </div>
                 <AppTable
-                    data={customers.data}
+                    data={customers}
                     columns={columns}
-                    meta={{
-                        next_page_url: customers.next_page_url,
-                        prev_page_url: customers.prev_page_url,
-                    }}
                 />
+                <WhenVisible
+                    fallback={"loading..."}
+                    always={!reachedEnd}
+                    params={{
+                        only: ['customers', 'pagination'],
+                        preserveUrl: true,
+                        data: {
+                            page: pagination.current_page + 1
+                        }
+                    }}
+                >
+                    <></>
+                </WhenVisible>
             </div>
             <CustomerOperation customerId={itemId} mode={mode} />
         </AppLayout>
