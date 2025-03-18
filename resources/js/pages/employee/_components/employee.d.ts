@@ -1,4 +1,6 @@
-export type employeeTableProps = {
+import { type Pagination } from "@/types";
+
+export interface EmployeeColumnProps {
     id: number;
     department: string | null;
     name: string;
@@ -6,9 +8,15 @@ export type employeeTableProps = {
     joined_at: string;
     position: string;
     status: status;
+    avatar_url: string | null;
 }
 
-export type EmployeeFormProps = {
+export interface EmployeePageProps {
+    employees: EmployeeColumnProps[];
+    pagination: Pagination;
+}
+
+export interface EmployeeFormProps {
     name: string,
     phone: string,
     address: string,
@@ -23,19 +31,7 @@ export type EmployeeFormProps = {
 }
 
 
-export type PaginatiedEmployeeProps = {
-    current_page: number,
-    data: employee[],
-    first_page_url: string,
-    from: number,
-    next_page_url: string | null,
-    path: string,
-    per_page: number,
-    prev_page_url: string | null,
-    to: number,
-}
-
-export type EmployeeResponseProps = {
+export interface EmployeeResponseProps {
     id: number;
     name: string;
 }

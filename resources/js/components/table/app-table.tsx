@@ -4,8 +4,6 @@ import {
     getCoreRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-import { router } from "@inertiajs/react";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 import {
     Table,
@@ -15,24 +13,17 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Button } from "@/components/ui/button";
+import { type Pagination } from "@/types";
+import { WhenVisible } from "@inertiajs/react";
 
-export interface dataTableProps {
+interface CustomerTableProps {
     data: any[];
     columns: ColumnDef<any>[];
-    meta?: {
-        current_page?: number,
-        first_page_url?: string,
-        from?: number,
-        next_page_url: string | null,
-        path?: string,
-        per_page?: number,
-        prev_page_url: string | null,
-        to?: number,
-    };
+    pagination?: Pagination;
+    refetch?: string[];
 }
 
-export default function AppTable({ data, columns, meta }: dataTableProps) {
+export default function AppTable({ data, columns, pagination, refetch }: CustomerTableProps) {
 
     const table = useReactTable({
         data,
@@ -40,6 +31,9 @@ export default function AppTable({ data, columns, meta }: dataTableProps) {
         getCoreRowModel: getCoreRowModel(),
         enableRowSelection: true,
     })
+    const scrolledToEnd = pagination
+        ? pagination.current_page >= pagination.last_page
+        : false as boolean
 
     return (
         <div className="w-full">
@@ -101,39 +95,22 @@ export default function AppTable({ data, columns, meta }: dataTableProps) {
                     {table.getFilteredSelectedRowModel().rows.length} of{" "}
                     {table.getFilteredRowModel().rows.length} row(s) selected.
                 </div>
-                {meta && (
-                    <div className="space-x-2">
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={() => {
-                                if (meta.prev_page_url) {
-                                    router.visit(meta.prev_page_url || "")
-                                }
-                            }}
-                            disabled={meta.prev_page_url === null}
-                            className="cursor-pointer"
-                        >
-                            <ChevronLeftIcon />
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={() => {
-                                if (meta.next_page_url) {
-                                    router.reload({
-                                        only: ['customers'],                                        
-                                    })
-                                }
-                            }}
-                            disabled={meta.next_page_url === null}
-                            className="cursor-pointer"
-                        >
-                            <ChevronRightIcon />
-                        </Button>
-                    </div>
-                )}
             </div>
+            {pagination && refetch && (
+                <WhenVisible
+                    fallback={"loading..."}
+                    always={!scrolledToEnd}
+                    params={{
+                        only: [...refetch, 'pagination'],
+                        preserveUrl: true,
+                        data: {
+                            page: pagination.current_page + 1
+                        }
+                    }}
+                >
+                    <></>
+                </WhenVisible>
+            )}
         </div>
     )
 }

@@ -7,16 +7,23 @@ import { toast } from "sonner";
 import ActionMenu from "@/components/table/table-action-menu";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage
+} from "@/components/ui/avatar";
+
 import { useSheetStore } from "@/hooks/use-sheet";
-import { CustomerColumnProps } from "./customer";
 import { useAlertStore } from "@/hooks/use-alert";
-import { Mode } from "@/types";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+import { type CustomerColumnProps } from "./customer";
+import { type Mode } from "@/types";
 
 export const useColumns = () => {
 
     const [itemId, setItemId] = useState<number | null>(null);
     const [mode, setMode] = useState<Mode>(null)
+
     const { openSheet } = useSheetStore()
     const { openAlert, closeAlert } = useAlertStore()
 
@@ -60,6 +67,7 @@ export const useColumns = () => {
             enableHiding: false,
         },
         {
+            id: "avatar_url",
             accessorKey: "avatar_url",
             header: "",
             cell: ({ row }) => (
@@ -76,6 +84,7 @@ export const useColumns = () => {
             )
         },
         {
+            id: "name",
             accessorKey: "name",
             header: "Customer Name",
             cell: ({ row }) => (
@@ -83,16 +92,19 @@ export const useColumns = () => {
             ),
         },
         {
+            id: "email",
             accessorKey: "email",
             header: "Email Address",
             cell: ({ row }) => <div className="lowercase truncate max-w-xs">{row.getValue("email")}</div>,
         },
         {
+            id: "phone",
             accessorKey: "phone",
             header: "Phone",
             cell: ({ row }) => <div className="lowercase">{row.getValue("phone")}</div>,
         },
         {
+            id: "status",
             accessorKey: "status",
             header: "Status",
             cell: ({ row }) => {

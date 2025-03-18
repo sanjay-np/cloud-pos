@@ -1,13 +1,22 @@
-import { Head, WhenVisible } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
+import {
+    FileDownIcon,
+    ListFilterIcon,
+    Settings2Icon
+} from "lucide-react";
+
+import AppLayout from "@/layouts/app-layout";
 import AppTable from "@/components/table/app-table";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import AppLayout from "@/layouts/app-layout";
-import { useSheetStore } from "@/hooks/use-sheet";
-import { BreadcrumbItem } from "@/types";
 
 import { useColumns } from "./_components/use-columns";
 import { CustomerOperation } from "./_components/customer-operation";
+
+import { useSheetStore } from "@/hooks/use-sheet";
+
+import { type BreadcrumbItem, } from "@/types";
+import { type CustomerPageProps } from "./_components/customer";
+import AppSearch from "@/components/app/app-search";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -20,46 +29,48 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ];
 
-const Index = ({ customers, pagination }: any) => {
+const Index = ({ customers, pagination }: CustomerPageProps) => {
 
     const { columns, itemId, mode, setMode } = useColumns();
     const { openSheet } = useSheetStore();
 
-    let reachedEnd = pagination.current_page >= pagination.last_page
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Customers" />
             <div className="table-wrapper">
                 <div className="flex items-center justify-between py-2 gap-2">
-                    <Input placeholder="Search Customers..." />
-                    <Button
-                        variant="outline"
-                        className="ml-auto"
-                        onClick={() => {
-                            setMode("add")
-                            openSheet()
-                        }}
-                    >
-                        Add New
-                    </Button>
+                    <AppSearch
+                        placeholder="Search Customers..."
+                        searchRoute="customers.index"
+                    />
+                    <div className="flex gap-2">
+                        <Button variant={'outline'}>
+                            <ListFilterIcon />
+                        </Button>
+                        <Button variant={'outline'}>
+                            <Settings2Icon />
+                        </Button>
+                        <Button variant={'outline'}>
+                            <FileDownIcon />
+                        </Button>
+                        <Button
+                            variant="default"
+                            className="ml-auto"
+                            onClick={() => {
+                                setMode("add")
+                                openSheet()
+                            }}
+                        >
+                            Add New
+                        </Button>
+                    </div>
                 </div>
                 <AppTable
                     data={customers}
                     columns={columns}
+                    pagination={pagination}
+                    refetch={['customers']}
                 />
-                <WhenVisible
-                    fallback={"loading..."}
-                    always={!reachedEnd}
-                    params={{
-                        only: ['customers', 'pagination'],
-                        preserveUrl: true,
-                        data: {
-                            page: pagination.current_page + 1
-                        }
-                    }}
-                >
-                    <></>
-                </WhenVisible>
             </div>
             <CustomerOperation customerId={itemId} mode={mode} />
         </AppLayout>

@@ -5,7 +5,7 @@ import { toast } from "sonner"
 
 import AppSheet from "@/components/app/app-sheet"
 import CustomerForm from "./customer-form"
-import { CustomerFormProps, CustomerResponseProps } from "./customer"
+import { type CustomerFormProps, type CustomerResponseProps } from "./customer"
 import { Mode } from "@/types"
 import { useSheetStore } from "@/hooks/use-sheet"
 

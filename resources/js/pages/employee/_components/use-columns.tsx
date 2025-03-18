@@ -1,18 +1,24 @@
 import { useState } from "react"
 import { ColumnDef } from "@tanstack/react-table"
 import { Edit, Tablet, TrashIcon } from "lucide-react";
-import { format } from "date-fns";
 import { router } from "@inertiajs/react";
+import { format } from "date-fns";
 import { toast } from "sonner";
 
 import ActionMenu from "@/components/table/table-action-menu";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage
+} from "@/components/ui/avatar";
+
 import { useSheetStore } from "@/hooks/use-sheet"
 import { useAlertStore } from "@/hooks/use-alert";
-import { Mode } from "@/types";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+import { type Mode } from "@/types";
+import { type EmployeeColumnProps } from "./employee";
 
 export const useColumns = () => {
 
@@ -34,7 +40,7 @@ export const useColumns = () => {
         openAlert(() => handleDelete(id));
     };
 
-    const columns: ColumnDef<any>[] = [
+    const columns: ColumnDef<EmployeeColumnProps>[] = [
         {
             id: "select",
             header: ({ table }) => (
@@ -58,6 +64,7 @@ export const useColumns = () => {
             enableHiding: false,
         },
         {
+            id: "avatar_url",
             accessorKey: "avatar_url",
             header: "",
             cell: ({ row }) => (
@@ -74,6 +81,7 @@ export const useColumns = () => {
             )
         },
         {
+            id: "name",
             accessorKey: "name",
             header: "Employee Name",
             cell: ({ row }) => (
@@ -81,26 +89,31 @@ export const useColumns = () => {
             ),
         },
         {
+            id: "phone",
             accessorKey: "phone",
             header: "Phone",
             cell: ({ row }) => <div className="lowercase">{row.getValue("phone")}</div>,
         },
         {
+            id: "department",
             accessorKey: "department",
             header: "Department",
             cell: ({ row }) => <div className="capitalize">{row.getValue("department")}</div>,
         },
         {
+            id: "position",
             accessorKey: "position",
             header: "Position",
             cell: ({ row }) => <div className="capitalize">{row.getValue("position")}</div>,
         },
         {
+            id: "joined_at",
             accessorKey: "joined_at",
             header: "Joined At",
             cell: ({ row }) => <div className="capitalize">{format(row.getValue("joined_at"), 'PPP')}</div>,
         },
         {
+            id: "status",
             accessorKey: "status",
             header: "Status",
             cell: ({ row }) => {

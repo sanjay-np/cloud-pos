@@ -1,3 +1,5 @@
+import { type Pagination } from "@/types";
+
 export interface CustomerColumnProps {
     id: number;
     name: string;
@@ -5,6 +7,11 @@ export interface CustomerColumnProps {
     email: string;
     status: string;
     avatar_url: string | null;
+}
+
+export interface CustomerPageProps {
+    customers: CustomerColumnProps[];
+    pagination: Pagination
 }
 
 export interface CustomerFormProps {
@@ -15,18 +22,6 @@ export interface CustomerFormProps {
     whatsapp: string,
     status: string,
     avatar: File | null | string
-}
-
-export interface PaginatedCustomerProps {
-    current_page: number,
-    data: CustomerColumnProps[],
-    first_page_url: string,
-    from: number,
-    next_page_url: string | null,
-    path: string,
-    per_page: number,
-    prev_page_url: string | null,
-    to: number,
 }
 
 export interface CustomerResponseProps {

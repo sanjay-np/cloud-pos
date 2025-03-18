@@ -21,6 +21,7 @@ class CustomerController extends Controller
     {
         $customers = $this->model->query()
             ->select(['id', 'name', 'email', 'phone', 'status', 'avatar'])
+            ->applyFilter($request->all())
             ->orderBy('id', 'desc')
             ->paginate(perPage: $request->per_page ?? config('pos.per_page'))
             ->withQueryString();

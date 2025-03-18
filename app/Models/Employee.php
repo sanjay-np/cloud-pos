@@ -31,10 +31,12 @@ class Employee extends Model
         'created_by'
     ];
 
+
     protected $appends = [
         'avatar_url',
         'document_list',
     ];
+
 
     protected $hidden = [
         'avatar',
@@ -42,6 +44,7 @@ class Employee extends Model
         'updated_at',
         'deleted_at',
     ];
+
 
     protected $casts = [
         'document_files' => 'array',
@@ -69,6 +72,16 @@ class Employee extends Model
             }, $this->document_files, array_keys($this->document_files));
         }
         return [];
+    }
+
+
+    public function scopeApplyFilter($query, array $params)
+    {
+        $filterParams = collect($params);
+
+        if ($filterParams->has('qry')) {
+            $query->where('name', 'LIKE', "%{$filterParams->get('qry')}%");
+        }
     }
 
 

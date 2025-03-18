@@ -7,6 +7,7 @@ use App\Http\Requests\Employee\StoreRequest;
 use App\Http\Requests\Employee\UpdateRequest;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
@@ -20,11 +21,15 @@ class EmployeeController extends Controller
     {
         $employees = $this->model->query()
             ->select(['id', 'name', 'phone', 'joined_at', 'department', 'position', 'status', 'avatar'])
+            ->applyFilter($request->all())
             ->orderBy('id', 'desc')
-            ->simplePaginate(perPage: $request->per_page ?? config('pos.per_page'))
+            ->paginate(perPage: $request->per_page ?? config('pos.per_page'))
             ->withQueryString();
 
-        return Inertia::render('employee/index', compact('employees'));
+        return Inertia::render('employee/index', [
+            'employees' => Inertia::merge($employees->items()),
+            'pagination' => Arr::except($employees->toArray(), ['data', 'links'])
+        ]);
     }
 
 

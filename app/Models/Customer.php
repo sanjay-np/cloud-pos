@@ -12,6 +12,9 @@ class Customer extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'name',
         'code',
@@ -24,9 +27,11 @@ class Customer extends Model
         'created_by',
     ];
 
+
     protected $appends = [
         'avatar_url'
     ];
+
 
     protected $hidden = [
         'avatar',
@@ -35,6 +40,7 @@ class Customer extends Model
         'deleted_at',
     ];
 
+
     public function getAvatarUrlAttribute()
     {
         if ($this->avatar) {
@@ -42,6 +48,17 @@ class Customer extends Model
         }
         return null;
     }
+
+
+    public function scopeApplyFilter($query, array $params)
+    {
+        $filterParams = collect($params);
+
+        if ($filterParams->has('qry')) {
+            $query->where('name', 'LIKE', "%{$filterParams->get('qry')}%");
+        }
+    }
+
 
     public static function boot()
     {
