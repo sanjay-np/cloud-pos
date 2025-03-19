@@ -3,20 +3,33 @@
 namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Attribute\StoreRequest;
+use App\Http\Requests\Attribute\UpdateRequest;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 class AttributeController extends Controller
 {
-    public function __construct(private Attribute $model) {}
+    public function __construct(
+        private Attribute $model
+    ) {}
+
 
     public function index(Request $request)
     {
-        $attributes = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
-        return Inertia::render('Product::Attribute', [
-            'attributes' => $attributes
+        $attributes = $this->model->query()
+            ->applyFilter($request->all())
+            ->orderBy('id', 'desc')
+            ->paginate(perPage: 10);
+
+        return Inertia::render('attribute/index', [
+            'attributes' => Inertia::merge($attributes->items()),
+            'pagination' => Arr::except($attributes->toArray(), ['data', 'links'])
         ]);
     }
+
 
     public function store(StoreRequest $request)
     {
@@ -26,10 +39,12 @@ class AttributeController extends Controller
         }
     }
 
+
     public function show($id)
     {
         return $this->model->findOrFail($id);
     }
+
 
     public function update(UpdateRequest $request, $id)
     {
@@ -38,6 +53,7 @@ class AttributeController extends Controller
             return to_route('attributes.index');
         }
     }
+
 
     public function destroy($id)
     {

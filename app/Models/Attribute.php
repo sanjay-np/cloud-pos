@@ -18,4 +18,20 @@ class Attribute extends Model
         'description',
         'status'
     ];
+
+    protected $hidden = [
+        'created_by',
+        'updated_at',
+        'deleted_at',
+    ];
+
+
+    public function scopeApplyFilter($query, $params)
+    {
+        $filterParams = collect($params);
+
+        if ($filterParams->has('qry')) {
+            $query->where('name', 'LIKE', "%{$filterParams->get('qry')}%");
+        }
+    }
 }

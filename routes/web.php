@@ -14,6 +14,7 @@ Route::middleware(['auth', 'verified'])
             ->name('dashboard');
     });
 
+require __DIR__ . "/attributes.php";
 require __DIR__ . '/employees.php';
 require __DIR__ . '/customers.php';
 require __DIR__ . '/brands.php';
