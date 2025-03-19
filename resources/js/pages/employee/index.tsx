@@ -6,17 +6,16 @@ import {
 } from "lucide-react";
 
 import AppLayout from "@/layouts/app-layout";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import AppTable from "@/components/table/app-table";
+import AppSearch from "@/components/app/app-search";
 
 import { EmployeeOperation } from "./_components/employee-operation";
 import { useColumns } from "./_components/use-columns";
 
 import { useSheetStore } from "@/hooks/use-sheet";
 import { type BreadcrumbItem } from "@/types";
-import { type EmployeePageProps } from "./_components/employee";
-import AppSearch from "@/components/app/app-search";
+import { type EmployeeIndexProps } from "./_components/employee";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,7 +28,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ];
 
-const Index = ({ employees, pagination }: EmployeePageProps) => {
+const Index = ({ employees, pagination }: EmployeeIndexProps) => {
 
     const { columns, itemId, mode, setMode } = useColumns()
     const { openSheet } = useSheetStore();

@@ -11,7 +11,7 @@ export interface EmployeeColumnProps {
     avatar_url: string | null;
 }
 
-export interface EmployeePageProps {
+export interface EmployeeIndexProps {
     employees: EmployeeColumnProps[];
     pagination: Pagination;
 }

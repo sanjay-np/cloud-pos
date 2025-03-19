@@ -6,17 +6,24 @@ import { toast } from "sonner";
 
 import ActionMenu from "@/components/table/table-action-menu";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage
+} from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 import { useSheetStore } from "@/hooks/use-sheet";
 import { useAlertStore } from "@/hooks/use-alert";
-import { Mode } from "@/types";
-import { Badge } from "@/components/ui/badge";
+
+import { type Mode } from "@/types";
+import { type CategoryColumnProps } from "./category";
 
 export const useColumns = () => {
 
     const [itemId, setItemId] = useState<number | null>(null);
     const [mode, setMode] = useState<Mode>(null)
+
     const { openSheet } = useSheetStore()
     const { openAlert, closeAlert } = useAlertStore()
 
@@ -35,7 +42,7 @@ export const useColumns = () => {
         openAlert(() => handleDelete(id));
     };
 
-    const columns: ColumnDef<any>[] = [
+    const columns: ColumnDef<CategoryColumnProps>[] = [
         {
             id: "select",
             header: ({ table }) => (

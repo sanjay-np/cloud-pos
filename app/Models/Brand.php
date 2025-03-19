@@ -20,9 +20,11 @@ class Brand extends Model
         'image'
     ];
 
+
     protected $appends = [
         'image_url'
     ];
+
 
     protected $hidden = [
         'image',
@@ -31,11 +33,22 @@ class Brand extends Model
         'deleted_at',
     ];
 
+
     public function getImageUrlAttribute()
     {
         if ($this->image) {
             return asset($this->image);
         }
         return null;
+    }
+
+
+    public function scopeApplyFilter($query, array $params)
+    {
+        $filterParams = collect($params);
+
+        if ($filterParams->has('qry')) {
+            $query->where('name', 'LIKE', "%{$filterParams->get('qry')}%");
+        }
     }
 }

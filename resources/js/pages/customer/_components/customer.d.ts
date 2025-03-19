@@ -9,7 +9,7 @@ export interface CustomerColumnProps {
     avatar_url: string | null;
 }
 
-export interface CustomerPageProps {
+export interface CustomerIndexProps {
     customers: CustomerColumnProps[];
     pagination: Pagination
 }

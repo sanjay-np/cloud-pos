@@ -1,21 +1,21 @@
-export type Brand = {
-    id: number,
-    name: string
+import { type Pagination } from "@/types";
+
+export interface Brand {
+    id: number;
+    name: string;
 }
 
-type PaginatedSupplierProps = {
-    current_page: number,
-    data: string[],
-    first_page_url: string,
-    from: number,
-    next_page_url: string | null,
-    path: string,
-    per_page: number,
-    prev_page_url: string | null,
-    to: number,
+export interface SupplierColumnProps {
+    brand_items: Brand[] | null;
+    contact_person: string;
+    id: number;
+    name: string;
+    phone: string
 }
 
-export type SupplierIndexProps = {
-    brands: Brand[],
-    suppliers: PaginatedSupplierProps
+
+export interface SupplierIndexProps {
+    brands: Brand[];
+    suppliers: SupplierColumnProps[];
+    pagination: Pagination;
 }

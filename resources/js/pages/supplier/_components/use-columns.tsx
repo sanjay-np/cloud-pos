@@ -1,21 +1,29 @@
 import { useState } from "react"
 import { ColumnDef } from "@tanstack/react-table"
-import { Edit, Tablet, TrashIcon } from "lucide-react";
+import {
+    Edit,
+    Tablet,
+    TrashIcon
+} from "lucide-react";
 import { router } from "@inertiajs/react";
 import { toast } from "sonner";
 
 import ActionMenu from "@/components/table/table-action-menu";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
+
 import { useSheetStore } from "@/hooks/use-sheet"
 import { useAlertStore } from "@/hooks/use-alert";
-import { Mode } from "@/types";
-import { Badge } from "@/components/ui/badge";
+
+import { type Mode } from "@/types";
+import { type Brand, type SupplierColumnProps } from "./supplier";
 
 
 export const useColumns = () => {
 
     const [itemId, setItemId] = useState<number | null>(null)
     const [mode, setMode] = useState<Mode>(null)
+
     const { openSheet } = useSheetStore()
     const { openAlert, closeAlert } = useAlertStore()
 
@@ -32,7 +40,7 @@ export const useColumns = () => {
         openAlert(() => handleDelete(id));
     };
 
-    const columns: ColumnDef<any>[] = [
+    const columns: ColumnDef<SupplierColumnProps>[] = [
         {
             id: "select",
             header: ({ table }) => (
@@ -56,6 +64,7 @@ export const useColumns = () => {
             enableHiding: false,
         },
         {
+            id: "name",
             accessorKey: "name",
             header: "Supplier Name",
             cell: ({ row }) => (
@@ -63,25 +72,26 @@ export const useColumns = () => {
             ),
         },
         {
+            id: "contact_person",
             accessorKey: "contact_person",
             header: "Contact Person",
             cell: ({ row }) => <div className="capitalize">{row.getValue("contact_person")}</div>,
         },
         {
+            id: "phone",
             accessorKey: "phone",
             header: "Contact",
             cell: ({ row }) => <div className="lowercase">{row.getValue("phone")}</div>,
         },
         {
+            id: "brand_items",
             accessorKey: "brand_items",
             header: "Brands",
             cell: ({ row }) => {
-                const items = row.getValue("brand_items")
+                const items = row.getValue("brand_items") as Brand[]
                 return (
                     <div className="flex gap-2">
-                        {items?.length > 0 && items.map((item, index) => (
-                            <Badge variant={"outline"} key={index}>{item?.name}</Badge>
-                        ))}
+                        {items && items.map((item) => <Badge variant={"outline"} key={item.id}>{item.name}</Badge>)}
                     </div>
                 )
             },

@@ -3,15 +3,17 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import AppSheet from "@/components/app/app-sheet";
-import { useSheetStore } from "@/hooks/use-sheet";
-import { Mode } from "@/types";
 import SupplierForm from "./supplier-form";
-import { Brand } from "./supplier";
+
+import { useSheetStore } from "@/hooks/use-sheet";
+
+import { type Mode } from "@/types";
+import { type Brand } from "./supplier";
 
 type SupplierOperationProps = {
     supplierId: number | null;
-    mode: Mode,
-    brands: Brand[]
+    mode: Mode;
+    brands: Brand[] | null;
 }
 
 const SupplierOperation = ({ supplierId, mode, brands }: SupplierOperationProps) => {

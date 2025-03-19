@@ -1,20 +1,31 @@
 import { useState } from "react"
 import { ColumnDef } from "@tanstack/react-table"
-import { Edit, Tablet, TrashIcon } from "lucide-react";
+import {
+    Edit,
+    Tablet,
+    TrashIcon
+} from "lucide-react";
 import { router } from "@inertiajs/react";
 import { toast } from "sonner";
 
 import ActionMenu from "@/components/table/table-action-menu";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage
+} from "@/components/ui/avatar";
+
 import { useSheetStore } from "@/hooks/use-sheet"
 import { useAlertStore } from "@/hooks/use-alert";
-import { Mode } from "@/types";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { type Mode } from "@/types";
+import { BrandColumnProps } from "./brand";
 
 export const useColumns = () => {
 
     const [itemId, setItemId] = useState<number | null>(null)
     const [mode, setMode] = useState<Mode>(null)
+
     const { openSheet } = useSheetStore()
     const { openAlert, closeAlert } = useAlertStore()
 
@@ -31,7 +42,7 @@ export const useColumns = () => {
         openAlert(() => handleDelete(id));
     };
 
-    const columns: ColumnDef<any>[] = [
+    const columns: ColumnDef<BrandColumnProps>[] = [
         {
             id: "select",
             header: ({ table }) => (
@@ -55,6 +66,7 @@ export const useColumns = () => {
             enableHiding: false,
         },
         {
+            id: "image_url",
             accessorKey: "image_url",
             header: "",
             cell: ({ row }) => (

@@ -8,6 +8,7 @@ import {
 import AppLayout from "@/layouts/app-layout";
 import AppTable from "@/components/table/app-table";
 import { Button } from "@/components/ui/button";
+import AppSearch from "@/components/app/app-search";
 
 import { useColumns } from "./_components/use-columns";
 import { CustomerOperation } from "./_components/customer-operation";
@@ -15,8 +16,7 @@ import { CustomerOperation } from "./_components/customer-operation";
 import { useSheetStore } from "@/hooks/use-sheet";
 
 import { type BreadcrumbItem, } from "@/types";
-import { type CustomerPageProps } from "./_components/customer";
-import AppSearch from "@/components/app/app-search";
+import { type CustomerIndexProps } from "./_components/customer";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,7 +29,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ];
 
-const Index = ({ customers, pagination }: CustomerPageProps) => {
+const Index = ({ customers, pagination }: CustomerIndexProps) => {
 
     const { columns, itemId, mode, setMode } = useColumns();
     const { openSheet } = useSheetStore();

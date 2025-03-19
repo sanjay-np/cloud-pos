@@ -7,6 +7,7 @@ use App\Http\Requests\Brand\StoreRequest;
 use App\Http\Requests\Brand\UpdateRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 class BrandController extends Controller
@@ -15,15 +16,21 @@ class BrandController extends Controller
         private Brand $model,
     ) {}
 
+
     public function index(Request $request)
     {
         $brands = $this->model->query()
-            ->select(['id', 'name', 'image','description'])
-            ->simplePaginate(perPage: $request->per_page ?? config('pos.per_page'))
+            ->select(['id', 'name', 'image', 'description'])
+            ->applyFilter($request->all())
+            ->paginate(perPage: $request->per_page ?? config('pos.per_page'))
             ->withQueryString();
 
-        return Inertia::render('brand/index', compact('brands'));
+        return Inertia::render('brand/index', [
+            'brands' => Inertia::merge($brands->items()),
+            'pagination' => Arr::except($brands->toArray(), ['data', 'links'])
+        ]);
     }
+
 
     public function store(StoreRequest $request)
     {
@@ -33,10 +40,12 @@ class BrandController extends Controller
         }
     }
 
+
     public function show($id)
     {
         return $this->model->findOrFail($id);
     }
+
 
     public function update(UpdateRequest $request, $id)
     {
@@ -45,6 +54,7 @@ class BrandController extends Controller
             return to_route('brands.index');
         }
     }
+
 
     public function destroy($id)
     {

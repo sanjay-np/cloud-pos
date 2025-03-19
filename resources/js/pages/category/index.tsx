@@ -1,15 +1,23 @@
 import { Head } from "@inertiajs/react";
+import {
+    FileDownIcon,
+    ListFilterIcon,
+    Settings2Icon
+} from "lucide-react";
 
 import AppLayout from "@/layouts/app-layout";
 import AppTable from "@/components/table/app-table";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import AppSearch from "@/components/app/app-search";
 
 import { CategoryOperation } from "./_components/category-operation";
 import { useColumns } from "./_components/use-columns";
 
 import { useSheetStore } from "@/hooks/use-sheet";
-import { BreadcrumbItem } from "@/types";
+
+import { type BreadcrumbItem } from "@/types";
+import { type CategoryIndexProps } from "./_components/category";
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -23,10 +31,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 
-const Index = ({ categories, parentCategories }: any) => {
-
-    console.log(categories);
-
+const Index = ({ categories, parentCategories, pagination }: CategoryIndexProps) => {
 
     const { columns, itemId, mode, setMode } = useColumns();
     const { openSheet } = useSheetStore();
@@ -36,25 +41,37 @@ const Index = ({ categories, parentCategories }: any) => {
             <Head title="Categories" />
             <div className="table-wrapper">
                 <div className="flex items-center justify-between py-2 gap-2">
-                    <Input placeholder="Search Categories..." />
-                    <Button
-                        variant="outline"
-                        className="ml-auto"
-                        onClick={() => {
-                            setMode("add")
-                            openSheet()
-                        }}
-                    >
-                        Add New
-                    </Button>
+                    <AppSearch
+                        placeholder="Search Categories..."
+                        searchRoute="brands.index"
+                    />
+                    <div className="flex gap-2">
+                        <Button variant={'outline'}>
+                            <ListFilterIcon />
+                        </Button>
+                        <Button variant={'outline'}>
+                            <Settings2Icon />
+                        </Button>
+                        <Button variant={'outline'}>
+                            <FileDownIcon />
+                        </Button>
+                        <Button
+                            variant="default"
+                            className="ml-auto"
+                            onClick={() => {
+                                setMode("add")
+                                openSheet()
+                            }}
+                        >
+                            Add New
+                        </Button>
+                    </div>
                 </div>
                 <AppTable
-                    data={categories.data}
+                    data={categories}
                     columns={columns}
-                    meta={{
-                        next_page_url: categories.next_page_url,
-                        prev_page_url: categories.prev_page_url,
-                    }}
+                    pagination={pagination}
+                    refetch={['categories']}
                 />
             </div>
             <CategoryOperation

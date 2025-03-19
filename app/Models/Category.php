@@ -21,24 +21,39 @@ class Category extends Model
         'status'
     ];
 
+
     protected $appends = [
         'image_url'
     ];
 
+
     protected $hidden = [
         'image',
         'created_by',
+        'created_at',
         'updated_at',
         'deleted_at',
     ];
+
 
     public function getImageUrlAttribute()
     {
         return asset($this->image);
     }
 
+
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent_id', 'id')->withTrashed();
+    }
+
+
+    public function scopeApplyFilter($query, array $params)
+    {
+        $filterParams = collect($params);
+
+        if ($filterParams->has('qry')) {
+            $query->where('name', 'LIKE', "%{$filterParams->get('qry')}%");
+        }
     }
 }

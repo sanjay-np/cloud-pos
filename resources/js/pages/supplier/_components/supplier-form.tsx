@@ -15,7 +15,7 @@ type SupplierFormProps = {
     setData: any;
     errors: any;
     isProcessing: boolean,
-    brands: Brand[]
+    brands: Brand[] | null;
 }
 
 const SupplierForm = ({ data, setData, errors, isProcessing, brands }: SupplierFormProps) => {
@@ -90,7 +90,7 @@ const SupplierForm = ({ data, setData, errors, isProcessing, brands }: SupplierF
             <div className="grid w-full gap-2">
                 <Label>Brands</Label>
                 <TagPicker
-                    tags={brands}
+                    tags={brands ?? []}
                     selectedTagIds={selectedBrands}
                     setSelectedTagIds={setSelectedBrands}
                     placeholder="Search for brands..."

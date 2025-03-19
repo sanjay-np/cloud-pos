@@ -7,6 +7,7 @@ use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -20,19 +21,24 @@ class CategoryController extends Controller
     {
         $categories = $this->model->query()
             ->with(['parent:id,name'])
+            ->applyFilter($request->all())
             ->orderBy('id', 'desc')
-            ->simplePaginate($request->per_page ?? config('pos.per_page'))
+            ->paginate($request->per_page ?? config('pos.per_page'))
             ->withQueryString();
 
 
         $parentCategories = $this->model->query()
-            ->select(["id", "name"])
-            ->get()?->map(fn($item) => [
+            ->withTrashed()
+            ->select(["id", "name"])->get()?->map(fn($item) => [
                 'label' => $item->name,
                 'value' => $item->id
             ]);
 
-        return Inertia::render('category/index', compact('categories', 'parentCategories'));
+        return Inertia::render('category/index', [
+            'categories' => Inertia::merge($categories->items()),
+            'pagination' => Arr::except($categories->toArray(), ['data', 'links']),
+            'parentCategories' => $parentCategories
+        ]);
     }
 
 

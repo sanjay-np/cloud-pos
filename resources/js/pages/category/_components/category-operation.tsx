@@ -1,13 +1,14 @@
-
 import { useEffect, useState } from "react"
 import { router, useForm } from "@inertiajs/react"
 import { toast } from "sonner"
 
 import AppSheet from "@/components/app/app-sheet"
 import { CategoryForm } from "./category-form"
+
 import { useSheetStore } from "@/hooks/use-sheet"
-import { Mode } from "@/types"
-import { ParentCategory } from "./category"
+
+import { type Mode } from "@/types"
+import { type ParentCategory } from "./category"
 
 type CateoryOperationProps = {
     categoryId: number | null,
@@ -26,7 +27,7 @@ export const CategoryOperation = ({ categoryId, mode, parents }: CateoryOperatio
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
     const [category, setCatgory] = useState<any>(null)
     const { closeSheet } = useSheetStore()
-    const [parentCategories, setParentCatgories] = useState<any>([])
+    const [parentCategories, setParentCategories] = useState<any>(parents ?? [])
 
     const {
         data,
@@ -62,8 +63,8 @@ export const CategoryOperation = ({ categoryId, mode, parents }: CateoryOperatio
             }
 
         }
-        let filteredCatories = parents?.filter((item) => parseInt(item?.value) != categoryId)
-        setParentCatgories(filteredCatories)
+        let filteredCategories = parents?.filter((item) => parseInt(item?.value) != categoryId)
+        setParentCategories(filteredCategories)
         fetchCustomer()
     }, [categoryId])
 
