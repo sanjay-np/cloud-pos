@@ -22,11 +22,25 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'sale_price' => ['required', 'string', 'max:255'],
-            'product_type' => ['required'],
-            'unit' => ['required'],
-            'status' => ['required'],
+            'title' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'sale_price' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'product_type' => [
+                'required'
+            ],
+            'unit' => [
+                'required'
+            ],
+            'status' => [
+                'required'
+            ],
         ];
     }
 
@@ -57,23 +71,23 @@ class StoreRequest extends FormRequest
         );
     }
 
-    public function getMainImage(): string
+    public function getMainImage(): string | null
     {
         if (!$this->hasFile('main_image')) {
             return null;
         }
-        $file = $this->file('main_image')['blobFile'];
+        $file = $this->file('main_image');
         return $this->uploadImage($file, 'Products');
     }
 
-    public function getGalleryImages(): array
+    public function getGalleryImages(): array | null
     {
         if (!$this->has('gallery_images')) {
             return null;
         }
         $files = [];
         foreach ($this->gallery_images as $file) {
-            $files[] = $this->uploadImage($file['blobFile'], 'Products');
+            $files[] = $this->uploadImage($file, 'Products');
         }
         return $files;
     }

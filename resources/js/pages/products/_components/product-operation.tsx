@@ -3,28 +3,27 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import AppSheet from "@/components/app/app-sheet";
-import AttributeForm from "./attribute-form";
 
 import { useSheetStore } from "@/hooks/use-sheet";
 
 import { type Mode } from "@/types";
+import ProductForm from "./product-form";
 
-type AttributeOperationProps = {
-    attributeId: number | null;
+type ProductOperationProps = {
+    productId: number | null;
     mode: Mode;
 }
 
-
-const AttributeOperation = ({ attributeId, mode }: AttributeOperationProps) => {
+const ProductOperation = ({ productId, mode }: ProductOperationProps) => {
 
     const drawerTitle = mode == 'add'
-        ? 'Add Attribute'
+        ? 'Add Product'
         : mode == 'edit'
-            ? "Edit Attribute"
-            : 'Attribute Details'
+            ? "Edit Product"
+            : 'Product Details'
 
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
-    const [supplier, setSupplier] = useState<any | null>(null)
+    const [product, setProduct] = useState<any | null>(null)
     const { closeSheet } = useSheetStore()
 
     const {
@@ -34,47 +33,18 @@ const AttributeOperation = ({ attributeId, mode }: AttributeOperationProps) => {
         processing,
         errors,
         reset,
-    } = useForm<Required<any>>({
-        name: "",
-        description: "",
-        attributes: [],
-        status: ""
-    })
-
-    const handleSubmit = () => {
-        if (mode == "add") {
-            post(route('attributes.store'), {
-                onSuccess: () => {
-                    toast.success('Supplier created successfully')
-                    closeSheet()
-                    reset();
-                }
-            })
-        }
-        if (mode == "edit" && attributeId) {
-            router.post(route('attributes.update', attributeId), {
-                _method: "put",
-                ...data
-            }, {
-                onSuccess: () => {
-                    toast.success('Supplier updated successfully')
-                    closeSheet()
-                    reset();
-                }
-            })
-        }
-    }
+    } = useForm<Required<any>>()
 
     useEffect(() => {
-        if (!attributeId) return
+        if (!productId) return
         setIsProcessing(true)
         const fetchSupplier = async () => {
             try {
-                const result = await fetch(route('attributes.show', attributeId))
+                const result = await fetch(route('products.show', productId))
                 const response = await result.json()
 
                 if (response) {
-                    setSupplier(response)
+                    setProduct(response)
                     setData(response)
                     setIsProcessing(false)
                 }
@@ -85,7 +55,31 @@ const AttributeOperation = ({ attributeId, mode }: AttributeOperationProps) => {
             }
         }
         fetchSupplier()
-    }, [attributeId])
+    }, [productId])
+
+    const handleSubmit = () => {
+        if (mode == "add") {
+            post(route('products.store'), {
+                onSuccess: () => {
+                    toast.success('Product created successfully')
+                    closeSheet()
+                    reset();
+                }
+            })
+        }
+        if (mode == "edit" && productId) {
+            router.post(route('products.update', productId), {
+                _method: "put",
+                ...data
+            }, {
+                onSuccess: () => {
+                    toast.success('Product updated successfully')
+                    closeSheet()
+                    reset();
+                }
+            })
+        }
+    }
 
     return (
         <AppSheet
@@ -95,7 +89,7 @@ const AttributeOperation = ({ attributeId, mode }: AttributeOperationProps) => {
             processing={processing}
         >
             {(mode == 'add' || mode == 'edit') && (
-                <AttributeForm
+                <ProductForm
                     data={data}
                     setData={setData}
                     errors={errors}
@@ -104,14 +98,14 @@ const AttributeOperation = ({ attributeId, mode }: AttributeOperationProps) => {
             )}
             {mode == 'view' && (
                 <div className="grid gap-4 px-4">
-                    {(isProcessing && !supplier) && (
+                    {(isProcessing && !product) && (
                         <>
                             loading...
                         </>
                     )}
-                    {(!isProcessing && supplier) && (
+                    {(!isProcessing && product) && (
                         <>
-                            {JSON.stringify(supplier, null, 2)}
+                            {JSON.stringify(product, null, 2)}
                         </>
                     )}
                 </div>
@@ -120,4 +114,4 @@ const AttributeOperation = ({ attributeId, mode }: AttributeOperationProps) => {
     )
 }
 
-export default AttributeOperation
+export default ProductOperation

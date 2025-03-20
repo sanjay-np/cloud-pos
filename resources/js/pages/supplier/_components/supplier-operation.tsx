@@ -51,7 +51,6 @@ const SupplierOperation = ({ supplierId, mode, brands }: SupplierOperationProps)
             try {
                 const result = await fetch(route('suppliers.show', supplierId))
                 const response = await result.json()
-                console.log(response);
 
                 if (response) {
                     setSupplier(response)
@@ -63,7 +62,6 @@ const SupplierOperation = ({ supplierId, mode, brands }: SupplierOperationProps)
             } finally {
                 setIsProcessing(false)
             }
-
         }
         fetchSupplier()
     }, [supplierId])
