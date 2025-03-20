@@ -45,7 +45,7 @@ export default function AppTable({ data, columns, pagination, refetch }: Custome
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id} className="bg-muted/50 h-10 font-semibold">
+                                        <TableHead key={header.id} className="bg-muted/50 h-10 font-semibold py-3 text-[14px]">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -82,7 +82,7 @@ export default function AppTable({ data, columns, pagination, refetch }: Custome
                                         className="h-24 flex-auto"
                                     >
                                         <div className="flex flex-col justify-center items-center">
-                                            <img src="/icons/not-found.png" className="object-fit size-80" />
+                                            <img src="/icons/not-found-1.png" className="object-fit size-80" />
                                             <div className="pb-6 flex flex-col justify-center items-center gap-2">
                                                 <p className="font-medium text-lg text-muted-foreground">Nothing found... yet!</p>
                                                 <Button>Create New</Button>
