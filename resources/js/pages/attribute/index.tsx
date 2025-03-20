@@ -11,11 +11,11 @@ import AppTable from '@/components/table/app-table';
 import { Button } from '@/components/ui/button';
 
 import { useColumns } from './_components/use-columns';
-import { AttributePageProps } from './_components/attribute';
 import AttributeOperation from './_components/attribute-operation';
 
 import { useSheetStore } from '@/hooks/use-sheet';
 import { type BreadcrumbItem } from '@/types';
+import { type AttributePageProps } from './_components/attribute';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

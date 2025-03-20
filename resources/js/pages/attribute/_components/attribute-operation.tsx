@@ -36,11 +36,9 @@ const AttributeOperation = ({ attributeId, mode }: AttributeOperationProps) => {
         reset,
     } = useForm<Required<any>>({
         name: "",
-        phone: "",
-        address: "",
-        pan: "",
-        contact_person: "",
-        brands: []
+        description: "",
+        attributes: [],
+        status: ""
     })
 
     const handleSubmit = () => {
@@ -74,6 +72,8 @@ const AttributeOperation = ({ attributeId, mode }: AttributeOperationProps) => {
             try {
                 const result = await fetch(route('attributes.show', attributeId))
                 const response = await result.json()
+                console.log(response);
+
                 if (response) {
                     setSupplier(response)
                     setData(response)

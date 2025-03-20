@@ -15,6 +15,8 @@ import { useSheetStore } from "@/hooks/use-sheet"
 import { useAlertStore } from "@/hooks/use-alert";
 
 import { type Mode } from "@/types";
+import { type AttributeColumnProps } from "./attribute";
+import { Badge } from "@/components/ui/badge";
 
 export const useColumns = () => {
 
@@ -37,7 +39,7 @@ export const useColumns = () => {
         openAlert(() => handleDelete(id));
     };
 
-    const columns: ColumnDef<any>[] = [
+    const columns: ColumnDef<AttributeColumnProps>[] = [
         {
             id: "select",
             header: ({ table }) => (
@@ -67,6 +69,32 @@ export const useColumns = () => {
             cell: ({ row }) => (
                 <div className="capitalize">{row.getValue("name")}</div>
             ),
+        },
+        {
+            id: "attributes",
+            accessorKey: "attributes",
+            header: "Options",
+            cell: ({ row }) => {
+                const items = row.getValue("attributes") as string[] | null
+                return (
+                    <div className="flex gap-2">
+                        {items && items.map((item, index) => <Badge variant={"outline"} key={index}>{item}</Badge>)}
+                    </div>
+                )
+            }
+        },
+        {
+            id: "status",
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+                const status = (row.getValue("status") as string) === "active" ? "success" : "error";
+                return (
+                    <Badge variant={status} className='capitalize'>
+                        {row.getValue("status")}
+                    </Badge>
+                )
+            },
         },
         {
             id: "actions",

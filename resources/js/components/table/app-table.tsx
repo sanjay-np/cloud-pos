@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/table"
 import { type Pagination } from "@/types";
 import { WhenVisible } from "@inertiajs/react";
+import { Button } from "../ui/button";
 
 interface CustomerTableProps {
     data: any[];
@@ -44,7 +45,7 @@ export default function AppTable({ data, columns, pagination, refetch }: Custome
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead key={header.id} className="bg-muted/50 h-10 font-semibold">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -80,8 +81,12 @@ export default function AppTable({ data, columns, pagination, refetch }: Custome
                                         colSpan={columns.length}
                                         className="h-24 flex-auto"
                                     >
-                                        <div className="flex justify-center">
-                                            No results
+                                        <div className="flex flex-col justify-center items-center">
+                                            <img src="/icons/not-found.png" className="object-fit size-80" />
+                                            <div className="pb-6 flex flex-col justify-center items-center gap-2">
+                                                <p className="font-medium text-lg text-muted-foreground">Nothing found... yet!</p>
+                                                <Button>Create New</Button>
+                                            </div>
                                         </div>
                                     </TableCell>
                                 </TableRow>

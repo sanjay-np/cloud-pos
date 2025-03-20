@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Products;
 
+use App\Actions\AttributeAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Attribute\StoreRequest;
 use App\Http\Requests\Attribute\UpdateRequest;
@@ -13,7 +14,7 @@ use Inertia\Inertia;
 class AttributeController extends Controller
 {
     public function __construct(
-        private Attribute $model
+        private Attribute $model,
     ) {}
 
 

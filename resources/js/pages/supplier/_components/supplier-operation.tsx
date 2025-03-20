@@ -51,6 +51,8 @@ const SupplierOperation = ({ supplierId, mode, brands }: SupplierOperationProps)
             try {
                 const result = await fetch(route('suppliers.show', supplierId))
                 const response = await result.json()
+                console.log(response);
+
                 if (response) {
                     setSupplier(response)
                     setData(response)

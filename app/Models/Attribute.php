@@ -16,15 +16,21 @@ class Attribute extends Model
     protected $fillable = [
         'name',
         'description',
-        'status'
+        'status',
+        'attributes'
     ];
 
+
     protected $hidden = [
-        'created_by',
+        'created_at',
         'updated_at',
         'deleted_at',
     ];
 
+
+    protected $casts = [
+        'attributes' => 'array'
+    ];
 
     public function scopeApplyFilter($query, $params)
     {

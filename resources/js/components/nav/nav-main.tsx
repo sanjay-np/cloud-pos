@@ -6,6 +6,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem
 } from '@/components/ui/sidebar';
+import { Icon } from '@/components/icon';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 
@@ -24,7 +25,7 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                                 tooltip={item.title}
                             >
                                 <Link href={item.url} prefetch>
-                                    {item.icon && <item.icon size={32} />}
+                                    {item.icon && <Icon iconNode={item.icon} className="!size-5" strokeWidth={1.5} />}
                                     <span>{item.title}</span>
                                 </Link>
                             </SidebarMenuButton>

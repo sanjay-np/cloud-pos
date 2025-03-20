@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+
 import AppLogo from '@/components/app/app-logo';
 import { NavFooter } from '@/components/nav/nav-footer';
 import { NavMain } from '@/components/nav/nav-main';
@@ -20,11 +21,10 @@ import {
     productMenuItems,
     userMenuItems,
 } from '@/lib/app-menu';
-import NavDropdown from '../nav/nav-dropdown';
 
 export function AppSidebar() {
     return (
-        <Sidebar collapsible="icon" variant="inset">
+        <Sidebar collapsible="icon" variant="sidebar">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>

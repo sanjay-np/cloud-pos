@@ -12,7 +12,27 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'description' => [
+                'nullable',
+                'string',
+            ],
+            'status' => [
+                'required',
+                'string'
+            ],
+            'attributes' => [
+                'required',
+                'array'
+            ],
+            'attributes.*' => [
+                'required',
+                'string'
+            ]
         ];
     }
 
@@ -24,9 +44,14 @@ class StoreRequest extends FormRequest
         return true;
     }
 
+
     public function getRequested(): array
     {
-        // Todo: Add validation for the request
-        return $this->all();
+        return $this->only(keys: [
+            'name',
+            'description',
+            'status',
+            'attributes'
+        ]);
     }
 }
