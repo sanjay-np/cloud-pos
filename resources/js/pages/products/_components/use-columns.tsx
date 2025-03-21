@@ -10,6 +10,12 @@ import { toast } from "sonner";
 
 import ActionMenu from "@/components/table/table-action-menu";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage
+} from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 import { useSheetStore } from "@/hooks/use-sheet"
 import { useAlertStore } from "@/hooks/use-alert";
@@ -61,12 +67,56 @@ export const useColumns = () => {
             enableHiding: false,
         },
         {
-            id: "name",
-            accessorKey: "name",
+            accessorKey: "image_url",
+            header: "",
+            cell: ({ row }) => (
+                <>
+                    <Avatar className={`size-16 border-2 border-dashed group-hover:border-primary transition-colors`}>
+                        <AvatarImage
+                            src={row.getValue("image_url") as string | undefined}
+                            alt="Profile picture"
+                            className="object-cover"
+                        />
+                        <AvatarFallback className="text-2xl">{"PI"}</AvatarFallback>
+                    </Avatar>
+                </>
+            )
+        },
+        {
+            id: "title",
+            accessorKey: "title",
             header: "Product Name",
             cell: ({ row }) => (
-                <div className="capitalize">{row.getValue("name")}</div>
+                <div className="capitalize">{row.getValue("title")}</div>
             ),
+        },
+        {
+            id: "stock_qty",
+            accessorKey: "stock_qty",
+            header: "Stock",
+            cell: ({ row }) => (
+                <div className="capitalize">{row.getValue("stock_qty")}</div>
+            ),
+        },
+        {
+            id: "sale_price",
+            accessorKey: "sale_price",
+            header: "Amount",
+            cell: ({ row }) => (
+                <div className="capitalize">{row.getValue("sale_price")}</div>
+            ),
+        },
+        {
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+                const status = (row.getValue("status") as string) === "active" ? "success" : "error";
+                return (
+                    <Badge variant={status} className='capitalize'>
+                        {row.getValue("status")}
+                    </Badge>
+                )
+            },
         },
         {
             id: "actions",

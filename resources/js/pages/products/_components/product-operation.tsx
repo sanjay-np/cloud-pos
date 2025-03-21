@@ -33,12 +33,26 @@ const ProductOperation = ({ productId, mode }: ProductOperationProps) => {
         processing,
         errors,
         reset,
-    } = useForm<Required<any>>()
+    } = useForm<Required<any>>({
+        title: "",
+        description: "",
+        main_image: null,
+        purchase_price: "",
+        sale_price: "",
+        stock_qty: "",
+        category_ids: "",
+        brand_id: "",
+        supplier_id: "",
+        tags: [],
+        product_type: "",
+        unit: "",
+        status: ""
+    })
 
     useEffect(() => {
         if (!productId) return
         setIsProcessing(true)
-        const fetchSupplier = async () => {
+        const fetchProduct = async () => {
             try {
                 const result = await fetch(route('products.show', productId))
                 const response = await result.json()
@@ -54,7 +68,7 @@ const ProductOperation = ({ productId, mode }: ProductOperationProps) => {
                 setIsProcessing(false)
             }
         }
-        fetchSupplier()
+        fetchProduct()
     }, [productId])
 
     const handleSubmit = () => {
@@ -87,6 +101,7 @@ const ProductOperation = ({ productId, mode }: ProductOperationProps) => {
             subTitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
             onConfirm={handleSubmit}
             processing={processing}
+            width={"sm:max-w-[600px]"}
         >
             {(mode == 'add' || mode == 'edit') && (
                 <ProductForm

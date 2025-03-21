@@ -21,8 +21,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
     {
-        title: 'Suppliers',
-        href: '/suppliers',
+        title: 'Products',
+        href: '/products',
     }
 ]
 
@@ -33,7 +33,7 @@ const Index = ({ products, pagination }: any) => {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Suppliers" />
+            <Head title="Products" />
             <div className="table-wrapper">
                 <div className="flex items-center justify-between py-2 gap-2">
                     <AppSearch

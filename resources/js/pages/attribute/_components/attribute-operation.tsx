@@ -68,7 +68,7 @@ const AttributeOperation = ({ attributeId, mode }: AttributeOperationProps) => {
     useEffect(() => {
         if (!attributeId) return
         setIsProcessing(true)
-        const fetchSupplier = async () => {
+        const fetchAttribute = async () => {
             try {
                 const result = await fetch(route('attributes.show', attributeId))
                 const response = await result.json()
@@ -84,7 +84,7 @@ const AttributeOperation = ({ attributeId, mode }: AttributeOperationProps) => {
                 setIsProcessing(false)
             }
         }
-        fetchSupplier()
+        fetchAttribute()
     }, [attributeId])
 
     return (

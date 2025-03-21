@@ -53,7 +53,7 @@ class StoreRequest extends FormRequest
                 'sku',
                 'bar_code',
                 'description',
-                'unit_price',
+                'purchase_price',
                 'sale_price',
                 'stock_qty',
                 'category_ids',
@@ -71,6 +71,7 @@ class StoreRequest extends FormRequest
         );
     }
 
+
     public function getMainImage(): string | null
     {
         if (!$this->hasFile('main_image')) {
@@ -79,6 +80,7 @@ class StoreRequest extends FormRequest
         $file = $this->file('main_image');
         return $this->uploadImage($file, 'Products');
     }
+
 
     public function getGalleryImages(): array | null
     {

@@ -7,6 +7,7 @@ use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -18,7 +19,14 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        return Inertia::render('products/index', []);
+        $products = $this->model->query()
+            ->paginate($request->per_page ?? config('pos.per_page'))
+            ->withQueryString();
+
+        return Inertia::render('products/index', [
+            'products' => Inertia::merge($products->items()),
+            'pagination' => Arr::except($products->toArray(), ['data', 'links']),
+        ]);
     }
 
 
