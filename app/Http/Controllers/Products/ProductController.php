@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Products;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
@@ -26,6 +29,27 @@ class ProductController extends Controller
         return Inertia::render('products/index', [
             'products' => Inertia::merge($products->items()),
             'pagination' => Arr::except($products->toArray(), ['data', 'links']),
+            'categories' => Inertia::defer(function () {
+                return Category::query()
+                    ->select(['id', 'name'])
+                    ->get();
+            }, 'optional'),
+            'brands' => Inertia::defer(function () {
+                return Brand::query()
+                    ->select(['id', 'name'])
+                    ->get()?->map(fn($item) => [
+                        'label' => $item->name,
+                        'value' => $item->id
+                    ]);
+            }, 'optional'),
+            'suppliers' => Inertia::defer(function () {
+                return Supplier::query()
+                    ->select(['id', 'name'])
+                    ->get()?->map(fn($item) => [
+                        'label' => $item->name,
+                        'value' => $item->id
+                    ]);
+            }, 'optional'),
         ]);
     }
 

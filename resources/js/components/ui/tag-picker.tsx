@@ -29,8 +29,8 @@ export function TagPicker({
     tags = [],
     selectedTagIds = [],
     setSelectedTagIds,
-    emptyMessage = "No tags found.",
-    noTagsMessage = "No tags available.",
+    emptyMessage = "No items found.",
+    noTagsMessage = "No items available.",
 }: TagPickerProps) {
 
     const [open, setOpen] = React.useState(false)
@@ -169,7 +169,7 @@ export function TagPicker({
                     onKeyDown={handleKeyDown}
                     placeholder={tags.length > 0 ? placeholder : noTagsMessage}
                     disabled={tags.length === 0}
-                    className="flex-1 h-7 px-1 py-0 text-sm bg-transparent border-0 outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex-1 h-7 w-3 px-1 py-0 text-sm bg-transparent border-0 outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
                 />
             </div>
 

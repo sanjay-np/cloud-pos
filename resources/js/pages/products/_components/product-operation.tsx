@@ -40,7 +40,7 @@ const ProductOperation = ({ productId, mode }: ProductOperationProps) => {
         purchase_price: "",
         sale_price: "",
         stock_qty: "",
-        category_ids: "",
+        category_ids: [],
         brand_id: "",
         supplier_id: "",
         tags: [],

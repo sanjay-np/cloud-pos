@@ -23,7 +23,6 @@ class AttributeController extends Controller
         $attributes = $this->model->query()
             ->applyFilter($request->all())
             ->orderBy('id', 'desc')
-            ->withTrashed()
             ->paginate(perPage: 10);
 
         return Inertia::render('attribute/index', [

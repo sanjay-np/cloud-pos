@@ -1,3 +1,6 @@
+import { usePage } from "@inertiajs/react";
+import { useEffect, useState } from "react";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TagPicker } from "@/components/ui/tag-picker";
@@ -8,7 +11,18 @@ import AvatarUpload from "@/components/ui/avatar-upload";
 
 import { validateImageFile } from "@/lib/utils";
 
-const ProductForm = ({ data, setData, errors, isProcessing, brands }: any) => {
+const ProductForm = ({ data, setData, errors, isProcessing }: any) => {
+
+    const { categories, brands, suppliers } = usePage().props as any
+    const [selectedCategories, setSelectedCategories] = useState<number[]>(data.category_ids ?? [])
+
+    useEffect(() => {
+        setData('category_ids', selectedCategories)
+    }, [selectedCategories])
+
+    useEffect(() => {
+        setSelectedCategories(data?.category_ids);
+    }, [data?.brands])
 
     const handleImageUpload = async (file: File) => {
         const isValid = validateImageFile(file);
@@ -94,9 +108,9 @@ const ProductForm = ({ data, setData, errors, isProcessing, brands }: any) => {
                 <div className="item">
                     <Label>Product Category</Label>
                     <TagPicker
-                        tags={[]}
-                        selectedTagIds={[]}
-                        setSelectedTagIds={(tag) => setData('category_ids', tag)}
+                        tags={categories ?? []}
+                        selectedTagIds={selectedCategories}
+                        setSelectedTagIds={setSelectedCategories}
                         placeholder="Product Category..."
                         emptyMessage="No matching Category found"
                         noTagsMessage="No Categories found"
@@ -107,7 +121,7 @@ const ProductForm = ({ data, setData, errors, isProcessing, brands }: any) => {
                     <AppSelect
                         placeholder="Product Brand"
                         selected={data.brand_id}
-                        options={[]}
+                        options={brands ?? []}
                         onChange={(val) => setData("brand_id", val)}
                     />
                 </div>
@@ -116,7 +130,7 @@ const ProductForm = ({ data, setData, errors, isProcessing, brands }: any) => {
                     <AppSelect
                         placeholder="Product Supplier"
                         selected={data.supplier_id}
-                        options={[]}
+                        options={suppliers ?? []}
                         onChange={(val) => setData("supplier_id", val)}
                     />
                 </div>
@@ -136,7 +150,10 @@ const ProductForm = ({ data, setData, errors, isProcessing, brands }: any) => {
                     <AppSelect
                         placeholder="Unit  Type"
                         selected={data.unit}
-                        options={[]}
+                        options={[
+                            { label: "KG", value: "kg" },
+                            { label: "Pieces", value: "pcs" }
+                        ]}
                         onChange={(val) => setData("unit", val)}
                     />
                 </div>
@@ -145,7 +162,9 @@ const ProductForm = ({ data, setData, errors, isProcessing, brands }: any) => {
                     <AppSelect
                         placeholder="Product Type"
                         selected={data.product_type}
-                        options={[]}
+                        options={[
+                            { label: "Simple Product", value: "simple" },
+                        ]}
                         onChange={(val) => setData("product_type", val)}
                     />
                 </div>
