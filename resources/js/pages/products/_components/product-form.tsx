@@ -64,16 +64,7 @@ const ProductForm = ({ data, setData, errors, isProcessing }: any) => {
                     onChange={(e) => setData('title', e.target.value)}
                 />
             </div>
-            <div className="grid grid-cols-3 w-full gap-2">
-                <div className="item">
-                    <Label>Initial Qty</Label>
-                    <Input
-                        type="text"
-                        placeholder="Stock Qty..."
-                        defaultValue={data.stock_qty}
-                        onChange={(e) => setData('stock_qty', e.target.value)}
-                    />
-                </div>
+            <div className="grid grid-cols-2 w-full gap-2">
                 <div className="item">
                     <Label>Item Purchase Price</Label>
                     <Input
@@ -104,18 +95,30 @@ const ProductForm = ({ data, setData, errors, isProcessing }: any) => {
                     onChange={(e) => setData('description', e.target.value)}
                 />
             </div>
-            <div className="grid grid-cols-3 w-full gap-2">
+            <div className="grid grid-cols-2 w-full gap-2">
                 <div className="item">
-                    <Label>Product Category</Label>
-                    <TagPicker
-                        tags={categories ?? []}
-                        selectedTagIds={selectedCategories}
-                        setSelectedTagIds={setSelectedCategories}
-                        placeholder="Product Category..."
-                        emptyMessage="No matching Category found"
-                        noTagsMessage="No Categories found"
+                    <Label>Initial Qty</Label>
+                    <Input
+                        type="text"
+                        placeholder="Stock Qty..."
+                        defaultValue={data.stock_qty}
+                        onChange={(e) => setData('stock_qty', e.target.value)}
                     />
                 </div>
+                <div className="item">
+                    <Label>Unit Type</Label>
+                    <AppSelect
+                        placeholder="Unit  Type"
+                        selected={data.unit}
+                        options={[
+                            { label: "KG", value: "kg" },
+                            { label: "Pieces", value: "pcs" }
+                        ]}
+                        onChange={(val) => setData("unit", val)}
+                    />
+                </div>
+            </div>
+            <div className="grid grid-cols-2 w-full gap-2">
                 <div className="item">
                     <Label>Product Brand</Label>
                     <AppSelect
@@ -136,27 +139,24 @@ const ProductForm = ({ data, setData, errors, isProcessing }: any) => {
                 </div>
             </div>
             <div className="grid w-full gap-2">
-                <div className="item">
-                    <Label>Product Tags</Label>
-                    <TagInput
-                        defaultTags={data.tags}
-                        onTagsChange={(tags) => setData('tags', tags)}
-                    />
-                </div>
+                <Label>Product Category</Label>
+                <TagPicker
+                    tags={categories ?? []}
+                    selectedTagIds={selectedCategories}
+                    setSelectedTagIds={setSelectedCategories}
+                    placeholder="Product Category..."
+                    emptyMessage="No matching Category found"
+                    noTagsMessage="No Categories found"
+                />
             </div>
-            <div className="grid grid-cols-3 w-full gap-2">
-                <div className="item">
-                    <Label>Unit Type</Label>
-                    <AppSelect
-                        placeholder="Unit  Type"
-                        selected={data.unit}
-                        options={[
-                            { label: "KG", value: "kg" },
-                            { label: "Pieces", value: "pcs" }
-                        ]}
-                        onChange={(val) => setData("unit", val)}
-                    />
-                </div>
+            <div className="grid w-full gap-2">
+                <Label>Product Tags</Label>
+                <TagInput
+                    defaultTags={data.tags}
+                    onTagsChange={(tags) => setData('tags', tags)}
+                />
+            </div>
+            <div className="grid grid-cols-2 w-full gap-2">
                 <div className="item">
                     <Label>Product Type</Label>
                     <AppSelect

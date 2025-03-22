@@ -13,10 +13,24 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => 'required|date',
-            'title' => 'required|string|max:255',
-            'amount' => 'required|numeric|min:0',
-            'description' => 'nullable|string',
+            'date' => [
+                'required',
+                'date'
+            ],
+            'title' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'amount' => [
+                'required',
+                'numeric',
+                'min:0'
+            ],
+            'description' => [
+                'nullable',
+                'string'
+            ],
         ];
     }
 

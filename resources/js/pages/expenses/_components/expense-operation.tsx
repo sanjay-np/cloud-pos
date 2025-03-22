@@ -1,29 +1,25 @@
+import AppSheet from "@/components/app/app-sheet";
+import { useSheetStore } from "@/hooks/use-sheet";
+import { type Mode } from "@/types";
 import { router, useForm } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import ExpenseForm from "./expense-form";
 
-import AppSheet from "@/components/app/app-sheet";
-
-import { useSheetStore } from "@/hooks/use-sheet";
-
-import { type Mode } from "@/types";
-import ProductForm from "./product-form";
-
-type ProductOperationProps = {
-    productId: number | null;
+type ExpenseOperationProps = {
+    expenseId: number | null;
     mode: Mode;
 }
 
-const ProductOperation = ({ productId, mode }: ProductOperationProps) => {
-
+const ExpenseOperation = ({ expenseId, mode }: ExpenseOperationProps) => {
     const drawerTitle = mode == 'add'
-        ? 'Add Product'
+        ? 'Add Expense'
         : mode == 'edit'
-            ? "Edit Product"
-            : 'Product Details'
+            ? "Edit Expense"
+            : 'Expense Details'
 
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
-    const [product, setProduct] = useState<any | null>(null)
+    const [expense, setExpense] = useState<any | null>(null)
     const { closeSheet } = useSheetStore()
 
     const {
@@ -34,31 +30,21 @@ const ProductOperation = ({ productId, mode }: ProductOperationProps) => {
         errors,
         reset,
     } = useForm<Required<any>>({
+        date: "",
         title: "",
-        description: "",
-        main_image: null,
-        purchase_price: "",
-        sale_price: "",
-        stock_qty: "",
-        category_ids: [],
-        brand_id: "",
-        supplier_id: "",
-        tags: [],
-        product_type: "",
-        unit: "",
-        status: ""
+        amount: "",
+        description: ""
     })
 
     useEffect(() => {
-        if (!productId) return
+        if (!expenseId) return
         setIsProcessing(true)
-        const fetchProduct = async () => {
+        const fetchExpense = async () => {
             try {
-                const result = await fetch(route('products.show', productId))
+                const result = await fetch(route('expenses.show', expenseId))
                 const response = await result.json()
-
                 if (response) {
-                    setProduct(response)
+                    setExpense(response)
                     setData(response)
                     setIsProcessing(false)
                 }
@@ -67,27 +53,28 @@ const ProductOperation = ({ productId, mode }: ProductOperationProps) => {
             } finally {
                 setIsProcessing(false)
             }
+
         }
-        fetchProduct()
-    }, [productId])
+        fetchExpense()
+    }, [expenseId])
 
     const handleSubmit = () => {
         if (mode == "add") {
-            post(route('products.store'), {
+            post(route('expenses.store'), {
                 onSuccess: () => {
-                    toast.success('Product created successfully')
+                    toast.success('Expense created successfully')
                     closeSheet()
                     reset();
                 }
             })
         }
-        if (mode == "edit" && productId) {
-            router.post(route('products.update', productId), {
+        if (mode == "edit" && expenseId) {
+            router.post(route('expenses.update', expenseId), {
                 _method: "put",
                 ...data
             }, {
                 onSuccess: () => {
-                    toast.success('Product updated successfully')
+                    toast.success('Expense updated successfully')
                     closeSheet()
                     reset();
                 }
@@ -101,10 +88,9 @@ const ProductOperation = ({ productId, mode }: ProductOperationProps) => {
             subTitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
             onConfirm={handleSubmit}
             processing={processing}
-            width={"sm:max-w-[520px]"}
         >
             {(mode == 'add' || mode == 'edit') && (
-                <ProductForm
+                <ExpenseForm
                     data={data}
                     setData={setData}
                     errors={errors}
@@ -113,14 +99,14 @@ const ProductOperation = ({ productId, mode }: ProductOperationProps) => {
             )}
             {mode == 'view' && (
                 <div className="grid gap-4 px-4">
-                    {(isProcessing && !product) && (
+                    {(isProcessing && !expense) && (
                         <>
                             loading...
                         </>
                     )}
-                    {(!isProcessing && product) && (
+                    {(!isProcessing && expense) && (
                         <>
-                            {JSON.stringify(product, null, 2)}
+                            {JSON.stringify(expense, null, 2)}
                         </>
                     )}
                 </div>
@@ -129,4 +115,4 @@ const ProductOperation = ({ productId, mode }: ProductOperationProps) => {
     )
 }
 
-export default ProductOperation
+export default ExpenseOperation

@@ -3,20 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Expenses\StoreRequest;
+use App\Http\Requests\Expenses\UpdateRequest;
+use App\Models\Expense;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 
 class ExpensesController extends Controller
 {
-    public function __construct(private Expense $model) {}
+    public function __construct(
+        private Expense $model
+    ) {}
+
 
     public function index()
     {
-        $expenses = $this->model->orderBy('id', 'desc')->paginate(10);
-        return Inertia::render('Expenses::Index', [
-            'expenses' => $expenses
+        $expenses = $this->model->query()
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+        return Inertia::render('expenses/index', [
+            'expenses' => Inertia::merge($expenses->items()),
+            'pagination' => Arr::except($expenses->toArray(), ['data', 'links'])
         ]);
     }
+
 
     public function store(StoreRequest $request)
     {
@@ -26,10 +37,12 @@ class ExpensesController extends Controller
         }
     }
 
+
     public function show(int $id)
     {
         return $this->model->findOrFail($id);
     }
+
 
     public function update(UpdateRequest $request, int $id)
     {
@@ -38,6 +51,7 @@ class ExpensesController extends Controller
             return to_route('expenses.index');
         }
     }
+
 
     public function destroy(int $id)
     {

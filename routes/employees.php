@@ -5,5 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])
     ->group(function () {
-        Route::resource('employees', EmployeeController::class);
+        Route::resource('employees', EmployeeController::class)
+            ->names('employees');
     });
