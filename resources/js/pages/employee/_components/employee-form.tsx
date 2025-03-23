@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { validateImageFile } from '@/lib/utils';
-import { DEPARTMENT, DOCUMENT_TYPE, EMPLOYEE_STATUS, POSITION } from './constants';
+import { DEPARTMENT, DOCUMENT_TYPE, EMPLOYEE_STATUS, POSITION } from '@/lib/constants';
 
 type EmployeeFormProps = {
     data: any;

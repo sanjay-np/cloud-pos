@@ -13,22 +13,61 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => ['required', 'date'],
-            'supplier_id' => ['required'],
-            'tax_percentage' => ['required'],
-            'tax_amount' => ['required'],
-            'discount_amount'  => ['required'],
-            'shipping_amount' => ['required'],
-            'total_amount' => ['required'],
-            'paid_amount' => ['required', 'numeric'],
-            'status' => ['required'],
-            'payment_method' => ['required'],
-            'products' => ['array', 'min:1'],
-            'products.*.id' => ['required'],
-            'products.*.qty' => ['required', 'numeric'],
-            'products.*.unit_price' => ['required', 'numeric'],
-            'products.*.sale_price' => ['required', 'numeric'],
-            'note' => ['nullable', 'string'],
+            'date' => [
+                'required',
+                'date'
+            ],
+            'supplier_id' => [
+                'required'
+            ],
+            'tax_percentage' => [
+                'required'
+            ],
+            'tax_amount' => [
+                'required'
+            ],
+            'discount_amount'  => [
+                'required'
+            ],
+            'shipping_amount' => [
+                'required'
+            ],
+            'total_amount' => [
+                'required'
+            ],
+            'paid_amount' => [
+                'required',
+                'numeric'
+            ],
+            'status' => [
+                'required'
+            ],
+            'payment_method' => [
+                'required'
+            ],
+            'products' => [
+                'array',
+                'min:1'
+            ],
+            'products.*.id' => [
+                'required'
+            ],
+            'products.*.qty' => [
+                'required',
+                'numeric'
+            ],
+            'products.*.unit_price' => [
+                'required',
+                'numeric'
+            ],
+            'products.*.sale_price' => [
+                'required',
+                'numeric'
+            ],
+            'note' => [
+                'nullable',
+                'string'
+            ],
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Helpers;
 use App\Traits\CurrentFiscalYear;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +19,6 @@ class Sale extends Model
         'date',
         'reference',
         'customer_id',
-        'fiscal_year_id',
         'tax_percentage',
         'tax_amount',
         'discount_amount',
@@ -37,8 +37,7 @@ class Sale extends Model
         parent::boot();
         static::creating(function ($model) {
             $number = Sale::max('id') + 1;
-            $model->reference = make_reference_id('SALE', $number);
-            $model->fiscal_year_id = $model->getCurrentFY();
+            $model->reference = Helpers::makeReferenceId('SALE', $number);
         });
     }
 

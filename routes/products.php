@@ -7,4 +7,7 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::resource('products', ProductController::class)
             ->names('products');
+
+        Route::get('search-product', [ProductController::class, 'search'])
+            ->name('search.product');
     });

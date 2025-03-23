@@ -85,4 +85,12 @@ class ProductController extends Controller
             return to_route('products.index');
         }
     }
+
+
+    public function search(Request $request)
+    {
+        return $this->model->query()
+            ->take(10)
+            ->get();
+    }
 }

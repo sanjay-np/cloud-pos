@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->date('date');
             $table->string('reference');
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->unsignedBigInteger('fiscal_year_id')->nullable();
             $table->float('tax_percentage')->default(0);
             $table->float('tax_amount')->default(0);
             $table->float('discount_amount')->default(0);
@@ -28,7 +27,6 @@ return new class extends Migration {
             $table->string('payment_method');
             $table->text('note')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->nullOnDelete();
-            $table->foreign('fiscal_year_id')->references('id')->on('fiscal_years')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

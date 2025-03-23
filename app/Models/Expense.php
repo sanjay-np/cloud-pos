@@ -18,6 +18,5 @@ class Expense extends Model
         'title',
         'amount',
         'description',
-        'fiscal_year_id'
     ];
 }

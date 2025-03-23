@@ -16,7 +16,6 @@ return new class extends Migration
             $table->date('date');
             $table->string('reference');
             $table->unsignedBigInteger('supplier_id')->nullable();
-            $table->unsignedBigInteger('fiscal_year_id')->nullable();
             $table->integer('tax_percentage')->default(0);
             $table->float('tax_amount')->default(0);
             $table->float('discount_amount')->default(0);
@@ -30,7 +29,6 @@ return new class extends Migration
             $table->string('type')->default('unofficial');
             $table->text('note')->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->nullOnDelete();
-            $table->foreign('fiscal_year_id')->references('id')->on('fiscal_years')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

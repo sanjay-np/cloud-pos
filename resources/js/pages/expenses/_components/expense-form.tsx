@@ -43,7 +43,7 @@ const ExpenseForm = ({ data, setData, errors, isProcessing }: ExpenseFormProps) 
                 <Label>Amount</Label>
                 <Input
                     type="text"
-                    placeholder="Office Expense..."
+                    placeholder="Amount..."
                     defaultValue={data.amount}
                     onChange={(e) => setData('amount', e.target.value)}
                 />

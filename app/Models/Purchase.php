@@ -18,7 +18,6 @@ class Purchase extends Model
         'date',
         'reference',
         'supplier_id',
-        'fiscal_year_id',
         'tax_percentage',
         'tax_amount',
         'discount_amount',
@@ -40,23 +39,5 @@ class Purchase extends Model
             $number = Purchase::max('id') + 1;
             $model->reference = Helpers::makeReferenceId('PUR', $number);
         });
-    }
-
-
-    public function supplier()
-    {
-        return $this->belongsTo(Supplier::class);
-    }
-
-
-    public function items()
-    {
-        return $this->hasMany(PurchaseDetail::class);
-    }
-
-
-    public function scopeCurrent($query)
-    {
-        return $query->where('fiscal_year_id', $this->getCurrentFY());
     }
 }

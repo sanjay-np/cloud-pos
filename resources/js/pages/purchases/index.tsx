@@ -1,12 +1,20 @@
+import { Head } from '@inertiajs/react'
+import {
+    FileDownIcon,
+    ListFilterIcon,
+    Settings2Icon
+} from 'lucide-react'
+
+import AppLayout from '@/layouts/app-layout'
 import AppSearch from '@/components/app/app-search'
 import AppTable from '@/components/table/app-table'
 import { Button } from '@/components/ui/button'
+import PurchaseOperation from './_components/purchase-operation'
+
 import { useColumns } from '@/hooks/use-columns'
 import { useSheetStore } from '@/hooks/use-sheet'
-import AppLayout from '@/layouts/app-layout'
+
 import { type BreadcrumbItem } from '@/types'
-import { Head } from '@inertiajs/react'
-import { FileDownIcon, ListFilterIcon, Settings2Icon } from 'lucide-react'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -63,6 +71,7 @@ const Index = ({ purchases, pagination }: any) => {
                     refetch={['purchases']}
                 />
             </div>
+            <PurchaseOperation purchaseId={itemId} mode={mode} />
         </AppLayout>
     )
 }

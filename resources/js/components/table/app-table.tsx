@@ -38,7 +38,7 @@ export default function AppTable({ data, columns, pagination, refetch }: Custome
 
     return (
         <div className="w-full">
-            <div className="rounded-md border border-r-0">
+            <div className="rounded-md border">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (

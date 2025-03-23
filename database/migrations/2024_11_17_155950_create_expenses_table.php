@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('title');
             $table->float('amount');
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('fiscal_year_id')->nullable();
-            $table->foreign('fiscal_year_id')->references('id')->on('fiscal_years')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

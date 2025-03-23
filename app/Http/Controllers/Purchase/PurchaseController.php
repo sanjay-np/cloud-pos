@@ -19,9 +19,7 @@ class PurchaseController extends Controller
 
     public function index(Request $request)
     {
-        $purchases = $this->model
-            ->with(['supplier'])
-            ->withCount('items')
+        $purchases = $this->model->query()
             ->orderBy('id', 'desc')
             ->paginate($request->per_page ?? config('pos.per_page'))
             ->withQueryString();
