@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Traits\CurrentFiscalYear;
+use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Purchase extends Model
 {
-    use HasFactory, SoftDeletes, CurrentFiscalYear;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -32,25 +32,28 @@ class Purchase extends Model
         'note',
     ];
 
+
     public static function boot()
     {
         parent::boot();
         static::creating(function ($model) {
             $number = Purchase::max('id') + 1;
-            $model->reference = make_reference_id('PUR', $number);
-            $model->fiscal_year_id = $model->getCurrentFY();
+            $model->reference = Helpers::makeReferenceId('PUR', $number);
         });
     }
+
 
     public function supplier()
     {
         return $this->belongsTo(Supplier::class);
     }
 
+
     public function items()
     {
         return $this->hasMany(PurchaseDetail::class);
     }
+
 
     public function scopeCurrent($query)
     {

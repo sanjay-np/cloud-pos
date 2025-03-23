@@ -3,40 +3,46 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sales\StoreRequest;
+use App\Http\Requests\Sales\UpdateRequest;
+use App\Models\Sale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 class SalesController extends Controller
 {
     public function __construct(
         private Sale $model,
-        private SaleService $saleService
     ) {}
+
 
     public function index(Request $request)
     {
         $sales = $this->model
             ->with('customer:id,name')
             ->orderBy('id', 'desc')
-            ->paginate(10);
-        return Inertia::render('Sales::Index', ['sales' => $sales]);
+            ->paginate($request->per_page ?? config('pos.per_page'))
+            ->withQueryString();
+
+        return Inertia::render('sales/index', [
+            'sales' => Inertia::merge($sales->items()),
+            'pagination' => Arr::except($sales->toArray(), ['data', 'links'])
+        ]);
     }
+
 
     public function store(StoreRequest $request)
     {
         $item = $this->model->create($request->getRequested());
-        if ($item) {
-            $this->saleService->createSaleDetail($request->getRequestedProducts(), $item->id);
-            $this->saleService->createSalePayment($request->getRequestedPayment(), $item->id);
-            event(new SaleCreated($item));
-            return to_route('sales.index');
-        }
     }
+
 
     public function show(int $id)
     {
         return $this->model->findOrFail($id);
     }
+
 
     public function update(UpdateRequest $request, int $id)
     {
@@ -45,6 +51,7 @@ class SalesController extends Controller
             return to_route('sales.index');
         }
     }
+
 
     public function destroy(int $id)
     {

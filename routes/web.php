@@ -22,5 +22,7 @@ require __DIR__ . '/customers.php';
 require __DIR__ . '/employees.php';
 require __DIR__ . '/expenses.php';
 require __DIR__ . '/products.php';
+require __DIR__ . '/purchases.php';
+require __DIR__ . '/sales.php';
 require __DIR__ . '/settings.php';
 require __DIR__ . '/suppliers.php';

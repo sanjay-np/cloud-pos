@@ -22,6 +22,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 const Index = ({ expenses, pagination }: any) => {
+
     const { openSheet } = useSheetStore();
     const { columns, itemId, mode, setMode } = useColumns<any>({
         dataKey: "id",
@@ -79,7 +80,7 @@ const Index = ({ expenses, pagination }: any) => {
                     data={expenses}
                     columns={columns}
                     pagination={pagination}
-                    refetch={['suppliers']}
+                    refetch={['expenses']}
                 />
             </div>
             <ExpenseOperation expenseId={itemId} mode={mode} />

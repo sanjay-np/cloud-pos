@@ -21,7 +21,9 @@ class ExpensesController extends Controller
     {
         $expenses = $this->model->query()
             ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->paginate($request->per_page ?? config('pos.per_page'))
+            ->withQueryString();
+
         return Inertia::render('expenses/index', [
             'expenses' => Inertia::merge($expenses->items()),
             'pagination' => Arr::except($expenses->toArray(), ['data', 'links'])
