@@ -40,7 +40,8 @@ class Product extends Model
 
 
     protected $casts = [
-        'tags' => 'array'
+        'tags' => 'array',
+        'category_ids' => 'array'
     ];
 
     public function getImageUrlAttribute()

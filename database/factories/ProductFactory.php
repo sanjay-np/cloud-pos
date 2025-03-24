@@ -7,11 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ProductFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Product::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array
@@ -37,8 +32,8 @@ class ProductFactory extends Factory
             'description' => $this->faker->paragraph(),
             'main_image' => null,
             'gallery_images' => null,
-            'unit_price' => $this->faker->randomFloat(2, 500, 800),
-            'sale_price' => $this->faker->randomFloat(2,  800, 1000),
+            'purchase_price' => $this->faker->randomDigitNotNull(),
+            'sale_price' => $this->faker->randomDigitNotNull(),
             'stock_qty' => $this->faker->randomNumber(4),
             'category_ids' => [
                 $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
@@ -46,9 +41,9 @@ class ProductFactory extends Factory
             ],
             'brand_id' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             'supplier_id' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-            'tags' => null,
+            // 'tags' => null,
             'product_type' => 'simple',
-            'unit' => $this->faker->randomElement(['piece', 'kg']),
+            'unit' => $this->faker->randomElement(['pc', 'kg']),
             'status' => $this->faker->randomElement(['active', 'inactive']),
         ];
     }

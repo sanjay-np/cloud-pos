@@ -1,15 +1,50 @@
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { useEffect, useState } from 'react'
 import { SearchIcon } from 'lucide-react'
 
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { useDebouncedCallback } from 'use-debounce'
+
 export const ProductFinder = () => {
+
+    const [products, setProducts] = useState([])
+    const [isFocused, setIsFocused] = useState<boolean>(false)
+    const [qryText, setQryText] = useState<string>('')
+
+    const fetchProduct = async (searchText: string | null = null) => {
+        try {
+            const query = searchText ? `?search_qry=${searchText}` : "";
+            const res = await fetch(route(`search.product`) + query);
+            const response = await res.json();
+            if (response) {
+                setProducts(response);
+            }
+        } catch (error) {
+            console.error("Error fetching products:", error);
+        }
+    };
+
+    const handleSearch = async (searchText: string) => {
+        fetchProduct(searchText)
+    };
+
+    const debounced = useDebouncedCallback((value) => {
+        setQryText(value);
+        handleSearch(value);
+    }, 600);
+
+
+    useEffect(() => {
+        fetchProduct();
+    }, []);
+
     return (
         <div className="relative w-full">
             <Button
                 type="submit"
                 size="icon"
                 variant="ghost"
-                className="absolute left-0 top-0 h-full px-3 py-2 text-muted-foreground hover:text-foreground"
+                className="absolute left-0 top-0 h-full px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-transparent"
             >
                 <SearchIcon className="h-4 w-4" />
                 <span className="sr-only">Search</span>
@@ -18,7 +53,23 @@ export const ProductFinder = () => {
                 type='text'
                 placeholder='Select/Search a product...'
                 className="ps-8"
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                defaultValue={qryText}
+                onChange={(e) => debounced(e.target.value)}
             />
+
+            {isFocused && (
+                <div className="absolute bg-white w-full z-50 border border-t-0 rounded-md shadow">
+                    {products && products.map((item, index) => {
+                        return (
+                            <div key={index} className='py-2  px-4 border-b  last:border-b-0 text-sm text-muted-foreground cursor-pointer'>
+                                {item.title}
+                            </div>
+                        )
+                    })}
+                </div>
+            )}
         </div>
     )
 }
