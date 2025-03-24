@@ -1,19 +1,11 @@
 import { Head } from '@inertiajs/react'
-import {
-    FileDownIcon,
-    ListFilterIcon,
-    Settings2Icon
-} from "lucide-react";
 
 import AppLayout from '@/layouts/app-layout'
-import { Button } from '@/components/ui/button'
 import AppTable from '@/components/table/app-table'
-import AppSearch from '@/components/app/app-search'
 import { Badge } from '@/components/ui/badge';
 
 import SupplierOperation from './_components/supplier-operation'
 
-import { useSheetStore } from '@/hooks/use-sheet'
 import { useColumns } from '@/hooks/use-columns';
 
 import { type BreadcrumbItem } from '@/types'
@@ -31,7 +23,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 const Index = ({ suppliers, brands, pagination }: SupplierIndexProps) => {
 
-    const { openSheet } = useSheetStore();
     const { columns, itemId, mode, setMode } = useColumns<SupplierColumnProps>({
         dataKey: "id",
         deleteRoute: "suppliers.destroy",
@@ -75,41 +66,15 @@ const Index = ({ suppliers, brands, pagination }: SupplierIndexProps) => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Suppliers" />
-            <div className="table-wrapper">
-                <div className="flex items-center justify-between py-2 gap-2">
-                    <AppSearch
-                        placeholder="Search Suppliers..."
-                        searchRoute='suppliers.index'
-                    />
-                    <div className="flex gap-2">
-                        <Button variant={'outline'}>
-                            <ListFilterIcon />
-                        </Button>
-                        <Button variant={'outline'}>
-                            <Settings2Icon />
-                        </Button>
-                        <Button variant={'outline'}>
-                            <FileDownIcon />
-                        </Button>
-                        <Button
-                            variant="default"
-                            className="ml-auto"
-                            onClick={() => {
-                                setMode("add")
-                                openSheet()
-                            }}
-                        >
-                            Add New
-                        </Button>
-                    </div>
-                </div>
-                <AppTable
-                    data={suppliers}
-                    columns={columns}
-                    pagination={pagination}
-                    refetch={['suppliers']}
-                />
-            </div>
+            <AppTable
+                data={suppliers}
+                columns={columns}
+                pagination={pagination}
+                refetch={['suppliers']}
+                placeholder="Search Suppliers..."
+                searchRoute='suppliers.index'
+                setMode={setMode}
+            />
             <SupplierOperation supplierId={itemId} mode={mode} brands={brands} />
 
         </AppLayout>

@@ -1,15 +1,8 @@
 import { Head } from "@inertiajs/react";
-import {
-    FileDownIcon,
-    ListFilterIcon,
-    Settings2Icon
-} from "lucide-react";
 import { format } from "date-fns";
 
 import AppLayout from "@/layouts/app-layout";
-import { Button } from "@/components/ui/button";
 import AppTable from "@/components/table/app-table";
-import AppSearch from "@/components/app/app-search";
 import {
     Avatar,
     AvatarFallback,
@@ -19,7 +12,6 @@ import { Badge } from "@/components/ui/badge";
 
 import { EmployeeOperation } from "./_components/employee-operation";
 
-import { useSheetStore } from "@/hooks/use-sheet";
 import { useColumns } from "@/hooks/use-columns";
 
 import { type BreadcrumbItem } from "@/types";
@@ -38,7 +30,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const Index = ({ employees, pagination }: EmployeeIndexProps) => {
 
-    const { openSheet } = useSheetStore();
     const { columns, itemId, mode, setMode } = useColumns<EmployeeColumnProps>({
         dataKey: "id",
         deleteRoute: "",
@@ -111,41 +102,15 @@ const Index = ({ employees, pagination }: EmployeeIndexProps) => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Employees" />
-            <div className="table-wrapper">
-                <div className="flex items-center justify-between py-2 gap-2">
-                    <AppSearch
-                        placeholder="Search Employees..."
-                        searchRoute="employees.index"
-                    />
-                    <div className="flex gap-2">
-                        <Button variant={'outline'}>
-                            <ListFilterIcon />
-                        </Button>
-                        <Button variant={'outline'}>
-                            <Settings2Icon />
-                        </Button>
-                        <Button variant={'outline'}>
-                            <FileDownIcon />
-                        </Button>
-                        <Button
-                            variant="default"
-                            className="ml-auto"
-                            onClick={() => {
-                                setMode("add")
-                                openSheet()
-                            }}
-                        >
-                            Add New
-                        </Button>
-                    </div>
-                </div>
-                <AppTable
-                    data={employees}
-                    columns={columns}
-                    pagination={pagination}
-                    refetch={['employees']}
-                />
-            </div>
+            <AppTable
+                data={employees}
+                columns={columns}
+                pagination={pagination}
+                refetch={['employees']}
+                searchRoute="employees.index"
+                setMode={setMode}
+                placeholder="Search Employees..."
+            />
             <EmployeeOperation employeeId={itemId} mode={mode} />
         </AppLayout>
     )

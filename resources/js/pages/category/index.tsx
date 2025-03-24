@@ -1,14 +1,7 @@
 import { Head } from "@inertiajs/react";
-import {
-    FileDownIcon,
-    ListFilterIcon,
-    Settings2Icon
-} from "lucide-react";
 
 import AppLayout from "@/layouts/app-layout";
 import AppTable from "@/components/table/app-table";
-import { Button } from "@/components/ui/button";
-import AppSearch from "@/components/app/app-search";
 import {
     Avatar,
     AvatarFallback,
@@ -18,7 +11,6 @@ import { Badge } from "@/components/ui/badge";
 
 import { CategoryOperation } from "./_components/category-operation";
 
-import { useSheetStore } from "@/hooks/use-sheet";
 import { useColumns } from "@/hooks/use-columns";
 
 import { type BreadcrumbItem } from "@/types";
@@ -39,7 +31,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const Index = ({ categories, parentCategories, pagination }: CategoryIndexProps) => {
 
-    const { openSheet } = useSheetStore();
     const { columns, itemId, mode, setMode } = useColumns<CategoryColumnProps>({
         dataKey: "id",
         deleteRoute: "categories.destroy",
@@ -101,46 +92,16 @@ const Index = ({ categories, parentCategories, pagination }: CategoryIndexProps)
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Categories" />
-            <div className="table-wrapper">
-                <div className="flex items-center justify-between py-2 gap-2">
-                    <AppSearch
-                        placeholder="Search Categories..."
-                        searchRoute="brands.index"
-                    />
-                    <div className="flex gap-2">
-                        <Button variant={'outline'}>
-                            <ListFilterIcon />
-                        </Button>
-                        <Button variant={'outline'}>
-                            <Settings2Icon />
-                        </Button>
-                        <Button variant={'outline'}>
-                            <FileDownIcon />
-                        </Button>
-                        <Button
-                            variant="default"
-                            className="ml-auto"
-                            onClick={() => {
-                                setMode("add")
-                                openSheet()
-                            }}
-                        >
-                            Add New
-                        </Button>
-                    </div>
-                </div>
-                <AppTable
-                    data={categories}
-                    columns={columns}
-                    pagination={pagination}
-                    refetch={['categories']}
-                />
-            </div>
-            <CategoryOperation
-                categoryId={itemId}
-                mode={mode}
-                parents={parentCategories}
+            <AppTable
+                data={categories}
+                columns={columns}
+                pagination={pagination}
+                refetch={['categories']}
+                placeholder="Search Categories..."
+                searchRoute="brands.index"
+                setMode={setMode}
             />
+            <CategoryOperation categoryId={itemId} mode={mode} parents={parentCategories} />
         </AppLayout>
     )
 }
