@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Builders\ProductBuilder;
 use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -75,5 +76,11 @@ class Product extends Model
     public function sale()
     {
         return $this->hasMany(SaleDetail::class, 'product_id');
+    }
+
+
+    public function newEloquentBuilder($query): ProductBuilder
+    {
+        return new ProductBuilder($query);
     }
 }

@@ -23,6 +23,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = $this->model->query()
+            ->whereActive()
             ->paginate($request->per_page ?? config('pos.per_page'))
             ->withQueryString();
 
