@@ -91,6 +91,7 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         return $this->model->query()
+            ->select(['id', 'title'])
             ->take(10)
             ->get();
     }

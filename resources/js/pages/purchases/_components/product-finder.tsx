@@ -5,9 +5,13 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useDebouncedCallback } from 'use-debounce'
 
-export const ProductFinder = () => {
+type ProductFinderProps = {
+    onProductSelect?: (item) => void
+}
 
-    const [products, setProducts] = useState([])
+export const ProductFinder = ({ onProductSelect }: ProductFinderProps) => {
+
+    const [searchResult, setSearchResult] = useState([])
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const [qryText, setQryText] = useState<string>('')
 
@@ -17,7 +21,7 @@ export const ProductFinder = () => {
             const res = await fetch(route(`search.product`) + query);
             const response = await res.json();
             if (response) {
-                setProducts(response);
+                setSearchResult(response);
             }
         } catch (error) {
             console.error("Error fetching products:", error);
@@ -38,6 +42,15 @@ export const ProductFinder = () => {
         fetchProduct();
     }, []);
 
+    const handleOnProductClick = (item) => {
+        if (onProductSelect) {
+            onProductSelect(item)
+        }
+
+        setIsFocused(false)
+        setQryText('')
+    }
+
     return (
         <div className="relative w-full">
             <Button
@@ -52,18 +65,21 @@ export const ProductFinder = () => {
             <Input
                 type='text'
                 placeholder='Select/Search a product...'
-                className="ps-8"
+                className="ps-8 text-sm"
                 onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
                 defaultValue={qryText}
                 onChange={(e) => debounced(e.target.value)}
             />
 
             {isFocused && (
                 <div className="absolute bg-white w-full z-50 border border-t-0 rounded-md shadow">
-                    {products && products.map((item, index) => {
+                    {searchResult && searchResult?.map((item, index) => {
                         return (
-                            <div key={index} className='py-2  px-4 border-b  last:border-b-0 text-sm text-muted-foreground cursor-pointer'>
+                            <div
+                                key={index}
+                                className='py-2  px-4 border-b  last:border-b-0 text-sm text-muted-foreground cursor-pointer hover:bg-muted/60'
+                                onClick={() => handleOnProductClick(item)}
+                            >
                                 {item.title}
                             </div>
                         )

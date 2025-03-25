@@ -16,8 +16,8 @@ export const ProductTable = () => {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            {columns.map((item) => (
-                                <TableHead>{item}</TableHead>
+                            {columns.map((item, index) => (
+                                <TableHead key={index}>{item}</TableHead>
                             ))}
                         </TableRow>
                     </TableHeader>

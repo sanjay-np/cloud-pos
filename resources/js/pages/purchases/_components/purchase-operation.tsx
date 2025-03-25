@@ -22,7 +22,7 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
             : 'Purchase Details'
 
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
-    const [expense, setExpense] = useState<any | null>(null)
+    const [purchase, setPurchase] = useState<any | null>(null)
     const { closeSheet } = useSheetStore()
 
     const {
@@ -34,9 +34,7 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
         reset,
     } = useForm<Required<any>>({
         date: "",
-        title: "",
-        amount: "",
-        description: ""
+        products: []
     })
 
     const handleSubmit = () => {
@@ -81,14 +79,14 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
             )}
             {mode == 'view' && (
                 <div className="grid gap-4 px-4">
-                    {(isProcessing && !expense) && (
+                    {(isProcessing && !purchase) && (
                         <>
                             loading...
                         </>
                     )}
-                    {(!isProcessing && expense) && (
+                    {(!isProcessing && purchase) && (
                         <>
-                            {JSON.stringify(expense, null, 2)}
+                            {JSON.stringify(purchase, null, 2)}
                         </>
                     )}
                 </div>

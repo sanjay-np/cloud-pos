@@ -15,6 +15,13 @@ type PurchaseFormProps = {
 
 const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps) => {
 
+
+
+    const onProductSelect = (item) => {
+        console.log('item', item);
+
+    }
+
     if (isProcessing) {
         return (
             <div>
@@ -50,23 +57,31 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                 </div>
             </div>
             <div className="grid w-full gap-2">
-                <ProductFinder />
+                <ProductFinder
+                    onProductSelect={onProductSelect}
+                />
                 <ProductTable />
             </div>
             <div className="grid grid-cols-3 w-full gap-2">
                 <div className="item">
                     <Label>Tax (%)</Label>
-                    <Input />
+                    <Input
+                        placeholder='Eg:10'
+                    />
                 </div>
 
                 <div className="item">
                     <Label>Discount Amount</Label>
-                    <Input />
+                    <Input
+                        placeholder='Eg:200'
+                    />
                 </div>
 
                 <div className="item">
                     <Label>Shipping Amount</Label>
-                    <Input />
+                    <Input
+                        placeholder='Eg:500'
+                    />
                 </div>
             </div>
 
@@ -102,7 +117,9 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
 
                 <div className="item">
                     <Label>Paid Amount</Label>
-                    <Input />
+                    <Input
+                        placeholder='Eg:5000'
+                    />
                 </div>
             </div>
 
