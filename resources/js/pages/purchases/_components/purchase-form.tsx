@@ -5,7 +5,10 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { ProductTable } from './product-table';
 import { ProductFinder } from './product-finder';
-import { type ProductStoreState, useProductStore } from '@/hooks/use-product';
+import {
+    type ProductStoreState,
+    useProductStore
+} from '@/hooks/use-product';
 
 type PurchaseFormProps = {
     data: any;
@@ -16,7 +19,12 @@ type PurchaseFormProps = {
 
 const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps) => {
 
-    const { setProduct }: ProductStoreState = useProductStore();
+    const {
+        setProduct,
+        setTax,
+        setDiscount,
+        setShipping
+    }: ProductStoreState = useProductStore();
 
     const onProductSelect = (item: any) => {
         setProduct({
@@ -71,6 +79,8 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                     <Label>Tax (%)</Label>
                     <Input
                         placeholder='Eg:10'
+                        onChange={(e) => setTax(parseInt(e.target.value))}
+
                     />
                 </div>
 
@@ -78,6 +88,7 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                     <Label>Discount Amount</Label>
                     <Input
                         placeholder='Eg:200'
+                        onChange={(e) => setDiscount(parseInt(e.target.value))}
                     />
                 </div>
 
@@ -85,6 +96,7 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                     <Label>Shipping Amount</Label>
                     <Input
                         placeholder='Eg:500'
+                        onChange={(e) => setShipping(parseInt(e.target.value))}
                     />
                 </div>
             </div>

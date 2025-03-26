@@ -14,10 +14,14 @@ export interface ProductStoreState {
     discount: number;
     shipping: number;
     total: number;
+    grandTotal: number;
     setProduct: (item: Product) => void;
     removeProduct: (id: number) => void;
     changeQty: (id: number, qty: number) => void;
     changePrice: (id: number, price: number) => void;
+    setTax: (taxPercent: number) => void;
+    setDiscount: (amount: number) => void;
+    setShipping: (amount: number) => void;
 }
 
 export const useProductStore = create<ProductStoreState>((set, get) => ({
@@ -27,6 +31,7 @@ export const useProductStore = create<ProductStoreState>((set, get) => ({
     discount: 0,
     shipping: 0,
     total: 0,
+    grandTotal: 0,
 
     setProduct: (item: Product) => {
         set((state) => {
@@ -37,9 +42,20 @@ export const useProductStore = create<ProductStoreState>((set, get) => ({
                     ...updatedProducts[existingProductIndex],
                     qty: updatedProducts[existingProductIndex].qty + item.qty,
                 };
-                return { products: updatedProducts };
+                const total = updatedProducts.reduce((sum, product) => sum + (product.price * product.qty), 0)
+                return {
+                    products: updatedProducts,
+                    total: total,
+                    grandTotal: calculateTotal(total, state.taxPercent, state.discount, state.shipping),
+                };
             } else {
-                return { products: [...state.products, item] };
+                const updatedProducts = [...state.products, item];
+                const total = updatedProducts.reduce((sum, product) => sum + (product.price * product.qty), 0)
+                return {
+                    products: updatedProducts,
+                    total: total,
+                    grandTotal: calculateTotal(total, state.taxPercent, state.discount, state.shipping),
+                };
             }
         });
     },
@@ -47,7 +63,12 @@ export const useProductStore = create<ProductStoreState>((set, get) => ({
     removeProduct: (id: number) => {
         set((state) => {
             const updatedProducts = state.products.filter(product => product.id !== id);
-            return { products: updatedProducts };
+            const total = updatedProducts.reduce((sum, product) => sum + (product.price * product.qty), 0)
+            return {
+                products: updatedProducts,
+                total: total,
+                grandTotal: calculateTotal(total, state.taxPercent, state.discount, state.shipping),
+            };
         });
     },
 
@@ -61,7 +82,12 @@ export const useProductStore = create<ProductStoreState>((set, get) => ({
                     ...updatedProducts[existingProductIndex],
                     qty: qty,
                 };
-                return { products: updatedProducts };
+                const total = updatedProducts.reduce((sum, product) => sum + (product.price * product.qty), 0)
+                return {
+                    products: updatedProducts,
+                    total: total,
+                    grandTotal: calculateTotal(total, state.taxPercent, state.discount, state.shipping),
+                };
             }
             return {};
         });
@@ -76,10 +102,53 @@ export const useProductStore = create<ProductStoreState>((set, get) => ({
                     ...updatedProducts[existingProductIndex],
                     price: price,
                 };
-                return { products: updatedProducts };
+                const total = updatedProducts.reduce((sum, product) => sum + (product.price * product.qty), 0)
+                return {
+                    products: updatedProducts,
+                    total: total,
+                    grandTotal: calculateTotal(total, state.taxPercent, state.discount, state.shipping),
+                };
             }
             return {};
         });
     },
-
+    setTax: (taxPercent: number) => {
+        set((state) => {
+            const total = state.products.reduce((sum, product) => sum + (product.price * product.qty), 0)
+            return {
+                taxPercent: taxPercent,
+                taxAmount: calculateTax(total, taxPercent),
+                grandTotal: calculateTotal(total, taxPercent, state.discount, state.shipping),
+            };
+        })
+    },
+    setDiscount: (amount: number) => {
+        set((state) => {
+            const total = state.products.reduce((sum, product) => sum + (product.price * product.qty), 0)
+            return {
+                discount: amount,
+                grandTotal: calculateTotal(total, state.taxPercent, amount, state.shipping),
+            };
+        })
+    },
+    setShipping: (amount: number) => {
+        set((state) => {
+            const total = state.products.reduce((sum, product) => sum + (product.price * product.qty), 0)
+            return {
+                shipping: amount,
+                grandTotal: calculateTotal(total, state.taxPercent, state.discount, amount),
+            };
+        })
+    }
 }))
+
+const calculateTotal = (subtotal: number, tax: number, discount: number, shipping: number) => {
+    const totalWithTax = subtotal + (subtotal * tax / 100);
+    const totalWithDiscount = totalWithTax - discount;
+    return totalWithDiscount + shipping;
+};
+
+const calculateTax = (subtotal: number, tax: number) => {
+    const taxAmount = (subtotal * tax / 100);
+    return taxAmount
+}

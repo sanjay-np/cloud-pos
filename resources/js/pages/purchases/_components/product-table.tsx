@@ -16,7 +16,17 @@ import { type ProductStoreState, useProductStore } from '@/hooks/use-product';
 export const ProductTable = () => {
 
     const columns = ['SN.', 'Product Name', 'QTY', 'Price', 'Total', '...']
-    const { products, changeQty, changePrice, removeProduct }: ProductStoreState = useProductStore();
+    const {
+        products,
+        total,
+        taxAmount,
+        discount,
+        shipping,
+        grandTotal,
+        changeQty,
+        changePrice,
+        removeProduct
+    }: ProductStoreState = useProductStore();
 
     return (
         <>
@@ -42,6 +52,7 @@ export const ProductTable = () => {
                                             value={item.qty}
                                             onChange={(e) => changeQty(item.id, parseInt(e.target.value))}
                                             className='w-16'
+                                            min={1}
                                         />
                                     </TableCell>
                                     <TableCell>
@@ -51,7 +62,7 @@ export const ProductTable = () => {
                                             className='w-20'
                                         />
                                     </TableCell>
-                                    <TableCell>{item.price * item.qty}</TableCell>
+                                    <TableCell>{(item.price * item.qty).toFixed(2)}</TableCell>
                                     <TableCell>
                                         <Button
                                             size={'icon'}
@@ -79,20 +90,24 @@ export const ProductTable = () => {
             <div className="form-item mb-4 flex justify-end">
                 <div className="grid gap-2">
                     <div className="item flex">
+                        <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Total</label>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {total.toFixed(2)}</p>
+                    </div>
+                    <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Tax</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) 0.00</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {taxAmount.toFixed(2)}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Discount</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(-)  0.00</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(-)  {discount.toFixed(2)}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Shipping</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+)  0.00</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+)  {shipping.toFixed(2)}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Grand Total</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(=)  0.00</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(=)  {grandTotal.toFixed(2)}</p>
                     </div>
                 </div>
             </div>
