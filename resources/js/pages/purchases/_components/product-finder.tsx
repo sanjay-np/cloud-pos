@@ -5,13 +5,20 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useDebouncedCallback } from 'use-debounce'
 
+type Product = {
+    id: number,
+    title: string,
+    purchase_price: number,
+    sale_price: number,
+}
+
 type ProductFinderProps = {
-    onProductSelect?: (item) => void
+    onProductSelect?: (item: Product) => void
 }
 
 export const ProductFinder = ({ onProductSelect }: ProductFinderProps) => {
 
-    const [searchResult, setSearchResult] = useState([])
+    const [searchResult, setSearchResult] = useState<Product[]>([])
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const [qryText, setQryText] = useState<string>('')
 
@@ -42,7 +49,7 @@ export const ProductFinder = ({ onProductSelect }: ProductFinderProps) => {
         fetchProduct();
     }, []);
 
-    const handleOnProductClick = (item) => {
+    const handleOnProductClick = (item: Product) => {
         if (onProductSelect) {
             onProductSelect(item)
         }
@@ -77,7 +84,7 @@ export const ProductFinder = ({ onProductSelect }: ProductFinderProps) => {
                         return (
                             <div
                                 key={index}
-                                className='py-2  px-4 border-b  last:border-b-0 text-sm text-muted-foreground cursor-pointer hover:bg-muted/60'
+                                className='py-2 px-4 border-b last:border-b-0 text-sm text-muted-foreground cursor-pointer bg-background hover:bg-muted '
                                 onClick={() => handleOnProductClick(item)}
                             >
                                 {item.title}

@@ -15,6 +15,9 @@ export interface ProductStoreState {
     shipping: number;
     total: number;
     setProduct: (item: Product) => void;
+    removeProduct: (id: number) => void;
+    changeQty: (id: number, qty: number) => void;
+    changePrice: (id: number, price: number) => void;
 }
 
 export const useProductStore = create<ProductStoreState>((set, get) => ({
@@ -40,4 +43,43 @@ export const useProductStore = create<ProductStoreState>((set, get) => ({
             }
         });
     },
+
+    removeProduct: (id: number) => {
+        set((state) => {
+            const updatedProducts = state.products.filter(product => product.id !== id);
+            return { products: updatedProducts };
+        });
+    },
+
+    changeQty: (id: number, qty: number) => {
+        set((state) => {
+            if (qty < 0) return {};
+            const existingProductIndex = state.products.findIndex(product => product.id === id);
+            if (existingProductIndex !== -1) {
+                const updatedProducts = [...state.products];
+                updatedProducts[existingProductIndex] = {
+                    ...updatedProducts[existingProductIndex],
+                    qty: qty,
+                };
+                return { products: updatedProducts };
+            }
+            return {};
+        });
+    },
+
+    changePrice: (id: number, price: number) => {
+        set((state) => {
+            const existingProductIndex = state.products.findIndex(product => product.id === id);
+            if (existingProductIndex !== -1) {
+                const updatedProducts = [...state.products];
+                updatedProducts[existingProductIndex] = {
+                    ...updatedProducts[existingProductIndex],
+                    price: price,
+                };
+                return { products: updatedProducts };
+            }
+            return {};
+        });
+    },
+
 }))

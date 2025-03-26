@@ -16,7 +16,7 @@ import { type ProductStoreState, useProductStore } from '@/hooks/use-product';
 export const ProductTable = () => {
 
     const columns = ['SN.', 'Product Name', 'QTY', 'Price', 'Total', '...']
-    const { products }: ProductStoreState = useProductStore();
+    const { products, changeQty, changePrice, removeProduct }: ProductStoreState = useProductStore();
 
     return (
         <>
@@ -40,15 +40,14 @@ export const ProductTable = () => {
                                         <Input
                                             type='number'
                                             value={item.qty}
-                                            onChange={(e) => { }}
+                                            onChange={(e) => changeQty(item.id, parseInt(e.target.value))}
                                             className='w-16'
                                         />
                                     </TableCell>
                                     <TableCell>
                                         <Input
-                                            type='text'
                                             value={item.price}
-                                            onChange={(e) => { }}
+                                            onChange={(e) => changePrice(item.id, parseFloat(e.target.value))}
                                             className='w-20'
                                         />
                                     </TableCell>
@@ -57,6 +56,7 @@ export const ProductTable = () => {
                                         <Button
                                             size={'icon'}
                                             variant={'outline'}
+                                            onClick={() => removeProduct(item.id)}
                                         >
                                             <Trash2Icon />
                                         </Button>
@@ -65,17 +65,13 @@ export const ProductTable = () => {
                             )))
                             : (
                                 <TableRow>
-                                    <TableCell
-                                        colSpan={columns.length}
-                                        className="h-24 flex-auto"
-                                    >
+                                    <TableCell colSpan={columns.length} className="h-24 flex-auto">
                                         <div className="flex justify-center items-center">
                                             <p className='text-muted-foreground font-medium'>No Products Selected Yet...</p>
                                         </div>
                                     </TableCell>
                                 </TableRow>
                             )
-
                         }
                     </TableBody>
                 </Table >
