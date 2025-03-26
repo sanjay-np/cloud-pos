@@ -46,9 +46,11 @@ function SheetContent({
 	className,
 	children,
 	side = "right",
+	disableOutsideClick,
 	...props
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
 	side?: "top" | "right" | "bottom" | "left"
+	disableOutsideClick?: boolean;
 }) {
 	return (
 		<SheetPortal>
@@ -67,6 +69,7 @@ function SheetContent({
 					"data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",
 					className
 				)}
+				onInteractOutside={disableOutsideClick ? (e) => e.preventDefault() : props.onInteractOutside}
 				{...props}
 			>
 				{children}

@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { ProductTable } from './product-table';
 import { ProductFinder } from './product-finder';
+import { type ProductStoreState, useProductStore } from '@/hooks/use-product';
 
 type PurchaseFormProps = {
     data: any;
@@ -15,11 +16,14 @@ type PurchaseFormProps = {
 
 const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps) => {
 
+    const { setProduct }: ProductStoreState = useProductStore();
 
-
-    const onProductSelect = (item) => {
-        console.log('item', item);
-
+    const onProductSelect = (item: any) => {
+        setProduct({
+            ...item,
+            qty: 1,
+            price: item.purchase_price
+        })
     }
 
     if (isProcessing) {

@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use App\Helpers\Helpers;
-use App\Traits\CurrentFiscalYear;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sale extends Model
 {
-    use HasFactory, SoftDeletes, CurrentFiscalYear;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

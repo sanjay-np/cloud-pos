@@ -30,27 +30,15 @@ class ProductController extends Controller
         return Inertia::render('products/index', [
             'products' => Inertia::merge($products->items()),
             'pagination' => Arr::except($products->toArray(), ['data', 'links']),
-            'categories' => Inertia::defer(function () {
-                return Category::query()
-                    ->select(['id', 'name'])
-                    ->get();
-            }, 'optional'),
-            'brands' => Inertia::defer(function () {
-                return Brand::query()
-                    ->select(['id', 'name'])
-                    ->get()?->map(fn($item) => [
-                        'label' => $item->name,
-                        'value' => $item->id
-                    ]);
-            }, 'optional'),
-            'suppliers' => Inertia::defer(function () {
-                return Supplier::query()
-                    ->select(['id', 'name'])
-                    ->get()?->map(fn($item) => [
-                        'label' => $item->name,
-                        'value' => $item->id
-                    ]);
-            }, 'optional'),
+            'categories' => Inertia::defer(fn() => Category::query()->select(['id', 'name'])->get(), 'optional'),
+            'brands' => Inertia::defer(fn() => Brand::query()->select(['id', 'name'])->get()?->map(fn($item) => [
+                'label' => $item->name,
+                'value' => $item->id
+            ]), 'optional'),
+            'suppliers' => Inertia::defer(fn() => Supplier::query()->select(['id', 'name'])->get()?->map(fn($item) => [
+                'label' => $item->name,
+                'value' => $item->id
+            ]), 'optional'),
         ]);
     }
 
@@ -91,7 +79,7 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         return $this->model->query()
-            ->select(['id', 'title'])
+            ->select(['id', 'title', 'purchase_price', 'sale_price'])
             ->take(10)
             ->get();
     }

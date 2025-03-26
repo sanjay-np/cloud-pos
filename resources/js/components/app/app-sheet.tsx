@@ -36,7 +36,7 @@ const AppSheet = ({
 
     return (
         <Sheet open={isOpen} onOpenChange={closeSheet}>
-            <SheetContent className={cn("sm:max-w-[420px] overflow-y-scroll", width)}>
+            <SheetContent className={cn("sm:max-w-[420px] overflow-y-scroll", width)} disableOutsideClick>
                 <SheetHeader>
                     <SheetTitle>{title}</SheetTitle>
                     {subTitle && (
