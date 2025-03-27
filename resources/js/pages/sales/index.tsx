@@ -6,6 +6,7 @@ import AppTable from '@/components/table/app-table'
 import { useColumns } from '@/hooks/use-columns'
 
 import { type BreadcrumbItem } from '@/types'
+import SaleOperation from './_components/sale-operation'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -35,6 +36,7 @@ const Index = ({ sales, pagination }: any) => {
                 searchRoute='sales.index'
                 setMode={setMode}
             />
+            <SaleOperation saleId={itemId} mode={mode} />
         </AppLayout>
     )
 }

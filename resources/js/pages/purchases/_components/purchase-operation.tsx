@@ -53,19 +53,19 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
         if (mode == "add") {
             post(route('purchase.store'), {
                 onSuccess: () => {
-                    toast.success('Expense created successfully')
+                    toast.success('Purchase created successfully')
                     closeSheet()
                     reset();
                 }
             })
         }
         if (mode == "edit" && purchaseId) {
-            router.post(route('expenses.update', purchaseId), {
+            router.post(route('purchase.update', purchaseId), {
                 _method: "put",
                 ...data
             }, {
                 onSuccess: () => {
-                    toast.success('Expense updated successfully')
+                    toast.success('Purchase updated successfully')
                     closeSheet()
                     reset();
                 }
