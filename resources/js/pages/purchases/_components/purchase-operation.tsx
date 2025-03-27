@@ -34,7 +34,19 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
         reset,
     } = useForm<Required<any>>({
         date: "",
-        products: []
+        products: [],
+        supplier_id: '',
+        tax_percentage: 0,
+        tax_amount: 0,
+        discount_amount: 0,
+        shipping_amount: 0,
+        total_amount: 0,
+        paid_amount: 0,
+        due_amount: 0,
+        status: '',
+        payment_status: '',
+        payment_method: '',
+        note: ''
     })
 
     const handleSubmit = () => {

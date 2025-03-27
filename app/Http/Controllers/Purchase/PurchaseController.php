@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchase\StoreRequest;
 use App\Http\Requests\Purchase\UpdateRequest;
 use App\Models\Purchase;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
@@ -26,7 +27,11 @@ class PurchaseController extends Controller
 
         return Inertia::render('purchases/index', [
             'purchases' => Inertia::merge($purchases->items()),
-            'pagination' => Arr::except($purchases->toArray(), ['data', 'links'])
+            'pagination' => Arr::except($purchases->toArray(), ['data', 'links']),
+            'suppliers' => Inertia::defer(fn() => Supplier::query()->select(['id', 'name'])->get()?->map(fn($item) => [
+                'label' => $item->name,
+                'value' => $item->id
+            ]), 'optional'),
         ]);
     }
 

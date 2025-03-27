@@ -1,3 +1,5 @@
+import { usePage } from '@inertiajs/react';
+
 import AppSelect from '@/components/app/app-select';
 import { DatePicker } from '@/components/ui/date-picker';
 import { Input } from '@/components/ui/input';
@@ -25,6 +27,8 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
         setDiscount,
         setShipping
     }: ProductStoreState = useProductStore();
+
+    const { suppliers } = usePage().props as any
 
     const onProductSelect = (item: any) => {
         setProduct({
@@ -63,15 +67,14 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                     <Label>Supplier</Label>
                     <AppSelect
                         placeholder='Select Supplier'
-                        options={[]}
-                        onChange={() => { }}
+                        selected={data.supplier_id}
+                        options={suppliers ?? []}
+                        onChange={(val) => setData("supplier_id", val)}
                     />
                 </div>
             </div>
             <div className="grid w-full gap-2">
-                <ProductFinder
-                    onProductSelect={onProductSelect}
-                />
+                <ProductFinder onProductSelect={onProductSelect} />
                 <ProductTable />
             </div>
             <div className="grid grid-cols-3 w-full gap-2">
