@@ -16,8 +16,7 @@ class PurchaseDetail extends Model
         'purchase_id',
         'product_id',
         'qty',
-        'unit_price',
-        'sale_price',
+        'price',
         'sub_total',
     ];
 

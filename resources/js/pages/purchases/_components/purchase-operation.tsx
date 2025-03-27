@@ -51,7 +51,7 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
 
     const handleSubmit = () => {
         if (mode == "add") {
-            post(route('purchase.store'), {
+            post(route('purchases.store'), {
                 onSuccess: () => {
                     toast.success('Purchase created successfully')
                     closeSheet()
@@ -60,7 +60,7 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
             })
         }
         if (mode == "edit" && purchaseId) {
-            router.post(route('purchase.update', purchaseId), {
+            router.post(route('purchases.update', purchaseId), {
                 _method: "put",
                 ...data
             }, {

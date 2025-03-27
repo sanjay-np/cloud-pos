@@ -41,39 +41,39 @@ export const ProductTable = () => {
                     </TableHeader>
                     <TableBody>
                         {products.length > 0
-                            ?
-                            (products.map((item, index) => (
-                                <TableRow>
-                                    <TableCell>{index + 1}</TableCell>
-                                    <TableCell>{item.title}</TableCell>
-                                    <TableCell>
-                                        <Input
-                                            type='number'
-                                            value={item.qty}
-                                            onChange={(e) => changeQty(item.id, parseInt(e.target.value))}
-                                            className='w-16'
-                                            min={1}
-                                        />
-                                    </TableCell>
-                                    <TableCell>
-                                        <Input
-                                            value={item.price}
-                                            onChange={(e) => changePrice(item.id, parseFloat(e.target.value))}
-                                            className='w-20'
-                                        />
-                                    </TableCell>
-                                    <TableCell>{(item.price * item.qty).toFixed(2)}</TableCell>
-                                    <TableCell>
-                                        <Button
-                                            size={'icon'}
-                                            variant={'outline'}
-                                            onClick={() => removeProduct(item.id)}
-                                        >
-                                            <Trash2Icon />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            )))
+                            ? (
+                                products.map((item, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>{index + 1}</TableCell>
+                                        <TableCell>{item.title}</TableCell>
+                                        <TableCell>
+                                            <Input
+                                                type='number'
+                                                value={item.qty}
+                                                onChange={(e) => changeQty(item.id, parseInt(e.target.value))}
+                                                className='w-16'
+                                                min={1}
+                                            />
+                                        </TableCell>
+                                        <TableCell>
+                                            <Input
+                                                value={item.price}
+                                                onChange={(e) => changePrice(item.id, parseFloat(e.target.value))}
+                                                className='w-20'
+                                            />
+                                        </TableCell>
+                                        <TableCell>{(item.price * item.qty).toFixed(2)}</TableCell>
+                                        <TableCell>
+                                            <Button
+                                                size={'icon'}
+                                                variant={'outline'}
+                                                onClick={() => removeProduct(item.id)}
+                                            >
+                                                <Trash2Icon />
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                )))
                             : (
                                 <TableRow>
                                     <TableCell colSpan={columns.length} className="h-24 flex-auto">

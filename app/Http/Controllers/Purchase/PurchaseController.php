@@ -7,6 +7,7 @@ use App\Http\Requests\Purchase\StoreRequest;
 use App\Http\Requests\Purchase\UpdateRequest;
 use App\Models\Purchase;
 use App\Models\Supplier;
+use App\Services\PurchaseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
@@ -14,16 +15,26 @@ use Inertia\Inertia;
 class PurchaseController extends Controller
 {
     public function __construct(
-        private Purchase $model
+        private Purchase $model,
+        private PurchaseService $service,
     ) {}
 
 
     public function index(Request $request)
     {
         $purchases = $this->model->query()
+            ->with([
+                'supplier:id,name',
+                'details.product:id,title'
+            ])
             ->orderBy('id', 'desc')
             ->paginate($request->per_page ?? config('pos.per_page'))
             ->withQueryString();
+
+        $purchases->through(function ($purchase) {
+            return $purchase->setAttribute('products', $purchase->details->pluck('product.title'))->setHidden(['details']);
+        });
+
 
         return Inertia::render('purchases/index', [
             'purchases' => Inertia::merge($purchases->items()),
@@ -39,11 +50,11 @@ class PurchaseController extends Controller
     public function store(StoreRequest $request)
     {
         $item = $this->model->create($request->getRequested());
-        // if ($item) {
-        //     $this->purchaseService->createPurchaseDetail($request->getRequestedProducts(), $item->id);
-        //     $this->purchaseService->createPurchasePayment($request->getRequestedPayment(), $item->id);
-        //     return to_route('purchases.index');
-        // }
+        if ($item) {
+            $this->service->createPurchaseDetail($request->getRequestedProducts(), $item->id);
+            $this->service->createPurchasePayment($request->getRequestedPayment(), $item->id);
+            return to_route('purchases.index');
+        }
     }
 
 

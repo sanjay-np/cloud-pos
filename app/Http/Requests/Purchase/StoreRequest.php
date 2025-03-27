@@ -56,11 +56,7 @@ class StoreRequest extends FormRequest
                 'required',
                 'numeric'
             ],
-            'products.*.unit_price' => [
-                'required',
-                'numeric'
-            ],
-            'products.*.sale_price' => [
+            'products.*.price' => [
                 'required',
                 'numeric'
             ],

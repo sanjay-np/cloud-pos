@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
 
 import AppSelect from '@/components/app/app-select';
@@ -7,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { ProductTable } from './product-table';
 import { ProductFinder } from './product-finder';
+
 import {
     type ProductStoreState,
     useProductStore
@@ -22,6 +24,12 @@ type PurchaseFormProps = {
 const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps) => {
 
     const {
+        products,
+        grandTotal,
+        taxPercent,
+        taxAmount,
+        discount,
+        shipping,
         setProduct,
         setTax,
         setDiscount,
@@ -32,11 +40,27 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
 
     const onProductSelect = (item: any) => {
         setProduct({
-            ...item,
+            id: item.id,
+            title: item.title,
             qty: 1,
             price: item.purchase_price
         })
     }
+
+    useEffect(() => {
+        // @ts-ignore
+        setData((prev) => {
+            return {
+                ...prev,
+                products: products,
+                tax_percentage: taxPercent,
+                tax_amount: taxAmount,
+                discount_amount: discount,
+                shipping_amount: shipping,
+                total_amount: grandTotal
+            }
+        })
+    }, [products, grandTotal, taxPercent, taxAmount, discount, shipping])
 
     if (isProcessing) {
         return (
@@ -54,6 +78,8 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                     <Label>Reference</Label>
                     <Input
                         placeholder='Reference...'
+                        disabled
+                        value={'PUR-000'}
                     />
                 </div>
                 <div className="item">
@@ -67,8 +93,8 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                     <Label>Supplier</Label>
                     <AppSelect
                         placeholder='Select Supplier'
-                        selected={data.supplier_id}
                         options={suppliers ?? []}
+                        selected={data.supplier_id}
                         onChange={(val) => setData("supplier_id", val)}
                     />
                 </div>
@@ -81,25 +107,36 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                 <div className="item">
                     <Label>Tax (%)</Label>
                     <Input
-                        placeholder='Eg:10'
-                        onChange={(e) => setTax(parseInt(e.target.value))}
-
+                        placeholder='10%'
+                        defaultValue={data.tax_percentage}
+                        onChange={(e) => {
+                            setTax(parseInt(e.target.value))
+                            setData('tax_percentage', parseInt(e.target.value))
+                        }}
                     />
                 </div>
 
                 <div className="item">
                     <Label>Discount Amount</Label>
                     <Input
-                        placeholder='Eg:200'
-                        onChange={(e) => setDiscount(parseInt(e.target.value))}
+                        placeholder='Rs.200'
+                        defaultValue={data.discount_amount}
+                        onChange={(e) => {
+                            setDiscount(parseInt(e.target.value))
+                            setData('discount_amount', parseInt(e.target.value))
+                        }}
                     />
                 </div>
 
                 <div className="item">
                     <Label>Shipping Amount</Label>
                     <Input
-                        placeholder='Eg:500'
-                        onChange={(e) => setShipping(parseInt(e.target.value))}
+                        placeholder='Rs.500'
+                        defaultValue={data.shipping_amount}
+                        onChange={(e) => {
+                            setShipping(parseInt(e.target.value))
+                            setData('shipping_amount', parseInt(e.target.value))
+                        }}
                     />
                 </div>
             </div>
@@ -114,7 +151,8 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                             { label: 'Ordered', value: "ordered" },
                             { label: 'Completed', value: "completed" },
                         ]}
-                        onChange={() => { }}
+                        selected={data.status}
+                        onChange={(val) => setData('status', val)}
                     />
                 </div>
 
@@ -130,14 +168,17 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                             { label: 'Online', value: "online" },
                             { label: 'UnPaid', value: "unpaid" },
                         ]}
-                        onChange={() => { }}
+                        selected={data.payment_method}
+                        onChange={(val) => setData('payment_method', val)}
                     />
                 </div>
 
                 <div className="item">
                     <Label>Paid Amount</Label>
                     <Input
-                        placeholder='Eg:5000'
+                        placeholder='Rs.5000'
+                        defaultValue={data.paid_amount}
+                        onChange={(e) => setData('paid_amount', parseInt(e.target.value))}
                     />
                 </div>
             </div>
@@ -146,6 +187,8 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                 <Label>Purchase Note (Optional)</Label>
                 <Textarea
                     placeholder='Purchase Note...'
+                    defaultValue={data.note}
+                    onChange={(e) => setData('note', e.target.value)}
                 />
             </div>
         </div>

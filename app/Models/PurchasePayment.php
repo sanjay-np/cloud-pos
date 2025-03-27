@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,7 +27,7 @@ class PurchasePayment extends Model
         parent::boot();
         static::creating(function ($model) {
             $number = PurchasePayment::max('id') + 1;
-            $model->reference = make_reference_id('PUR-PAY', $number);
+            $model->reference = Helpers::makeReferenceId('PUR-PAY', $number);
         });
     }
 }
