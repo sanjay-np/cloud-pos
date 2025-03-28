@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
 
 import AppSelect from '@/components/app/app-select';
@@ -6,16 +5,13 @@ import { DatePicker } from '@/components/ui/date-picker';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ProductTable } from './product-table';
+import { ProductTable, setProductHandler } from './product-table';
 import { ProductFinder } from './product-finder';
 
-import {
-    type ProductStoreState,
-    useProductStore
-} from '@/hooks/use-product';
+import { type PurchaseFormFieldProps } from './purchase';
 
 type PurchaseFormProps = {
-    data: any;
+    data: PurchaseFormFieldProps;
     setData: any;
     errors: any;
     isProcessing: boolean,
@@ -23,44 +19,7 @@ type PurchaseFormProps = {
 
 const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps) => {
 
-    const {
-        products,
-        grandTotal,
-        taxPercent,
-        taxAmount,
-        discount,
-        shipping,
-        setProduct,
-        setTax,
-        setDiscount,
-        setShipping
-    }: ProductStoreState = useProductStore();
-
     const { suppliers } = usePage().props as any
-
-    const onProductSelect = (item: any) => {
-        setProduct({
-            id: item.id,
-            title: item.title,
-            qty: 1,
-            price: item.purchase_price
-        })
-    }
-
-    useEffect(() => {
-        // @ts-ignore
-        setData((prev) => {
-            return {
-                ...prev,
-                products: products,
-                tax_percentage: taxPercent,
-                tax_amount: taxAmount,
-                discount_amount: discount,
-                shipping_amount: shipping,
-                total_amount: grandTotal
-            }
-        })
-    }, [products, grandTotal, taxPercent, taxAmount, discount, shipping])
 
     if (isProcessing) {
         return (
@@ -94,14 +53,28 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                     <AppSelect
                         placeholder='Select Supplier'
                         options={suppliers ?? []}
+                        // @ts-ignore
                         selected={data.supplier_id}
                         onChange={(val) => setData("supplier_id", val)}
                     />
                 </div>
             </div>
             <div className="grid w-full gap-2">
-                <ProductFinder onProductSelect={onProductSelect} />
-                <ProductTable items={data.products} />
+                <ProductFinder
+                    onProductSelect={(item) => {
+                        const productItem = {
+                            id: item.id,
+                            title: item.title,
+                            qty: 1,
+                            price: item.purchase_price
+                        }
+                        setProductHandler(productItem, data, setData)
+                    }}
+                />
+                <ProductTable
+                    data={data}
+                    setData={setData}
+                />
             </div>
             <div className="grid grid-cols-3 w-full gap-2">
                 <div className="item">
@@ -110,7 +83,6 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                         placeholder='10%'
                         defaultValue={data.tax_percentage}
                         onChange={(e) => {
-                            setTax(parseInt(e.target.value))
                             setData('tax_percentage', parseInt(e.target.value))
                         }}
                     />
@@ -122,7 +94,6 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                         placeholder='Rs.200'
                         defaultValue={data.discount_amount}
                         onChange={(e) => {
-                            setDiscount(parseInt(e.target.value))
                             setData('discount_amount', parseInt(e.target.value))
                         }}
                     />
@@ -134,7 +105,6 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                         placeholder='Rs.500'
                         defaultValue={data.shipping_amount}
                         onChange={(e) => {
-                            setShipping(parseInt(e.target.value))
                             setData('shipping_amount', parseInt(e.target.value))
                         }}
                     />

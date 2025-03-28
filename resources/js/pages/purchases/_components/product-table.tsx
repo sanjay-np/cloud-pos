@@ -1,5 +1,4 @@
 import { Trash2Icon } from 'lucide-react';
-import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,28 +11,49 @@ import {
     TableRow
 } from '@/components/ui/table';
 
-import { type ProductStoreState, useProductStore } from '@/hooks/use-product';
+import {
+    type Product,
+    type PurchaseFormFieldProps
+} from './purchase';
+import { useEffect } from 'react';
 
-export const ProductTable = ({ items }: any) => {
+
+export const ProductTable = ({ data, setData }: { data: PurchaseFormFieldProps, setData: any }) => {
 
     const columns = ['SN.', 'Product Name', 'QTY', 'Price', 'Total', '...']
-    const [productItems, setProductItems] = useState<any[]>(items ?? [])
+
+    const removeProductHandler = (id: number) => {
+        const updatedProducts = data.products.filter(product => product.id !== id);
+        setData('products', updatedProducts)
+    }
 
 
-    console.log(productItems);
+    const changeQtyHandler = (id: number, qty: number) => {
+        if (qty < 0) return;
+        const updatedProducts = data.products.map(product =>
+            product.id === id ? { ...product, qty } : product
+        );
+        setData('products', updatedProducts)
+    }
+
+    const changePriceHandler = (id: number, price: number) => {
+        if (!price) return;
+        const updatedProducts = data.products.map(product =>
+            product.id === id ? { ...product, price } : product
+        );
+        setData('products', updatedProducts)
+    }
+
+    const total = data.products.reduce((sum, product) => sum + (product.price * product.qty), 0);
+
+    useEffect(() => {
+        setData('tax_amount', calculateTax(total, data.tax_percentage))
+    }, [data.tax_percentage])
 
 
-    const {
-        products,
-        total,
-        taxAmount,
-        discount,
-        shipping,
-        grandTotal,
-        changeQty,
-        changePrice,
-        removeProduct
-    }: ProductStoreState = useProductStore();
+    useEffect(() => {
+        setData('total_amount', calculateGrandTotal(total, data.tax_amount, data.discount_amount, data.shipping_amount))
+    }, [data.discount_amount, data.shipping_amount, data.tax_amount, data.products])
 
     return (
         <>
@@ -47,9 +67,9 @@ export const ProductTable = ({ items }: any) => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {productItems.length > 0
+                        {data.products.length > 0
                             ? (
-                                productItems.map((item, index) => (
+                                data.products.map((item, index) => (
                                     <TableRow key={index}>
                                         <TableCell>{index + 1}</TableCell>
                                         <TableCell>{item.title}</TableCell>
@@ -57,7 +77,7 @@ export const ProductTable = ({ items }: any) => {
                                             <Input
                                                 type='number'
                                                 value={item.qty}
-                                                onChange={(e) => changeQty(item.id, parseInt(e.target.value))}
+                                                onChange={(e) => { changeQtyHandler(item.id, parseInt(e.target.value)) }}
                                                 className='w-16'
                                                 min={1}
                                             />
@@ -65,7 +85,7 @@ export const ProductTable = ({ items }: any) => {
                                         <TableCell>
                                             <Input
                                                 value={item.price}
-                                                onChange={(e) => changePrice(item.id, parseFloat(e.target.value))}
+                                                onChange={(e) => { changePriceHandler(item.id, parseInt(e.target.value)) }}
                                                 className='w-20'
                                             />
                                         </TableCell>
@@ -74,7 +94,7 @@ export const ProductTable = ({ items }: any) => {
                                             <Button
                                                 size={'icon'}
                                                 variant={'outline'}
-                                                onClick={() => removeProduct(item.id)}
+                                                onClick={() => removeProductHandler(item.id)}
                                             >
                                                 <Trash2Icon />
                                             </Button>
@@ -102,22 +122,48 @@ export const ProductTable = ({ items }: any) => {
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Tax</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {taxAmount.toFixed(2)}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {data.tax_amount.toFixed(2)}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Discount</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(-)  {discount.toFixed(2)}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(-)  {data.discount_amount.toFixed(2)}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Shipping</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+)  {shipping.toFixed(2)}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+)  {data.shipping_amount.toFixed(2)}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Grand Total</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(=)  {grandTotal.toFixed(2)}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(=)  {data.total_amount.toFixed(2)}</p>
                     </div>
                 </div>
             </div>
         </>
     )
 }
+
+
+export const setProductHandler = (item: Product, data: PurchaseFormFieldProps, setData: any) => {
+    const existingProductIndex = data.products.findIndex(product => product.id === item.id);
+    const updatedProducts = [...data.products];
+
+    if (existingProductIndex !== -1) {
+        updatedProducts[existingProductIndex] = {
+            ...updatedProducts[existingProductIndex],
+            qty: updatedProducts[existingProductIndex].qty + item.qty,
+        };
+    } else {
+        updatedProducts.push(item);
+    }
+    setData('products', updatedProducts)
+}
+
+const calculateTax = (subtotal: number, tax: number) => {
+    return (subtotal * tax) / 100;
+};
+
+const calculateGrandTotal = (subtotal: number, taxAmount: number, discount: number, shipping: number) => {
+    const totalWithTax = subtotal + taxAmount;
+    const totalWithDiscount = totalWithTax - discount;
+    return totalWithDiscount + shipping;
+};

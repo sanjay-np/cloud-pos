@@ -75,6 +75,7 @@ class StoreRequest extends FormRequest
         return true;
     }
 
+
     public function getRequested(): array
     {
         $totalAmount = $this->input('total_amount');
@@ -103,12 +104,14 @@ class StoreRequest extends FormRequest
         );
     }
 
+
     public function getRequestedProducts(): array
     {
         return $this->only(keys: [
             'products'
         ]);
     }
+
 
     public function getRequestedPayment(): array
     {

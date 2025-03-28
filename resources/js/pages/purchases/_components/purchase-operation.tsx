@@ -7,6 +7,7 @@ import PurchaseForm from './purchase-form';
 
 import { useSheetStore } from '@/hooks/use-sheet';
 import { type Mode } from '@/types';
+import { PurchaseFormFieldProps } from './purchase';
 
 type PurchaseOperationProps = {
     purchaseId: number | null;
@@ -32,10 +33,10 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
         processing,
         errors,
         reset,
-    } = useForm<Required<any>>({
+    } = useForm<Required<PurchaseFormFieldProps>>({
         date: "",
         products: [],
-        supplier_id: '',
+        supplier_id: "",
         tax_percentage: 0,
         tax_amount: 0,
         discount_amount: 0,
@@ -43,10 +44,10 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
         total_amount: 0,
         paid_amount: 0,
         due_amount: 0,
-        status: '',
-        payment_status: '',
-        payment_method: '',
-        note: ''
+        status: "",
+        payment_status: "",
+        payment_method: "",
+        note: "",
     })
 
     const handleSubmit = () => {
@@ -75,6 +76,7 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
 
     useEffect(() => {
         if (!purchaseId) return
+
         setIsProcessing(true)
         const fetchPurchase = async () => {
             try {
@@ -83,12 +85,12 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
 
                 console.log(response);
 
-
                 if (response) {
                     setPurchase(response)
                     setData(response)
                     setIsProcessing(false)
                 }
+
             } catch (err: any) {
                 console.log(err);
             } finally {

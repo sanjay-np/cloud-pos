@@ -63,7 +63,7 @@ class PurchaseController extends Controller
     public function show(int $id)
     {
         Product::$disabledAppends = true;
-        $item = $this->model->with('details.product:id,title,purchase_price')->findOrFail($id);
+        $item = $this->model->with('details.product:id,title')->findOrFail($id);
         if ($item->relationLoaded('details')) {
             $products = [];
             foreach ($item->details as $detail) {
@@ -84,6 +84,8 @@ class PurchaseController extends Controller
     {
         $item = $this->model->findOrFail($id)->update($request->getRequested());
         if ($item) {
+            $this->service->updatePurchaseDetail($request->getRequestedProducts(), $item->id);
+            $this->service->updatePurchasePayment($request->getRequestedPayment(), $item->id);
             return to_route('purchases.index');
         }
     }
