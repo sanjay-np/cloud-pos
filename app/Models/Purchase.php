@@ -32,6 +32,13 @@ class Purchase extends Model
     ];
 
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id');

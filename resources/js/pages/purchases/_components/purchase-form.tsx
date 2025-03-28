@@ -101,7 +101,7 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
             </div>
             <div className="grid w-full gap-2">
                 <ProductFinder onProductSelect={onProductSelect} />
-                <ProductTable />
+                <ProductTable items={data.products} />
             </div>
             <div className="grid grid-cols-3 w-full gap-2">
                 <div className="item">

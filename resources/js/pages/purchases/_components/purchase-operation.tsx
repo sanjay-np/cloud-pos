@@ -1,5 +1,5 @@
 import { router, useForm } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import AppSheet from '@/components/app/app-sheet';
@@ -72,6 +72,32 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
             })
         }
     }
+
+    useEffect(() => {
+        if (!purchaseId) return
+        setIsProcessing(true)
+        const fetchPurchase = async () => {
+            try {
+                const result = await fetch(route('purchases.show', purchaseId))
+                const response = await result.json()
+
+                console.log(response);
+
+
+                if (response) {
+                    setPurchase(response)
+                    setData(response)
+                    setIsProcessing(false)
+                }
+            } catch (err: any) {
+                console.log(err);
+            } finally {
+                setIsProcessing(false)
+            }
+        }
+        fetchPurchase()
+
+    }, [purchaseId])
 
     return (
         <AppSheet

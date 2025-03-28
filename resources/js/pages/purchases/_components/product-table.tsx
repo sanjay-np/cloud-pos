@@ -1,4 +1,5 @@
 import { Trash2Icon } from 'lucide-react';
+import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,9 +14,15 @@ import {
 
 import { type ProductStoreState, useProductStore } from '@/hooks/use-product';
 
-export const ProductTable = () => {
+export const ProductTable = ({ items }: any) => {
 
     const columns = ['SN.', 'Product Name', 'QTY', 'Price', 'Total', '...']
+    const [productItems, setProductItems] = useState<any[]>(items ?? [])
+
+
+    console.log(productItems);
+
+
     const {
         products,
         total,
@@ -40,9 +47,9 @@ export const ProductTable = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {products.length > 0
+                        {productItems.length > 0
                             ? (
-                                products.map((item, index) => (
+                                productItems.map((item, index) => (
                                     <TableRow key={index}>
                                         <TableCell>{index + 1}</TableCell>
                                         <TableCell>{item.title}</TableCell>

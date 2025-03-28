@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Purchase;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Purchase\StoreRequest;
 use App\Http\Requests\Purchase\UpdateRequest;
+use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\Supplier;
 use App\Services\PurchaseService;
@@ -32,7 +33,8 @@ class PurchaseController extends Controller
             ->withQueryString();
 
         $purchases->through(function ($purchase) {
-            return $purchase->setAttribute('products', $purchase->details->pluck('product.title'))->setHidden(['details']);
+            return $purchase->setAttribute('products', $purchase->details->pluck('product.title'))
+                ->setHidden(['details']);
         });
 
 
@@ -60,7 +62,21 @@ class PurchaseController extends Controller
 
     public function show(int $id)
     {
-        return $this->model->findOrFail($id);
+        Product::$disabledAppends = true;
+        $item = $this->model->with('details.product:id,title,purchase_price')->findOrFail($id);
+        if ($item->relationLoaded('details')) {
+            $products = [];
+            foreach ($item->details as $detail) {
+                $products[] = [
+                    'id'    => $detail->product->id ?? null,
+                    'title' => $detail->product->title ?? null,
+                    'qty'   => $detail->qty ?? 0,
+                    'price' => $detail->price ?? 0,
+                ];
+            }
+            $item->setAttribute('products', $products);
+        }
+        return $item;
     }
 
 

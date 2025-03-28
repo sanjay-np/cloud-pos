@@ -1,14 +1,15 @@
 import { Head } from '@inertiajs/react'
+import { format } from 'date-fns'
 
 import AppLayout from '@/layouts/app-layout'
 import AppTable from '@/components/table/app-table'
+import { Badge } from '@/components/ui/badge'
 
 import PurchaseOperation from './_components/purchase-operation'
 
 import { useColumns } from '@/hooks/use-columns'
 
 import { type BreadcrumbItem } from '@/types'
-import { Badge } from '@/components/ui/badge'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -22,9 +23,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 const Index = ({ purchases, pagination }: any) => {
 
-    console.log(purchases);
-
-
     const { columns, itemId, mode, setMode } = useColumns<any>({
         dataKey: "id",
         deleteRoute: "purchases.delete",
@@ -37,7 +35,7 @@ const Index = ({ purchases, pagination }: any) => {
             {
                 accessorKey: "date",
                 header: "Date",
-                cell: ({ row }) => (<div className="capitalize font-medium">{row.getValue<string>("date")}</div>),
+                cell: ({ row }) => (<div className="capitalize font-medium">{format(row.getValue<string>("date"), "dd/MM/yyyy")}</div>),
             },
             {
                 accessorKey: "supplier",
