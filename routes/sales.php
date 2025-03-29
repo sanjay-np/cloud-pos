@@ -7,4 +7,7 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::resource('sales', SalesController::class)
             ->names('sales');
+
+        Route::get('pos', [SalesController::class, 'pos'])
+            ->name('sales.pos');
     });

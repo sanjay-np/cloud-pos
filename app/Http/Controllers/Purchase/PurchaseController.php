@@ -37,7 +37,6 @@ class PurchaseController extends Controller
                 ->setHidden(['details']);
         });
 
-
         return Inertia::render('purchases/index', [
             'purchases' => Inertia::merge($purchases->items()),
             'pagination' => Arr::except($purchases->toArray(), ['data', 'links']),
@@ -80,12 +79,12 @@ class PurchaseController extends Controller
     }
 
 
-    public function update(UpdateRequest $request, int $id)
+    public function update(UpdateRequest $request, int $purchaseId)
     {
-        $item = $this->model->findOrFail($id)->update($request->getRequested());
+        $item = $this->model->findOrFail($purchaseId)->update($request->getRequested());
         if ($item) {
-            $this->service->updatePurchaseDetail($request->getRequestedProducts(), $item->id);
-            $this->service->updatePurchasePayment($request->getRequestedPayment(), $item->id);
+            $this->service->updatePurchaseDetail($request->getRequestedProducts(), $purchaseId);
+            $this->service->updatePurchasePayment($request->getRequestedPayment(), $purchaseId);
             return to_route('purchases.index');
         }
     }

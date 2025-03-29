@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,7 +27,7 @@ class SalePayment extends Model
         parent::boot();
         static::creating(function ($model) {
             $number = SalePayment::max('id') + 1;
-            $model->reference = make_reference_id('SALE-PAY', $number);
+            $model->reference = Helpers::makeReferenceId('SALE-PAY', $number);
         });
     }
 }

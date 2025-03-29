@@ -80,7 +80,8 @@ class ProductController extends Controller
     {
         return $this->model->query()
             ->select(['id', 'title', 'purchase_price', 'sale_price'])
-            ->take(10)
+            ->applyFilter($request->search_qry)
+            ->take(12)
             ->get();
     }
 }

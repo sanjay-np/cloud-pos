@@ -5,8 +5,11 @@ import { DatePicker } from '@/components/ui/date-picker';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ProductTable, setProductHandler } from './product-table';
 import { ProductFinder } from './product-finder';
+import {
+    ProductTable,
+    setProductHandler
+} from '@/components/table/app-product-table';
 
 import { type PurchaseFormFieldProps } from './purchase';
 

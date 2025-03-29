@@ -83,8 +83,6 @@ const PurchaseOperation = ({ purchaseId, mode }: PurchaseOperationProps) => {
                 const result = await fetch(route('purchases.show', purchaseId))
                 const response = await result.json()
 
-                console.log(response);
-
                 if (response) {
                     setPurchase(response)
                     setData(response)

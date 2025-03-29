@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react'
 import { format } from 'date-fns'
+import { IndianRupee } from 'lucide-react'
 
 import AppLayout from '@/layouts/app-layout'
 import AppTable from '@/components/table/app-table'
@@ -10,6 +11,10 @@ import PurchaseOperation from './_components/purchase-operation'
 import { useColumns } from '@/hooks/use-columns'
 
 import { type BreadcrumbItem } from '@/types'
+import {
+    type PurchaseIndexProps,
+    type PurchaseColumnProps
+} from './_components/purchase'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -21,9 +26,9 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/purchases',
     }
 ]
-const Index = ({ purchases, pagination }: any) => {
+const Index = ({ purchases, pagination }: PurchaseIndexProps) => {
 
-    const { columns, itemId, mode, setMode } = useColumns<any>({
+    const { columns, itemId, mode, setMode } = useColumns<PurchaseColumnProps>({
         dataKey: "id",
         deleteRoute: "purchases.delete",
         customColumns: [
@@ -51,7 +56,7 @@ const Index = ({ purchases, pagination }: any) => {
                 cell: ({ row }) => {
                     const products = row.getValue<string[]>("products") ?? [];
                     return products.length > 0
-                        ? (products.map((item, index) => (<Badge variant="outline" key={index}>{item}</Badge>)))
+                        ? (<div className='flex gap-2'>{products.map((item, index) => (<Badge variant="outline" key={index}>{item}</Badge>))}</div>)
                         : (<span>No Products</span>);
                 },
             },
@@ -65,8 +70,14 @@ const Index = ({ purchases, pagination }: any) => {
                 header: "Payment Status",
                 cell: ({ row }) => (<div className="capitalize font-medium">{row.getValue<string>("payment_status")}</div>),
             },
+        ],
+        additionalOptions: [
+            {
+                label: "Add Payment",
+                onClick: () => { },
+                icon: IndianRupee
+            }
         ]
-
     })
 
     return (

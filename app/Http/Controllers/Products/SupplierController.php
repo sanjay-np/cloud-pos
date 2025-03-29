@@ -27,13 +27,10 @@ class SupplierController extends Controller
             ->withQueryString();
 
         Brand::$disabledAppends = true;
-        $brands = Brand::query()
-            ->select(['id', 'name'])
-            ->get();
         return Inertia::render('supplier/index', [
             'suppliers' => Inertia::merge($suppliers->items()),
             'pagination' => Arr::except($suppliers->toArray(), ['data', 'links']),
-            'brands' => $brands
+            'brands' => Inertia::defer(fn() => Brand::query()->select(['id', 'name'])->get(), 'optional'),
         ]);
     }
 

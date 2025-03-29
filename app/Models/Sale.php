@@ -31,6 +31,23 @@ class Sale extends Model
         'note',
     ];
 
+    public function details()
+    {
+        return $this->hasMany(SaleDetail::class);
+    }
+
+
+    public function payments()
+    {
+        return $this->hasMany(SalePayment::class);
+    }
+
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
     public static function boot()
     {
         parent::boot();
@@ -38,20 +55,5 @@ class Sale extends Model
             $number = Sale::max('id') + 1;
             $model->reference = Helpers::makeReferenceId('SALE', $number);
         });
-    }
-
-    public function details()
-    {
-        return $this->hasMany(SaleDetail::class);
-    }
-
-    public function payments()
-    {
-        return $this->hasMany(SalePayment::class);
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
     }
 }

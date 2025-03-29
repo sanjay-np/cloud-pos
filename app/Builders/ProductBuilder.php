@@ -22,4 +22,15 @@ class ProductBuilder extends Builder
     {
         return $this->whereIn('category_ids', $categoryId);
     }
+
+
+    public function applyFilter(?string $searchQry): self
+    {
+        if ($searchQry) {
+            return $this->where(function ($query) use ($searchQry) {
+                $query->where('title', 'like', "%{$searchQry}%");
+            });
+        }
+        return $this;
+    }
 }

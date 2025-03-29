@@ -1,3 +1,5 @@
+import { type Pagination } from "@/types";
+
 export type Product = {
     id: number;
     title: string;
@@ -20,4 +22,19 @@ export type PurchaseFormFieldProps = {
     payment_status: string;
     payment_method: string;
     note: string;
+}
+
+export type PurchaseColumnProps = {
+    id: number;
+    reference: string;
+    date: string;
+    supplier: { id: number, name: string };
+    products: string[];
+    total_amount: string;
+    payment_status: string;
+}
+
+export type PurchaseIndexProps = {
+    purchases: PurchaseColumnProps[];
+    pagination: Pagination
 }

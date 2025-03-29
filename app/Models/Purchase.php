@@ -51,6 +51,12 @@ class Purchase extends Model
     }
 
 
+    public function payments()
+    {
+        return $this->hasMany(PurchasePayment::class);
+    }
+
+
     public static function boot()
     {
         parent::boot();

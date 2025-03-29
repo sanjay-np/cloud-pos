@@ -16,8 +16,7 @@ class SaleDetail extends Model
         'sale_id',
         'product_id',
         'qty',
-        'unit_price',
-        'sale_price',
+        'price',
         'sub_total',
     ];
 
@@ -25,9 +24,4 @@ class SaleDetail extends Model
     {
         return $this->belongsTo(Product::class);
     }
-
-    // protected static function newFactory(): SaleDetailFactory
-    // {
-    //     // return SaleDetailFactory::new();
-    // }
 }

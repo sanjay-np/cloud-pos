@@ -1,4 +1,5 @@
 import { Trash2Icon } from 'lucide-react';
+import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,16 +12,32 @@ import {
     TableRow
 } from '@/components/ui/table';
 
-import {
-    type Product,
-    type PurchaseFormFieldProps
-} from './purchase';
-import { useEffect } from 'react';
+// Define types for product and main data structure
+type Product = {
+    id: number;
+    title: string;
+    qty: number;
+    price: number;
+};
+
+type DataState = {
+    products: Product[];
+    tax_percentage: number;
+    tax_amount: number;
+    discount_amount: number;
+    shipping_amount: number;
+    total_amount: number;
+};
+
+type ProductTableProps = {
+    data: DataState;
+    setData: any;
+};
 
 
-export const ProductTable = ({ data, setData }: { data: PurchaseFormFieldProps, setData: any }) => {
+export const ProductTable = ({ data, setData }: ProductTableProps) => {
 
-    const columns = ['SN.', 'Product Name', 'QTY', 'Price', 'Total', '...']
+    const columns = ['SN.', 'Product Name', 'Qty', 'Price', 'Total', '...']
 
     const removeProductHandler = (id: number) => {
         const updatedProducts = data.products.filter(product => product.id !== id);
@@ -57,7 +74,7 @@ export const ProductTable = ({ data, setData }: { data: PurchaseFormFieldProps, 
 
     return (
         <>
-            <div className="product-table rounded-md border">
+            <div className="product-table rounded-md border mb-2">
                 <Table>
                     <TableHeader>
                         <TableRow>
@@ -143,7 +160,8 @@ export const ProductTable = ({ data, setData }: { data: PurchaseFormFieldProps, 
 }
 
 
-export const setProductHandler = (item: Product, data: PurchaseFormFieldProps, setData: any) => {
+export const setProductHandler = (item: Product, data: any, setData: any) => {
+    //@ts-ignore
     const existingProductIndex = data.products.findIndex(product => product.id === item.id);
     const updatedProducts = [...data.products];
 
@@ -158,9 +176,11 @@ export const setProductHandler = (item: Product, data: PurchaseFormFieldProps, s
     setData('products', updatedProducts)
 }
 
+
 const calculateTax = (subtotal: number, tax: number) => {
     return (subtotal * tax) / 100;
 };
+
 
 const calculateGrandTotal = (subtotal: number, taxAmount: number, discount: number, shipping: number) => {
     const totalWithTax = subtotal + taxAmount;

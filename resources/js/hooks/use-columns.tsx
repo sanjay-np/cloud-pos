@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit, Tablet, TrashIcon } from "lucide-react";
+import { Edit, LucideIcon, Tablet, TrashIcon } from "lucide-react";
 import { router } from "@inertiajs/react";
 import { toast } from "sonner";
 
@@ -16,12 +16,18 @@ interface UseColumnsProps<T> {
     dataKey: keyof T;
     deleteRoute?: string;
     customColumns?: ColumnDef<T>[];
+    additionalOptions?: {
+        label: string,
+        onClick: () => void
+        icon?: LucideIcon | null
+    }[];
 }
 
 export const useColumns = <T extends Record<string, any>>({
     dataKey,
     deleteRoute,
     customColumns = [],
+    additionalOptions = [],
 }: UseColumnsProps<T>) => {
     const [itemId, setItemId] = useState<number | null>(null);
     const [mode, setMode] = useState<Mode>(null);
@@ -95,6 +101,7 @@ export const useColumns = <T extends Record<string, any>>({
                                     openSheet()
                                 },
                             },
+                            ...additionalOptions,
                             {
                                 label: "Delete",
                                 icon: TrashIcon,

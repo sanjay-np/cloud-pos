@@ -2,6 +2,7 @@ import {
     ArchiveIcon,
     BadgeDollarSignIcon,
     BookUserIcon,
+    CalculatorIcon,
     ContactRoundIcon,
     FolderIcon,
     LayoutGridIcon,
@@ -66,6 +67,11 @@ export const productMenuItems: NavItem[] = [
 ]
 
 export const operationMenuItems: NavItem[] = [
+    {
+        title: "POS",
+        url: '/pos',
+        icon: CalculatorIcon
+    },
     {
         title: 'Purchases',
         url: '/purchases',
