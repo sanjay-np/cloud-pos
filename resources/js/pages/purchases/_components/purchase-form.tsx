@@ -5,13 +5,14 @@ import { DatePicker } from '@/components/ui/date-picker';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ProductFinder } from './product-finder';
+
 import {
     ProductTable,
     setProductHandler
 } from '@/components/table/app-product-table';
 
 import { type PurchaseFormFieldProps } from './purchase';
+import { AppProductFinder } from '@/components/app/app-product-finder';
 
 type PurchaseFormProps = {
     data: PurchaseFormFieldProps;
@@ -63,7 +64,7 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                 </div>
             </div>
             <div className="grid w-full gap-2">
-                <ProductFinder
+                <AppProductFinder
                     onProductSelect={(item) => {
                         const productItem = {
                             id: item.id,

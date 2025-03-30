@@ -24,6 +24,14 @@ class Currency extends Model
         'is_current' => 'boolean',
     ];
 
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+
     protected static function boot()
     {
         parent::boot();
@@ -47,6 +55,7 @@ class Currency extends Model
             }
         });
     }
+
 
     protected static function booted()
     {

@@ -16,7 +16,7 @@ type ProductFinderProps = {
     onProductSelect?: (item: Product) => void
 }
 
-export const ProductFinder = ({ onProductSelect }: ProductFinderProps) => {
+export const AppProductFinder = ({ onProductSelect }: ProductFinderProps) => {
 
     const [searchResult, setSearchResult] = useState<Product[]>([])
     const [isFocused, setIsFocused] = useState<boolean>(false)

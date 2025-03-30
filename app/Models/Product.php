@@ -46,19 +46,17 @@ class Product extends Model
         'category_ids' => 'array'
     ];
 
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+
     public function getImageUrlAttribute()
     {
         return asset($this->main_image);
-    }
-
-
-    public static function boot()
-    {
-        parent::boot();
-        static::creating(function ($model) {
-            $number = Product::max('id') + 1;
-            $model->sku = Helpers::makeReferenceId('PROD', $number);
-        });
     }
 
 
@@ -77,6 +75,16 @@ class Product extends Model
     public function sale()
     {
         return $this->hasMany(SaleDetail::class, 'product_id');
+    }
+
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $number = Product::max('id') + 1;
+            $model->sku = Helpers::makeReferenceId('PROD', $number);
+        });
     }
 
 

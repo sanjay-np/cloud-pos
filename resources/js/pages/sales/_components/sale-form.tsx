@@ -1,10 +1,15 @@
+import { usePage } from "@inertiajs/react";
+
+import { AppProductFinder } from "@/components/app/app-product-finder";
 import AppSelect from "@/components/app/app-select";
-import { ProductTable } from "@/components/table/app-product-table";
+import {
+    ProductTable,
+    setProductHandler
+} from "@/components/table/app-product-table";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { usePage } from "@inertiajs/react";
 
 type SaleFormProps = {
     data: any;
@@ -16,6 +21,15 @@ type SaleFormProps = {
 const SaleForm = ({ data, setData, errors, isProcessing }: SaleFormProps) => {
 
     const { customers } = usePage().props as any
+
+    if (isProcessing) {
+        return (
+            <div>
+                {/* Todo: Add Skeletion */}
+                Loading...
+            </div>
+        )
+    }
 
     return (
         <div className="grid gap-4 px-4">
@@ -41,13 +55,13 @@ const SaleForm = ({ data, setData, errors, isProcessing }: SaleFormProps) => {
                         placeholder='Select Supplier'
                         options={customers ?? []}
                         // @ts-ignore
-                        selected={data.supplier_id}
-                        onChange={(val) => setData("supplier_id", val)}
+                        selected={data.customer_id}
+                        onChange={(val) => setData("customer_id", val)}
                     />
                 </div>
             </div>
             <div className="grid w-full gap-2">
-                {/* <ProductFinder
+                <AppProductFinder
                     onProductSelect={(item) => {
                         const productItem = {
                             id: item.id,
@@ -57,7 +71,7 @@ const SaleForm = ({ data, setData, errors, isProcessing }: SaleFormProps) => {
                         }
                         setProductHandler(productItem, data, setData)
                     }}
-                /> */}
+                />
                 <ProductTable
                     data={data}
                     setData={setData}

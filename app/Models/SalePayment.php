@@ -22,6 +22,14 @@ class SalePayment extends Model
         'note',
     ];
 
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+
     public static function boot()
     {
         parent::boot();

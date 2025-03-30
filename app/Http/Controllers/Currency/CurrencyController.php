@@ -1,49 +1,63 @@
 <?php
 
-namespace App\Http\Controllers\Settings;
+namespace App\Http\Controllers\Currency;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Currency\StoreRequest;
+use App\Http\Requests\Currency\UpdateRequest;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class FiscalYearController extends Controller
+class CurrencyController extends Controller
 {
-    public function __construct(private FiscalYear $model) {}
+    public function __construct(
+        private Currency $model
+    ) {}
+
 
     public function index(Request $request)
     {
-        $fiscalYears = $this->model->orderBy('id', 'desc')->paginate(perPage: 10);
-        return Inertia::render('Setting::FiscalYear', [
-            'fiscalYears' => $fiscalYears
+        $currencies = $this->model->query()
+            ->orderBy('id', 'desc')
+            ->paginate($request->per_page ?? config('pos.per_page'))
+            ->withQueryString();
+            
+        return Inertia::render('currency/index', [
+            'currencies' => $currencies
         ]);
     }
+
 
     public function store(StoreRequest $request)
     {
         $item = $this->model->create($request->getRequested());
         if ($item) {
-            return to_route('fiscal-years.index');
+            return to_route('currency.index');
         }
     }
+
 
     public function show($id)
     {
         return $this->model->findOrFail($id);
     }
 
+
     public function update(UpdateRequest $request, $id)
     {
         $item = $this->model->findOrFail($id)->update($request->getRequested());
         if ($item) {
-            return to_route('fiscal-years.index');
+            return to_route('currency.index');
         }
     }
+
 
     public function destroy($id)
     {
         $item = $this->model->findOrFail($id)->delete();
         if ($item) {
-            return to_route('fiscal-years.index');
+            return to_route('currency.index');
         }
     }
 }

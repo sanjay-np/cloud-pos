@@ -32,6 +32,7 @@ class Attribute extends Model
         'attributes' => 'array'
     ];
 
+
     public function scopeApplyFilter($query, $params)
     {
         $filterParams = collect($params);
