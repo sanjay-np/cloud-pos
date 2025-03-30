@@ -20,6 +20,7 @@ class SaleDetail extends Model
         'sub_total',
     ];
 
+
     public function product()
     {
         return $this->belongsTo(Product::class);

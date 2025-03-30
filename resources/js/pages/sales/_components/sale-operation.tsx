@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { router, useForm } from '@inertiajs/react';
 import { toast } from 'sonner';
 
@@ -35,7 +35,7 @@ const SaleOperation = ({ saleId, mode }: SaleOperationProps) => {
 	} = useForm<Required<any>>({
 		date: "",
 		products: [],
-		supplier_id: '',
+		customer_id: "",
 		tax_percentage: 0,
 		tax_amount: 0,
 		discount_amount: 0,
@@ -43,10 +43,10 @@ const SaleOperation = ({ saleId, mode }: SaleOperationProps) => {
 		total_amount: 0,
 		paid_amount: 0,
 		due_amount: 0,
-		status: '',
-		payment_status: '',
-		payment_method: '',
-		note: ''
+		status: "",
+		payment_status: "",
+		payment_method: "",
+		note: "",
 	})
 
 	const handleSubmit = () => {
@@ -72,6 +72,31 @@ const SaleOperation = ({ saleId, mode }: SaleOperationProps) => {
 			})
 		}
 	}
+
+	useEffect(() => {
+		if (!saleId) return
+
+		setIsProcessing(true)
+		const fetchPurchase = async () => {
+			try {
+				const result = await fetch(route('sales.show', saleId))
+				const response = await result.json()
+
+				if (response) {
+					setSale(response)
+					setData(response)
+					setIsProcessing(false)
+				}
+
+			} catch (err: any) {
+				console.log(err);
+			} finally {
+				setIsProcessing(false)
+			}
+		}
+		fetchPurchase()
+
+	}, [saleId])
 
 	return (
 		<AppSheet

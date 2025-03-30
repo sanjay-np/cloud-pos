@@ -31,6 +31,13 @@ class Sale extends Model
         'note',
     ];
 
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+
     public function details()
     {
         return $this->hasMany(SaleDetail::class);
@@ -42,11 +49,6 @@ class Sale extends Model
         return $this->hasMany(SalePayment::class);
     }
 
-
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
-    }
 
     public static function boot()
     {

@@ -93,7 +93,7 @@ const ProductFinder = ({ onProductSelect }: ProductFinderProps) => {
                                 <img src="/icons/default-product-1.png" alt='product' className='size-36 scale-150' />
                             </div>
                             <CardHeader className='px-4 py-0'>
-                                <CardTitle className='py-0'>
+                                <CardTitle className='py-0 truncate'>
                                     <span>{item.title}</span>
                                 </CardTitle>
                             </CardHeader>

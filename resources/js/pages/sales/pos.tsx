@@ -1,4 +1,5 @@
 import { Head, useForm } from '@inertiajs/react'
+import { toast } from 'sonner'
 
 import AppLayout from '@/layouts/app-layout'
 import {
@@ -8,12 +9,13 @@ import {
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { DatePicker } from '@/components/ui/date-picker'
+import AppSelect from '@/components/app/app-select'
+import { Textarea } from '@/components/ui/textarea'
+import { Button } from '@/components/ui/button'
 
 import ProductFinder from './_components/pos-product-finder'
 
 import { type BreadcrumbItem } from '@/types'
-import AppSelect from '@/components/app/app-select'
-import { Textarea } from '@/components/ui/textarea'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -27,8 +29,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 const POS = () => {
-
-    const { data, setData } = useForm({
+    const { data, setData, post, errors, processing, reset } = useForm({
         date: "",
         products: [],
         customer_id: "",
@@ -44,6 +45,15 @@ const POS = () => {
         payment_method: "",
         note: "",
     })
+
+    const handleSubmit = () => {
+        post(route('sales.store'), {
+            onSuccess: () => {
+                toast.success('Sales order created successfully.')
+                reset()
+            },
+        })
+    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -67,7 +77,7 @@ const POS = () => {
                                 <Input
                                     placeholder='Reference...'
                                     disabled
-                                    value={'PUR-000'}
+                                    value={'SALE-000'}
                                 />
                             </div>
                             <div className="item">
@@ -78,9 +88,9 @@ const POS = () => {
                             </div>
                             <div className="item">
                                 <Input
-                                    placeholder='Reference...'
-                                    disabled
-                                    value={'PUR-000'}
+                                    placeholder='Select Customer...'
+                                    defaultValue={data.customer_id}
+                                    onChange={(e) => setData('customer_id', e.target.value)}
                                 />
                             </div>
                         </div>
@@ -175,6 +185,14 @@ const POS = () => {
                                 onChange={(e) => setData('note', e.target.value)}
                             />
                         </div>
+                    </div>
+                    <div className="pt-3 text-right">
+                        <Button
+                            disabled={processing}
+                            onClick={handleSubmit}
+                        >
+                            Submit
+                        </Button>
                     </div>
                 </div>
             </div>
