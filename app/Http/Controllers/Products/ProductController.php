@@ -78,10 +78,6 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        if (!$request->search_qry) {
-            return [];
-        }
-
         return $this->model->query()
             ->select(['id', 'title', 'purchase_price', 'sale_price'])
             ->applyFilter($request->search_qry)

@@ -37,7 +37,7 @@ const Index = ({ customers, pagination }: CustomerIndexProps) => {
             {
                 id: "avatar_url",
                 accessorKey: "avatar_url",
-                header: "",
+                header: "Avatar",
                 cell: ({ row }) => (
                     <>
                         <Avatar className={`size-16 border-2 border-dashed group-hover:border-primary transition-colors`}>

@@ -54,7 +54,7 @@ class Employee extends Model
     public function getAvatarUrlAttribute()
     {
         if ($this->avatar) {
-            return asset($this->avatar);
+            return asset("storage/Employees/Avatar/{$this->avatar}");
         }
         return null;
     }
