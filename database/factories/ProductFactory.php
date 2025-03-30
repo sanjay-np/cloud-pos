@@ -41,10 +41,11 @@ class ProductFactory extends Factory
             ],
             'brand_id' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             'supplier_id' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-            // 'tags' => null,
+            'tags' => $this->faker->arrayElements($this->faker->words(3, true), 3),
             'product_type' => 'simple',
             'unit' => $this->faker->randomElement(['pc', 'kg']),
             'status' => $this->faker->randomElement(['active', 'inactive']),
+            'main_image' => $this->faker->image(storage_path('app/public/Products'), 500, 500, null, false),
         ];
     }
 }

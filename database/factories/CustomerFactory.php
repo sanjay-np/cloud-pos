@@ -17,7 +17,7 @@ class CustomerFactory extends Factory
             'whatsapp' => fake()->unique()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'address' => fake()->address(),
-            'avatar' => null,
+            'avatar' => $this->faker->image(storage_path('app/public/Customer'), 500, 500, null, false),
             'status' => fake()->randomElement(['active', 'inactive']),
         ];
     }

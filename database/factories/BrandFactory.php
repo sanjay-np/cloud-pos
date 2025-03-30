@@ -40,7 +40,8 @@ class BrandFactory extends Factory
         ];
         return [
             "name" => $this->faker->unique()->randomElement($brands),
-            "description" => $this->faker->sentence(10)
+            "description" => $this->faker->sentence(10),
+            "image" => $this->faker->image(storage_path('app/public/Brand'), 500, 500, null, false)
         ];
     }
 }

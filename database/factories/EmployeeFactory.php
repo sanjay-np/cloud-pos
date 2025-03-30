@@ -25,7 +25,7 @@ class EmployeeFactory extends Factory
             'position' => fake()->randomElement(['Manager', 'Employee']),
             'document_type' => 'citizenship',
             'document_number' => fake()->randomNumber(),
-            'avatar' => null,
+            'avatar' => $this->faker->image(storage_path('app/public/Employee'), 500, 500, null, false),
             'document_files' => null,
             'status' => fake()->randomElement(['active', 'inactive']),
         ];

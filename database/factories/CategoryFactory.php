@@ -21,6 +21,7 @@ class CategoryFactory extends Factory
             'description' => fake()->sentence(3),
             'parent_id' => 0,
             'status' => fake()->randomElement(['active', 'inactive']),
+            'image' => $this->faker->image(storage_path('app/public/Category'), 500, 500, null, false),
         ];
     }
 }
