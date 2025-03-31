@@ -52,6 +52,7 @@ class SalesController extends Controller
         if ($item) {
             $this->service->createSaleDetail($request->getRequestedProducts(), $item->id);
             $this->service->createSalePayment($request->getRequestedPayment(), $item->id);
+            event(new SaleCreated($item));
             return to_route('sales.pos');
         }
     }

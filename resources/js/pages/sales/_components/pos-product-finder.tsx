@@ -87,9 +87,13 @@ const ProductFinder = ({ onProductSelect }: ProductFinderProps) => {
                 </div>
             </div>
             <div className="product-results col-span-3">
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 gap-3">
                     {searchResult && searchResult?.map((item, index) => (
-                        <Card key={index} className='shadow-none rounded-md pt-0 pb-2 gap-3'>
+                        <Card
+                            key={index}
+                            className='shadow-none rounded-md pt-0 pb-2 gap-3 cursor-pointer'
+                            onClick={() => handleOnProductClick(item)}
+                        >
                             <div className="flex items-center justify-center border-b bg-muted">
                                 <img src={item.image_url} alt='product' className='size-36' />
                             </div>
@@ -101,15 +105,6 @@ const ProductFinder = ({ onProductSelect }: ProductFinderProps) => {
                             <CardContent className='px-4'>
                                 <span>${parseFloat(item.sale_price).toFixed(2)}</span>
                             </CardContent>
-                            <CardFooter className='px-4'>
-                                <Button
-                                    variant="outline"
-                                    size={"sm"}
-                                    onClick={() => handleOnProductClick(item)}
-                                >
-                                    <span>Add to cart</span>
-                                </Button>
-                            </CardFooter>
                         </Card>
                     ))}
                 </div>

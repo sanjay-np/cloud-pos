@@ -11,7 +11,7 @@ export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWi
             <AppSidebar />
             <AppContent variant="sidebar">
                 <AppSidebarHeader breadcrumbs={breadcrumbs} />
-                <div className="flex flex-1 flex-col gap-4 rounded-xl p-4 max-h-[calc(100vh-80px)] overflow-auto">
+                <div className="flex flex-1 flex-col gap-4 rounded-xl p-4 overflow-auto">
                     {children}
                 </div>
             </AppContent>

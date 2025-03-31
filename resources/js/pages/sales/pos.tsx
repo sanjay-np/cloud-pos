@@ -58,19 +58,21 @@ const POS = () => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Point Of Sale" />
-            <div className='grid grid-cols-2 gap-4'>
-                <ProductFinder
-                    onProductSelect={(item) => {
-                        const productItem = {
-                            id: item.id,
-                            title: item.title,
-                            qty: 1,
-                            price: item.sale_price
-                        }
-                        setProductHandler(productItem, data, setData)
-                    }}
-                />
-                <div className='sale-form'>
+            <div className='flex flex-wrap'>
+                <div className='w-5/12'>
+                    <ProductFinder
+                        onProductSelect={(item) => {
+                            const productItem = {
+                                id: item.id,
+                                title: item.title,
+                                qty: 1,
+                                price: item.sale_price
+                            }
+                            setProductHandler(productItem, data, setData)
+                        }}
+                    />
+                </div>
+                <div className='sale-form w-7/12 ps-4'>
                     <div className="grid gap-2">
                         <div className="grid grid-cols-3 gap-2">
                             <div className="item">
@@ -153,7 +155,7 @@ const POS = () => {
                             <div className="item">
                                 <Label>Payment Method</Label>
                                 <AppSelect
-                                    placeholder='Select Payment Method'
+                                    placeholder='Select Method'
                                     options={[
                                         { label: 'Cash', value: "cash" },
                                         { label: 'Bank Transfer', value: "bank_transfer" },

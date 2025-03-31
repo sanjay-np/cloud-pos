@@ -75,6 +75,7 @@ export const useColumns = <T extends Record<string, any>>({
         },
         ...customColumns,
         {
+            header: "Actions",
             id: "actions",
             enableHiding: false,
             cell: ({ row }) => {
