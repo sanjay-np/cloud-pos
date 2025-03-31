@@ -24,7 +24,7 @@ class NotifySaleCreated
     public function handle(SaleCreated $event): void
     {
         $sales = $event->sales->load('details.product');
-        $pdf = Pdf::loadView('sales::invoices.sales', ['sales' => $sales]);
+        $pdf = Pdf::loadView('invoices.sales', ['sales' => $sales]);
         $pdfContent = $pdf->output();
         Storage::disk('public')->put("invoices/sales/{$sales->reference}.pdf", $pdfContent);
     }

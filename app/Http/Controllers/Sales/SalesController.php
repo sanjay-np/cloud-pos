@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sales;
 
+use App\Events\SaleCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sales\StoreRequest;
 use App\Http\Requests\Sales\UpdateRequest;
@@ -83,6 +84,7 @@ class SalesController extends Controller
         if ($item) {
             $this->service->updateSaleDetail($request->getRequestedProducts(), $id);
             $this->service->updateSalePayment($request->getRequestedPayment(), $id);
+            event(new SaleCreated($item));
             return to_route('sales.index');
         }
     }
