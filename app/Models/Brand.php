@@ -37,7 +37,7 @@ class Brand extends Model
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return asset($this->image);
+            return asset("storage/brand/{$this->image}");
         }
         return null;
     }

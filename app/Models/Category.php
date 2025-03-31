@@ -38,7 +38,7 @@ class Category extends Model
 
     public function getImageUrlAttribute()
     {
-        return asset($this->image);
+        return asset("storage/category/{$this->image}");
     }
 
 

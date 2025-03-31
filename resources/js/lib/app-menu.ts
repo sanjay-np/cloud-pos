@@ -27,13 +27,8 @@ export const mainNavItems: NavItem[] = [
 export const footerNavItems: NavItem[] = [
     {
         title: 'Settings',
-        url: 'https://github.com/laravel/react-starter-kit',
+        url: '',
         icon: Settings2Icon,
-    },
-    {
-        title: 'Options',
-        url: 'https://laravel.com/docs/starter-kits',
-        icon: SettingsIcon,
     },
 ];
 

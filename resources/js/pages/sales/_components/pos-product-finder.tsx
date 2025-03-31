@@ -18,6 +18,7 @@ type Product = {
     title: string,
     purchase_price: number,
     sale_price: number,
+    image_url: string | null
 }
 
 type ProductFinderProps = {
@@ -64,8 +65,8 @@ const ProductFinder = ({ onProductSelect }: ProductFinderProps) => {
     }
 
     return (
-        <div className='relative w-full grid gap-2'>
-            <div className="product-finder col-span-3">
+        <div className='relative w-full flex flex-col gap-2'>
+            <div className="product-finder col-span-3 items-start">
                 <div className="relative w-full">
                     <Button
                         type="submit"
@@ -90,7 +91,7 @@ const ProductFinder = ({ onProductSelect }: ProductFinderProps) => {
                     {searchResult && searchResult?.map((item, index) => (
                         <Card key={index} className='shadow-none rounded-md pt-0 pb-2 gap-3'>
                             <div className="flex items-center justify-center border-b bg-muted">
-                                <img src="/icons/default-product-1.png" alt='product' className='size-36 scale-150' />
+                                <img src={item.image_url} alt='product' className='size-36' />
                             </div>
                             <CardHeader className='px-4 py-0'>
                                 <CardTitle className='py-0 truncate'>

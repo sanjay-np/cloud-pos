@@ -23,7 +23,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = $this->model->query()
-            ->whereActive()
+            ->applyFilter($request->qry)
             ->paginate($request->per_page ?? config('pos.per_page'))
             ->withQueryString();
 
@@ -79,7 +79,7 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         return $this->model->query()
-            ->select(['id', 'title', 'purchase_price', 'sale_price'])
+            ->select(['id', 'title', 'purchase_price', 'sale_price', 'main_image'])
             ->applyFilter($request->search_qry)
             ->take(12)
             ->get();

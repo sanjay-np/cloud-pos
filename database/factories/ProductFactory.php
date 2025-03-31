@@ -45,7 +45,16 @@ class ProductFactory extends Factory
             'product_type' => 'simple',
             'unit' => $this->faker->randomElement(['pc', 'kg']),
             'status' => $this->faker->randomElement(['active', 'inactive']),
-            'main_image' => $this->faker->image(storage_path('app/public/Products'), 500, 500, null, true),
+            'main_image' => fake()->randomElement([
+                'product-1.png',
+                'product-2.png',
+                'product-3.png',
+                'product-4.png',
+                'product-5.png',
+                'product-6.png',
+                'product-7.png',
+                'product-8.png',
+            ]),
         ];
     }
 }
