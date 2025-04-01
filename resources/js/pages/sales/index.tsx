@@ -29,7 +29,7 @@ const Index = ({ sales, pagination }: any) => {
         customColumns: [
             {
                 accessorKey: "reference",
-                header: "Sales Code",
+                header: "Invoice No.",
                 cell: ({ row }) => (<div className="capitalize font-medium">{row.getValue<string>("reference")}</div>),
             },
             {

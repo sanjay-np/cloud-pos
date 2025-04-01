@@ -34,7 +34,7 @@ const Index = ({ purchases, pagination }: PurchaseIndexProps) => {
         customColumns: [
             {
                 accessorKey: "reference",
-                header: "Purchase Code",
+                header: "Invoice No.",
                 cell: ({ row }) => (<div className="capitalize font-medium">{row.getValue<string>("reference")}</div>),
             },
             {

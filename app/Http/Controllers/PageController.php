@@ -8,6 +8,6 @@ class PageController extends Controller
 {
     public function dashboard()
     {
-        return Inertia::render('dashboard');
+        return Inertia::render('dashboard/index');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Currency;
+namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Currency\StoreRequest;
@@ -22,8 +22,8 @@ class CurrencyController extends Controller
             ->orderBy('id', 'desc')
             ->paginate($request->per_page ?? config('pos.per_page'))
             ->withQueryString();
-            
-        return Inertia::render('currency/index', [
+
+        return Inertia::render('settings/currency/index', [
             'currencies' => $currencies
         ]);
     }

@@ -26,3 +26,4 @@ require __DIR__ . '/purchases.php';
 require __DIR__ . '/sales.php';
 require __DIR__ . '/settings.php';
 require __DIR__ . '/suppliers.php';
+require __DIR__ . '/users.php';

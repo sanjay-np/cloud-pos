@@ -27,7 +27,7 @@ export const mainNavItems: NavItem[] = [
 export const footerNavItems: NavItem[] = [
     {
         title: 'Settings',
-        url: '',
+        url: '/settings/currency',
         icon: Settings2Icon,
     },
 ];
