@@ -20,17 +20,14 @@ export default function NavDropdown({ items = [] }: { items: NavGroup[] }) {
                     <Collapsible
                         asChild
                         className="group/collapsible"
+                        defaultOpen={true}
                     >
                         <SidebarMenuItem>
                             <CollapsibleTrigger asChild>
-                                <SidebarMenuButton
-                                    tooltip={menuItem?.title}
-                                >
+                                <SidebarMenuButton tooltip={menuItem?.title}>
                                     {menuItem?.icon && <menuItem.icon />}
                                     <span>{menuItem?.title}</span>
-                                    <ChevronRight
-                                        className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-                                    />
+                                    <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
                                 </SidebarMenuButton>
                             </CollapsibleTrigger>
                             <CollapsibleContent>
@@ -38,9 +35,7 @@ export default function NavDropdown({ items = [] }: { items: NavGroup[] }) {
                                     {menuItem?.items?.map((subItem) => {
                                         return (
                                             <SidebarMenuSubItem key={subItem.title}>
-                                                <SidebarMenuSubButton
-                                                    asChild
-                                                >
+                                                <SidebarMenuSubButton asChild>
                                                     <Link href={subItem?.url}>
                                                         <span>{subItem?.title}</span>
                                                     </Link>

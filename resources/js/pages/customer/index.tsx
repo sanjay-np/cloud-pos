@@ -80,6 +80,7 @@ const Index = ({ customers, pagination }: CustomerIndexProps) => {
                     return (
                         <Badge variant={status} className='capitalize'>
                             {row.getValue("status")}
+
                         </Badge>
                     )
                 },

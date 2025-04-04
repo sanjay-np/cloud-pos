@@ -14,7 +14,7 @@ import {
     SlidersIcon,
     TruckIcon
 } from 'lucide-react';
-import { type NavItem } from '@/types';
+import { type NavGroup, type NavItem } from '@/types';;
 
 export const mainNavItems: NavItem[] = [
     {
@@ -24,11 +24,22 @@ export const mainNavItems: NavItem[] = [
     },
 ];
 
-export const footerNavItems: NavItem[] = [
+export const footerNavItems: NavGroup[] = [
     {
         title: 'Settings',
-        url: '/settings/currency',
         icon: Settings2Icon,
+        items: [
+            {
+                title: 'Appearance',
+                url: '/settings/appearance',
+                icon: SettingsIcon
+            },
+            {
+                title: 'Currency',
+                url: '/settings/currency',
+                icon: SlidersIcon
+            }
+        ]
     },
 ];
 
