@@ -12,9 +12,21 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'label' => ['required', 'string', 'max:255', 'unique:currencies'],
-            'is_current' => ['required', 'boolean'],
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'label' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:currencies'
+            ],
+            'is_current' => [
+                'required',
+                'boolean'
+            ],
         ];
     }
 

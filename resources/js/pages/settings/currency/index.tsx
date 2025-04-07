@@ -4,6 +4,7 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import AppTable from '@/components/table/app-table';
 import { useColumns } from '@/hooks/use-columns';
+import CurrencyOperation from './_components/currency-operation';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -22,7 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const Index = ({ currencies, pagination }: any) => {
 
-    const {columns, itemId, setItemId, mode, setMode} = useColumns({
+    const {columns, itemId, mode, setMode} = useColumns({
         dataKey: 'id',
         customColumns: [
             {
@@ -32,17 +33,17 @@ const Index = ({ currencies, pagination }: any) => {
                 cell: ({ row }) => <div className="capitalize">{row.getValue('name')}</div>,
             },
             {
-                id: 'symbol',
-                accessorKey: 'symbol',
+                id: 'label',
+                accessorKey: 'label',
                 header: 'Currency Symbol',
-                cell: ({ row }) => <div className="lowercase">{row.getValue('symbol')}</div>,
+                cell: ({ row }) => <div className="lowercase">{row.getValue('label')}</div>,
             },
             {
-                id: 'code',
-                accessorKey: 'code',
-                header: 'Currency Code',
-                cell: ({ row }) => <div className="lowercase">{row.getValue('code')}</div>,
-            },
+                id:"is_current",
+                accessorKey:"is_current",
+                header:"Active",
+                cell:({row})=><div className="capitalize">{row.getValue("is_current")?"Active":"Inactive"}</div>
+            }
         ]
     })
     return (
@@ -57,6 +58,7 @@ const Index = ({ currencies, pagination }: any) => {
                 columns={columns}
                 setMode={setMode}
             />
+            <CurrencyOperation currencyId={itemId} mode={mode} />
         </AppLayout>
     )
 }

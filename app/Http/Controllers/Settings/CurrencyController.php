@@ -7,6 +7,7 @@ use App\Http\Requests\Currency\StoreRequest;
 use App\Http\Requests\Currency\UpdateRequest;
 use App\Models\Currency;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 class CurrencyController extends Controller
@@ -24,7 +25,9 @@ class CurrencyController extends Controller
             ->withQueryString();
 
         return Inertia::render('settings/currency/index', [
-            'currencies' => $currencies
+            'currencies' => Inertia::merge($currencies->items()),
+            'pagination' => Arr::except($currencies->toArray(), ['data', 'links'])
+
         ]);
     }
 
