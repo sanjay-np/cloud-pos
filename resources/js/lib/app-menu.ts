@@ -1,3 +1,4 @@
+import { type NavGroup, type NavItem } from '@/types';
 import {
     ArchiveIcon,
     BadgeDollarSignIcon,
@@ -10,12 +11,9 @@ import {
     ReceiptIcon,
     ReceiptTextIcon,
     Settings2Icon,
-    SettingsIcon,
     SlidersIcon,
-    TruckIcon
+    TruckIcon,
 } from 'lucide-react';
-import { type NavGroup, type NavItem } from '@/types';;
-
 export const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
@@ -30,79 +28,78 @@ export const footerNavItems: NavGroup[] = [
         icon: Settings2Icon,
         items: [
             {
-                title: 'Appearance',
-                url: '/settings/appearance',
-                icon: SettingsIcon
-            },
-            {
                 title: 'Currency',
                 url: '/settings/currency',
-                icon: SlidersIcon
-            }
-        ]
+            },
+            {
+                title: 'Options',
+                url: '/settings/appearance',
+            },
+
+        ],
     },
 ];
 
 export const productMenuItems: NavItem[] = [
     {
-        title: "Attributes",
+        title: 'Attributes',
         url: '/attributes',
-        icon: SlidersIcon
+        icon: SlidersIcon,
     },
     {
-        title: "Brands",
+        title: 'Brands',
         url: '/brands',
-        icon: ArchiveIcon
+        icon: ArchiveIcon,
     },
     {
-        title: "Categories",
+        title: 'Categories',
         url: '/categories',
-        icon: FolderIcon
+        icon: FolderIcon,
     },
     {
         title: 'Products',
         url: '/products',
-        icon: PackageIcon
+        icon: PackageIcon,
     },
     {
-        title: "Suppliers",
+        title: 'Suppliers',
         url: '/suppliers',
-        icon: TruckIcon
-    }
-
-]
+        icon: TruckIcon,
+    },
+];
 
 export const operationMenuItems: NavItem[] = [
     {
-        title: "POS",
+        title: 'POS',
         url: '/pos',
-        icon: CalculatorIcon
+        icon: CalculatorIcon,
     },
     {
         title: 'Purchases',
         url: '/purchases',
-        icon: ReceiptIcon
+        icon: ReceiptIcon,
     },
     {
         title: 'Sales',
         url: '/sales',
-        icon: BadgeDollarSignIcon
+        icon: BadgeDollarSignIcon,
     },
     {
-        title: "Expenses",
+        title: 'Expenses',
         url: '/expenses',
-        icon: ReceiptTextIcon
+        icon: ReceiptTextIcon,
     },
-]
+];
 
 export const userMenuItems: NavItem[] = [
     {
         title: 'Customers',
         url: '/customers',
-        icon: BookUserIcon
-    }, {
+        icon: BookUserIcon,
+    },
+    {
         title: 'Employees',
         url: '/employees',
-        icon: ContactRoundIcon
-    }
-]
+        icon: ContactRoundIcon,
+    },
+];

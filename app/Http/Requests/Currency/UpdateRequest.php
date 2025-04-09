@@ -13,9 +13,21 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'label' => ['required', 'string', 'max:255', Rule::unique('currencies')->ignore($this->currency)],
-            'is_current' => ['required', 'boolean'],
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'label' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('currencies')->ignore($this->currency)
+            ],
+            'is_current' => [
+                'required',
+                'boolean'
+            ],
         ];
     }
 

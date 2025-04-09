@@ -51,7 +51,7 @@ const CurrencyOperation = ({ currencyId, mode }: CurrencyOperationProps) => {
         }
         fetchCustomer()
     }, [currencyId])
-
+console.log(currency)
 
     const handleSubmit = () => {
 

@@ -1,9 +1,10 @@
 import { Head } from '@inertiajs/react';
 
+import AppTable from '@/components/table/app-table';
+import { Badge } from '@/components/ui/badge';
+import { useColumns } from '@/hooks/use-columns';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import AppTable from '@/components/table/app-table';
-import { useColumns } from '@/hooks/use-columns';
 import CurrencyOperation from './_components/currency-operation';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -18,12 +19,11 @@ const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Currencies',
         href: '/settings/currency',
-    }
+    },
 ];
 
 const Index = ({ currencies, pagination }: any) => {
-
-    const {columns, itemId, mode, setMode} = useColumns({
+    const { columns, itemId, mode, setMode } = useColumns({
         dataKey: 'id',
         customColumns: [
             {
@@ -39,13 +39,21 @@ const Index = ({ currencies, pagination }: any) => {
                 cell: ({ row }) => <div className="lowercase">{row.getValue('label')}</div>,
             },
             {
-                id:"is_current",
-                accessorKey:"is_current",
-                header:"Active",
-                cell:({row})=><div className="capitalize">{row.getValue("is_current")?"Active":"Inactive"}</div>
-            }
-        ]
-    })
+                id: 'is_current',
+                accessorKey: 'is_current',
+                header: 'Active',
+                cell: ({ row }) => (
+                    <div className="capitalize">
+                        <Badge
+                            variant={row.getValue('is_current') ? 'success' : 'error'}
+                        >
+                            {row.getValue('is_current') ? 'Active' : 'Inactive'}
+                        </Badge>
+                    </div>
+                ),
+            },
+        ],
+    });
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Categories" />
@@ -60,7 +68,7 @@ const Index = ({ currencies, pagination }: any) => {
             />
             <CurrencyOperation currencyId={itemId} mode={mode} />
         </AppLayout>
-    )
-}
+    );
+};
 
-export default Index
+export default Index;
