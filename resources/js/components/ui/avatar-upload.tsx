@@ -59,7 +59,7 @@ export default function AvatarUpload({
 
     return (
         <div className="relative group">
-            <Avatar className={`${sizeClasses[size]} border-2 border-dashed group-hover:border-primary transition-colors`}>
+            <Avatar className={`${sizeClasses[size]} border transition-colors`}>
                 <AvatarImage
                     src={image || undefined}
                     alt="Profile picture"

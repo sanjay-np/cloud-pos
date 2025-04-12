@@ -92,7 +92,7 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
                                             className="h-24 flex-auto"
                                         >
                                             <div className="flex flex-col justify-center items-center">
-                                                <img src="/icons/not-found-1.png" className="object-fit size-80" />
+                                                <img src="/icons/icon-1.png" className="object-fit size-40" />
                                                 <div className="pb-6 flex flex-col justify-center items-center gap-2">
                                                     <p className="font-medium text-lg text-muted-foreground">Nothing found... yet!</p>
                                                     <Button>Create New</Button>

@@ -37,10 +37,10 @@ const Index = ({ categories, parentCategories, pagination }: CategoryIndexProps)
         customColumns: [
             {
                 accessorKey: "image_url",
-                header: "",
+                header: "Image",
                 cell: ({ row }) => (
                     <>
-                        <Avatar className={`size-16 border-2 border-dashed group-hover:border-primary transition-colors`}>
+                        <Avatar className={`size-16 transition-colors`}>
                             <AvatarImage
                                 src={row.getValue("image_url") as string | undefined}
                                 alt="Profile picture"

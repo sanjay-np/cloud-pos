@@ -40,7 +40,7 @@ const Index = ({ employees, pagination }: EmployeeIndexProps) => {
                 header: "Avatar",
                 cell: ({ row }) => (
                     <>
-                        <Avatar className={`size-16 border-2 border-dashed group-hover:border-primary transition-colors`}>
+                        <Avatar className={`size-16 transition-colors`}>
                             <AvatarImage
                                 src={row.getValue("avatar_url") as string | undefined}
                                 alt="Profile picture"
