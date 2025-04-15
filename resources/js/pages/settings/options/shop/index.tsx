@@ -1,6 +1,6 @@
 import HeadingSmall from '@/components/heading-small';
 import AppLayout from '@/layouts/app-layout';
-import SettingsLayout from '@/layouts/settings/layout';
+import OptionsLayout from '@/layouts/options/layout';
 import { BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 
@@ -23,11 +23,11 @@ const Index = () => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Options" />
-            <SettingsLayout>
+            <OptionsLayout>
                 <div className="space-y-6">
                     <HeadingSmall title="Shop Information" description="Manage your shop information" />
                 </div>
-            </SettingsLayout>
+            </OptionsLayout>
         </AppLayout>
     );
 };

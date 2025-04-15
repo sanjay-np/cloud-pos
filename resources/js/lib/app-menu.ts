@@ -33,7 +33,7 @@ export const footerNavItems: NavGroup[] = [
             },
             {
                 title: 'Options',
-                url: '/settings/options',
+                url: '/settings/options/shop-information',
             },
 
         ],
