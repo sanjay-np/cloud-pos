@@ -10,24 +10,24 @@ import { type PropsWithChildren } from 'react';
 const sidebarNavItems: NavItem[] = [
     {
         title: 'Shop Information',
-        url: '/users/profile',
+        url: '/settings/options/shop',
         icon: null,
     },
     {
         title: 'Email Settings',
-        url: '/users/password',
+        url: '/settings/options/email',
         icon: null,
     },
     {
         title: 'Invoice Setings',
-        url: '/users/appearance',
+        url: '/settings/options/invoice',
         icon: null,
     },
     {
-        title:"Payment Settings",
-        url: '/users/appearance',
+        title: 'Payment Settings',
+        url: '/settings/options/payment',
         icon: DollarSignIcon,
-    }
+    },
 ];
 
 export default function OptionsLayout({ children }: PropsWithChildren) {
@@ -40,9 +40,9 @@ export default function OptionsLayout({ children }: PropsWithChildren) {
 
     return (
         <div className="">
-            <Heading title="Options" description="Manage your profile and account settings" />
+            <Heading title="Shop Options" description="Manage your profile and account settings" />
             <Separator />
-            <div className="flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12 pt-4">
+            <div className="flex flex-col space-y-8 pt-4 lg:flex-row lg:space-y-0 lg:space-x-12">
                 <aside className="w-full max-w-xl lg:w-48">
                     <nav className="flex flex-col space-y-1 space-x-0">
                         {sidebarNavItems.map((item) => (

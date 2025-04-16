@@ -22,7 +22,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 const Index = () => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Options" />
+            <Head title="Shop Informamtion" />
             <OptionsLayout>
                 <div className="space-y-6">
                     <HeadingSmall title="Shop Information" description="Manage your shop information" />

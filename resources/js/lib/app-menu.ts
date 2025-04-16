@@ -22,24 +22,6 @@ export const mainNavItems: NavItem[] = [
     },
 ];
 
-export const footerNavItems: NavGroup[] = [
-    {
-        title: 'Settings',
-        icon: Settings2Icon,
-        items: [
-            {
-                title: 'Currency',
-                url: '/settings/currency',
-            },
-            {
-                title: 'Options',
-                url: '/settings/options/shop-information',
-            },
-
-        ],
-    },
-];
-
 export const productMenuItems: NavItem[] = [
     {
         title: 'Attributes',
@@ -101,5 +83,22 @@ export const userMenuItems: NavItem[] = [
         title: 'Employees',
         url: '/employees',
         icon: ContactRoundIcon,
+    },
+];
+
+export const footerNavItems: NavGroup[] = [
+    {
+        title: 'Settings',
+        icon: Settings2Icon,
+        items: [
+            {
+                title: 'Shop Options',
+                url: '/settings/options/shop',
+            },
+            {
+                title: 'Currency',
+                url: '/settings/currency',
+            },
+        ],
     },
 ];

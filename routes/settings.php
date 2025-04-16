@@ -19,17 +19,17 @@ Route::middleware('auth')->group(function () {
         Route::prefix('options')
             ->controller(OptionController::class)
             ->group(function () {
-                Route::get('shop-information', 'shopInformationIndex')->name('options.shopInformation.index');
-                Route::post('shop-information', 'shopInformationStore')->name('options.saveShopInformation.save');
+                Route::get('shop', 'shopInformationIndex')->name('options.shopInformation.index');
+                Route::post('shop', 'shopInformationStore')->name('options.saveShopInformation.save');
 
-                Route::get('email-settings', 'emailSettingIndex')->name('options.emailSetting.index');
-                Route::post('email-settings', 'emailSettingStore')->name('options.saveEmailSetting.save');
+                Route::get('email', 'emailSettingIndex')->name('options.emailSetting.index');
+                Route::post('email', 'emailSettingStore')->name('options.saveEmailSetting.save');
 
-                Route::get('invoice-settings', 'invoiceSettingIndex')->name('options.invoiceSetting.index');
-                Route::post('invoice-settings', 'invoiceSettingStore')->name('options.saveInvoiceSetting.save');
+                Route::get('invoice', 'invoiceSettingIndex')->name('options.invoiceSetting.index');
+                Route::post('invoice', 'invoiceSettingStore')->name('options.saveInvoiceSetting.save');
 
-                Route::get('payment-settings', 'paymentSettingIndex')->name('options.paymentSetting.index');
-                Route::post('payment-settings', 'paymentSettingStore')->name('options.savePaymentSetting.save');
+                Route::get('payment', 'paymentSettingIndex')->name('options.paymentSetting.index');
+                Route::post('payment', 'paymentSettingStore')->name('options.savePaymentSetting.save');
             });
     });
 });
