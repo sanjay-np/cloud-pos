@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\Actions\OptionAction;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests\Options\ShopInformationRequest;
+use App\Models\Option;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -11,16 +13,23 @@ use Inertia\Response;
 class OptionController extends Controller
 {
     public function __construct(
-        protected User $user
+        protected Option $model,
+        protected OptionAction $action
     ) {}
+
 
     public function shopInformationIndex(): Response
     {
         return Inertia::render('settings/options/shop/index');
     }
 
-    public function shopInformationStore(Request $request): null
+
+    public function upsertStoreInformaton(ShopInformationRequest $request): null
     {
+        $requestedItems = $request->getRequested();
+        foreach($requestedItems as $key => $value) {
+            $this->action->upsert($key, $value);
+        }
         return null;
     }
 
@@ -30,7 +39,7 @@ class OptionController extends Controller
         return Inertia::render("settings/options/email/index");
     }
 
-    public function emailSettingStore(Request $request)
+    public function upsertEmailSetting(Request $request)
     {
         return null;
     }
@@ -40,7 +49,7 @@ class OptionController extends Controller
         return Inertia::render("settings/options/invoice/index");
     }
 
-    public function invoiceSettingStore(Request $request)
+    public function upsertInvoiceSetting(Request $request)
     {
         return null;
     }
@@ -50,7 +59,7 @@ class OptionController extends Controller
         return Inertia::render("settings/options/payment/index");
     }
 
-    public function paymentSettingStore()
+    public function upsertPaymentSetting()
     {
         return null;
     }
