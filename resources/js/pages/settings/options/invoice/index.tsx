@@ -3,6 +3,7 @@ import AppLayout from '@/layouts/app-layout';
 import OptionsLayout from '@/layouts/options/layout';
 import { BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
+import InvoiceSettingsForm from './_components/invoice-settings-form';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -26,6 +27,7 @@ const Index = () => {
             <OptionsLayout>
                 <div className="space-y-6">
                     <HeadingSmall title="Shop Information" description="Manage your shop information" />
+                    <InvoiceSettingsForm />
                 </div>
             </OptionsLayout>
         </AppLayout>

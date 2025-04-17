@@ -3,6 +3,7 @@ import AppLayout from '@/layouts/app-layout';
 import OptionsLayout from '@/layouts/options/layout';
 import { BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
+import EmailSettingsForm from './_components/email-settings-form';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,7 +26,8 @@ const Index = () => {
             <Head title="Email Settings" />
             <OptionsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title="Shop Information" description="Manage your shop information" />
+                    <HeadingSmall title="Email Settings" description="Manage your shop information" />
+                    <EmailSettingsForm />
                 </div>
             </OptionsLayout>
         </AppLayout>
