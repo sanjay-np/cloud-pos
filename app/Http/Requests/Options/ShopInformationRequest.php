@@ -11,7 +11,7 @@ class ShopInformationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -38,7 +38,7 @@ class ShopInformationRequest extends FormRequest
                 'max:255',
             ],
             'shop_logo' => [
-                'required',
+                'nullable',
                 'string',
                 'max:255'
             ],

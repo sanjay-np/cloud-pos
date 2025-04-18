@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
             ->controller(OptionController::class)
             ->group(function () {
                 Route::get('shop', 'shopInformationIndex')->name('options.shopInformation.index');
-                Route::post('shop', 'shopInformationStore')->name('options.saveShopInformation.save');
+                Route::post('shop', 'shopInformationStore')->name('options.shopInformation.save');
 
                 Route::get('email', 'emailSettingIndex')->name('options.emailSetting.index');
                 Route::post('email', 'emailSettingStore')->name('options.saveEmailSetting.save');

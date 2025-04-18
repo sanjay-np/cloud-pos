@@ -13,11 +13,14 @@ class OptionAction
 
     public function upsert(string $key, string $value, ?string $category = null)
     {
-        $this->model->updateOrCreate([
-            'meta_key' => $key,
-            'meta_category' => $category,
-        ], [
-            'meta_value' => $value,
-        ]);
+        $this->model->updateOrCreate(
+            [
+                'meta_key' => $key,
+            ],
+            [
+                'meta_value' => $value,
+                'meta_category' => $category,
+            ]
+        );
     }
 }

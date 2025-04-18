@@ -20,15 +20,24 @@ class OptionController extends Controller
 
     public function shopInformationIndex(): Response
     {
-        return Inertia::render('settings/options/shop/index');
+        $shopInformation = $this->model->query()
+            ->whereCategory('shopInformation')
+            ->get()?->pluck('meta_value', 'meta_key')
+            ->toArray();
+
+        return Inertia::render('settings/options/shop/index', [
+            'shopInformation' => $shopInformation
+        ]);
     }
 
 
-    public function upsertStoreInformaton(ShopInformationRequest $request): null
+    public function shopInformationStore(ShopInformationRequest $request): null
     {
         $requestedItems = $request->getRequested();
-        foreach($requestedItems as $key => $value) {
-            $this->action->upsert($key, $value);
+        foreach ($requestedItems as $key => $value) {
+            if ($value) {
+                $this->action->upsert($key, $value, 'shopInformation');
+            }
         }
         return null;
     }
