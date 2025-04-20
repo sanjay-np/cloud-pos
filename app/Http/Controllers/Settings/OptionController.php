@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Settings;
 
 use App\Actions\OptionAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Options\EmailSettingsRequest;
+use App\Http\Requests\Options\InvoiceSettingRequest;
+use App\Http\Requests\Options\PaymentSettingRequest;
 use App\Http\Requests\Options\ShopInformationRequest;
 use App\Models\Option;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -45,31 +47,78 @@ class OptionController extends Controller
 
     public function emailSettingIndex(): Response
     {
-        return Inertia::render("settings/options/email/index");
+        $emailSettings = $this->model->query()
+            ->whereCategory('emailSettings')
+            ->get()?->pluck('meta_value', 'meta_key')
+            ->toArray();
+        return Inertia::render("settings/options/email/index", [
+            'emailSettings' => $emailSettings
+        ]);
     }
 
-    public function upsertEmailSetting(Request $request)
+    public function emailSettingStore(EmailSettingsRequest $request)
     {
+        $requestedItems = $request->getRequested();
+        foreach ($requestedItems as $key => $value) {
+            if ($value) {
+                $this->action->upsert($key, $value, 'emailSettings');
+            }
+        }
         return null;
     }
 
     public function invoiceSettingIndex(): Response
     {
-        return Inertia::render("settings/options/invoice/index");
+        $invoiceSettings = $this->model->query()
+            ->whereCategory('invoiceSettings')
+            ->get()?->pluck('meta_value', 'meta_key')
+            ->toArray();
+        return Inertia::render("settings/options/invoice/index",[
+            'invoiceSettings' => $invoiceSettings
+        ]);
     }
 
-    public function upsertInvoiceSetting(Request $request)
+    public function invoiceSettingStore(InvoiceSettingRequest $request)
     {
+        $requestedItems = $request->getRequested();
+        foreach ($requestedItems as $key => $value) {
+            if ($value) {
+                $this->action->upsert($key, $value, 'invoiceSettings');
+            }
+        }
         return null;
     }
 
     public function paymentSettingIndex(): Response
     {
-        return Inertia::render("settings/options/payment/index");
+        $paymentSettings = $this->model->query()
+            ->whereCategory('paymentSettings')
+            ->get()?->pluck('meta_value', 'meta_key')
+            ->toArray();
+        return Inertia::render("settings/options/payment/index",[
+            'paymentSettings' => $paymentSettings
+        ]);
     }
 
-    public function upsertPaymentSetting()
+    public function paymentSettingStore(PaymentSettingRequest $request)
     {
+        $requestedItems = $request->getRequested();
+        foreach ($requestedItems as $key => $value) {
+            if ($value) {
+                $this->action->upsert($key, $value, 'paymentSettings');
+            }
+        }
         return null;
+    }
+
+    public function index()
+    {
+
+    }
+
+
+    public function index()
+    {
+
     }
 }
