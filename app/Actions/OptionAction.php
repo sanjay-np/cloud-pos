@@ -11,7 +11,7 @@ class OptionAction
     ) {}
 
 
-    public function upsert(string $key, string $value, ?string $category = null)
+    public function upsert(string $key, string $value, ?string $category = null): void
     {
         $this->model->updateOrCreate(
             [

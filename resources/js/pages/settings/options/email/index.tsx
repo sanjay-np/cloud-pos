@@ -20,14 +20,14 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const Index = () => {
+const Index = ({ emailSettings }: any) => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Email Settings" />
             <OptionsLayout>
                 <div className="space-y-6">
                     <HeadingSmall title="Email Settings" description="Manage your shop information" />
-                    <EmailSettingsForm />
+                    <EmailSettingsForm emailSetings={emailSettings} />
                 </div>
             </OptionsLayout>
         </AppLayout>

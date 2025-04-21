@@ -58,21 +58,8 @@ const POS = () => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Point Of Sale" />
-            <div className='flex flex-wrap'>
-                <div className='w-5/12'>
-                    <ProductFinder
-                        onProductSelect={(item) => {
-                            const productItem = {
-                                id: item.id,
-                                title: item.title,
-                                qty: 1,
-                                price: item.sale_price
-                            }
-                            setProductHandler(productItem, data, setData)
-                        }}
-                    />
-                </div>
-                <div className='sale-form w-7/12 ps-4'>
+            <div className='grid grid-cols-5 gap-2'>
+                <div className='sale-form col-span-3'>
                     <div className="grid gap-2">
                         <div className="grid grid-cols-3 gap-2">
                             <div className="item">
@@ -197,6 +184,10 @@ const POS = () => {
                         </Button>
                     </div>
                 </div>
+                <div className='col-span-2'>
+                    {/* TODO: Add Sales Receipt */}
+                </div>
+
             </div>
         </AppLayout>
     )

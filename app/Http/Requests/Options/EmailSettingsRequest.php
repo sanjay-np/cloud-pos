@@ -27,26 +27,25 @@ class EmailSettingsRequest extends FormRequest
                 'string',
                 'max:255'
             ],
-            'email_name' => [
+            'mail_host' => [
                 'required',
                 'string',
                 'max:255'
             ],
-            'email_subject' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-            'email_logo' => [
+            'mail_port' => [
                 'required',
                 'string',
                 'max:255',
-                'image'
             ],
-            'email_footer' => [
+            'mail_username' => [
                 'required',
                 'string',
                 'max:255'
+            ],
+            'mail_password' => [
+                'required',
+                'string',
+                'max:255',
             ],
         ];
     }
@@ -54,12 +53,12 @@ class EmailSettingsRequest extends FormRequest
 
     public function getRequested(): array
     {
-        return [
-            'email_from' => $this->input('email_from'),
-            'email_name' => $this->input('email_name'),
-            'email_subject' => $this->input('email_subject'),
-            'email_logo' => $this->input('email_logo'),
-            'email_footer' => $this->input('email_footer'),
-        ];
+        return $this->only(keys: [
+            'email_from',
+            'mail_host',
+            'mail_port',
+            'mail_username',
+            'mail_password',
+        ]);
     }
 }

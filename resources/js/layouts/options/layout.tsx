@@ -18,16 +18,16 @@ const sidebarNavItems: NavItem[] = [
         url: '/settings/options/email',
         icon: null,
     },
-    {
-        title: 'Invoice Setings',
-        url: '/settings/options/invoice',
-        icon: null,
-    },
-    {
-        title: 'Payment Settings',
-        url: '/settings/options/payment',
-        icon: DollarSignIcon,
-    },
+    // {
+    //     title: 'Invoice Setings',
+    //     url: '/settings/options/invoice',
+    //     icon: null,
+    // },
+    // {
+    //     title: 'Payment Settings',
+    //     url: '/settings/options/payment',
+    //     icon: DollarSignIcon,
+    // },
 ];
 
 export default function OptionsLayout({ children }: PropsWithChildren) {

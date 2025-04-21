@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Currency\StoreRequest;
 use App\Http\Requests\Currency\UpdateRequest;
 use App\Models\Currency;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
@@ -13,7 +14,8 @@ use Inertia\Inertia;
 class CurrencyController extends Controller
 {
     public function __construct(
-        private Currency $model
+        private Currency $model,
+        private User $user
     ) {}
 
 

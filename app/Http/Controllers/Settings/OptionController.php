@@ -56,7 +56,7 @@ class OptionController extends Controller
         ]);
     }
 
-    public function emailSettingStore(EmailSettingsRequest $request)
+    public function emailSettingStore(EmailSettingsRequest $request): null
     {
         $requestedItems = $request->getRequested();
         foreach ($requestedItems as $key => $value) {
@@ -73,12 +73,12 @@ class OptionController extends Controller
             ->whereCategory('invoiceSettings')
             ->get()?->pluck('meta_value', 'meta_key')
             ->toArray();
-        return Inertia::render("settings/options/invoice/index",[
+        return Inertia::render("settings/options/invoice/index", [
             'invoiceSettings' => $invoiceSettings
         ]);
     }
 
-    public function invoiceSettingStore(InvoiceSettingRequest $request)
+    public function invoiceSettingStore(InvoiceSettingRequest $request): null
     {
         $requestedItems = $request->getRequested();
         foreach ($requestedItems as $key => $value) {
@@ -95,12 +95,12 @@ class OptionController extends Controller
             ->whereCategory('paymentSettings')
             ->get()?->pluck('meta_value', 'meta_key')
             ->toArray();
-        return Inertia::render("settings/options/payment/index",[
+        return Inertia::render("settings/options/payment/index", [
             'paymentSettings' => $paymentSettings
         ]);
     }
 
-    public function paymentSettingStore(PaymentSettingRequest $request)
+    public function paymentSettingStore(PaymentSettingRequest $request): null
     {
         $requestedItems = $request->getRequested();
         foreach ($requestedItems as $key => $value) {
@@ -109,16 +109,5 @@ class OptionController extends Controller
             }
         }
         return null;
-    }
-
-    public function index()
-    {
-
-    }
-
-
-    public function index()
-    {
-
     }
 }
