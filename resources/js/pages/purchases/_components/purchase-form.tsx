@@ -57,7 +57,7 @@ const PurchaseForm = ({ data, setData, errors, isProcessing }: PurchaseFormProps
                     <AppSelect
                         placeholder='Select Supplier'
                         options={suppliers ?? []}
-                        // @ts-ignore
+                        // @ts-expect-error => type mismatch
                         selected={data.supplier_id}
                         onChange={(val) => setData("supplier_id", val)}
                     />
