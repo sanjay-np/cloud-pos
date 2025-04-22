@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button'
 import { AppProductFinder } from '@/components/app/app-product-finder'
 
 import { type BreadcrumbItem } from '@/types'
+import { BarcodeIcon } from 'lucide-react'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -59,7 +60,7 @@ const POS = () => {
             <Head title="Point Of Sale" />
             <div className='grid grid-cols-5 gap-2'>
                 <div className='sale-form col-span-3'>
-                    <div className="grid gap-2">
+                    <div className="grid gap-2 w-full">
                         <div className="grid grid-cols-3 gap-2">
                             <div className="item">
                                 <Input
@@ -82,124 +83,199 @@ const POS = () => {
                                 />
                             </div>
                         </div>
-                    </div>
-                    <div className="grid w-full gap-2">
-                        <AppProductFinder
-                            onProductSelect={(item) => {
-                                const productItem = {
-                                    id: item.id,
-                                    title: item.title,
-                                    qty: 1,
-                                    price: item.purchase_price
-                                }
-                                setProductHandler(productItem, data, setData)
-                            }}
-                        />
-                    </div>
-                    <div>
-                        <ProductTable
-                            data={data}
-                            setData={setData}
-                        />
-                    </div>
-                    <div className="grid grid-cols-3 w-full gap-2">
-                        <div className="item">
-                            <Label>Tax (%)</Label>
-                            <Input
-                                placeholder='10%'
-                                defaultValue={data.tax_percentage}
-                                onChange={(e) => {
-                                    setData('tax_percentage', parseInt(e.target.value))
+                        <div className="grid w-full gap-2">
+                            <AppProductFinder
+                                onProductSelect={(item) => {
+                                    const productItem = {
+                                        id: item.id,
+                                        title: item.title,
+                                        qty: 1,
+                                        price: item.sale_price
+                                    }
+                                    setProductHandler(productItem, data, setData)
                                 }}
                             />
                         </div>
-
-                        <div className="item">
-                            <Label>Discount Amount</Label>
-                            <Input
-                                placeholder='Rs.200'
-                                defaultValue={data.discount_amount}
-                                onChange={(e) => {
-                                    setData('discount_amount', parseInt(e.target.value))
-                                }}
+                        <div className="w-full">
+                            <ProductTable
+                                data={data}
+                                setData={setData}
                             />
                         </div>
+                        <div className="grid grid-cols-3 w-full gap-2">
+                            <div className="item">
+                                <Label>Tax (%)</Label>
+                                <Input
+                                    placeholder='10%'
+                                    defaultValue={data.tax_percentage}
+                                    onChange={(e) => {
+                                        setData('tax_percentage', parseInt(e.target.value))
+                                    }}
+                                />
+                            </div>
 
-                        <div className="item">
-                            <Label>Shipping Amount</Label>
-                            <Input
-                                placeholder='Rs.500'
-                                defaultValue={data.shipping_amount}
-                                onChange={(e) => {
-                                    setData('shipping_amount', parseInt(e.target.value))
-                                }}
+                            <div className="item">
+                                <Label>Discount Amount</Label>
+                                <Input
+                                    placeholder='Rs.200'
+                                    defaultValue={data.discount_amount}
+                                    onChange={(e) => {
+                                        setData('discount_amount', parseInt(e.target.value))
+                                    }}
+                                />
+                            </div>
+
+                            <div className="item">
+                                <Label>Shipping Amount</Label>
+                                <Input
+                                    placeholder='Rs.500'
+                                    defaultValue={data.shipping_amount}
+                                    onChange={(e) => {
+                                        setData('shipping_amount', parseInt(e.target.value))
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-3 w-full gap-2">
+                            <div className="item">
+                                <Label>Sale Status</Label>
+                                <AppSelect
+                                    placeholder='Select Status'
+                                    options={[
+                                        { label: 'Pending', value: "pending" },
+                                        { label: 'Ordered', value: "ordered" },
+                                        { label: 'Completed', value: "completed" },
+                                    ]}
+                                    selected={data.status}
+                                    onChange={(val) => setData('status', val)}
+                                />
+                            </div>
+
+                            <div className="item">
+                                <Label>Payment Method</Label>
+                                <AppSelect
+                                    placeholder='Select Method'
+                                    options={[
+                                        { label: 'Cash', value: "cash" },
+                                        { label: 'Bank Transfer', value: "bank_transfer" },
+                                        { label: 'Cheque', value: "cheque" },
+                                        { label: 'Card', value: "card" },
+                                        { label: 'Online', value: "online" },
+                                        { label: 'UnPaid', value: "unpaid" },
+                                    ]}
+                                    selected={data.payment_method}
+                                    onChange={(val) => setData('payment_method', val)}
+                                />
+                            </div>
+
+                            <div className="item">
+                                <Label>Paid Amount</Label>
+                                <Input
+                                    placeholder='Rs.5000'
+                                    defaultValue={data.paid_amount}
+                                    onChange={(e) => setData('paid_amount', parseInt(e.target.value))}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid w-full gap-2">
+                            <Label>Sales Note (Optional)</Label>
+                            <Textarea
+                                placeholder='Sales Note...'
+                                defaultValue={data.note}
+                                onChange={(e) => setData('note', e.target.value)}
                             />
                         </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 w-full gap-2">
-                        <div className="item">
-                            <Label>Sale Status</Label>
-                            <AppSelect
-                                placeholder='Select Status'
-                                options={[
-                                    { label: 'Pending', value: "pending" },
-                                    { label: 'Ordered', value: "ordered" },
-                                    { label: 'Completed', value: "completed" },
-                                ]}
-                                selected={data.status}
-                                onChange={(val) => setData('status', val)}
-                            />
+                        <div className="pt-3 text-right">
+                            <Button
+                                disabled={processing}
+                                onClick={handleSubmit}
+                            >
+                                Submit
+                            </Button>
                         </div>
-
-                        <div className="item">
-                            <Label>Payment Method</Label>
-                            <AppSelect
-                                placeholder='Select Method'
-                                options={[
-                                    { label: 'Cash', value: "cash" },
-                                    { label: 'Bank Transfer', value: "bank_transfer" },
-                                    { label: 'Cheque', value: "cheque" },
-                                    { label: 'Card', value: "card" },
-                                    { label: 'Online', value: "online" },
-                                    { label: 'UnPaid', value: "unpaid" },
-                                ]}
-                                selected={data.payment_method}
-                                onChange={(val) => setData('payment_method', val)}
-                            />
-                        </div>
-
-                        <div className="item">
-                            <Label>Paid Amount</Label>
-                            <Input
-                                placeholder='Rs.5000'
-                                defaultValue={data.paid_amount}
-                                onChange={(e) => setData('paid_amount', parseInt(e.target.value))}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="grid w-full gap-2">
-                        <Label>Sales Note (Optional)</Label>
-                        <Textarea
-                            placeholder='Sales Note...'
-                            defaultValue={data.note}
-                            onChange={(e) => setData('note', e.target.value)}
-                        />
                     </div>
                 </div>
-                <div className="pt-3 text-right">
-                    <Button
-                        disabled={processing}
-                        onClick={handleSubmit}
-                    >
-                        Submit
-                    </Button>
-                </div>
-            </div>
-            <div className='col-span-2'>
-                {/* TODO: Add Sales Receipt */}
-                <div className="receipt-container">
+                <div className='col-span-2 px-2'>
+                    {/* TODO: Add Sales Receipt */}
+                    <div className="receipt-container border-x-2 border-dashed py-2 text-muted-foreground font-mono">
+                        <div className="font-bold text-xl text-center border-b-2 border-dashed pb-3">
+                            SHOP NAME
+                            <span className="text-center block text-base font-normal">
+                                Lorem Ipsum Shop Address
+                            </span>
+                            <span className="text-center block text-base font-normal">
+                                +977 1234567890
+                            </span>
+                        </div>
+                        <div className="py-2 px-3 border-b-2 border-dashed">
+                            <ul>
+                                <li className="flex justify-between">
+                                    <div>Invoice No: SALE-000</div>
+                                    <div>Date: 2022-01-01</div>
+                                </li>
+                                <li>Name: Lorem Ipsum</li>
+                            </ul>
+                        </div>
+                        <div className="py-2 px-3 border-b-2 border-dashed">
+                            <div className="flex justify-between items-center mb-2">
+                                <div className="product-name">
+                                    Product Name
+                                    <span className="block">1 X 200.00</span>
+                                </div>
+                                <span>200.00</span>
+                            </div>
+                            <div className="flex justify-between items-center mb-2">
+                                <div className="product-name">
+                                    Product Name
+                                    <span className="block">1 X 200.00</span>
+                                </div>
+                                <span>200.00</span>
+                            </div>
+                        </div>
+                        <div className='py-2 px-3 border-b-2 border-dashed'>
+                            <div className="flex justify-between items-center">
+                                <span>Sub Total</span>
+                                <span>0.00 </span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span>Tax</span>
+                                <span>0.00 </span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span>Discount</span>
+                                <span>0.00 </span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span>Total</span>
+                                <span>0.00 </span>
+                            </div>
+                        </div>
+                        <div className='py-2 px-3 border-b-2 border-dashed'>
+                            <div className="flex justify-between items-center">
+                                <span>Cash</span>
+                                <span>0.00 </span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span>Change</span>
+                                <span>0.00 </span>
+                            </div>
+                        </div>
+                        <div className="font-bold text-xl text-center px-2 py-3">
+                            THANK YOU
+                            <span className="text-center block text-base font-normal">
+                                Lorem Ipsum Shop Address
+                            </span>
+                        </div>
+                        <div className="flex justify-center">
+                            <div className='flex'>
+                                <BarcodeIcon size="56" />
+                                <BarcodeIcon size="56" />
+                                <BarcodeIcon size="56" />
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </AppLayout >
