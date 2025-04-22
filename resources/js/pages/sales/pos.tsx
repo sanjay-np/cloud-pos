@@ -55,6 +55,8 @@ const POS = () => {
         })
     }
 
+    const total = data.products.reduce((sum, product) => sum + (product.price * product.qty), 0);
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Point Of Sale" />
@@ -196,7 +198,7 @@ const POS = () => {
                         </div>
                     </div>
                 </div>
-                <div className='col-span-2 px-2'>
+                <div className='col-span-2 ps-6'>
                     {/* TODO: Add Sales Receipt */}
                     <div className="receipt-container border-x-2 border-dashed py-2 text-muted-foreground font-mono">
                         <div className="font-bold text-xl text-center border-b-2 border-dashed pb-3">
@@ -218,53 +220,45 @@ const POS = () => {
                             </ul>
                         </div>
                         <div className="py-2 px-3 border-b-2 border-dashed">
-                            <div className="flex justify-between items-center mb-2">
-                                <div className="product-name">
-                                    Product Name
-                                    <span className="block">1 X 200.00</span>
-                                </div>
-                                <span>200.00</span>
-                            </div>
-                            <div className="flex justify-between items-center mb-2">
-                                <div className="product-name">
-                                    Product Name
-                                    <span className="block">1 X 200.00</span>
-                                </div>
-                                <span>200.00</span>
-                            </div>
+                            {data.products.length > 0 && (
+                                data.products.map((item, index) => (
+                                    <div className="flex justify-between items-center mb-2">
+                                        <div className="product-name">
+                                            {item.title}
+                                            <span className="block">{item.qty} X {item.price}</span>
+                                        </div>
+                                        <span>{(item.price * item.qty).toFixed(2)}</span>
+                                    </div>
+
+                                )))
+                            }
                         </div>
                         <div className='py-2 px-3 border-b-2 border-dashed'>
                             <div className="flex justify-between items-center">
                                 <span>Sub Total</span>
-                                <span>0.00 </span>
+                                <span>{total.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between items-center">
                                 <span>Tax</span>
-                                <span>0.00 </span>
+                                <span>{data.tax_amount.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between items-center">
                                 <span>Discount</span>
-                                <span>0.00 </span>
+                                <span>{data.discount_amount.toFixed(2)}</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span>Delivery Charge</span>
+                                <span>{data.shipping_amount.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between items-center">
                                 <span>Total</span>
-                                <span>0.00 </span>
-                            </div>
-                        </div>
-                        <div className='py-2 px-3 border-b-2 border-dashed'>
-                            <div className="flex justify-between items-center">
-                                <span>Cash</span>
-                                <span>0.00 </span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                                <span>Change</span>
-                                <span>0.00 </span>
+                                <span>{data.total_amount.toFixed(2)}</span>
                             </div>
                         </div>
                         <div className="font-bold text-xl text-center px-2 py-3">
                             THANK YOU
                             <span className="text-center block text-base font-normal">
-                                Lorem Ipsum Shop Address
+                                Lorem Ipsum dollar
                             </span>
                         </div>
                         <div className="flex justify-center">
@@ -272,7 +266,6 @@ const POS = () => {
                                 <BarcodeIcon size="56" />
                                 <BarcodeIcon size="56" />
                                 <BarcodeIcon size="56" />
-
                             </div>
                         </div>
                     </div>
