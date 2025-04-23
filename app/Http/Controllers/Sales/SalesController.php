@@ -102,6 +102,17 @@ class SalesController extends Controller
 
     public function pos(Request $request)
     {
-        return Inertia::render('sales/pos');
+        $customers = Customer::query()
+            ->select(['id', 'name'])
+            ->take(10)
+            ->get()?->map(function($item){
+            return [
+                'value'=>$item->id,
+                'label'=>$item->name
+            ];
+        });
+        return Inertia::render('sales/pos',[
+            'customers'=>$customers
+        ]);
     }
 }
