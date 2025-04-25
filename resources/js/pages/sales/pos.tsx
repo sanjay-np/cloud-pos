@@ -1,6 +1,6 @@
 import { Head, useForm } from '@inertiajs/react';
+import { format } from 'date-fns';
 import { toast } from 'sonner';
-import { format } from "date-fns"
 
 import { AppProductFinder } from '@/components/app/app-product-finder';
 import AppSelect from '@/components/app/app-select';
@@ -88,6 +88,7 @@ const POS = ({ customers }: any) => {
                         </div>
                         <div className="grid w-full gap-2">
                             <AppProductFinder
+                                type="sale"
                                 onProductSelect={(item) => {
                                     const productItem = {
                                         id: item.id,

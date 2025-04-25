@@ -1,42 +1,45 @@
-import { useEffect, useState } from 'react'
-import { SearchIcon } from 'lucide-react'
+import { SearchIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { useDebouncedCallback } from 'use-debounce'
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { AvatarFallback } from '@radix-ui/react-avatar';
+import { useDebouncedCallback } from 'use-debounce';
+import { Avatar, AvatarImage } from '../ui/avatar';
 
 type Product = {
-    id: number,
-    title: string,
-    purchase_price: number,
-    sale_price: number,
-}
+    id: number;
+    title: string;
+    purchase_price: number;
+    sale_price: number;
+    image_url: string;
+};
 
 type ProductFinderProps = {
-    onProductSelect?: (item: Product) => void
-}
+    onProductSelect?: (item: Product) => void;
+    type?: 'sale' | 'purchase';
+};
 
-export const AppProductFinder = ({ onProductSelect }: ProductFinderProps) => {
-
-    const [searchResult, setSearchResult] = useState<Product[]>([])
-    const [isFocused, setIsFocused] = useState<boolean>(false)
-    const [qryText, setQryText] = useState<string>('')
+export const AppProductFinder = ({ type, onProductSelect }: ProductFinderProps) => {
+    const [searchResult, setSearchResult] = useState<Product[]>([]);
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+    const [qryText, setQryText] = useState<string>('');
 
     const fetchProduct = async (searchText: string | null = null) => {
         try {
-            const query = searchText ? `?search_qry=${searchText}` : "";
+            const query = searchText ? `?search_qry=${searchText}` : '';
             const res = await fetch(route(`search.product`) + query);
             const response = await res.json();
             if (response) {
                 setSearchResult(response);
             }
         } catch (error) {
-            console.error("Error fetching products:", error);
+            console.error('Error fetching products:', error);
         }
     };
 
     const handleSearch = async (searchText: string) => {
-        fetchProduct(searchText)
+        fetchProduct(searchText);
     };
 
     const debounced = useDebouncedCallback((value) => {
@@ -44,19 +47,18 @@ export const AppProductFinder = ({ onProductSelect }: ProductFinderProps) => {
         handleSearch(value);
     }, 600);
 
-
     useEffect(() => {
         fetchProduct();
     }, []);
 
     const handleOnProductClick = (item: Product) => {
         if (onProductSelect) {
-            onProductSelect(item)
+            onProductSelect(item);
         }
 
-        setIsFocused(false)
-        setQryText('')
-    }
+        setIsFocused(false);
+        setQryText('');
+    };
 
     return (
         <div className="relative w-full">
@@ -64,14 +66,14 @@ export const AppProductFinder = ({ onProductSelect }: ProductFinderProps) => {
                 type="submit"
                 size="icon"
                 variant="ghost"
-                className="absolute left-0 top-0 h-full px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-transparent"
+                className="text-muted-foreground hover:text-foreground absolute top-0 left-0 h-full px-3 py-2 hover:bg-transparent"
             >
                 <SearchIcon className="h-4 w-4" />
                 <span className="sr-only">Search</span>
             </Button>
             <Input
-                type='text'
-                placeholder='Select/Search a product...'
+                type="text"
+                placeholder="Select/Search a product..."
                 className="ps-8 text-sm"
                 onFocus={() => setIsFocused(true)}
                 defaultValue={qryText}
@@ -79,20 +81,31 @@ export const AppProductFinder = ({ onProductSelect }: ProductFinderProps) => {
             />
 
             {isFocused && (
-                <div className="absolute bg-white w-full z-50 border border-t-0 rounded-md shadow">
-                    {searchResult && searchResult?.map((item, index) => {
-                        return (
-                            <div
-                                key={index}
-                                className='py-2 px-4 border-b last:border-b-0 text-sm text-muted-foreground cursor-pointer bg-background hover:bg-muted '
-                                onClick={() => handleOnProductClick(item)}
-                            >
-                                {item.title}
-                            </div>
-                        )
-                    })}
+                <div className="absolute z-50 w-full rounded-md border border-t-0 bg-white shadow">
+                    {searchResult &&
+                        searchResult?.map((item, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className="text-muted-foreground bg-background hover:bg-muted cursor-pointer border-b px-4 py-2 text-sm last:border-b-0"
+                                    onClick={() => handleOnProductClick(item)}
+                                >
+                                    <div className="flex">
+                                        <Avatar className={`size-10 transition-colors`}>
+                                            <AvatarImage src={item.image_url as string | undefined} alt="Profile picture" className="object-cover" />
+                                            <AvatarFallback className="text-2xl">{'PI'}</AvatarFallback>
+                                        </Avatar>
+
+                                        <div className="ml-2">
+                                            <div className="text-base font-medium">{item.title}</div>
+                                            <span>{type == 'sale' ? item.sale_price : item.purchase_price}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
                 </div>
             )}
         </div>
-    )
-}
+    );
+};

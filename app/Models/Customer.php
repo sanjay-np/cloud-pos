@@ -50,12 +50,10 @@ class Customer extends Model
     }
 
 
-    public function scopeApplyFilter($query, array $params)
+    public function scopeApplyFilter($query, ?string $searchQry)
     {
-        $filterParams = collect($params);
-
-        if ($filterParams->has('qry')) {
-            $query->where('name', 'LIKE', "%{$filterParams->get('qry')}%");
+        if ($searchQry) {
+            $query->where('name', 'LIKE', "%{$searchQry}%");
         }
     }
 

@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\StoreRequest;
 use App\Http\Requests\Customer\UpdateRequest;
 use App\Models\Customer;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class CustomerController extends Controller
 {
@@ -17,11 +19,11 @@ class CustomerController extends Controller
     ) {}
 
 
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $customers = $this->model->query()
             ->select(['id', 'name', 'email', 'phone', 'status', 'avatar'])
-            ->applyFilter($request->all())
+            ->applyFilter($request->qry)
             ->orderBy('id', 'desc')
             ->paginate(perPage: $request->per_page ?? config('pos.per_page'))
             ->withQueryString();
@@ -33,7 +35,7 @@ class CustomerController extends Controller
     }
 
 
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): RedirectResponse
     {
         try {
             $this->model->create($request->getRequested());
@@ -44,22 +46,23 @@ class CustomerController extends Controller
     }
 
 
-    public function show($id)
+    public function show(int $id): Customer
     {
         return $this->model->findOrFail($id);
     }
 
 
-    public function update(UpdateRequest $request, $id)
+    public function update(UpdateRequest $request, int $id): RedirectResponse
     {
         $item = $this->model->findOrFail($id)->update($request->getRequested());
         if ($item) {
             return to_route('customers.index');
         }
+        return back()->with('error', 'Something went wrong');
     }
 
 
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         try {
             $this->model->findOrFail($id)->delete();
@@ -67,5 +70,15 @@ class CustomerController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
+    }
+
+
+    public function search(Request $request)
+    {
+        return $this->model->query()
+            ->select(['id', 'name', 'email', 'phone', 'status', 'avatar'])
+            ->applyFilter($request->search_qry)
+            ->take(10)
+            ->get();
     }
 }
