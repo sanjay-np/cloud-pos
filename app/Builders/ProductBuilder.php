@@ -2,6 +2,8 @@
 
 namespace App\Builders;
 
+use App\Models\PurchaseDetail;
+use App\Models\SaleDetail;
 use Illuminate\Database\Eloquent\Builder;
 
 class ProductBuilder extends Builder
@@ -32,5 +34,14 @@ class ProductBuilder extends Builder
             });
         }
         return $this;
+    }
+
+
+    public function selectPurchasePrice(): self
+    {
+        return $this->addSelect(['latest_purcahse_price' => PurchaseDetail::select('price')
+            ->whereColumn('product_id', 'products.id')
+            ->latest()
+            ->take(1)]);
     }
 }

@@ -59,16 +59,17 @@ class Product extends Model
         return asset("storage/products/{$this->main_image}");
     }
 
+    public function getStockQtyAttribute($value)
+    {
+        $purchased = $this->purchase()->sum('quantity');
+        $sold = $this->sale()->sum('quantity');
+        return $value + $this->$purchased - $sold;
+    }
+
 
     public function purchase()
     {
         return $this->hasMany(PurchaseDetail::class, 'product_id');
-    }
-
-
-    public function latestPurchase()
-    {
-        return $this->hasOne(PurchaseDetail::class, 'product_id')->latest('created_at');
     }
 
 

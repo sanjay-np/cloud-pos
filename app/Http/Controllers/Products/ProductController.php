@@ -23,6 +23,10 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = $this->model->query()
+            ->select(['id', 'title', 'stock_qty', 'purchase_price', 'sale_price', 'main_image', 'status'])
+            ->selectPurchasePrice()
+            ->withSum('purchase as total_purchased', 'qty')
+            ->withSum('sale as total_sold', 'qty')
             ->applyFilter($request->qry)
             ->paginate($request->per_page ?? config('pos.per_page'))
             ->withQueryString();
