@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sales;
 
 use App\Events\SaleCreated;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sales\PaymentRequest;
 use App\Http\Requests\Sales\StoreRequest;
 use App\Http\Requests\Sales\UpdateRequest;
 use App\Models\Customer;
@@ -100,19 +101,29 @@ class SalesController extends Controller
     }
 
 
-    public function pos(Request $request)
+    public function pos()
     {
         $customers = Customer::query()
             ->select(['id', 'name'])
             ->take(10)
-            ->get()?->map(function($item){
-            return [
-                'value'=>$item->id,
-                'label'=>$item->name
-            ];
-        });
-        return Inertia::render('sales/pos',[
-            'customers'=>$customers
+            ->get()?->map(function ($item) {
+                return [
+                    'value' => $item->id,
+                    'label' => $item->name
+                ];
+            });
+        return Inertia::render('sales/pos', [
+            'customers' => $customers
         ]);
+    }
+
+    public function addPayment(PaymentRequest $request, int $id)
+    {
+        try {
+            $this->service->createSalePayment($request->getRequested(), $id);
+            return to_route('sales.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 }
