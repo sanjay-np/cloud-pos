@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Sales;
+namespace App\Http\Requests\Purchase;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -12,19 +12,17 @@ class PaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sale_id' => [
-                'required',
-                'integer',
-                'exists:sales,id'
+            'payment_method' => [
+                'required'
+            ],
+            'note' => [
+                'nullable',
+                'string'
             ],
             'amount' => [
                 'required',
-                'numeric',
+                'numeric'
             ],
-            'payment_method' => [
-                'required',
-                'string',
-            ]
         ];
     }
 
@@ -37,7 +35,7 @@ class PaymentRequest extends FormRequest
     }
 
 
-    public function getRequested()
+    public function getRequested(): array
     {
         return array_merge(
             $this->only(keys: [

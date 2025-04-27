@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Purchase\PaymentRequest;
 use App\Http\Requests\Purchase\StoreRequest;
 use App\Http\Requests\Purchase\UpdateRequest;
 use App\Models\Product;
@@ -95,6 +96,17 @@ class PurchaseController extends Controller
         $item = $this->model->findOrFail($id)->delete();
         if ($item) {
             return to_route('purchases.index');
+        }
+    }
+
+
+    public function addPayment(PaymentRequest  $request, int $id)
+    {
+        try {
+            $this->service->createPurchasePayment($request->getRequested(), $id);
+            return to_route('purchases.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
         }
     }
 }

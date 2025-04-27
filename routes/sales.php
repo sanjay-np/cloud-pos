@@ -8,6 +8,9 @@ Route::middleware(['auth', 'verified'])
         Route::resource('sales', SalesController::class)
             ->names('sales');
 
+        Route::get('sales-add-payment', [SalesController::class, 'addPayment'])
+            ->name('sales.payments.add');
+
         Route::get('pos', [SalesController::class, 'pos'])
             ->name('sales.pos');
     });

@@ -11,7 +11,7 @@ import SaleOperation from './_components/sale-operation';
 
 import { type BreadcrumbItem } from '@/types';
 import { useState } from 'react';
-import { SalePaymentForm } from './_components/payment-form';
+import { SalePaymentForm } from './_components/sales-payment-form';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
