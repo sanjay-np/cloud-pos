@@ -25,7 +25,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/purchases',
     },
 ];
-const Index = ({ purchases, pagination }: PurchaseIndexProps) => {
+const Index = ({ purchases, pagination, default_currency }: PurchaseIndexProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const { columns, itemId, setItemId, mode, setMode } = useColumns<PurchaseColumnProps>({
         dataKey: 'id',
@@ -70,7 +70,7 @@ const Index = ({ purchases, pagination }: PurchaseIndexProps) => {
             {
                 accessorKey: 'total_amount',
                 header: 'Total Amount',
-                cell: ({ row }) => <div className="font-medium capitalize">{row.getValue<string>('total_amount')}</div>,
+                cell: ({ row }) => <div className="font-medium capitalize">{`${default_currency} ${row.getValue<number>('total_amount')}`}</div>,
             },
             {
                 accessorKey: 'payment_status',

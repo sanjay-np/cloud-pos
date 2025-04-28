@@ -5,15 +5,14 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-
 export const validateImageFile = (file: File, maxSizeMB: number = 5): boolean => {
     if (!file) {
-        console.error("No file uploaded.");
+        console.error('No file uploaded.');
         return false;
     }
 
     if (!file.type.startsWith('image/')) {
-        console.error("Invalid file type. Please upload an image.");
+        console.error('Invalid file type. Please upload an image.');
         return false;
     }
 
@@ -24,4 +23,10 @@ export const validateImageFile = (file: File, maxSizeMB: number = 5): boolean =>
     }
 
     return true;
+};
+export const formattedNumber = (number: number, decimals: number = 2): string => {
+    return number.toLocaleString('en-IN', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+    });
 };

@@ -12,6 +12,7 @@ import SaleOperation from './_components/sale-operation';
 import { type BreadcrumbItem } from '@/types';
 import { useState } from 'react';
 import { SalePaymentForm } from './_components/sales-payment-form';
+import { formattedNumber } from '@/lib/utils';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -23,7 +24,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/sales',
     },
 ];
-const Index = ({ sales, pagination }: any) => {
+const Index = ({ sales, pagination, default_currency }: any) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const { columns, itemId, setItemId, mode, setMode } = useColumns<any>({
         dataKey: 'id',
@@ -68,7 +69,7 @@ const Index = ({ sales, pagination }: any) => {
             {
                 accessorKey: 'total_amount',
                 header: 'Total Amount',
-                cell: ({ row }) => <div className="font-medium capitalize">{row.getValue<string>('total_amount')}</div>,
+                cell: ({ row }) => <div className="font-medium capitalize">{`${default_currency} ${formattedNumber(row.getValue<number>('total_amount'))}`}</div>,
             },
             {
                 accessorKey: 'payment_status',

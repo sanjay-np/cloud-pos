@@ -13,6 +13,7 @@ import { useColumns } from '@/hooks/use-columns';
 
 import { type BreadcrumbItem } from '@/types'
 import ProductOperation from './_components/product-operation';
+import { formattedNumber } from '@/lib/utils';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,7 +26,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ]
 
-const Index = ({ products, pagination }: any) => {
+const Index = ({ products, pagination, default_currency }: any) => {
 
     const { columns, itemId, mode, setMode } = useColumns({
         dataKey: "id",
@@ -68,7 +69,9 @@ const Index = ({ products, pagination }: any) => {
                 accessorKey: "sale_price",
                 header: "Amount",
                 cell: ({ row }) => (
-                    <div className="capitalize">{row.getValue("sale_price")}</div>
+                    <div className="capitalize">
+                        {`${default_currency} ${formattedNumber(row.getValue("sale_price"), 2)}`}
+                    </div>
                 ),
             },
             {

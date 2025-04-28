@@ -27,7 +27,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const POS = ({ customers }: any) => {
+const POS = ({ customers, default_currency }: any) => {
     const { data, setData, post, processing, reset } = useForm({
         date: format(new Date(), 'yyyy-MM-dd'),
         products: [],

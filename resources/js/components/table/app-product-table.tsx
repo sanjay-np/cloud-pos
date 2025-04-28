@@ -11,6 +11,8 @@ import {
     TableHeader,
     TableRow
 } from '@/components/ui/table';
+import { usePage } from '@inertiajs/react';
+import { formattedNumber } from '@/lib/utils';
 
 // Define types for product and main data structure
 type Product = {
@@ -38,6 +40,7 @@ type ProductTableProps = {
 export const ProductTable = ({ data, setData }: ProductTableProps) => {
 
     const columns = ['SN.', 'Product Name', 'Qty', 'Price', 'Total', '...']
+    const { default_currency } = usePage().props;
 
     const removeProductHandler = (id: number) => {
         const updatedProducts = data.products.filter(product => product.id !== id);
@@ -135,23 +138,23 @@ export const ProductTable = ({ data, setData }: ProductTableProps) => {
                 <div className="grid gap-2">
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Total</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {total.toFixed(2)}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {`${default_currency} ${formattedNumber(total)}`}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Tax</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {data.tax_amount.toFixed(2)}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {`${default_currency} ${data.tax_amount.toFixed(2)}`}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Discount</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(-)  {data.discount_amount.toFixed(2)}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(-)  {`${default_currency} ${data.discount_amount.toFixed(2)}`}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Shipping</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+)  {data.shipping_amount.toFixed(2)}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+)  {`${default_currency} ${data.shipping_amount.toFixed(2)}`}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Grand Total</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(=)  {data.total_amount.toFixed(2)}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(=)  {`${default_currency} ${data.total_amount.toFixed(2)}`}</p>
                     </div>
                 </div>
             </div>

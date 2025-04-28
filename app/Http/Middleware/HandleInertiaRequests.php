@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Currency;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -49,7 +50,8 @@ class HandleInertiaRequests extends Middleware
             'ziggy' => fn(): array => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
-            ]
+            ],
+            'default_currency' => fn(): string => Currency::where('is_current', true)->first()?->label ?? '$',
         ];
     }
 }
