@@ -1,21 +1,29 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
-Route::get(uri: '/', action: [AuthenticatedSessionController::class, 'create']);
+Route::get('/', function () {
+    return Inertia::render('welcome');
+})->name('home');
 
-Route::controller(PageController::class)->group(function () {
-    Route::get('/dashboard', 'index')->middleware(['auth', 'verified'])->name('dashboard');
-    Route::get('/inventory-book', 'inventoryBook')->middleware(['auth', 'verified'])->name('inventory-book');
-    Route::get('/price-book', 'priceBook')->middleware(['auth', 'verified'])->name('price-book');
-});
+Route::middleware(['auth', 'verified'])
+    ->group(function () {
+        Route::get('dashboard', [PageController::class, 'dashboard'])
+            ->name('dashboard');
+    });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 require __DIR__ . '/auth.php';
+require __DIR__ . "/attributes.php";
+require __DIR__ . '/brands.php';
+require __DIR__ . '/categories.php';
+require __DIR__ . '/customers.php';
+require __DIR__ . '/employees.php';
+require __DIR__ . '/expenses.php';
+require __DIR__ . '/products.php';
+require __DIR__ . '/purchases.php';
+require __DIR__ . '/sales.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/suppliers.php';
+require __DIR__ . '/users.php';

@@ -7,9 +7,14 @@ use Inertia\Inertia;
 
 class PageController extends Controller
 {
-    public function index(DashboardService $service)
+    public function __construct(
+        private DashboardService $dashboardService
+    ) {}
+
+
+    public function dashboard()
     {
-        $items = $service->index();
-        return Inertia::render('Dashboard', $items);
+        $items = $this->dashboardService->getDashboardItems();
+        return Inertia::render('dashboard/index', $items);
     }
 }

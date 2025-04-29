@@ -27,9 +27,9 @@ trait ImageUpload
      *
      * @param  array  $images
      * @param  string  $file_path
-     * @return array
+     * @return mixed
      */
-    public function uploadMultipleImages($images, $file_path): array
+    public function uploadMultipleImages($images, $file_path): mixed
     {
         if (!$images) {
             return null;

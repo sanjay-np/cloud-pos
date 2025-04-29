@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Employee;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\User;
@@ -19,24 +20,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
+
         User::factory()->create([
-            'name' => 'Test User',
             'email' => 'test@test.com',
+            'name' => 'Test User',
+            'password' => bcrypt('password'),
         ]);
-
-        // // Create 10 brands
-        // Brand::factory()->count(50)->create();
-
-        // //Create 5 suppliers
-        // Supplier::factory()->count(50)->create();
-
-        // // Create 10 Categories
-        // Category::factory()->count(50)->create();
-
-        // for ($i = 0; $i < 20; $i++) {
-        //     $product = Product::factory()->create();
-        // }
-
-        // Customer::factory()->count(30)->create();
+        Customer::factory(20)->create();
+        Category::factory(20)->create();
+        Employee::factory(20)->create();
+        Brand::factory(20)->create();
+        Supplier::factory(20)->create();
+        Product::factory(20)->create();
     }
 }

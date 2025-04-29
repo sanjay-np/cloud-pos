@@ -1,9 +1,0 @@
-{
-    "Customer": true,
-    "Employee": true,
-    "Product": true,
-    "Purchase": true,
-    "Sales": true,
-    "Setting": true,
-    "Expenses": true
-}
