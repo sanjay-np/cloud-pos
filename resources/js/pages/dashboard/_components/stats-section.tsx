@@ -1,7 +1,7 @@
 import {
     ArrowDown,
     ArrowUp,
-    DollarSign,
+    IndianRupeeIcon,
     Package,
     ShoppingCart,
     Users
@@ -14,6 +14,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { usePage } from "@inertiajs/react"
+import { SharedData } from "@/types"
 
 type DashboardStat = {
     activeCustomers: number
@@ -21,58 +22,70 @@ type DashboardStat = {
 
 export function DashboardStats({ activeCustomers }: DashboardStat) {
 
-    const { default_currency } = usePage().props as any
+    const { default_currency } = usePage<SharedData>().props
+
     return (
         <>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card className="gap-1 rounded-md justify-between py-3">
+                <Card className="gap-1 rounded-md justify-between py-3 relative">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-                        <DollarSign className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold mb-2">{default_currency}45,231.89</div>
+                        <div className="text-2xl font-bold mb-2"><span className="">{default_currency}</span> 45,231.89</div>
                         <p className="text-xs text-muted-foreground">+20.1% from last month</p>
                     </CardContent>
+                    <div className="absolute w-11/12 h-full top-0 flex justify-end items-center">
+                        <IndianRupeeIcon className="size-10 text-muted-foreground" strokeWidth={1.5} />
+                    </div>
+
                 </Card>
 
-                <Card className="gap-1 rounded-md justify-between py-3">
+                <Card className="gap-1 rounded-md justify-between py-3 relative">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">New Orders</CardTitle>
-                        <ShoppingCart className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold mb-2">+573</div>
                         <div className="flex items-center text-xs text-green-500">
                             <ArrowUp className="mr-1 h-3 w-3" />
-                            <span>12.5% increase</span>
+                            <span>12.5% from last month</span>
                         </div>
                     </CardContent>
+                    <div className="absolute w-11/12 h-full top-0 flex justify-end items-center">
+                        <ShoppingCart className="size-10 text-muted-foreground" strokeWidth={1.5} />
+                    </div>
+
                 </Card>
 
-                <Card className="gap-1 rounded-md justify-between py-3">
+                <Card className="gap-1 rounded-md justify-between py-3 relative">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Inventory</CardTitle>
-                        <Package className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold mb-2">12,234</div>
                         <div className="flex items-center text-xs text-red-500">
                             <ArrowDown className="mr-1 h-3 w-3" />
-                            <span>4.3% decrease</span>
+                            <span>4.3% from last month</span>
                         </div>
                     </CardContent>
+                    <div className="absolute w-11/12 h-full top-0 flex justify-end items-center">
+                        <Package className="size-10 text-muted-foreground" strokeWidth={1.5} />
+                    </div>
+
                 </Card>
 
-                <Card className="gap-1 rounded-md justify-between py-3">
+                <Card className="gap-1 rounded-md justify-between py-3 relative">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Active Users</CardTitle>
-                        <Users className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold mb-2">+2350</div>
+                        <div className="text-2xl font-bold mb-2">+{activeCustomers}</div>
                         <p className="text-xs text-muted-foreground">+180 in the last 24 hours</p>
                     </CardContent>
+                    <div className="absolute w-11/12 h-full top-0 flex justify-end items-center">
+                        <Users className="size-10 text-muted-foreground" strokeWidth={1.5} />
+                    </div>
                 </Card>
             </div>
 

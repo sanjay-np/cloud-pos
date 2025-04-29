@@ -113,8 +113,8 @@ const Overview = () => {
                                 />
                                 <Tooltip />
                                 <Legend />
-                                <Bar dataKey="sales" name="Sales" fill="#4f46e5" radius={[4, 4, 0, 0]} />
-                                <Bar dataKey="expenses" name="Expenses" fill="#f43f5e" radius={[4, 4, 0, 0]} />
+                                <Bar dataKey="sales" name="Sales" radius={[0, 0, 0, 0]} />
+                                <Bar dataKey="expenses" name="Expenses" radius={[0, 0, 0, 0]} />
                             </BarChart>
                         </ResponsiveContainer>
                     </CardContent>
