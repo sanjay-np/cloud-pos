@@ -36,5 +36,6 @@ export type PurchaseColumnProps = {
 
 export type PurchaseIndexProps = {
     purchases: PurchaseColumnProps[];
-    pagination: Pagination
+    pagination: Pagination;
+    default_currency: string
 }

@@ -202,7 +202,7 @@ const POS = ({ customers, default_currency }: any) => {
                             <ul>
                                 <li className="flex justify-between">
                                     <div>Invoice No: SALE-000</div>
-                                    <div>Date: {data.date}</div>
+                                    <div>Date: {format(new Date(data.date), 'PPP')}</div>
                                 </li>
                                 <li>Name: {data.customer_name}</li>
                             </ul>

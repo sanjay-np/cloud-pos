@@ -4,6 +4,7 @@ import {
     getCoreRowModel,
     useReactTable,
 } from "@tanstack/react-table"
+import { WhenVisible } from "@inertiajs/react";
 
 import {
     Table,
@@ -13,10 +14,10 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Button } from "@/components/ui/button";
+import { AppTableNav } from "@/components/table/app-table-nav";
+
 import { type Pagination } from "@/types";
-import { WhenVisible } from "@inertiajs/react";
-import { Button } from "../ui/button";
-import { AppTableNav } from "./app-table-nav";
 
 interface CustomerTableProps {
     data: any[];

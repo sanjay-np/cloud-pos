@@ -6,7 +6,6 @@ import {
     PaginationPrevious
 } from "@/components/ui/pagination";
 
-
 type PaginatorProps = {
     currentPage: number;
     totalPages: number;

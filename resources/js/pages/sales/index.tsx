@@ -1,18 +1,23 @@
+import { useState } from 'react';
 import { Head } from '@inertiajs/react';
 import { format } from 'date-fns';
 import { IndianRupee } from 'lucide-react';
 
 import AppTable from '@/components/table/app-table';
-import { Badge } from '@/components/ui/badge';
 import AppLayout from '@/layouts/app-layout';
+import {
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+} from "@/components/ui/hover-card"
+import { Button } from '@/components/ui/button';
 
 import { useColumns } from '@/hooks/use-columns';
 import SaleOperation from './_components/sale-operation';
-
-import { type BreadcrumbItem } from '@/types';
-import { useState } from 'react';
 import { SalePaymentForm } from './_components/sales-payment-form';
+
 import { formattedNumber } from '@/lib/utils';
+import { type BreadcrumbItem } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -38,7 +43,7 @@ const Index = ({ sales, pagination, default_currency }: any) => {
             {
                 accessorKey: 'date',
                 header: 'Date',
-                cell: ({ row }) => <div className="font-medium capitalize">{format(row.getValue<string>('date'), 'dd/MM/yyyy')}</div>,
+                cell: ({ row }) => <div className="font-medium capitalize">{format(row.getValue<string>('date'), 'PPP')}</div>,
             },
             {
                 accessorKey: 'customer',
@@ -53,17 +58,22 @@ const Index = ({ sales, pagination, default_currency }: any) => {
                 header: 'Products',
                 cell: ({ row }) => {
                     const products = row.getValue<string[]>('products') ?? [];
-                    return products.length > 0 ? (
-                        <div className="flex gap-2">
-                            {products.map((item, index) => (
-                                <Badge variant="outline" key={index}>
-                                    {item}
-                                </Badge>
-                            ))}
-                        </div>
-                    ) : (
-                        <span>No Products</span>
-                    );
+                    return (
+                        <HoverCard>
+                            <HoverCardTrigger asChild>
+                                <Button variant="link">Products</Button>
+                            </HoverCardTrigger>
+                            <HoverCardContent className="w-80">
+                                <div className="flex flex-col flex-wrap justify-between space-x-4">
+                                    {products.length > 0 && products.map((item, index) => (
+                                        <div className='text-sm' key={index}>
+                                            {item}
+                                        </div>
+                                    ))}
+                                </div>
+                            </HoverCardContent>
+                        </HoverCard>
+                    )
                 },
             },
             {

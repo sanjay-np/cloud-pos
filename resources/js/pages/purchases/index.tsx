@@ -39,7 +39,7 @@ const Index = ({ purchases, pagination, default_currency }: PurchaseIndexProps) 
             {
                 accessorKey: 'date',
                 header: 'Date',
-                cell: ({ row }) => <div className="font-medium capitalize">{format(row.getValue<string>('date'), 'dd/MM/yyyy')}</div>,
+                cell: ({ row }) => <div className="font-medium capitalize">{format(row.getValue<string>('date'), 'PPP')}</div>,
             },
             {
                 accessorKey: 'supplier',

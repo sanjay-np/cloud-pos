@@ -2,7 +2,6 @@ import { Link } from '@inertiajs/react';
 
 import AppLogo from '@/components/app/app-logo';
 import { NavMain } from '@/components/nav/nav-main';
-import { NavUser } from '@/components/nav/nav-user';
 import NavDropdown from '@/components/nav/nav-dropdown';
 import {
     Sidebar,
@@ -48,11 +47,15 @@ export function AppSidebar() {
 
                 <SidebarGroupLabel>Users</SidebarGroupLabel>
                 <NavMain items={userMenuItems} />
+
+                <NavDropdown items={footerNavItems} />
             </SidebarContent>
 
             <SidebarFooter>
-                <NavDropdown items={footerNavItems} />
-                <NavUser />
+                <div className="px-4 py-2 text-sm text-muted-foreground">
+                    <p>© 2025 ERP System Inc.</p>
+                    <p>Version 1.0.0</p>
+                </div>
             </SidebarFooter>
         </Sidebar>
     );

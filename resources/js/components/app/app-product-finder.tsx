@@ -1,11 +1,17 @@
 import { SearchIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
+import { usePage } from '@inertiajs/react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { AvatarFallback } from '@radix-ui/react-avatar';
-import { useDebouncedCallback } from 'use-debounce';
-import { Avatar, AvatarImage } from '../ui/avatar';
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage
+} from '@/components/ui/avatar';
+
+import { formattedNumber } from '@/lib/utils';
 
 type Product = {
     id: number;
@@ -21,6 +27,9 @@ type ProductFinderProps = {
 };
 
 export const AppProductFinder = ({ type, onProductSelect }: ProductFinderProps) => {
+
+    const { default_currency } = usePage().props as any;
+
     const [searchResult, setSearchResult] = useState<Product[]>([]);
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [qryText, setQryText] = useState<string>('');
@@ -98,7 +107,7 @@ export const AppProductFinder = ({ type, onProductSelect }: ProductFinderProps) 
 
                                         <div className="ml-2">
                                             <div className="text-base font-medium">{item.title}</div>
-                                            <span>{type == 'sale' ? item.sale_price : item.purchase_price}</span>
+                                            <span>{default_currency} {type == 'sale' ? formattedNumber(item.sale_price) : formattedNumber(item.purchase_price)}</span>
                                         </div>
                                     </div>
                                 </div>

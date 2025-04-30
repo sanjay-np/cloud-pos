@@ -16,8 +16,21 @@ import {
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import { ChartConfig, ChartContainer } from "@/components/ui/chart"
 
 const Overview = () => {
+
+    const chartConfig = {
+        sales: {
+            label: "Sales",
+            color: "var(--chart-2)",
+        },
+        expenses: {
+            label: "Expenses",
+            color: "var(--chart-1)",
+        },
+    } satisfies ChartConfig
+
     const data = [
         {
             name: "Jan",
@@ -100,23 +113,25 @@ const Overview = () => {
                         <CardTitle>Overview</CardTitle>
                     </CardHeader>
                     <CardContent className="pl-2">
-                        <ResponsiveContainer width="100%" height={350}>
-                            <BarChart data={data}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
-                                <YAxis
-                                    stroke="#888888"
-                                    fontSize={12}
-                                    tickLine={false}
-                                    axisLine={false}
-                                    tickFormatter={(value) => `$${value}`}
-                                />
-                                <Tooltip />
-                                <Legend />
-                                <Bar dataKey="sales" name="Sales" radius={[0, 0, 0, 0]} />
-                                <Bar dataKey="expenses" name="Expenses" radius={[0, 0, 0, 0]} />
-                            </BarChart>
-                        </ResponsiveContainer>
+                        <ChartContainer config={chartConfig}>
+                            <ResponsiveContainer width="100%" height={350}>
+                                <BarChart data={data}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
+                                    <YAxis
+                                        stroke="#888888"
+                                        fontSize={12}
+                                        tickLine={false}
+                                        axisLine={false}
+                                        tickFormatter={(value) => `$${value}`}
+                                    />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="sales" name="Sales" fill="var(--color-sales)" radius={4} />
+                                    <Bar dataKey="expenses" name="Expenses" fill="var(--color-expenses)" radius={4} />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </ChartContainer>
                     </CardContent>
                 </Card>
 

@@ -1,4 +1,4 @@
-import { Head } from "@inertiajs/react"
+import { Head, usePage } from "@inertiajs/react"
 import { format } from "date-fns";
 
 import AppLayout from "@/layouts/app-layout"
@@ -9,6 +9,7 @@ import ExpenseOperation from "./_components/expense-operation"
 import { useColumns } from "@/hooks/use-columns"
 
 import { type BreadcrumbItem } from "@/types"
+import { formattedNumber } from "@/lib/utils";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -22,6 +23,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 const Index = ({ expenses, pagination }: any) => {
+
+    const { default_currency } = usePage().props
 
     const { columns, itemId, mode, setMode } = useColumns<any>({
         dataKey: "id",
@@ -40,7 +43,7 @@ const Index = ({ expenses, pagination }: any) => {
             {
                 accessorKey: "amount",
                 header: "Amount",
-                cell: ({ row }) => <div className="capitalize">{row.getValue("amount")}</div>,
+                cell: ({ row }) => <div className="capitalize">{`${default_currency} ${formattedNumber(row.getValue("amount"))}`}</div>,
             }
         ]
     })

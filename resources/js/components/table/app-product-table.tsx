@@ -109,7 +109,7 @@ export const ProductTable = ({ data, setData }: ProductTableProps) => {
                                                 className='w-20'
                                             />
                                         </TableCell>
-                                        <TableCell>{(item.price * item.qty).toFixed(2)}</TableCell>
+                                        <TableCell>{`${default_currency} ${(item.price * item.qty).toFixed(2)}`}</TableCell>
                                         <TableCell>
                                             <Button
                                                 size={'icon'}
