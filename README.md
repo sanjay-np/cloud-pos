@@ -2,6 +2,9 @@
 # 🌐 Cloud POS
 
 **Cloud POS** is a modern Point of Sale (POS) application designed for small to medium-sized businesses. Built with a powerful tech stack—**Laravel** for the backend and **React.js** for the frontend—this project uses **Inertia.js** to deliver a seamless single-page app (SPA) experience.
+---
+![Screenshot 2025-05-03 at 8 19 01 AM](https://github.com/user-attachments/assets/9efef63a-3d17-4ba4-858a-2206155f0f79)
+
 
 ---
 
