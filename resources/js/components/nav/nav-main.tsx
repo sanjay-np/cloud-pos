@@ -20,7 +20,7 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                             <SidebarMenuButton
                                 asChild
                                 isActive={item.url === page.url}
-                                className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 font-medium"
+                                className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 text-sm"
                                 tooltip={item.title}
                             >
                                 <Link href={item.url} prefetch>
