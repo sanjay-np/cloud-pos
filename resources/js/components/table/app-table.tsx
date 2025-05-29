@@ -50,13 +50,13 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
             />
             <div className="w-full">
                 <div className="rounded-md border">
-                    <Table>
+                    <Table className="app-table">
                         <TableHeader>
                             {table.getHeaderGroups().map((headerGroup) => (
                                 <TableRow key={headerGroup.id}>
                                     {headerGroup.headers.map((header) => {
                                         return (
-                                            <TableHead key={header.id} className="bg-muted/50 h-10 font-semibold py-3 text-[14px]">
+                                            <TableHead key={header.id} className="px-4 text-sm border-r last:border-r-0">
                                                 {header.isPlaceholder
                                                     ? null
                                                     : flexRender(
@@ -77,7 +77,7 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
                                         data-state={row.getIsSelected() && "selected"}
                                     >
                                         {row.getVisibleCells().map((cell) => (
-                                            <TableCell key={cell.id}>
+                                            <TableCell key={cell.id} className="border-r px-4 last:border-r-0">
                                                 {flexRender(
                                                     cell.column.columnDef.cell,
                                                     cell.getContext()

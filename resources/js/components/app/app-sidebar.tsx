@@ -30,7 +30,7 @@ export function AppSidebar() {
     return (
         <Sidebar
             collapsible="icon"
-            variant="inset"
+            variant="sidebar"
             className="overflow-hidden [&>[data-sidebar=sidebar]]:flex-row"
         >
             <Sidebar
@@ -54,7 +54,7 @@ export function AppSidebar() {
                                 {sideNav.map((item) => {
                                     const isActive = activeItem?.title === item.title
                                     return (
-                                        <SidebarMenuItem key={item.title}>
+                                        <SidebarMenuItem key={item.title} className='flex align-center justify-center'>
                                             <SidebarMenuButton
                                                 size="lg"
                                                 isActive={isActive}

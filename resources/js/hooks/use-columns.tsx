@@ -64,14 +64,19 @@ export const useColumns = <T extends Record<string, any>>({
                 />
             ),
             cell: ({ row }) => (
-                <Checkbox
-                    checked={row.getIsSelected()}
-                    onCheckedChange={(value) => row.toggleSelected(!!value)}
-                    aria-label="Select row"
-                />
+                <div className="w-[30px]">
+                    <Checkbox
+                        checked={row.getIsSelected()}
+                        onCheckedChange={(value) => row.toggleSelected(!!value)}
+                        aria-label="Select row"
+                    />
+
+                </div>
             ),
             enableSorting: false,
             enableHiding: false,
+            size: 200
+
         },
         ...customColumns,
         {
