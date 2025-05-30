@@ -16,6 +16,7 @@ export interface NavGroup {
     icon: LucideIcon;
     isActive?: boolean;
     items: NavItem[];
+    includeRoutes?: string[];
 }
 
 export interface NavItem {

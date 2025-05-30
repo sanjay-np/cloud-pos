@@ -64,13 +64,12 @@ export const useColumns = <T extends Record<string, any>>({
                 />
             ),
             cell: ({ row }) => (
-                <div className="w-[30px]">
+                <div className="max-w-[30px]">
                     <Checkbox
                         checked={row.getIsSelected()}
                         onCheckedChange={(value) => row.toggleSelected(!!value)}
                         aria-label="Select row"
                     />
-
                 </div>
             ),
             enableSorting: false,

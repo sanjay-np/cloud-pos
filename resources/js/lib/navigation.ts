@@ -5,6 +5,7 @@ import {
     FolderIcon,
     LayoutGridIcon,
     PackageIcon,
+    SettingsIcon,
     SlidersIcon,
     TruckIcon,
     UsersIcon
@@ -29,7 +30,9 @@ const sidebarNav: NavGroup[] = [
                 icon: LayoutGridIcon,
                 isActive: false,
             },
-
+        ],
+        includeRoutes: [
+            'dashboard',
         ]
     },
     {
@@ -63,6 +66,13 @@ const sidebarNav: NavGroup[] = [
                 url: '/suppliers',
                 icon: TruckIcon,
             },
+        ],
+        includeRoutes: [
+            'attributes',
+            'brands',
+            'categories',
+            'products',
+            'suppliers',
         ]
     },
     {
@@ -81,6 +91,9 @@ const sidebarNav: NavGroup[] = [
                 url: '/employees',
                 icon: ContactRoundIcon,
             },
+        ],
+        includeRoutes: [
+            'customers',
         ]
     },
     {
@@ -101,8 +114,28 @@ const sidebarNav: NavGroup[] = [
                 icon: ContactRoundIcon,
                 isActive: true
             },
+        ],
+        includeRoutes: [
+            'employees',
         ]
     },
+    {
+        id: "5",
+        title: "Settings",
+        icon: SettingsIcon,
+        isActive: false,
+        items: [
+            {
+                title: 'Settings',
+                url: '/settings',
+                icon: SettingsIcon,
+                isActive: true
+            },
+        ],
+        includeRoutes: [
+            'settings',
+        ]
+    }
 ]
 
 export const navigationItems = {
