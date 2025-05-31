@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from '@inertiajs/react';
 
 import {
@@ -23,9 +23,18 @@ import { NavGroup } from '@/types';
 
 export function AppSidebar() {
 
-    const { sideNav } = navigationItems
-    const [activeItem, setActiveItem] = useState<NavGroup>(sideNav[0])
-    const { setOpen } = useSidebar()
+    const { sideNav } = navigationItems;
+    const currentRouteName = route().current() as string;
+    const currentRouteGroup = currentRouteName.split('.')[0];
+
+    const { setOpen } = useSidebar();
+
+    const [activeItem, setActiveItem] = useState<NavGroup>(sideNav[0]);
+
+    useEffect(() => {
+        const matchedItem = sideNav.find(item => item.includeRoutes.includes(currentRouteName.split('.')[0])) ?? sideNav[0];
+        setActiveItem(matchedItem);
+    }, [currentRouteName]);
 
     return (
         <Sidebar
@@ -52,7 +61,7 @@ export function AppSidebar() {
                         <SidebarGroupContent className="px-1.5 md:px-0">
                             <SidebarMenu>
                                 {sideNav.map((item) => {
-                                    const isActive = activeItem?.title === item.title
+                                    const isActive = item.includeRoutes.includes(currentRouteGroup)
                                     return (
                                         <SidebarMenuItem key={item.title} className='flex align-center justify-center'>
                                             <SidebarMenuButton
@@ -97,9 +106,9 @@ export function AppSidebar() {
                         <SidebarGroupContent>
                             <div className='px-4 py-2'>
                                 {activeItem?.items.map((item, index) => {
-                                    const subNavIsActive = item.isActive
+                                    const subNavIsActive = item.includeRoutes.includes(currentRouteName)
                                     return (
-                                        <div key={index} className='w-full'>
+                                        <div key={index} className='w-full cursor-pointer'>
                                             <Link
                                                 href={item.url}
                                                 className={cn(

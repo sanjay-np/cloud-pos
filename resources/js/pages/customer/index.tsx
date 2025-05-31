@@ -35,41 +35,35 @@ const Index = ({ customers, pagination }: CustomerIndexProps) => {
         deleteRoute: "customers.destroy",
         customColumns: [
             {
-                id: "avatar_url",
-                accessorKey: "avatar_url",
-                header: "Avatar",
-                cell: ({ row }) => (
-                    <>
-                        <Avatar className={`size-16 transition-colors`}>
-                            <AvatarImage
-                                src={row.getValue("avatar_url") as string | undefined}
-                                alt="Profile picture"
-                                className="object-cover"
-                            />
-                            <AvatarFallback className="text-2xl">{"CP"}</AvatarFallback>
-                        </Avatar>
-                    </>
-                )
-            },
-            {
-                id: "name",
-                accessorKey: "name",
-                header: "Customer Name",
-                cell: ({ row }) => (
-                    <div className="capitalize">{row.getValue("name")}</div>
-                ),
+                id: "customer_name",
+                accessorFn: (row) => {
+                    return (
+                        <div className="flex gap-3 items-center w-[300px]">
+                            <div>
+                                <Avatar className={`size-16 transition-colors`}>
+                                    <AvatarImage
+                                        src={row.avatar_url as string | undefined}
+                                        alt="Profile picture"
+                                        className="object-cover"
+                                    />
+                                    <AvatarFallback className="text-2xl">{"CP"}</AvatarFallback>
+                                </Avatar>
+                            </div>
+                            <div className="">
+                                <div className="capitalize text-md ">{row.name}</div>
+                                <div className="capitalize text-gray-500">{row.phone}</div>
+                            </div>
+                        </div>
+                    )
+                },
+                header: "Customer",
+                cell: (info) => info.getValue()
             },
             {
                 id: "email",
                 accessorKey: "email",
                 header: "Email Address",
                 cell: ({ row }) => <div className="lowercase truncate max-w-xs">{row.getValue("email")}</div>,
-            },
-            {
-                id: "phone",
-                accessorKey: "phone",
-                header: "Phone",
-                cell: ({ row }) => <div className="lowercase">{row.getValue("phone")}</div>,
             },
             {
                 id: "status",
@@ -80,7 +74,6 @@ const Index = ({ customers, pagination }: CustomerIndexProps) => {
                     return (
                         <Badge variant={status} className='capitalize'>
                             {row.getValue("status")}
-
                         </Badge>
                     )
                 },

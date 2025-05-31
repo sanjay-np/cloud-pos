@@ -159,11 +159,3 @@
         @apply bg-background text-foreground;
     }
 }
-
-@layer components {
-    @supports (color:color-mix(in lab, red, red)) {
-        .app-table thead th {
-            background-color: color-mix(in oklab, var(--muted)40%, transparent);
-        }
-    }
-}

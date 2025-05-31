@@ -16,19 +16,14 @@ const sidebarNav: NavGroup[] = [
         id: "1",
         title: "Dashboard",
         icon: LayoutGridIcon,
-        isActive: true,
         items: [
             {
                 title: 'Dashboard',
                 url: '/dashboard',
                 icon: LayoutGridIcon,
-                isActive: true,
-            },
-            {
-                title: 'Reports',
-                url: '/dashboard',
-                icon: LayoutGridIcon,
-                isActive: false,
+                includeRoutes: [
+                    'dashboard'
+                ]
             },
         ],
         includeRoutes: [
@@ -39,32 +34,48 @@ const sidebarNav: NavGroup[] = [
         id: "2",
         title: "Products",
         icon: PackageIcon,
-        isActive: false,
         items: [
             {
                 title: 'Attributes',
                 url: '/attributes',
                 icon: SlidersIcon,
+                includeRoutes: [
+                    'attributes.index',
+                ]
+
             },
             {
                 title: 'Brands',
                 url: '/brands',
                 icon: ArchiveIcon,
+                includeRoutes: [
+                    'brands.index',
+                ]
+
             },
             {
                 title: 'Categories',
                 url: '/categories',
                 icon: FolderIcon,
+                includeRoutes: [
+                    'categories.index',
+                ]
             },
             {
                 title: 'Products',
                 url: '/products',
                 icon: PackageIcon,
+                includeRoutes: [
+                    'products.index',
+                ]
             },
             {
                 title: 'Suppliers',
                 url: '/suppliers',
                 icon: TruckIcon,
+                includeRoutes: [
+                    'suppliers.index',
+                ]
             },
         ],
         includeRoutes: [
@@ -85,11 +96,9 @@ const sidebarNav: NavGroup[] = [
                 title: 'Customers',
                 url: '/customers',
                 icon: UsersIcon,
-            },
-            {
-                title: 'Settings',
-                url: '/employees',
-                icon: ContactRoundIcon,
+                includeRoutes: [
+                    'customers.index',
+                ]
             },
         ],
         includeRoutes: [
@@ -100,20 +109,15 @@ const sidebarNav: NavGroup[] = [
         id: "4",
         title: "Employees",
         icon: ContactRoundIcon,
-        isActive: false,
         items: [
             {
                 title: 'Employees',
                 url: '/employees',
                 icon: ContactRoundIcon,
-                isActive: false,
-            },
-            {
-                title: 'Settings',
-                url: '/employees',
-                icon: ContactRoundIcon,
-                isActive: true
-            },
+                includeRoutes: [
+                    'employees.index',
+                ]
+            }
         ],
         includeRoutes: [
             'employees',
@@ -123,13 +127,14 @@ const sidebarNav: NavGroup[] = [
         id: "5",
         title: "Settings",
         icon: SettingsIcon,
-        isActive: false,
         items: [
             {
                 title: 'Settings',
                 url: '/settings',
                 icon: SettingsIcon,
-                isActive: true
+                includeRoutes: [
+                    'settings.index',
+                ]
             },
         ],
         includeRoutes: [

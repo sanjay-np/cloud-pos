@@ -28,24 +28,15 @@ const Index = ({ suppliers, brands, pagination }: SupplierIndexProps) => {
         deleteRoute: "suppliers.destroy",
         customColumns: [
             {
-                id: "name",
-                accessorKey: "name",
-                header: "Supplier Name",
-                cell: ({ row }) => (
-                    <div className="capitalize">{row.getValue("name")}</div>
+                id: "supplier",
+                header: "Supplier",
+                accessorFn: (row) => (
+                    <div className="flex gap-2.5 flex-col">
+                        <div className="capitalize">{row.name}</div>
+                        <div className="capitalize">{row.contact_person} ({row.phone})</div>
+                    </div>
                 ),
-            },
-            {
-                id: "contact_person",
-                accessorKey: "contact_person",
-                header: "Contact Person",
-                cell: ({ row }) => <div className="capitalize">{row.getValue("contact_person")}</div>,
-            },
-            {
-                id: "phone",
-                accessorKey: "phone",
-                header: "Contact",
-                cell: ({ row }) => <div className="lowercase">{row.getValue("phone")}</div>,
+                cell: (info) => info.getValue()
             },
             {
                 id: "brand_items",

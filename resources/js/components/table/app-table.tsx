@@ -56,13 +56,21 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
                                 <TableRow key={headerGroup.id}>
                                     {headerGroup.headers.map((header) => {
                                         return (
-                                            <TableHead key={header.id} className="px-4 text-sm border-r last:border-r-0">
-                                                {header.isPlaceholder
-                                                    ? null
-                                                    : flexRender(
-                                                        header.column.columnDef.header,
-                                                        header.getContext()
-                                                    )}
+                                            <TableHead
+                                                key={header.id}
+                                                className="px-4 text-sm border-r last:border-r-0 bg-zinc-50 text-foreground font-normal"
+                                                style={{
+                                                    width: header.getSize(),
+                                                }}
+                                            >
+                                                {
+                                                    header.isPlaceholder
+                                                        ? null
+                                                        : flexRender(
+                                                            header.column.columnDef.header,
+                                                            header.getContext()
+                                                        )
+                                                }
                                             </TableHead>
                                         )
                                     })}
@@ -128,6 +136,6 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
                     </WhenVisible>
                 )}
             </div>
-        </div>
+        </div >
     )
 }

@@ -5,7 +5,6 @@ import { router } from "@inertiajs/react";
 import { toast } from "sonner";
 
 import ActionMenu from "@/components/table/table-action-menu";
-import { Checkbox } from "@/components/ui/checkbox";
 
 import { useSheetStore } from "@/hooks/use-sheet";
 import { useAlertStore } from "@/hooks/use-alert";
@@ -51,32 +50,6 @@ export const useColumns = <T extends Record<string, any>>({
     };
 
     const defaultColumns: ColumnDef<T>[] = [
-        {
-            id: "select",
-            header: ({ table }) => (
-                <Checkbox
-                    checked={
-                        table.getIsAllPageRowsSelected() ||
-                        (table.getIsSomePageRowsSelected() && "indeterminate")
-                    }
-                    onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                    aria-label="Select all"
-                />
-            ),
-            cell: ({ row }) => (
-                <div className="max-w-[30px]">
-                    <Checkbox
-                        checked={row.getIsSelected()}
-                        onCheckedChange={(value) => row.toggleSelected(!!value)}
-                        aria-label="Select row"
-                    />
-                </div>
-            ),
-            enableSorting: false,
-            enableHiding: false,
-            size: 200
-
-        },
         ...customColumns,
         {
             header: "Actions",

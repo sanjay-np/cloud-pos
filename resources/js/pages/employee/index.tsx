@@ -35,35 +35,29 @@ const Index = ({ employees, pagination }: EmployeeIndexProps) => {
         deleteRoute: "",
         customColumns: [
             {
-                id: "avatar_url",
-                accessorKey: "avatar_url",
-                header: "Avatar",
-                cell: ({ row }) => (
-                    <>
-                        <Avatar className={`size-16 transition-colors`}>
-                            <AvatarImage
-                                src={row.getValue("avatar_url") as string | undefined}
-                                alt="Profile picture"
-                                className="object-cover"
-                            />
-                            <AvatarFallback className="text-2xl">{"EP"}</AvatarFallback>
-                        </Avatar>
-                    </>
-                )
-            },
-            {
-                id: "name",
-                accessorKey: "name",
-                header: "Employee Name",
-                cell: ({ row }) => (
-                    <div className="capitalize">{row.getValue("name")}</div>
-                ),
-            },
-            {
-                id: "phone",
-                accessorKey: "phone",
-                header: "Phone",
-                cell: ({ row }) => <div className="lowercase">{row.getValue("phone")}</div>,
+                id: "employee_name",
+                accessorFn: (row) => {
+                    return (
+                        <div className="flex gap-3 items-center w-[300px]">
+                            <div>
+                                <Avatar className={`size-16 transition-colors`}>
+                                    <AvatarImage
+                                        src={row.avatar_url as string | undefined}
+                                        alt="Profile picture"
+                                        className="object-cover"
+                                    />
+                                    <AvatarFallback className="text-2xl">{"EP"}</AvatarFallback>
+                                </Avatar>
+                            </div>
+                            <div className="">
+                                <div className="capitalize text-md ">{row.name}</div>
+                                <div className="capitalize text-gray-500">{row.phone}</div>
+                            </div>
+                        </div>
+                    )
+                },
+                header: "Employee",
+                cell: (info) => info.getValue()
             },
             {
                 id: "department",

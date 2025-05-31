@@ -32,32 +32,29 @@ const Index = ({ brands, pagination }: BrandIndexProps) => {
         deleteRoute: "brands.destroy",
         customColumns: [
             {
-                accessorKey: "image_url",
-                header: "Image",
-                cell: ({ row }) => (
-                    <Avatar className={`size-16 transition-colors`}>
-                        <AvatarImage
-                            src={row.getValue("image_url") as string | undefined}
-                            alt="Profile picture"
-                            className="object-cover"
-                        />
-                        <AvatarFallback className="text-2xl">{"BL"}</AvatarFallback>
-                    </Avatar>
-                )
-            },
-            {
-                header: "Name",
-                accessorKey: "name",
-                cell: ({ row }) => (
-                    <div className="truncate max-w-3xs">{row.getValue("name")}</div>
-                )
-            },
-            {
-                header: "Description",
-                accessorKey: "description",
-                cell: ({ row }) => (
-                    <div className="truncate w-96">{row.getValue("description")}</div>
-                )
+                id: "brand",
+                header: "Brand",
+                accessorFn: (row) => (
+                    <div className="flex gap-3 items-center w-[300px]">
+                        <div>
+
+                            <Avatar className={`size-16 transition-colors`}>
+                                <AvatarImage
+                                    src={row.image_url as string | undefined}
+                                    alt="Profile picture"
+                                    className="object-cover"
+                                />
+                                <AvatarFallback className="text-2xl">{"BL"}</AvatarFallback>
+                            </Avatar>
+                        </div>
+                        <div className="">
+                            <div className="capitalize text-md ">{row.name}</div>
+                            <div className="capitalize text-gray-500">{row.description}</div>
+                        </div>
+                    </div>
+
+                ),
+                cell: (info) => info.getValue()
             },
         ]
     })

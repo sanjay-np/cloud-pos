@@ -33,28 +33,26 @@ const Index = ({ products, pagination, default_currency }: any) => {
         deleteRoute: "products.destroy",
         customColumns: [
             {
-                accessorKey: "image_url",
-                header: "Image",
-                cell: ({ row }) => (
-                    <>
-                        <Avatar className={`size-16 transition-colors`}>
-                            <AvatarImage
-                                src={row.getValue("image_url") as string | undefined}
-                                alt="Profile picture"
-                                className="object-cover"
-                            />
-                            <AvatarFallback className="text-2xl">{"PI"}</AvatarFallback>
-                        </Avatar>
-                    </>
-                )
-            },
-            {
-                id: "title",
-                accessorKey: "title",
-                header: "Product Name",
-                cell: ({ row }) => (
-                    <div className="capitalize">{row.getValue("title")}</div>
+                id: "product",
+                header: "Product",
+                accessorFn: (row) => (
+                    <div className="flex gap-3 items-center w-[300px]">
+                        <div>
+                            <Avatar className={`size-16 transition-colors`}>
+                                <AvatarImage
+                                    src={row.image_url as string | undefined}
+                                    alt="Profile picture"
+                                    className="object-cover"
+                                />
+                                <AvatarFallback className="text-2xl">{"PI"}</AvatarFallback>
+                            </Avatar>
+                        </div>
+                        <div className="">
+                            <div className="capitalize text-md ">{row.title}</div>
+                        </div>
+                    </div>
                 ),
+                cell: (info) => info.getValue()
             },
             {
                 id: "stock_qty",
