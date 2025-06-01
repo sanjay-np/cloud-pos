@@ -8,7 +8,6 @@ import {
     SidebarGroup,
     SidebarGroupContent,
     SidebarHeader,
-    SidebarInput,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
@@ -20,21 +19,23 @@ import { navigationItems } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 
 import { NavGroup } from '@/types';
+import { NavUser } from '../nav/nav-user';
 
 export function AppSidebar() {
 
     const { sideNav } = navigationItems;
-    const currentRouteName = route().current() as string;
-    const currentRouteGroup = currentRouteName.split('.')[0];
-
     const { setOpen } = useSidebar();
 
     const [activeItem, setActiveItem] = useState<NavGroup>(sideNav[0]);
+    const currentRouteName = route().current() as string;
 
     useEffect(() => {
-        const matchedItem = sideNav.find(item => item.includeRoutes.includes(currentRouteName.split('.')[0])) ?? sideNav[0];
+        const matchedItem = sideNav.find(item =>
+            item.includeRoutes.includes(currentRouteName.split('.')[0])
+        ) ?? sideNav[0];
+
         setActiveItem(matchedItem);
-    }, [currentRouteName]);
+    }, [currentRouteName, sideNav]);
 
     return (
         <Sidebar
@@ -61,7 +62,7 @@ export function AppSidebar() {
                         <SidebarGroupContent className="px-1.5 md:px-0">
                             <SidebarMenu>
                                 {sideNav.map((item) => {
-                                    const isActive = item.includeRoutes.includes(currentRouteGroup)
+                                    const isActive = activeItem.title === item.title;
                                     return (
                                         <SidebarMenuItem key={item.title} className='flex align-center justify-center'>
                                             <SidebarMenuButton
@@ -93,13 +94,21 @@ export function AppSidebar() {
                     </SidebarGroup>
                 </SidebarContent>
                 <SidebarFooter>
-                    {/* Sidebar footer content  (User menu)*/}
+                    <NavUser />
                 </SidebarFooter>
             </Sidebar>
 
             <Sidebar collapsible="none" className="hidden flex-1 md:flex">
-                <SidebarHeader className="gap-3.5 border-b p-4">
-                    <SidebarInput placeholder="Type to search..." />
+                <SidebarHeader className="gap-3.5 p-4">
+                    {activeItem && (
+                        <div className="flex items-center gap-2">
+                            <activeItem.icon
+                                strokeWidth={1.8}
+                                className={cn("!size-5 text-gray-500")}
+                            />
+                            <span className="text-sm font-medium">{activeItem.title}</span>
+                        </div>
+                    )}
                 </SidebarHeader>
                 <SidebarContent>
                     <SidebarGroup className="px-0">
