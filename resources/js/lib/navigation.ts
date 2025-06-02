@@ -1,26 +1,26 @@
 import { NavGroup } from "@/types";
 import {
     ArchiveIcon,
-    ContactRoundIcon,
     FolderIcon,
-    LayoutGridIcon,
+    GaugeIcon,
+    GearIcon,
     PackageIcon,
-    SettingsIcon,
     SlidersIcon,
     TruckIcon,
+    UserGearIcon,
     UsersIcon
-} from "lucide-react";
+} from "@phosphor-icons/react";
 
 const sidebarNav: NavGroup[] = [
     {
         id: "1",
         title: "Dashboard",
-        icon: LayoutGridIcon,
+        icon: GaugeIcon,
         items: [
             {
                 title: 'Dashboard',
                 url: '/dashboard',
-                icon: LayoutGridIcon,
+                icon: GaugeIcon,
                 includeRoutes: [
                     'dashboard'
                 ]
@@ -108,12 +108,12 @@ const sidebarNav: NavGroup[] = [
     {
         id: "4",
         title: "Employees",
-        icon: ContactRoundIcon,
+        icon: UserGearIcon,
         items: [
             {
                 title: 'Employees',
                 url: '/employees',
-                icon: ContactRoundIcon,
+                icon: UserGearIcon,
                 includeRoutes: [
                     'employees.index',
                 ]
@@ -126,12 +126,12 @@ const sidebarNav: NavGroup[] = [
     {
         id: "5",
         title: "Settings",
-        icon: SettingsIcon,
+        icon: GearIcon,
         items: [
             {
                 title: 'Settings',
                 url: '/settings',
-                icon: SettingsIcon,
+                icon: GearIcon,
                 includeRoutes: [
                     'settings.index',
                 ]

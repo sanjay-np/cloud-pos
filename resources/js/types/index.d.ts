@@ -1,4 +1,4 @@
-import { LucideIcon } from 'lucide-react';
+import type { Icon } from '@phosphor-icons/react'
 import type { Config } from 'ziggy-js';
 
 export interface Auth {
@@ -13,7 +13,7 @@ export interface BreadcrumbItem {
 export interface NavGroup {
     id: string;
     title: string;
-    icon: LucideIcon;
+    icon: Icon;
     isActive?: boolean;
     items: NavItem[];
     includeRoutes: string[];
@@ -22,7 +22,7 @@ export interface NavGroup {
 export interface NavItem {
     title: string;
     url: string;
-    icon?: LucideIcon | null;
+    icon?: Icon | null;
     isActive?: boolean;
     includeRoutes: string[];
 }

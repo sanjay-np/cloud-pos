@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from '@inertiajs/react';
+import { BoxArrowDownIcon } from '@phosphor-icons/react';
 
 import {
     Sidebar,
@@ -79,9 +80,9 @@ export function AppSidebar() {
                                                 }}
                                             >
                                                 <item.icon
-                                                    strokeWidth={1.8}
+                                                    weight="duotone"
                                                     className={cn(
-                                                        "!size-5 text-gray-500",
+                                                        "!size-6 text-gray-500",
                                                         isActive && "text-primary"
                                                     )}
                                                 />
@@ -99,12 +100,12 @@ export function AppSidebar() {
             </Sidebar>
 
             <Sidebar collapsible="none" className="hidden flex-1 md:flex">
-                <SidebarHeader className="gap-3.5 p-4">
+                <SidebarHeader className="gap-3.5 p-4 border-b">
                     {activeItem && (
                         <div className="flex items-center gap-2">
-                            <activeItem.icon
-                                strokeWidth={1.8}
-                                className={cn("!size-5 text-gray-500")}
+                            <BoxArrowDownIcon
+                                weight="duotone"
+                                className={cn("!size-6 text-gray-500")}
                             />
                             <span className="text-sm font-medium">{activeItem.title}</span>
                         </div>
@@ -113,7 +114,7 @@ export function AppSidebar() {
                 <SidebarContent>
                     <SidebarGroup className="px-0">
                         <SidebarGroupContent>
-                            <div className='px-4 py-2'>
+                            <div className='px-2 py-2'>
                                 {activeItem?.items.map((item, index) => {
                                     const subNavIsActive = item.includeRoutes.includes(currentRouteName)
                                     return (
@@ -125,7 +126,19 @@ export function AppSidebar() {
                                                     subNavIsActive && "text-primary bg-white border"
                                                 )}
                                             >
-                                                {item.title}
+                                                <span className='flex items-center gap-2.5'>
+                                                    {item.icon && (
+                                                        <item.icon
+                                                            weight="duotone"
+                                                            className={cn(
+                                                                "!size-5 text-gray-500",
+                                                                subNavIsActive && "text-primary"
+                                                            )}
+                                                        />
+
+                                                    )}
+                                                    {item.title}
+                                                </span>
                                             </Link>
                                         </div>
                                     )
