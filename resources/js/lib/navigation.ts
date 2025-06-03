@@ -1,13 +1,20 @@
 import { NavGroup } from "@/types";
 import {
     ArchiveIcon,
+    CashRegisterIcon,
+    CoinsIcon,
+    CurrencyCircleDollarIcon,
     FolderIcon,
     GaugeIcon,
     GearIcon,
+    GearSixIcon,
+    IdentificationBadgeIcon,
+    MathOperationsIcon,
     PackageIcon,
+    ReceiptIcon,
     SlidersIcon,
+    TagIcon,
     TruckIcon,
-    UserGearIcon,
     UsersIcon
 } from "@phosphor-icons/react";
 
@@ -32,6 +39,51 @@ const sidebarNav: NavGroup[] = [
     },
     {
         id: "2",
+        title: "Operations",
+        icon: MathOperationsIcon,
+        items: [
+            {
+                title: 'POS',
+                url: '/pos',
+                icon: CashRegisterIcon,
+                includeRoutes: [
+                    'sales.pos'
+                ]
+            },
+            {
+                title: 'Purchase',
+                url: '/purchases',
+                icon: CoinsIcon,
+                includeRoutes: [
+                    'purchases.index'
+                ]
+            },
+            {
+                title: 'Sales',
+                url: '/sales',
+                icon: TagIcon,
+                includeRoutes: [
+                    'sales.index'
+                ]
+            },
+            {
+                title: 'Expenses',
+                url: '/expenses',
+                icon: ReceiptIcon,
+                includeRoutes: [
+                    'expenses.index'
+                ]
+            },
+        ],
+        includeRoutes: [
+            'pos',
+            'purchases',
+            'sales',
+            'expenses',
+        ]
+    },
+    {
+        id: "3",
         title: "Products",
         icon: PackageIcon,
         items: [
@@ -87,7 +139,7 @@ const sidebarNav: NavGroup[] = [
         ]
     },
     {
-        id: "3",
+        id: "4",
         title: "Customers",
         icon: UsersIcon,
         isActive: false,
@@ -106,32 +158,49 @@ const sidebarNav: NavGroup[] = [
         ]
     },
     {
-        id: "4",
+        id: "5",
         title: "Employees",
-        icon: UserGearIcon,
+        icon: IdentificationBadgeIcon,
         items: [
             {
                 title: 'Employees',
                 url: '/employees',
-                icon: UserGearIcon,
+                icon: IdentificationBadgeIcon,
                 includeRoutes: [
                     'employees.index',
                 ]
+            },
+            {
+                title: 'Setup',
+                url: '/employees',
+                icon: SlidersIcon,
+                includeRoutes: [
+                    'employees.setup.index',
+                ]
             }
+
         ],
         includeRoutes: [
             'employees',
         ]
     },
     {
-        id: "5",
+        id: "6",
         title: "Settings",
         icon: GearIcon,
         items: [
             {
-                title: 'Settings',
+                title: 'Currency',
+                url: '/settings/currency',
+                icon: CurrencyCircleDollarIcon,
+                includeRoutes: [
+                    'currency.index'
+                ]
+            },
+            {
+                title: 'Options',
                 url: '/settings',
-                icon: GearIcon,
+                icon: GearSixIcon,
                 includeRoutes: [
                     'settings.index',
                 ]
@@ -139,6 +208,7 @@ const sidebarNav: NavGroup[] = [
         ],
         includeRoutes: [
             'settings',
+            'currency',
         ]
     }
 ]

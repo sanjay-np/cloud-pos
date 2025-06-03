@@ -50,7 +50,7 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
             />
             <div className="w-full">
                 <div className="rounded-md border">
-                    <Table className="app-table">
+                    <Table>
                         <TableHeader>
                             {table.getHeaderGroups().map((headerGroup) => (
                                 <TableRow key={headerGroup.id}>
@@ -58,7 +58,7 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
                                         return (
                                             <TableHead
                                                 key={header.id}
-                                                className="px-4 text-sm border-r last:border-r-0 bg-zinc-50 text-foreground font-normal"
+                                                className="px-4 text-sm border-r last:border-r-0 text-foreground font-normal bg-muted/30"
                                                 style={{
                                                     width: header.getSize(),
                                                 }}
@@ -101,7 +101,7 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
                                             className="h-24 flex-auto"
                                         >
                                             <div className="flex flex-col justify-center items-center">
-                                                <img src="/icons/icon-1.png" className="object-fit size-40" />
+                                                <img src="/icons/no-items.svg" className="object-fit size-40" />
                                                 <div className="pb-6 flex flex-col justify-center items-center gap-2">
                                                     <p className="font-medium text-lg text-muted-foreground">Nothing found... yet!</p>
                                                     <Button>Create New</Button>

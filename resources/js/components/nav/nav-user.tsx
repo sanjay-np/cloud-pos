@@ -5,7 +5,6 @@ import { UserMenuContent } from '@/components/user-menu-content';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
-import { ChevronsUpDown } from 'lucide-react';
 
 export function NavUser() {
     const { auth } = usePage<SharedData>().props;
@@ -14,18 +13,21 @@ export function NavUser() {
 
     return (
         <SidebarMenu>
-            <SidebarMenuItem>
+            <SidebarMenuItem className='px-4'>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <SidebarMenuButton size="lg" className="text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent group">
-                            <UserInfo user={auth.user} showEmail />
-                            <ChevronsUpDown className="ml-auto size-4" />
+                        <SidebarMenuButton
+                            size="lg"
+                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground md:h-8 md:p-0"
+                        >
+                            <UserInfo user={auth.user} showEmail={false} />
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
-                        className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+                        className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-md"
                         align="end"
-                        side={isMobile ? 'bottom' : state === 'collapsed' ? 'left' : 'bottom'}
+                        side={isMobile ? 'bottom' : state === 'collapsed' ? 'bottom' : 'right'}
+                        sideOffset={4}
                     >
                         <UserMenuContent user={auth.user} />
                     </DropdownMenuContent>
