@@ -1,11 +1,4 @@
-import {
-    ArrowDown,
-    ArrowUp,
-    IndianRupeeIcon,
-    Package,
-    ShoppingCart,
-    Users
-} from "lucide-react"
+import { usePage } from "@inertiajs/react"
 
 import {
     Card,
@@ -13,8 +6,8 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { usePage } from "@inertiajs/react"
 import { SharedData } from "@/types"
+import Icon from "@/components/ui/icon"
 
 type DashboardStat = {
     activeCustomers: number
@@ -36,7 +29,12 @@ export function DashboardStats({ activeCustomers }: DashboardStat) {
                         <p className="text-xs text-muted-foreground">+20.1% from last month</p>
                     </CardContent>
                     <div className="absolute w-11/12 h-full top-0 flex justify-end items-center">
-                        <IndianRupeeIcon className="size-10 text-muted-foreground" strokeWidth={1.5} />
+                        <Icon
+                            name="CurrencyInrIcon"
+                            weight="duotone"
+                            className="size-10 text-muted-foreground"
+                            strokeWidth={1.5}
+                        />
                     </div>
 
                 </Card>
@@ -48,12 +46,21 @@ export function DashboardStats({ activeCustomers }: DashboardStat) {
                     <CardContent>
                         <div className="text-2xl font-bold mb-2">+573</div>
                         <div className="flex items-center text-xs text-green-500">
-                            <ArrowUp className="mr-1 h-3 w-3" />
+                            <Icon
+                                name="TrendUpIcon"
+                                className="mr-1 h-3 w-3"
+                                weight="duotone"
+                            />
                             <span>12.5% from last month</span>
                         </div>
                     </CardContent>
                     <div className="absolute w-11/12 h-full top-0 flex justify-end items-center">
-                        <ShoppingCart className="size-10 text-muted-foreground" strokeWidth={1.5} />
+                        <Icon
+                            name="ShoppingCartIcon"
+                            weight="duotone"
+                            className="size-10 text-muted-foreground"
+                            strokeWidth={1.5}
+                        />
                     </div>
 
                 </Card>
@@ -65,12 +72,21 @@ export function DashboardStats({ activeCustomers }: DashboardStat) {
                     <CardContent>
                         <div className="text-2xl font-bold mb-2">12,234</div>
                         <div className="flex items-center text-xs text-red-500">
-                            <ArrowDown className="mr-1 h-3 w-3" />
+                            <Icon
+                                name="TrendDownIcon"
+                                className="mr-1 h-3 w-3"
+                                weight="duotone"
+                            />
                             <span>4.3% from last month</span>
                         </div>
                     </CardContent>
                     <div className="absolute w-11/12 h-full top-0 flex justify-end items-center">
-                        <Package className="size-10 text-muted-foreground" strokeWidth={1.5} />
+                        <Icon
+                            name="PackageIcon"
+                            weight="duotone"
+                            className="size-10 text-muted-foreground"
+                            strokeWidth={1.5}
+                        />
                     </div>
 
                 </Card>
@@ -84,7 +100,12 @@ export function DashboardStats({ activeCustomers }: DashboardStat) {
                         <p className="text-xs text-muted-foreground">+180 in the last 24 hours</p>
                     </CardContent>
                     <div className="absolute w-11/12 h-full top-0 flex justify-end items-center">
-                        <Users className="size-10 text-muted-foreground" strokeWidth={1.5} />
+                        <Icon
+                            name="UsersIcon"
+                            weight="duotone"
+                            className="size-10 text-muted-foreground"
+                            strokeWidth={1.5}
+                        />
                     </div>
                 </Card>
             </div>

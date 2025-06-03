@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from '@inertiajs/react';
-import { BoxArrowDownIcon } from '@phosphor-icons/react';
 
 import {
     Sidebar,
@@ -20,7 +19,7 @@ import { navigationItems } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 
 import { NavGroup } from '@/types';
-import { NavUser } from '../nav/nav-user';
+import Icon from '@/components/ui/icon';
 
 export function AppSidebar() {
 
@@ -79,7 +78,8 @@ export function AppSidebar() {
                                                     hidden: false,
                                                 }}
                                             >
-                                                <item.icon
+                                                <Icon
+                                                    name={item.icon}
                                                     weight="duotone"
                                                     className={cn(
                                                         "!size-6 text-gray-500",
@@ -95,7 +95,6 @@ export function AppSidebar() {
                     </SidebarGroup>
                 </SidebarContent>
                 <SidebarFooter>
-                    <NavUser />
                 </SidebarFooter>
             </Sidebar>
 
@@ -103,7 +102,8 @@ export function AppSidebar() {
                 <SidebarHeader className="gap-3.5 p-4 border-b">
                     {activeItem && (
                         <div className="flex items-center gap-2">
-                            <BoxArrowDownIcon
+                            <Icon
+                                name="BoxArrowDownIcon"
                                 weight="duotone"
                                 className={cn("!size-6 text-gray-500")}
                             />
@@ -128,7 +128,8 @@ export function AppSidebar() {
                                             >
                                                 <span className='flex items-center gap-2.5'>
                                                     {item.icon && (
-                                                        <item.icon
+                                                        <Icon
+                                                            name={item.icon}
                                                             weight="duotone"
                                                             className={cn(
                                                                 "!size-5 text-gray-500",

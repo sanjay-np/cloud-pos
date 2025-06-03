@@ -1,7 +1,9 @@
-import { Icon } from '@/components/icon';
-import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
+
+import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import Icon from '@/components/ui/icon';
+
+import { type NavItem } from '@/types';
 import { type ComponentPropsWithoutRef } from 'react';
 
 export function NavFooter({

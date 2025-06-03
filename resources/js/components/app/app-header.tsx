@@ -1,5 +1,5 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import { Icon } from '@/components/icon';
+import Icon from '@/components/ui/icon';
 import {
     Avatar,
     AvatarFallback,

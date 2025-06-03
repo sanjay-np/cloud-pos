@@ -1,4 +1,3 @@
-import { SearchIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { usePage } from '@inertiajs/react';
@@ -10,6 +9,7 @@ import {
     AvatarFallback,
     AvatarImage
 } from '@/components/ui/avatar';
+import Icon from '@/components/ui/icon';
 
 import { formattedNumber } from '@/lib/utils';
 
@@ -77,7 +77,7 @@ export const AppProductFinder = ({ type, onProductSelect }: ProductFinderProps) 
                 variant="ghost"
                 className="text-muted-foreground hover:text-foreground absolute top-0 left-0 h-full px-3 py-2 hover:bg-transparent"
             >
-                <SearchIcon className="h-4 w-4" />
+                <Icon name="MagnifyingGlassIcon" className="h-4 w-4" />
                 <span className="sr-only">Search</span>
             </Button>
             <Input

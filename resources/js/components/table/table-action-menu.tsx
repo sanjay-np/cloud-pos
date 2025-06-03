@@ -1,8 +1,5 @@
 import React from "react"
-import {
-    DotsThreeVerticalIcon,
-    type Icon
-} from '@phosphor-icons/react'
+import * as PhosphorIcons from '@phosphor-icons/react'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,12 +9,13 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
+import Icon from "@/components/ui/icon"
 
 type tableActionMenuProps = {
     items: {
         label: string,
         onClick: () => void
-        icon?: Icon | null
+        icon?: keyof typeof PhosphorIcons | null
     }[]
 }
 
@@ -27,7 +25,9 @@ export default function ActionMenu({ items }: tableActionMenuProps) {
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
                     <span className="sr-only">Open menu</span>
-                    <DotsThreeVerticalIcon />
+                    <Icon
+                        name="DotsThreeVerticalIcon"
+                    />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="rounded-sm">
@@ -38,7 +38,8 @@ export default function ActionMenu({ items }: tableActionMenuProps) {
                         <DropdownMenuItem onClick={item.onClick}>
                             <span>
                                 {item.icon && (
-                                    <item.icon
+                                    <Icon
+                                        name={item.icon}
                                         weight="duotone"
                                         size={32}
                                     />

@@ -1,6 +1,5 @@
 import { Head } from '@inertiajs/react';
 import { format } from 'date-fns';
-import { IndianRupee } from 'lucide-react';
 
 import AppTable from '@/components/table/app-table';
 import { Badge } from '@/components/ui/badge';
@@ -85,7 +84,7 @@ const Index = ({ purchases, pagination, default_currency }: PurchaseIndexProps) 
                     setItemId(itemId);
                     setIsOpen(!isOpen);
                 },
-                icon: IndianRupee,
+                icon: "CurrencyInrIcon",
             },
         ],
     });

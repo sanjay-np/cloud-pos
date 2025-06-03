@@ -1,33 +1,15 @@
 import { NavGroup } from "@/types";
-import {
-    ArchiveIcon,
-    CashRegisterIcon,
-    CoinsIcon,
-    CurrencyCircleDollarIcon,
-    FolderIcon,
-    GaugeIcon,
-    GearIcon,
-    GearSixIcon,
-    IdentificationBadgeIcon,
-    MathOperationsIcon,
-    PackageIcon,
-    ReceiptIcon,
-    SlidersIcon,
-    TagIcon,
-    TruckIcon,
-    UsersIcon
-} from "@phosphor-icons/react";
 
 const sidebarNav: NavGroup[] = [
     {
         id: "1",
         title: "Dashboard",
-        icon: GaugeIcon,
+        icon: "GaugeIcon",
         items: [
             {
                 title: 'Dashboard',
                 url: '/dashboard',
-                icon: GaugeIcon,
+                icon: "GaugeIcon",
                 includeRoutes: [
                     'dashboard'
                 ]
@@ -40,12 +22,12 @@ const sidebarNav: NavGroup[] = [
     {
         id: "2",
         title: "Operations",
-        icon: MathOperationsIcon,
+        icon: "MathOperationsIcon",
         items: [
             {
                 title: 'POS',
                 url: '/pos',
-                icon: CashRegisterIcon,
+                icon: "CashRegisterIcon",
                 includeRoutes: [
                     'sales.pos'
                 ]
@@ -53,7 +35,7 @@ const sidebarNav: NavGroup[] = [
             {
                 title: 'Purchase',
                 url: '/purchases',
-                icon: CoinsIcon,
+                icon: "CoinsIcon",
                 includeRoutes: [
                     'purchases.index'
                 ]
@@ -61,7 +43,7 @@ const sidebarNav: NavGroup[] = [
             {
                 title: 'Sales',
                 url: '/sales',
-                icon: TagIcon,
+                icon: "TagIcon",
                 includeRoutes: [
                     'sales.index'
                 ]
@@ -69,7 +51,7 @@ const sidebarNav: NavGroup[] = [
             {
                 title: 'Expenses',
                 url: '/expenses',
-                icon: ReceiptIcon,
+                icon: "ReceiptIcon",
                 includeRoutes: [
                     'expenses.index'
                 ]
@@ -85,12 +67,12 @@ const sidebarNav: NavGroup[] = [
     {
         id: "3",
         title: "Products",
-        icon: PackageIcon,
+        icon: "PackageIcon",
         items: [
             {
                 title: 'Attributes',
                 url: '/attributes',
-                icon: SlidersIcon,
+                icon: "SlidersIcon",
                 includeRoutes: [
                     'attributes.index',
                 ]
@@ -99,7 +81,7 @@ const sidebarNav: NavGroup[] = [
             {
                 title: 'Brands',
                 url: '/brands',
-                icon: ArchiveIcon,
+                icon: "ArchiveIcon",
                 includeRoutes: [
                     'brands.index',
                 ]
@@ -108,7 +90,7 @@ const sidebarNav: NavGroup[] = [
             {
                 title: 'Categories',
                 url: '/categories',
-                icon: FolderIcon,
+                icon: "FolderIcon",
                 includeRoutes: [
                     'categories.index',
                 ]
@@ -116,7 +98,7 @@ const sidebarNav: NavGroup[] = [
             {
                 title: 'Products',
                 url: '/products',
-                icon: PackageIcon,
+                icon: "PackageIcon",
                 includeRoutes: [
                     'products.index',
                 ]
@@ -124,7 +106,7 @@ const sidebarNav: NavGroup[] = [
             {
                 title: 'Suppliers',
                 url: '/suppliers',
-                icon: TruckIcon,
+                icon: "TruckIcon",
                 includeRoutes: [
                     'suppliers.index',
                 ]
@@ -141,13 +123,13 @@ const sidebarNav: NavGroup[] = [
     {
         id: "4",
         title: "Customers",
-        icon: UsersIcon,
+        icon: "UsersIcon",
         isActive: false,
         items: [
             {
                 title: 'Customers',
                 url: '/customers',
-                icon: UsersIcon,
+                icon: "UsersIcon",
                 includeRoutes: [
                     'customers.index',
                 ]
@@ -160,12 +142,12 @@ const sidebarNav: NavGroup[] = [
     {
         id: "5",
         title: "Employees",
-        icon: IdentificationBadgeIcon,
+        icon: "IdentificationBadgeIcon",
         items: [
             {
                 title: 'Employees',
                 url: '/employees',
-                icon: IdentificationBadgeIcon,
+                icon: "IdentificationBadgeIcon",
                 includeRoutes: [
                     'employees.index',
                 ]
@@ -173,7 +155,7 @@ const sidebarNav: NavGroup[] = [
             {
                 title: 'Setup',
                 url: '/employees',
-                icon: SlidersIcon,
+                icon: "SlidersIcon",
                 includeRoutes: [
                     'employees.setup.index',
                 ]
@@ -187,12 +169,12 @@ const sidebarNav: NavGroup[] = [
     {
         id: "6",
         title: "Settings",
-        icon: GearIcon,
+        icon: "GearIcon",
         items: [
             {
                 title: 'Currency',
                 url: '/settings/currency',
-                icon: CurrencyCircleDollarIcon,
+                icon: "CurrencyCircleDollarIcon",
                 includeRoutes: [
                     'currency.index'
                 ]
@@ -200,7 +182,7 @@ const sidebarNav: NavGroup[] = [
             {
                 title: 'Options',
                 url: '/settings',
-                icon: GearSixIcon,
+                icon: "GearSixIcon",
                 includeRoutes: [
                     'settings.index',
                 ]

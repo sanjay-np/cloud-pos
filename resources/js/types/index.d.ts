@@ -1,4 +1,4 @@
-import type { Icon } from '@phosphor-icons/react'
+import * as PhosphorIcons from "@phosphor-icons/react";
 import type { Config } from 'ziggy-js';
 
 export interface Auth {
@@ -13,7 +13,7 @@ export interface BreadcrumbItem {
 export interface NavGroup {
     id: string;
     title: string;
-    icon: Icon;
+    icon: keyof typeof PhosphorIcons;
     isActive?: boolean;
     items: NavItem[];
     includeRoutes: string[];
@@ -22,7 +22,7 @@ export interface NavGroup {
 export interface NavItem {
     title: string;
     url: string;
-    icon?: Icon | null;
+    icon?: keyof typeof PhosphorIcons | null;
     isActive?: boolean;
     includeRoutes: string[];
 }

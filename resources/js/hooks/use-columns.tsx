@@ -2,12 +2,7 @@ import { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { router } from "@inertiajs/react";
 import { toast } from "sonner";
-import {
-    DeviceTabletSpeakerIcon,
-    NotePencilIcon,
-    TrashSimpleIcon,
-    type Icon
-} from "@phosphor-icons/react";
+import * as PhosphorIcons from "@phosphor-icons/react";
 
 import ActionMenu from "@/components/table/table-action-menu";
 
@@ -23,7 +18,7 @@ interface UseColumnsProps<T> {
     additionalOptions?: {
         label: string,
         onClick: () => void
-        icon?: Icon | null
+        icon?: keyof typeof PhosphorIcons | null
     }[];
 }
 
@@ -68,7 +63,7 @@ export const useColumns = <T extends Record<string, any>>({
                         items={[
                             {
                                 label: "Edit",
-                                icon: NotePencilIcon,
+                                icon: "NotePencilIcon",
                                 onClick: () => {
                                     setItemId(itemId);
                                     setMode("edit");
@@ -77,7 +72,7 @@ export const useColumns = <T extends Record<string, any>>({
                             },
                             {
                                 label: "View",
-                                icon: DeviceTabletSpeakerIcon,
+                                icon: "DeviceTabletSpeakerIcon",
                                 onClick: () => {
                                     setItemId(itemId);
                                     setMode("view");
@@ -87,7 +82,7 @@ export const useColumns = <T extends Record<string, any>>({
                             ...additionalOptions,
                             {
                                 label: "Delete",
-                                icon: TrashSimpleIcon,
+                                icon: "TrashSimpleIcon",
                                 onClick: () => triggerDeleteAlert(itemId),
                             },
                         ]}

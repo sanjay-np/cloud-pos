@@ -1,9 +1,13 @@
 import {
-    ArrowDown,
-    ArrowUp,
-    Clock,
-    Package,
-} from "lucide-react"
+    Bar,
+    BarChart,
+    CartesianGrid,
+    Legend,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis
+} from "recharts"
 
 import {
     Card,
@@ -15,8 +19,8 @@ import {
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import { ChartConfig, ChartContainer } from "@/components/ui/chart"
+import Icon from "@/components/ui/icon"
 
 const Overview = () => {
 
@@ -211,21 +215,33 @@ const Overview = () => {
                     <CardContent className="grid gap-3">
                         <div className="flex items-center justify-between rounded-lg border p-3">
                             <div className="flex items-center gap-2">
-                                <Clock className="h-4 w-4 text-muted-foreground" />
+                                <Icon
+                                    name="ClockIcon"
+                                    weight="duotone"
+                                    className="h-4 w-4 text-muted-foreground"
+                                />
                                 <span className="text-sm font-medium">Inventory Review</span>
                             </div>
                             <div className="text-xs text-muted-foreground">Due in 2 days</div>
                         </div>
                         <div className="flex items-center justify-between rounded-lg border p-3">
                             <div className="flex items-center gap-2">
-                                <Clock className="h-4 w-4 text-muted-foreground" />
+                                <Icon
+                                    name="ClockIcon"
+                                    weight="duotone"
+                                    className="h-4 w-4 text-muted-foreground"
+                                />
                                 <span className="text-sm font-medium">Supplier Meeting</span>
                             </div>
                             <div className="text-xs text-muted-foreground">Due tomorrow</div>
                         </div>
                         <div className="flex items-center justify-between rounded-lg border p-3">
                             <div className="flex items-center gap-2">
-                                <Clock className="h-4 w-4 text-muted-foreground" />
+                                <Icon
+                                    name="ClockIcon"
+                                    weight="duotone"
+                                    className="h-4 w-4 text-muted-foreground"
+                                />
                                 <span className="text-sm font-medium">Financial Report</span>
                             </div>
                             <div className="text-xs text-muted-foreground">Due today</div>
@@ -247,7 +263,11 @@ const Overview = () => {
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                                    <Package className="h-4 w-4 text-primary" />
+                                    <Icon
+                                        name="PackageIcon"
+                                        weight="duotone"
+                                        className="h-4 w-4 text-primary"
+                                    />
                                 </div>
                                 <div>
                                     <div className="text-sm font-medium">Product A</div>
@@ -259,7 +279,11 @@ const Overview = () => {
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                                    <Package className="h-4 w-4 text-primary" />
+                                    <Icon
+                                        name="PackageIcon"
+                                        weight="duotone"
+                                        className="h-4 w-4 text-primary"
+                                    />
                                 </div>
                                 <div>
                                     <div className="text-sm font-medium">Product B</div>
@@ -271,7 +295,11 @@ const Overview = () => {
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                                    <Package className="h-4 w-4 text-primary" />
+                                    <Icon
+                                        name="PackageIcon"
+                                        weight="duotone"
+                                        className="h-4 w-4 text-primary"
+                                    />
                                 </div>
                                 <div>
                                     <div className="text-sm font-medium">Product C</div>
@@ -298,7 +326,10 @@ const Overview = () => {
                             <div className="text-sm font-medium">Sales</div>
                             <div className="flex items-center gap-1">
                                 <span className="text-sm font-medium">92%</span>
-                                <ArrowUp className="h-3 w-3 text-green-500" />
+                                <Icon
+                                    name="TrendUpIcon"
+                                    className="h-3 w-3 text-green-500"
+                                />
                             </div>
                         </div>
                         <div className="h-2 w-full rounded-full bg-muted">
@@ -308,7 +339,10 @@ const Overview = () => {
                             <div className="text-sm font-medium">Marketing</div>
                             <div className="flex items-center gap-1">
                                 <span className="text-sm font-medium">78%</span>
-                                <ArrowUp className="h-3 w-3 text-green-500" />
+                                <Icon
+                                    name="TrendUpIcon"
+                                    className="h-3 w-3 text-green-500"
+                                />
                             </div>
                         </div>
                         <div className="h-2 w-full rounded-full bg-muted">
@@ -318,7 +352,10 @@ const Overview = () => {
                             <div className="text-sm font-medium">Operations</div>
                             <div className="flex items-center gap-1">
                                 <span className="text-sm font-medium">64%</span>
-                                <ArrowDown className="h-3 w-3 text-red-500" />
+                                <Icon
+                                    name="TrendDownIcon"
+                                    className="h-3 w-3 text-red-500"
+                                />
                             </div>
                         </div>
                         <div className="h-2 w-full rounded-full bg-muted">

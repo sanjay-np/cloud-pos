@@ -1,7 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useInitials } from '@/hooks/use-initials';
 import { type User } from '@/types';
-import { ChevronsUpDown } from 'lucide-react';
 
 export function UserInfo({ user, showEmail = false }: { user: User; showEmail?: boolean }) {
     const getInitials = useInitials();
@@ -20,7 +19,6 @@ export function UserInfo({ user, showEmail = false }: { user: User; showEmail?: 
                     <span className="truncate text-xs">{user.email}</span>
                 </div>
             )}
-            <ChevronsUpDown className="ml-auto size-4" />
         </>
     );
 }

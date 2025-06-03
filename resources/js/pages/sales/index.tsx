@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Head } from '@inertiajs/react';
 import { format } from 'date-fns';
-import { IndianRupee } from 'lucide-react';
 
 import AppTable from '@/components/table/app-table';
 import AppLayout from '@/layouts/app-layout';
@@ -94,7 +93,7 @@ const Index = ({ sales, pagination, default_currency }: any) => {
                     setItemId(itemId);
                     setIsOpen(!isOpen);
                 },
-                icon: IndianRupee,
+                icon: "CurrencyInrIcon",
             },
         ],
     });

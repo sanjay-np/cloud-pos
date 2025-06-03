@@ -1,4 +1,3 @@
-import { Trash2Icon } from 'lucide-react';
 import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -13,6 +12,7 @@ import {
 } from '@/components/ui/table';
 import { usePage } from '@inertiajs/react';
 import { formattedNumber } from '@/lib/utils';
+import Icon from '@/components/ui/icon';
 
 // Define types for product and main data structure
 type Product = {
@@ -116,7 +116,10 @@ export const ProductTable = ({ data, setData }: ProductTableProps) => {
                                                 variant={'outline'}
                                                 onClick={() => removeProductHandler(item.id)}
                                             >
-                                                <Trash2Icon />
+                                                <Icon
+                                                    name="TrashSimpleIcon"
+                                                    weight="duotone"
+                                                />
                                             </Button>
                                         </TableCell>
                                     </TableRow>

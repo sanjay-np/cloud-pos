@@ -1,14 +1,20 @@
-import { LucideIcon } from 'lucide-react';
+import React from "react";
+import * as PhosphorIcons from "@phosphor-icons/react";
+import type { IconProps as PhosphorIconProps } from "@phosphor-icons/react";
 
-interface IconProps {
-	iconNode?: LucideIcon | null;
-	className?: string;
+export interface IconProps extends PhosphorIconProps {
+    name: keyof typeof PhosphorIcons;
 }
 
-export function Icon({ iconNode: IconComponent, className }: IconProps) {
-	if (!IconComponent) {
-		return null;
-	}
+const Icon: React.FC<IconProps> = ({ name, ...props }) => {
+    const DynamicIcon = PhosphorIcons[name] as React.FC<PhosphorIconProps>;
 
-	return <IconComponent className={className} />;
-}
+    if (!DynamicIcon) {
+        console.warn(`Icon "${name}" not found in Phosphor Icons.`);
+        return null;
+    }
+
+    return <DynamicIcon {...props} />;
+};
+
+export default Icon;
