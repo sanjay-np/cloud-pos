@@ -36,7 +36,9 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
         columns,
         getCoreRowModel: getCoreRowModel(),
         enableRowSelection: true,
+        enableColumnResizing: true,
     })
+
     const scrolledToEnd = pagination
         ? pagination.current_page >= pagination.last_page
         : false as boolean
@@ -55,13 +57,15 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
                             {table.getHeaderGroups().map((headerGroup) => (
                                 <TableRow key={headerGroup.id}>
                                     {headerGroup.headers.map((header) => {
+
+                                        const columnDef = header.column.columnDef
+                                        const width = columnDef.width
+
                                         return (
                                             <TableHead
                                                 key={header.id}
                                                 className="px-4 text-sm border-r last:border-r-0 text-foreground font-normal bg-muted/30"
-                                                style={{
-                                                    width: header.getSize(),
-                                                }}
+                                                style={width ? { width, minWidth: width } : undefined}
                                             >
                                                 {
                                                     header.isPlaceholder
@@ -98,12 +102,16 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
                                     <TableRow>
                                         <TableCell
                                             colSpan={columns.length}
-                                            className="h-24 flex-auto"
+                                            className="h-28 flex-auto"
                                         >
                                             <div className="flex flex-col justify-center items-center">
                                                 <img src="/icons/no-items.svg" className="object-fit size-40" />
                                                 <div className="pb-6 flex flex-col justify-center items-center gap-2">
-                                                    <p className="font-medium text-lg text-muted-foreground">Nothing found... yet!</p>
+                                                    <h2 className="font-medium text-lg">No Data Yet</h2>
+                                                    <p className="text-muted-foreground text-center mx-auto ">
+                                                        Start by adding your first item to get things going! <br />
+                                                        Your data will appear here once it's created.
+                                                    </p>
                                                     <Button>Create New</Button>
                                                 </div>
                                             </div>

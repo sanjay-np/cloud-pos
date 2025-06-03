@@ -42,6 +42,7 @@ const Index = ({ suppliers, brands, pagination }: SupplierIndexProps) => {
                 id: "brand_items",
                 accessorKey: "brand_items",
                 header: "Brands",
+                width: "150px",
                 cell: ({ row }) => {
                     const items = row.getValue("brand_items") as Brand[]
                     return (

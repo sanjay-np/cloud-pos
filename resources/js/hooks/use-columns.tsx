@@ -55,6 +55,7 @@ export const useColumns = <T extends Record<string, any>>({
             header: "Actions",
             id: "actions",
             enableHiding: false,
+            width: "100px",
             cell: ({ row }) => {
                 const itemId = row.original[dataKey];
 
