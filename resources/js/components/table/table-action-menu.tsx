@@ -1,6 +1,8 @@
 import React from "react"
-import { LucideIcon, MoreHorizontal } from "lucide-react"
-
+import {
+    DotsThreeVerticalIcon,
+    type Icon
+} from '@phosphor-icons/react'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -15,7 +17,7 @@ type tableActionMenuProps = {
     items: {
         label: string,
         onClick: () => void
-        icon?: LucideIcon | null
+        icon?: Icon | null
     }[]
 }
 
@@ -25,16 +27,23 @@ export default function ActionMenu({ items }: tableActionMenuProps) {
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
                     <span className="sr-only">Open menu</span>
-                    <MoreHorizontal />
+                    <DotsThreeVerticalIcon />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="rounded-sm">
                 <DropdownMenuLabel>Options</DropdownMenuLabel>
                 {items.map((item, index) => (
                     <React.Fragment key={index}>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={item.onClick}>
-                            <span>{item.icon && <item.icon size={32} />}</span>
+                            <span>
+                                {item.icon && (
+                                    <item.icon
+                                        weight="duotone"
+                                        size={32}
+                                    />
+                                )}
+                            </span>
                             {item.label}
                         </DropdownMenuItem>
                     </React.Fragment>

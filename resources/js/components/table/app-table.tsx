@@ -57,15 +57,10 @@ export default function AppTable({ data, columns, pagination, refetch, setMode, 
                             {table.getHeaderGroups().map((headerGroup) => (
                                 <TableRow key={headerGroup.id}>
                                     {headerGroup.headers.map((header) => {
-
-                                        const columnDef = header.column.columnDef
-                                        const width = columnDef.width
-
                                         return (
                                             <TableHead
                                                 key={header.id}
                                                 className="px-4 text-sm border-r last:border-r-0 text-foreground font-normal bg-muted/30"
-                                                style={width ? { width, minWidth: width } : undefined}
                                             >
                                                 {
                                                     header.isPlaceholder

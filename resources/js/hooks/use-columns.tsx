@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit, LucideIcon, Tablet, TrashIcon } from "lucide-react";
 import { router } from "@inertiajs/react";
 import { toast } from "sonner";
+import {
+    DeviceTabletSpeakerIcon,
+    NotePencilIcon,
+    TrashSimpleIcon,
+    type Icon
+} from "@phosphor-icons/react";
 
 import ActionMenu from "@/components/table/table-action-menu";
 
@@ -18,7 +23,7 @@ interface UseColumnsProps<T> {
     additionalOptions?: {
         label: string,
         onClick: () => void
-        icon?: LucideIcon | null
+        icon?: Icon | null
     }[];
 }
 
@@ -28,6 +33,7 @@ export const useColumns = <T extends Record<string, any>>({
     customColumns = [],
     additionalOptions = [],
 }: UseColumnsProps<T>) => {
+
     const [itemId, setItemId] = useState<number | null>(null);
     const [mode, setMode] = useState<Mode>(null);
 
@@ -55,16 +61,14 @@ export const useColumns = <T extends Record<string, any>>({
             header: "Actions",
             id: "actions",
             enableHiding: false,
-            width: "100px",
             cell: ({ row }) => {
                 const itemId = row.original[dataKey];
-
                 return (
                     <ActionMenu
                         items={[
                             {
                                 label: "Edit",
-                                icon: Edit,
+                                icon: NotePencilIcon,
                                 onClick: () => {
                                     setItemId(itemId);
                                     setMode("edit");
@@ -73,7 +77,7 @@ export const useColumns = <T extends Record<string, any>>({
                             },
                             {
                                 label: "View",
-                                icon: Tablet,
+                                icon: DeviceTabletSpeakerIcon,
                                 onClick: () => {
                                     setItemId(itemId);
                                     setMode("view");
@@ -83,7 +87,7 @@ export const useColumns = <T extends Record<string, any>>({
                             ...additionalOptions,
                             {
                                 label: "Delete",
-                                icon: TrashIcon,
+                                icon: TrashSimpleIcon,
                                 onClick: () => triggerDeleteAlert(itemId),
                             },
                         ]}
