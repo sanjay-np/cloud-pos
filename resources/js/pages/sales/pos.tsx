@@ -14,7 +14,6 @@ import AppLayout from '@/layouts/app-layout';
 
 import { AppDropdown } from '@/components/app/app-dropdown';
 import { type BreadcrumbItem } from '@/types';
-import { BarcodeIcon } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -246,13 +245,6 @@ const POS = ({ customers, default_currency }: any) => {
                         <div className="px-2 py-3 text-center text-xl font-bold">
                             THANK YOU
                             <span className="block text-center text-base font-normal">Lorem Ipsum dollar</span>
-                        </div>
-                        <div className="flex justify-center">
-                            <div className="flex">
-                                <BarcodeIcon size="56" />
-                                <BarcodeIcon size="56" />
-                                <BarcodeIcon size="56" />
-                            </div>
                         </div>
                     </div>
                 </div>

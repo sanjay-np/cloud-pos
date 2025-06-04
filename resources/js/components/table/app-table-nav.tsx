@@ -1,15 +1,9 @@
 import { useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce';
 import { router } from '@inertiajs/react';
-import {
-    FileDownIcon,
-    ListFilterIcon,
-    SearchIcon,
-    Settings2Icon
-} from 'lucide-react';
-
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button';
+import Icon from '@/components/ui/icon';
 
 import { useSheetStore } from '@/hooks/use-sheet';
 
@@ -52,7 +46,7 @@ export const AppTableNav = ({ placeholder, searchRoute, setMode }: AppTableNavPr
                     variant="ghost"
                     className="absolute left-0 top-0 h-full px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
-                    <SearchIcon className="h-4 w-4" />
+                    <Icon name="MagnifyingGlassIcon" className="h-4 w-4" />
                     <span className="sr-only">Search</span>
                 </Button>
                 <Input
@@ -65,13 +59,13 @@ export const AppTableNav = ({ placeholder, searchRoute, setMode }: AppTableNavPr
             </div>
             <div className="flex gap-2">
                 <Button variant={'outline'}>
-                    <ListFilterIcon />
+                    <Icon name="ListDashesIcon" />
                 </Button>
                 <Button variant={'outline'}>
-                    <Settings2Icon />
+                    <Icon name="FadersHorizontalIcon" />
                 </Button>
                 <Button variant={'outline'}>
-                    <FileDownIcon />
+                    <Icon name="DownloadSimpleIcon" />
                 </Button>
                 <Button
                     variant="default"

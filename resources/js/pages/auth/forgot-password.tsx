@@ -1,6 +1,5 @@
 // Components
 import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 import InputError from '@/components/input-error';
@@ -9,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
+import Icon from '@/components/ui/icon';
 
 export default function ForgotPassword({ status }: { status?: string }) {
     const { data, setData, post, processing, errors } = useForm<Required<{ email: string }>>({
@@ -47,7 +47,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
                     <div className="my-6 flex items-center justify-start">
                         <Button className="w-full" disabled={processing}>
-                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                            {processing && <Icon name="SpinnerIcon" className="h-4 w-4 animate-spin" />}
                             Email password reset link
                         </Button>
                     </div>

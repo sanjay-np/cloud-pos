@@ -1,11 +1,11 @@
 import { useState, useRef } from "react"
-import { Camera, Loader2 } from "lucide-react"
 import {
     Avatar,
     AvatarFallback,
     AvatarImage
 } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import Icon from "@/components/ui/icon"
 
 interface AvatarUploadProps {
     initialImage?: string
@@ -83,7 +83,7 @@ export default function AvatarUpload({
                 onClick={triggerFileInput}
                 disabled={isUploading}
             >
-                {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
+                {isUploading ? <Icon name="SpinnerIcon" className="h-4 w-4 animate-spin" /> : <Icon name="CameraIcon" className="h-4 w-4" />}
             </Button>
         </div>
     )

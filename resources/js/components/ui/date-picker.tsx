@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
+import Icon from "@/components/ui/icon"
 import {
     Popover,
     PopoverContent,
@@ -30,7 +30,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
                         !value && "text-muted-foreground"
                     )}
                 >
-                    <CalendarIcon />
+                    <Icon name="CalendarIcon" />
                     {value ? format(value, "PPP") : <span>Pick a date</span>}
                 </Button>
             </PopoverTrigger>

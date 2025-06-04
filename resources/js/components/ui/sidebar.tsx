@@ -1,13 +1,13 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
-import { PanelLeftIcon } from "lucide-react"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import Icon from "@/components/ui/icon";
 import {
     Sheet,
     SheetContent,
@@ -268,7 +268,7 @@ function SidebarTrigger({
             }}
             {...props}
         >
-            <PanelLeftIcon />
+            <Icon name="SidebarIcon" />
             <span className="sr-only">Toggle Sidebar</span>
         </Button>
     )

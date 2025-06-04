@@ -1,4 +1,3 @@
-import { Loader2Icon } from "lucide-react";
 import { ReactNode } from "react";
 import { ClassNameValue } from "tailwind-merge";
 
@@ -12,6 +11,7 @@ import {
     SheetHeader,
     SheetTitle,
 } from "@/components/ui/sheet"
+import Icon from "@/components/ui/icon";
 
 import { useSheetStore } from "@/hooks/use-sheet";
 import { cn } from "@/lib/utils";
@@ -62,7 +62,7 @@ const AppSheet = ({
                                 onClick={onConfirm}
                                 disabled={processing}
                             >
-                                {processing && <Loader2Icon className="animate-spin" />}
+                                {processing && <Icon name="SpinnerIcon" className="animate-spin" />}
                                 Submit
                             </Button>
                         )}

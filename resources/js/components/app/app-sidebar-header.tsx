@@ -1,14 +1,14 @@
+import { usePage } from '@inertiajs/react';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { SharedData, type BreadcrumbItem as BreadcrumbItemType } from '@/types';
+import Icon from '@/components/ui/icon';
 import AppearanceToggleDropdown from '@/components/appearance-dropdown';
-import { BellIcon, UserIcon } from 'lucide-react';
-import { Button } from '../ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '../ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { usePage } from '@inertiajs/react';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useInitials } from '@/hooks/use-initials';
 import { UserMenuContent } from '../user-menu-content';
+import { SharedData, type BreadcrumbItem as BreadcrumbItemType } from '@/types';
 
 export function AppSidebarHeader({ breadcrumbs = [] }: { breadcrumbs?: BreadcrumbItemType[] }) {
     const page = usePage<SharedData>();
@@ -25,7 +25,10 @@ export function AppSidebarHeader({ breadcrumbs = [] }: { breadcrumbs?: Breadcrum
                 <div className='flex items-center gap-2'>
                     <AppearanceToggleDropdown />
                     <Button variant={"ghost"} size={"icon"}>
-                        <BellIcon className="h-5 w-5" />
+                        <Icon
+                            name="BellIcon"
+                            className="h-5 w-5"
+                        />
                     </Button>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>

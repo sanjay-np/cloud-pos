@@ -1,7 +1,7 @@
 import * as React from "react"
-import { X } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
+import Icon from "@/components/ui/icon"
 import {
     Command,
     CommandEmpty,
@@ -145,7 +145,7 @@ export function TagPicker({
                             }}
                             onClick={() => handleTagRemove(tag.id)}
                         >
-                            <X className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground" />
+                            <Icon name="XIcon" className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground" />
                             <span className="sr-only">Remove {tag.name}</span>
                         </button>
                     </Badge>

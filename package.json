@@ -55,7 +55,6 @@
         "date-fns": "^4.1.0",
         "globals": "^15.14.0",
         "laravel-vite-plugin": "^1.0",
-        "lucide-react": "^0.485.0",
         "react": "^19.0.0",
         "react-day-picker": "8.10.1",
         "react-dom": "^19.0.0",

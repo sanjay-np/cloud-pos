@@ -1,9 +1,9 @@
-import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import Icon from '@/components/ui/icon';
 
 export type Option = {
     value: string;
@@ -90,7 +90,7 @@ export function AppDropdown({
                     disabled={disabled}
                 >
                     {selectedLabel || placeholder}
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    <Icon name="CaretUpDownIcon" className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className={className + ' p-0'} align="start">
@@ -104,7 +104,7 @@ export function AppDropdown({
                                 .map((option) => {
                                     return (
                                         <CommandItem key={option.value} value={option.value} onSelect={() => handleSelect(option)}>
-                                            <Check className={`mr-2 h-4 w-4 ${value === option.value ? 'opacity-100' : 'opacity-0'}`} />
+                                            <Icon name="CheckIcon" className={`mr-2 h-4 w-4 ${value === option.value ? 'opacity-100' : 'opacity-0'}`} />
                                             {option.label}
                                         </CommandItem>
                                     );
@@ -114,7 +114,7 @@ export function AppDropdown({
                         {/* Loading indicator */}
                         {loading && (
                             <div className="px-2 py-2 text-center">
-                                <Loader2 className="mx-auto h-4 w-4 animate-spin" />
+                                <Icon name="SpinnerIcon" className="mx-auto h-4 w-4 animate-spin" />
                                 <p className="text-muted-foreground mt-1 text-xs">Loading options...</p>
                             </div>
                         )}

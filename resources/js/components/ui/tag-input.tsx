@@ -1,7 +1,7 @@
 import * as React from "react"
-import { X } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
+import Icon from "@/components/ui/icon"
 
 interface TagInputProps {
     placeholder?: string
@@ -70,7 +70,7 @@ export function TagInput({
                         onClick={() => removeTag(tag)}
                         disabled={disabled}
                     >
-                        <X className="w-3 h-3" />
+                        <Icon name="XIcon" className="w-3 h-3" />
                         <span className="sr-only">Remove {tag}</span>
                     </button>
                 </Badge>
