@@ -31,9 +31,19 @@ const sidebarNav: NavGroup[] = [
             },
             {
                 title: 'Expenses',
-                icon: "ReceiptIcon",
+                icon: "ReceiptXIcon",
                 url: '/expenses',
             },
+            {
+                title: "Adjustments",
+                icon: "MathOperationsIcon",
+                url: '/adjustments',
+            },
+            {
+                title: "Invoices",
+                icon: "ReceiptIcon",
+                url: '/invoices',
+            }
         ],
     },
     {
