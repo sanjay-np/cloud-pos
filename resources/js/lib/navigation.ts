@@ -36,7 +36,7 @@ const sidebarNav: NavGroup[] = [
             },
             {
                 title: "Adjustments",
-                icon: "MathOperationsIcon",
+                icon: "ArrowsClockwiseIcon",
                 url: '/adjustments',
             },
             {
