@@ -7,11 +7,11 @@ import { type NavItem } from '@/types';
 import { type ComponentPropsWithoutRef } from 'react';
 
 export function NavFooter({
-    items,
+    menuItems,
     className,
     ...props
 }: ComponentPropsWithoutRef<typeof SidebarGroup> & {
-    items: NavItem[];
+    menuItems: NavItem[];
 }) {
     return (
         <SidebarGroup
@@ -20,14 +20,20 @@ export function NavFooter({
         >
             <SidebarGroupContent>
                 <SidebarMenu>
-                    {items.map((item) => (
+                    {menuItems.map((item) => (
                         <SidebarMenuItem key={item.title}>
                             <SidebarMenuButton
                                 asChild
                                 className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 font-medium"
                             >
                                 <Link href={item.url} prefetch>
-                                    {item.icon && <Icon iconNode={item.icon} className="!size-5" strokeWidth={1.5} />}
+                                    {item?.icon && (
+                                        <Icon
+                                            name={item.icon}
+                                            className="!size-5"
+                                            weight="duotone"
+                                        />
+                                    )}
                                     <span>{item.title}</span>
                                 </Link>
                             </SidebarMenuButton>

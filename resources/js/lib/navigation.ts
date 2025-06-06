@@ -1,200 +1,109 @@
-import { NavGroup } from "@/types";
+import { NavGroup, NavItem } from "@/types";
 
 const sidebarNav: NavGroup[] = [
     {
         id: "1",
         title: "Dashboard",
         icon: "GaugeIcon",
-        items: [
-            {
-                title: 'Dashboard',
-                url: '/dashboard',
-                icon: "GaugeIcon",
-                includeRoutes: [
-                    'dashboard'
-                ]
-            },
-        ],
-        includeRoutes: [
-            'dashboard',
-        ]
+        isGroup: false,
+        url: "/dashboard",
     },
     {
         id: "2",
         title: "Operations",
         icon: "MathOperationsIcon",
+        isGroup: true,
         items: [
             {
                 title: 'POS',
-                url: '/pos',
                 icon: "CashRegisterIcon",
-                includeRoutes: [
-                    'sales.pos'
-                ]
+                url: '/pos',
             },
             {
                 title: 'Purchase',
-                url: '/purchases',
                 icon: "CoinsIcon",
-                includeRoutes: [
-                    'purchases.index'
-                ]
+                url: '/purchases',
             },
             {
                 title: 'Sales',
-                url: '/sales',
                 icon: "TagIcon",
-                includeRoutes: [
-                    'sales.index'
-                ]
+                url: '/sales',
             },
             {
                 title: 'Expenses',
-                url: '/expenses',
                 icon: "ReceiptIcon",
-                includeRoutes: [
-                    'expenses.index'
-                ]
+                url: '/expenses',
             },
         ],
-        includeRoutes: [
-            'pos',
-            'purchases',
-            'sales',
-            'expenses',
-        ]
     },
     {
         id: "3",
         title: "Products",
         icon: "PackageIcon",
+        isGroup: true,
         items: [
             {
                 title: 'Attributes',
-                url: '/attributes',
                 icon: "SlidersIcon",
-                includeRoutes: [
-                    'attributes.index',
-                ]
-
+                url: '/attributes',
             },
             {
                 title: 'Brands',
-                url: '/brands',
                 icon: "ArchiveIcon",
-                includeRoutes: [
-                    'brands.index',
-                ]
-
+                url: '/brands',
             },
             {
                 title: 'Categories',
                 url: '/categories',
                 icon: "FolderIcon",
-                includeRoutes: [
-                    'categories.index',
-                ]
             },
             {
                 title: 'Products',
                 url: '/products',
                 icon: "PackageIcon",
-                includeRoutes: [
-                    'products.index',
-                ]
             },
             {
                 title: 'Suppliers',
                 url: '/suppliers',
                 icon: "TruckIcon",
-                includeRoutes: [
-                    'suppliers.index',
-                ]
             },
         ],
-        includeRoutes: [
-            'attributes',
-            'brands',
-            'categories',
-            'products',
-            'suppliers',
-        ]
     },
     {
         id: "4",
-        title: "Customers",
-        icon: "UsersIcon",
-        isActive: false,
-        items: [
-            {
-                title: 'Customers',
-                url: '/customers',
-                icon: "UsersIcon",
-                includeRoutes: [
-                    'customers.index',
-                ]
-            },
-        ],
-        includeRoutes: [
-            'customers',
-        ]
-    },
-    {
-        id: "5",
-        title: "Employees",
-        icon: "IdentificationBadgeIcon",
-        items: [
-            {
-                title: 'Employees',
-                url: '/employees',
-                icon: "IdentificationBadgeIcon",
-                includeRoutes: [
-                    'employees.index',
-                ]
-            },
-            {
-                title: 'Setup',
-                url: '/employees',
-                icon: "SlidersIcon",
-                includeRoutes: [
-                    'employees.setup.index',
-                ]
-            }
-
-        ],
-        includeRoutes: [
-            'employees',
-        ]
-    },
-    {
-        id: "6",
         title: "Settings",
         icon: "GearIcon",
+        isGroup: true,
         items: [
             {
-                title: 'Currency',
+                title: "Currency",
                 url: '/settings/currency',
-                icon: "CurrencyCircleDollarIcon",
-                includeRoutes: [
-                    'currency.index'
-                ]
+                icon: "CurrencyInrIcon",
             },
             {
-                title: 'Options',
-                url: '/settings',
-                icon: "GearSixIcon",
-                includeRoutes: [
-                    'settings.index',
-                ]
+                title: "App Options",
+                url: '/settings/options/shop',
+                icon: "GearIcon",
             },
-        ],
-        includeRoutes: [
-            'settings',
-            'currency',
         ]
     }
 ]
 
+const footerNav: NavItem[] = [
+    {
+        title: "Help/Support",
+        url: '/help',
+        icon: "QuestionIcon",
+    },
+    {
+        title: "Live Chat",
+        url: '/live-chat',
+        icon: "ChatsIcon"
+    }
+]
+
+
 export const navigationItems = {
     sideNav: [...sidebarNav],
+    footerNav: [...footerNav],
 }

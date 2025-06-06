@@ -1,38 +1,69 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from "@inertiajs/react";
 import {
     SidebarGroup,
-    SidebarGroupContent,
+    SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuButton,
-    SidebarMenuItem
-} from '@/components/ui/sidebar';
+    SidebarMenuItem,
+} from "@/components/ui/sidebar"
 import Icon from '@/components/ui/icon';
 
-import { type NavItem } from '@/types';
+import { type NavGroup } from '@/types';
 
-export function NavMain({ items = [] }: { items: NavItem[] }) {
-    const page = usePage();
+export function NavMain({ menuItems = [] }: { menuItems: NavGroup[] }) {
     return (
-        <SidebarGroup className="px-2 py-0">
-            <SidebarGroupContent>
-                <SidebarMenu>
-                    {items.map((item) => (
-                        <SidebarMenuItem key={item.title}>
-                            <SidebarMenuButton
-                                asChild
-                                isActive={item.url === page.url}
-                                className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 text-sm"
-                                tooltip={item.title}
-                            >
-                                <Link href={item.url} prefetch>
-                                    {item.icon && <Icon iconNode={item.icon} className="!size-5" strokeWidth={1.5} />}
-                                    <span>{item.title}</span>
-                                </Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                    ))}
-                </SidebarMenu>
-            </SidebarGroupContent>
+        <SidebarGroup>
+            {menuItems.map((menuItem, index) => (
+                <div key={index}>
+                    {!menuItem.isGroup && (
+                        <SidebarMenu>
+                            <SidebarMenuItem className="pb-2">
+                                <SidebarMenuButton
+                                    tooltip={menuItem.title}
+                                    className="hover:bg-white hover:text-primary rounded-sm transition-all duration-300 ease-in-out"
+                                    asChild
+                                >
+                                    <Link href={menuItem.url}>
+                                        <Icon
+                                            name={menuItem.icon}
+                                            className="!size-5"
+                                            weight="duotone"
+                                        />
+                                        <span>{menuItem.title}</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        </SidebarMenu>
+                    )}
+                    {menuItem.isGroup && (
+                        <>
+                            <SidebarGroupLabel>{menuItem.title}</SidebarGroupLabel>
+                            {menuItem?.items !== undefined && menuItem.items.map((item, index) => {
+                                return (
+                                    <SidebarMenuItem key={index} className="pb-1">
+                                        <SidebarMenuButton
+                                            tooltip={item.title}
+                                            className="hover:bg-white hover:text-primary rounded-sm transition-all duration-300 ease-in-out"
+                                            asChild
+                                        >
+                                            <Link href={item.url}>
+                                                {item?.icon && (
+                                                    <Icon
+                                                        name={item.icon}
+                                                        className="!size-5"
+                                                        weight="duotone"
+                                                    />
+                                                )}
+                                                <span>{item.title}</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                )
+                            })}
+                        </>
+                    )}
+                </div>
+            ))}
         </SidebarGroup>
     );
 }

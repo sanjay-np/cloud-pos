@@ -10,21 +10,29 @@ export interface BreadcrumbItem {
     href: string;
 }
 
-export interface NavGroup {
+export interface BaseNavGroup {
     id: string;
     title: string;
     icon: keyof typeof PhosphorIcons;
-    isActive?: boolean;
-    items: NavItem[];
-    includeRoutes: string[];
+    items?: NavItem[];
 }
+
+export interface GroupNav extends BaseNavGroup {
+    isGroup: false;
+    url: string;
+}
+
+export interface NonGroupNav extends BaseNavGroup {
+    isGroup: true;
+    url?: string;
+}
+
+export type NavGroup = GroupNav | NonGroupNav;
 
 export interface NavItem {
     title: string;
     url: string;
     icon?: keyof typeof PhosphorIcons | null;
-    isActive?: boolean;
-    includeRoutes: string[];
 }
 
 export interface SharedData {
