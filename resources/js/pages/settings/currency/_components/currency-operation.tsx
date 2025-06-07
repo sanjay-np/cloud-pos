@@ -33,7 +33,7 @@ const CurrencyOperation = ({ currencyId, mode }: CurrencyOperationProps) => {
     useEffect(() => {
         if (!currencyId) return
         setIsProcessing(true)
-        const fetchCustomer = async () => {
+        const fetchCurrency = async () => {
             try {
                 const result = await fetch(route('currency.show', currencyId))
                 const response = await result.json()
@@ -49,9 +49,9 @@ const CurrencyOperation = ({ currencyId, mode }: CurrencyOperationProps) => {
             }
 
         }
-        fetchCustomer()
+        fetchCurrency()
     }, [currencyId])
-console.log(currency)
+    console.log(currency)
 
     const handleSubmit = () => {
 

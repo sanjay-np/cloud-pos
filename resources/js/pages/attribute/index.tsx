@@ -30,6 +30,7 @@ const Index = ({ attributes, pagination }: AttributePageProps) => {
             {
                 accessorKey: "name",
                 header: "Attribute Name",
+                size: 150,
                 cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("name")}</div>
             },
             {
@@ -47,6 +48,7 @@ const Index = ({ attributes, pagination }: AttributePageProps) => {
             {
                 accessorKey: "status",
                 header: "Status",
+                size: 150,
                 cell: ({ row }) => {
                     const status = (row.getValue("status") as string) === "active" ? "success" : "error";
                     return (

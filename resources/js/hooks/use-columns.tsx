@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import * as PhosphorIcons from "@phosphor-icons/react";
 
 import ActionMenu from "@/components/table/table-action-menu";
+import { Checkbox } from "@/components/ui/checkbox"
 
 import { useSheetStore } from "@/hooks/use-sheet";
 import { useAlertStore } from "@/hooks/use-alert";
@@ -51,6 +52,26 @@ export const useColumns = <T extends Record<string, any>>({
     };
 
     const defaultColumns: ColumnDef<T>[] = [
+        {
+            id: "select",
+            header: ({ table }) => (
+                <Checkbox
+                    checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
+                    onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                    aria-label="Select all"
+                />
+            ),
+            cell: ({ row }) => (
+                <Checkbox
+                    checked={row.getIsSelected()}
+                    onCheckedChange={(value) => row.toggleSelected(!!value)}
+                    aria-label="Select row"
+                />
+            ),
+            enableSorting: false,
+            enableHiding: false,
+            size: 40,
+        },
         ...customColumns,
         {
             header: "Actions",
@@ -89,6 +110,7 @@ export const useColumns = <T extends Record<string, any>>({
                     />
                 );
             },
+            size: 80,
         },
     ];
     return { itemId, setItemId, mode, setMode, columns: defaultColumns };

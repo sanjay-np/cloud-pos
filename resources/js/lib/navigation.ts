@@ -34,16 +34,6 @@ const sidebarNav: NavGroup[] = [
                 icon: "ReceiptXIcon",
                 url: '/expenses',
             },
-            {
-                title: "Adjustments",
-                icon: "ArrowsClockwiseIcon",
-                url: '/adjustments',
-            },
-            {
-                title: "Invoices",
-                icon: "ReceiptIcon",
-                url: '/invoices',
-            }
         ],
     },
     {

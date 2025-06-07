@@ -31,23 +31,27 @@ const Index = ({ suppliers, brands, pagination }: SupplierIndexProps) => {
                 id: "supplier",
                 header: "Supplier",
                 accessorFn: (row) => (
-                    <div className="flex gap-2.5 flex-col">
-                        <div className="capitalize">{row.name}</div>
-                        <div className="capitalize">{row.contact_person} ({row.phone})</div>
+                    <div className="flex flex-col">
+                        <div className="capitalize text-base">{row.name}</div>
+                        <div className="text-muted-foreground">{row.contact_person} ({row.phone})</div>
                     </div>
                 ),
-                cell: (info) => info.getValue()
+                cell: (info) => info.getValue(),
             },
             {
                 id: "brand_items",
                 accessorKey: "brand_items",
                 header: "Brands",
-                width: "150px",
+                size: 300,
                 cell: ({ row }) => {
                     const items = row.getValue("brand_items") as Brand[]
                     return (
-                        <div className="flex gap-2">
-                            {items && items.map((item) => <Badge variant={"outline"} key={item.id}>{item.name}</Badge>)}
+                        <div className="flex gap-2 px-3">
+                            {items && items.map((item) => (
+                                <Badge key={item.id} variant={"outline"}>
+                                    {item.name}
+                                </Badge>
+                            ))}
                         </div>
                     )
                 },

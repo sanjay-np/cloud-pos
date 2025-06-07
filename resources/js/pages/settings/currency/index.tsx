@@ -23,8 +23,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const Index = ({ currencies, pagination }: any) => {
+
     const { columns, itemId, mode, setMode } = useColumns({
         dataKey: 'id',
+        deleteRoute: 'currencies.destroy',
         customColumns: [
             {
                 id: 'name',
@@ -36,12 +38,14 @@ const Index = ({ currencies, pagination }: any) => {
                 id: 'label',
                 accessorKey: 'label',
                 header: 'Currency Symbol',
-                cell: ({ row }) => <div className="lowercase">{row.getValue('label')}</div>,
+                size: 180,
+                cell: ({ row }) => <div>{row.getValue('label')}</div>,
             },
             {
                 id: 'is_current',
                 accessorKey: 'is_current',
                 header: 'Active',
+                size: 140,
                 cell: ({ row }) => (
                     <div className="capitalize">
                         <Badge

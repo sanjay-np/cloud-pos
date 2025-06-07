@@ -61,8 +61,8 @@ class Product extends Model
 
     public function getStockQtyAttribute($value)
     {
-        $purchased = $this->purchase()->sum('quantity');
-        $sold = $this->sale()->sum('quantity');
+        $purchased = $this->purchase()->sum('qty');
+        $sold = $this->sale()->sum('qty');
         return $value + $this->$purchased - $sold;
     }
 

@@ -13,7 +13,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('settings')->group(function () {
         Route::resource('currency', CurrencyController::class)
-            ->only(['index', 'store', 'update', 'destroy'])
+            ->only(['index', 'store', 'show', 'update', 'destroy'])
             ->names('currency');
 
         Route::prefix('options')

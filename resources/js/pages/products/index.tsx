@@ -36,9 +36,9 @@ const Index = ({ products, pagination, default_currency }: any) => {
                 id: "product",
                 header: "Product",
                 accessorFn: (row) => (
-                    <div className="flex gap-3 items-center w-[300px]">
+                    <div className="flex gap-3 items-center">
                         <div>
-                            <Avatar className={`size-16 transition-colors`}>
+                            <Avatar className={`size-14 transition-colors`}>
                                 <AvatarImage
                                     src={row.image_url as string | undefined}
                                     alt="Profile picture"
@@ -47,8 +47,11 @@ const Index = ({ products, pagination, default_currency }: any) => {
                                 <AvatarFallback className="text-2xl">{"PI"}</AvatarFallback>
                             </Avatar>
                         </div>
-                        <div className="">
-                            <div className="capitalize text-md ">{row.title}</div>
+                        <div className="flex flex-col gap-2">
+                            <div className="capitalize text-base ">{row.title}</div>
+                            <div className="capitalize">
+                                {`${default_currency} ${formattedNumber(row.sale_price, 2)}`}
+                            </div>
                         </div>
                     </div>
                 ),
@@ -58,23 +61,15 @@ const Index = ({ products, pagination, default_currency }: any) => {
                 id: "stock_qty",
                 accessorKey: "stock_qty",
                 header: "Stock",
+                size: 120,
                 cell: ({ row }) => (
                     <div className="capitalize">{row.getValue("stock_qty")}</div>
                 ),
             },
             {
-                id: "sale_price",
-                accessorKey: "sale_price",
-                header: "Amount",
-                cell: ({ row }) => (
-                    <div className="capitalize">
-                        {`${default_currency} ${formattedNumber(row.getValue("sale_price"), 2)}`}
-                    </div>
-                ),
-            },
-            {
                 accessorKey: "status",
                 header: "Status",
+                size: 120,
                 cell: ({ row }) => {
                     const status = (row.getValue("status") as string) === "active" ? "success" : "error";
                     return (

@@ -39,19 +39,20 @@ const Index = ({ categories, parentCategories, pagination }: CategoryIndexProps)
                 id: "category",
                 header: "Category",
                 accessorFn: (row) => (
-                    <div className="flex gap-3 items-center w-[300px]">
+                    <div className="flex gap-3 items-center">
                         <div>
-                            <Avatar className={`size-16 transition-colors`}>
+                            <Avatar className={`size-14 transition-colors`}>
                                 <AvatarImage
                                     src={row.image_url as string | undefined}
                                     alt="Profile picture"
                                     className="object-cover"
                                 />
-                                <AvatarFallback className="text-2xl">{"CP"}</AvatarFallback>
+                                <AvatarFallback className="text-2xl">{":("}</AvatarFallback>
                             </Avatar>
                         </div>
                         <div className="">
-                            <div className="capitalize text-md ">{row.name}</div>
+                            <div className="capitalize text-base">{row.name}</div>
+                            <p className="text-muted-foreground">{row.description}</p>
                         </div>
                     </div>
                 ),
@@ -61,13 +62,13 @@ const Index = ({ categories, parentCategories, pagination }: CategoryIndexProps)
                 id: "parent",
                 header: "Parent Category",
                 accessorKey: "parent",
+                size: 140,
                 cell: ({ row }) => {
                     const parent = row.getValue('parent') as any
                     if (parent)
                         return (
                             <div className="capitalize">{parent?.name}</div>
                         )
-
                     return (
                         <div className="capitalize">-</div>
                     )
@@ -76,6 +77,7 @@ const Index = ({ categories, parentCategories, pagination }: CategoryIndexProps)
             {
                 accessorKey: "status",
                 header: "Status",
+                size: 120,
                 cell: ({ row }) => {
                     const status = (row.getValue("status") as string) === "active" ? "success" : "error";
                     return (

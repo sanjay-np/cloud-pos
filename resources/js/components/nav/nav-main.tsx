@@ -24,7 +24,11 @@ export function NavMain({ menuItems = [] }: { menuItems: NavGroup[] }) {
                 {menuItems.map((menuItem, index) => (
                     <Collapsible key={index} asChild defaultOpen={true}>
                         <SidebarMenuItem>
-                            <SidebarMenuButton asChild tooltip={menuItem.title}>
+                            <SidebarMenuButton
+                                tooltip={menuItem.title}
+                                className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 font-medium hover:bg-white rounded-sm"
+                                asChild
+                            >
                                 {!menuItem.isGroup ? (
                                     <Link href={menuItem.url}>
                                         <Icon
@@ -52,8 +56,11 @@ export function NavMain({ menuItems = [] }: { menuItems: NavGroup[] }) {
                                         <SidebarMenuSub>
                                             {menuItem.items?.map((subItem) => (
                                                 <SidebarMenuSubItem key={subItem.title}>
-                                                    <SidebarMenuSubButton asChild>
-                                                        <a href={subItem.url}>
+                                                    <SidebarMenuSubButton
+                                                        className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 font-medium hover:bg-white rounded-sm"
+                                                        asChild
+                                                    >
+                                                        <Link href={subItem.url}>
                                                             {subItem?.icon && (
                                                                 <Icon
                                                                     name={subItem.icon}
@@ -62,7 +69,7 @@ export function NavMain({ menuItems = [] }: { menuItems: NavGroup[] }) {
                                                                 />
                                                             )}
                                                             <span>{subItem.title}</span>
-                                                        </a>
+                                                        </Link>
                                                     </SidebarMenuSubButton>
                                                 </SidebarMenuSubItem>
                                             ))}
