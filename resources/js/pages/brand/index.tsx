@@ -36,8 +36,7 @@ const Index = ({ brands, pagination }: BrandIndexProps) => {
                 header: "Brand",
                 accessorFn: (row) => (
                     <div className="flex gap-3 items-center">
-                        <div>
-
+                        <div className="relative">
                             <Avatar className={`size-14 transition-colors`}>
                                 <AvatarImage
                                     src={row.image_url as string | undefined}
@@ -47,7 +46,7 @@ const Index = ({ brands, pagination }: BrandIndexProps) => {
                                 <AvatarFallback className="text-2xl">{"BL"}</AvatarFallback>
                             </Avatar>
                         </div>
-                        <div className="">
+                        <div className="flex flex-col gap-2">
                             <div className="capitalize text-base">{row.name}</div>
                             <div className="capitalize text-gray-500">{row.description}</div>
                         </div>

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { usePage } from '@inertiajs/react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,9 +11,9 @@ import {
     TableHeader,
     TableRow
 } from '@/components/ui/table';
-import { usePage } from '@inertiajs/react';
-import { formattedNumber } from '@/lib/utils';
 import Icon from '@/components/ui/icon';
+
+import { formattedNumber } from '@/lib/utils';
 
 // Define types for product and main data structure
 type Product = {
@@ -39,14 +40,13 @@ type ProductTableProps = {
 
 export const ProductTable = ({ data, setData }: ProductTableProps) => {
 
-    const columns = ['SN.', 'Product Name', 'Qty', 'Price', 'Total', '...']
     const { default_currency } = usePage().props;
+    const columns = ['SN.', 'Product Name', 'Qty', 'Price', 'Total', '...']
 
     const removeProductHandler = (id: number) => {
         const updatedProducts = data.products.filter(product => product.id !== id);
         setData('products', updatedProducts)
     }
-
 
     const changeQtyHandler = (id: number, qty: number) => {
         if (qty < 0) return;

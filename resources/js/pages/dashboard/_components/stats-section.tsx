@@ -20,7 +20,7 @@ export function DashboardStats({ activeCustomers }: DashboardStat) {
     return (
         <>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card className="gap-1 rounded-md justify-between py-3 relative">
+                <Card className="gap-1 rounded-sm justify-between py-3 relative">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
                     </CardHeader>

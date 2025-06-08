@@ -8,8 +8,6 @@ export interface AttributeColumnProps {
     attributes: string[] | null
 }
 
-
-
 export interface AttributePageProps {
     attributes: AttributeColumnProps[],
     pagination: Pagination

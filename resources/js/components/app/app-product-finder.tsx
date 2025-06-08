@@ -91,28 +91,27 @@ export const AppProductFinder = ({ type, onProductSelect }: ProductFinderProps) 
 
             {isFocused && (
                 <div className="absolute z-50 w-full rounded-md border border-t-0 bg-white shadow">
-                    {searchResult &&
-                        searchResult?.map((item, index) => {
-                            return (
-                                <div
-                                    key={index}
-                                    className="text-muted-foreground bg-background hover:bg-muted cursor-pointer border-b px-4 py-2 text-sm last:border-b-0"
-                                    onClick={() => handleOnProductClick(item)}
-                                >
-                                    <div className="flex">
-                                        <Avatar className={`size-10 transition-colors`}>
-                                            <AvatarImage src={item.image_url as string | undefined} alt="Profile picture" className="object-cover" />
-                                            <AvatarFallback className="text-2xl">{'PI'}</AvatarFallback>
-                                        </Avatar>
+                    {searchResult && searchResult?.map((item, index) => {
+                        return (
+                            <div
+                                key={index}
+                                className="text-muted-foreground bg-background hover:bg-muted cursor-pointer border-b px-4 py-2 text-sm last:border-b-0"
+                                onClick={() => handleOnProductClick(item)}
+                            >
+                                <div className="flex">
+                                    <Avatar className={`size-10 transition-colors`}>
+                                        <AvatarImage src={item.image_url as string | undefined} alt="Profile picture" className="object-cover" />
+                                        <AvatarFallback className="text-2xl">{'PI'}</AvatarFallback>
+                                    </Avatar>
 
-                                        <div className="ml-2">
-                                            <div className="text-base font-medium">{item.title}</div>
-                                            <span>{default_currency} {type == 'sale' ? formattedNumber(item.sale_price) : formattedNumber(item.purchase_price)}</span>
-                                        </div>
+                                    <div className="ml-2">
+                                        <div className="text-base font-medium">{item.title}</div>
+                                        <span>{default_currency} {type == 'sale' ? formattedNumber(item.sale_price) : formattedNumber(item.purchase_price)}</span>
                                     </div>
                                 </div>
-                            );
-                        })}
+                            </div>
+                        );
+                    })}
                 </div>
             )}
         </div>

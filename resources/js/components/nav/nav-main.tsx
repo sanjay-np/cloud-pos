@@ -30,7 +30,7 @@ export function NavMain({ menuItems = [] }: { menuItems: NavGroup[] }) {
                                 asChild
                             >
                                 {!menuItem.isGroup ? (
-                                    <Link href={menuItem.url}>
+                                    <Link href={menuItem.url} prefetch>
                                         <Icon
                                             name={menuItem.icon}
                                             className="!size-5"
@@ -60,7 +60,7 @@ export function NavMain({ menuItems = [] }: { menuItems: NavGroup[] }) {
                                                         className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 font-medium hover:bg-white rounded-sm"
                                                         asChild
                                                     >
-                                                        <Link href={subItem.url}>
+                                                        <Link href={subItem.url} prefetch>
                                                             {subItem?.icon && (
                                                                 <Icon
                                                                     name={subItem.icon}
