@@ -8,13 +8,15 @@ import {
     AvatarImage
 } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import Icon from '@/components/ui/icon';
 
+import ProductOperation from './_components/product-operation';
+
+import { formattedNumber } from '@/lib/utils';
 import { useColumns } from '@/hooks/use-columns';
 
 import { type BreadcrumbItem } from '@/types'
-import ProductOperation from './_components/product-operation';
-import { formattedNumber } from '@/lib/utils';
-import Icon from '@/components/ui/icon';
+import { ProductColumnProps, ProductIndexProps } from './_components/product';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -27,9 +29,9 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ]
 
-const Index = ({ products, pagination, default_currency }: any) => {
+const Index = ({ products, pagination, currencySymbol }: ProductIndexProps) => {
 
-    const { columns, itemId, mode, setMode } = useColumns({
+    const { columns, itemId, mode, setMode } = useColumns<ProductColumnProps>({
         dataKey: "id",
         deleteRoute: "products.destroy",
         customColumns: [
@@ -56,7 +58,7 @@ const Index = ({ products, pagination, default_currency }: any) => {
                         <div className="flex flex-col">
                             <div className="capitalize text-base font-medium">{row.title}</div>
                             <div className="capitalize text-muted-foreground">
-                                {`${default_currency} ${formattedNumber(row.sale_price, 2)}`}
+                                {formattedNumber(row.sale_price, currencySymbol)}
                             </div>
                         </div>
                     </div>

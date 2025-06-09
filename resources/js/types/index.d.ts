@@ -40,6 +40,7 @@ export interface SharedData {
     quote: { message: string; author: string };
     auth: Auth;
     ziggy: Config & { location: string };
+    currencySymbol: string;
     [key: string]: unknown;
 }
 

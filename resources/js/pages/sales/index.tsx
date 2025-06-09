@@ -11,12 +11,14 @@ import {
 } from "@/components/ui/hover-card"
 import { Button } from '@/components/ui/button';
 
-import { useColumns } from '@/hooks/use-columns';
 import SaleOperation from './_components/sale-operation';
 import { SalePaymentForm } from './_components/sales-payment-form';
 
+import { useColumns } from '@/hooks/use-columns';
 import { formattedNumber } from '@/lib/utils';
+
 import { type BreadcrumbItem } from '@/types';
+import type { SaleColumnProps, SaleIndexProps } from './_components/sales';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -28,9 +30,10 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/sales',
     },
 ];
-const Index = ({ sales, pagination, default_currency }: any) => {
+const Index = ({ sales, pagination, currencySymbol }: SaleIndexProps) => {
+
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const { columns, itemId, setItemId, mode, setMode } = useColumns<any>({
+    const { columns, itemId, setItemId, mode, setMode } = useColumns<SaleColumnProps>({
         dataKey: 'id',
         deleteRoute: 'sales.delete',
         customColumns: [
@@ -78,7 +81,7 @@ const Index = ({ sales, pagination, default_currency }: any) => {
             {
                 accessorKey: 'total_amount',
                 header: 'Total Amount',
-                cell: ({ row }) => <div className="font-medium capitalize">{`${default_currency} ${formattedNumber(row.getValue<number>('total_amount'))}`}</div>,
+                cell: ({ row }) => <div className="font-medium capitalize">{formattedNumber(row.getValue<number>('total_amount'), currencySymbol)}</div>,
             },
             {
                 accessorKey: 'payment_status',

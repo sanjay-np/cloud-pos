@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
@@ -24,9 +25,13 @@ export const validateImageFile = (file: File, maxSizeMB: number = 5): boolean =>
 
     return true;
 };
-export const formattedNumber = (number: number, decimals: number = 2): string => {
-    return number.toLocaleString('en-IN', {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-    });
+
+export const formattedNumber = (
+    number: number,
+    currencySymbol: string = '',
+): string => {
+    return `${currencySymbol} ${number.toLocaleString('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    })}`;
 };

@@ -13,6 +13,7 @@ import { type BreadcrumbItem } from '@/types';
 import { useState } from 'react';
 import { type PurchaseColumnProps, type PurchaseIndexProps } from './_components/purchase';
 import { PurchasePaymentForm } from './_components/purchase-payment-form';
+import { formattedNumber } from '@/lib/utils';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -24,7 +25,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/purchases',
     },
 ];
-const Index = ({ purchases, pagination, default_currency }: PurchaseIndexProps) => {
+const Index = ({ purchases, pagination, currencySymbol }: PurchaseIndexProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const { columns, itemId, setItemId, mode, setMode } = useColumns<PurchaseColumnProps>({
         dataKey: 'id',
@@ -69,7 +70,7 @@ const Index = ({ purchases, pagination, default_currency }: PurchaseIndexProps) 
             {
                 accessorKey: 'total_amount',
                 header: 'Total Amount',
-                cell: ({ row }) => <div className="font-medium capitalize">{`${default_currency} ${row.getValue<number>('total_amount')}`}</div>,
+                cell: ({ row }) => <div className="font-medium capitalize">{formattedNumber(row.getValue<number>('total_amount'), currencySymbol)}</div>,
             },
             {
                 accessorKey: 'payment_status',

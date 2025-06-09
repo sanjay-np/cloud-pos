@@ -38,12 +38,11 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
+        // [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
         return [
             ...parent::share($request),
             'name' => config('app.name'),
-            'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
                 'user' => $request->user(),
             ],
@@ -51,7 +50,8 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'default_currency' => fn(): string => Currency::where('is_current', true)->first()?->label ?? '$',
+            'currencySymbol' => fn(): string => Currency::where('is_current', true)->first()?->label ?? '$',
+            //'quote' => ['message' => trim($message), 'author' => trim($author)],
         ];
     }
 }

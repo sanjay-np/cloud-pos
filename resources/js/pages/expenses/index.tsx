@@ -8,8 +8,9 @@ import ExpenseOperation from "./_components/expense-operation"
 
 import { useColumns } from "@/hooks/use-columns"
 
-import { type BreadcrumbItem } from "@/types"
+import { SharedData, type BreadcrumbItem } from "@/types"
 import { formattedNumber } from "@/lib/utils";
+import { ExpenseColumnProps, ExpenseIndexProps } from "./_components/expense";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -22,11 +23,11 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ]
 
-const Index = ({ expenses, pagination }: any) => {
+const Index = ({ expenses, pagination }: ExpenseIndexProps) => {
 
-    const { default_currency } = usePage().props
+    const { currencySymbol } = usePage<SharedData>().props
 
-    const { columns, itemId, mode, setMode } = useColumns<any>({
+    const { columns, itemId, mode, setMode } = useColumns<ExpenseColumnProps>({
         dataKey: "id",
         deleteRoute: "expenses.destroy",
         customColumns: [
@@ -50,7 +51,7 @@ const Index = ({ expenses, pagination }: any) => {
             {
                 accessorKey: "amount",
                 header: "Amount",
-                cell: ({ row }) => <div className="capitalize">{`${default_currency} ${formattedNumber(row.getValue("amount"))}`}</div>,
+                cell: ({ row }) => <div className="capitalize">{formattedNumber(row.getValue("amount"), currencySymbol)}</div>,
                 size: 140
             }
         ]

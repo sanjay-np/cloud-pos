@@ -14,6 +14,7 @@ import {
 import Icon from '@/components/ui/icon';
 
 import { formattedNumber } from '@/lib/utils';
+import { SharedData } from '@/types';
 
 // Define types for product and main data structure
 type Product = {
@@ -40,7 +41,8 @@ type ProductTableProps = {
 
 export const ProductTable = ({ data, setData }: ProductTableProps) => {
 
-    const { default_currency } = usePage().props;
+    const { currencySymbol } = usePage<SharedData>().props;
+
     const columns = ['SN.', 'Product Name', 'Qty', 'Price', 'Total', '...']
 
     const removeProductHandler = (id: number) => {
@@ -109,7 +111,7 @@ export const ProductTable = ({ data, setData }: ProductTableProps) => {
                                                 className='w-20'
                                             />
                                         </TableCell>
-                                        <TableCell>{`${default_currency} ${(item.price * item.qty).toFixed(2)}`}</TableCell>
+                                        <TableCell>{formattedNumber(item.price * item.qty, currencySymbol)}</TableCell>
                                         <TableCell>
                                             <Button
                                                 size={'icon'}
@@ -141,23 +143,23 @@ export const ProductTable = ({ data, setData }: ProductTableProps) => {
                 <div className="grid gap-2">
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Total</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {`${default_currency} ${formattedNumber(total)}`}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {formattedNumber(total), currencySymbol}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Tax</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {`${default_currency} ${data.tax_amount.toFixed(2)}`}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+) {formattedNumber(data.tax_amount.toFixed(2), currencySymbol)}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Discount</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(-)  {`${default_currency} ${data.discount_amount.toFixed(2)}`}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(-)  {formattedNumber(data.discount_amount, currencySymbol)}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Shipping</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+)  {`${default_currency} ${data.shipping_amount.toFixed(2)}`}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(+)  {formattedNumber(data.shipping_amount, currencySymbol)}</p>
                     </div>
                     <div className="item flex">
                         <label className='text-muted-foreground font-medium text-sm mb-1 block w-[100px]'>Grand Total</label>
-                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(=)  {`${default_currency} ${data.total_amount.toFixed(2)}`}</p>
+                        <p className="text-muted-foreground font-medium text-sm mb-1 block ml-auto">(=)  {formattedNumber(data.total_amount, currencySymbol)}</p>
                     </div>
                 </div>
             </div>

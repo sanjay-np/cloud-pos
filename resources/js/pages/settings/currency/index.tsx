@@ -2,10 +2,14 @@ import { Head } from '@inertiajs/react';
 
 import AppTable from '@/components/table/app-table';
 import { Badge } from '@/components/ui/badge';
-import { useColumns } from '@/hooks/use-columns';
-import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
+
 import CurrencyOperation from './_components/currency-operation';
+
+import AppLayout from '@/layouts/app-layout';
+import { useColumns } from '@/hooks/use-columns';
+
+import { type BreadcrumbItem } from '@/types';
+import type { CurrencyColumnProps, CurrencyIndexProps } from './_components/currency';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -22,9 +26,9 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const Index = ({ currencies, pagination }: any) => {
+const Index = ({ currencies, pagination }: CurrencyIndexProps) => {
 
-    const { columns, itemId, mode, setMode } = useColumns({
+    const { columns, itemId, mode, setMode } = useColumns<CurrencyColumnProps>({
         dataKey: 'id',
         deleteRoute: 'currencies.destroy',
         customColumns: [

@@ -12,6 +12,7 @@ import {
 import Icon from '@/components/ui/icon';
 
 import { formattedNumber } from '@/lib/utils';
+import { SharedData } from '@/types';
 
 type Product = {
     id: number;
@@ -28,7 +29,7 @@ type ProductFinderProps = {
 
 export const AppProductFinder = ({ type, onProductSelect }: ProductFinderProps) => {
 
-    const { default_currency } = usePage().props as any;
+    const { currencySymbol } = usePage<SharedData>().props;
 
     const [searchResult, setSearchResult] = useState<Product[]>([]);
     const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -106,7 +107,7 @@ export const AppProductFinder = ({ type, onProductSelect }: ProductFinderProps) 
 
                                     <div className="ml-2">
                                         <div className="text-base font-medium">{item.title}</div>
-                                        <span>{default_currency} {type == 'sale' ? formattedNumber(item.sale_price) : formattedNumber(item.purchase_price)}</span>
+                                        <span>{type == 'sale' ? formattedNumber(item.sale_price, currencySymbol) : formattedNumber(item.purchase_price, currencySymbol)}</span>
                                     </div>
                                 </div>
                             </div>

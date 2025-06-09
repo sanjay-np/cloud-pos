@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card"
 import { SharedData } from "@/types"
 import Icon from "@/components/ui/icon"
+import { formattedNumber } from "@/lib/utils"
 
 type DashboardStat = {
     activeCustomers: number
@@ -15,7 +16,7 @@ type DashboardStat = {
 
 export function DashboardStats({ activeCustomers }: DashboardStat) {
 
-    const { default_currency } = usePage<SharedData>().props
+    const { currencySymbol } = usePage<SharedData>().props
 
     return (
         <>
@@ -25,7 +26,7 @@ export function DashboardStats({ activeCustomers }: DashboardStat) {
                         <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold mb-2"><span className="">{default_currency}</span> 45,231.89</div>
+                        <div className="text-2xl font-bold mb-2"><span className=""></span> {formattedNumber(45231.89, currencySymbol)}</div>
                         <p className="text-xs text-muted-foreground">+20.1% from last month</p>
                     </CardContent>
                     <div className="absolute w-11/12 h-full top-0 flex justify-end items-center">
