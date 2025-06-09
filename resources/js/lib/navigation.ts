@@ -71,6 +71,24 @@ const sidebarNav: NavGroup[] = [
     },
     {
         id: "4",
+        title: "Users",
+        icon: "UsersThreeIcon",
+        isGroup: true,
+        items: [
+            {
+                title: 'Customers',
+                url: '/customers',
+                icon: "UsersIcon"
+            },
+            {
+                title: 'Employees',
+                url: '/employees',
+                icon: "IdentificationBadgeIcon"
+            }
+        ]
+    },
+    {
+        id: "5",
         title: "Settings",
         icon: "GearIcon",
         isGroup: true,

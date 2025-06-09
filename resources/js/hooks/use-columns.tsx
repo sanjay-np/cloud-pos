@@ -70,7 +70,7 @@ export const useColumns = <T extends Record<string, any>>({
             ),
             enableSorting: false,
             enableHiding: false,
-            size: 40,
+            size: 50,
         },
         ...customColumns,
         {

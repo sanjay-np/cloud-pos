@@ -14,6 +14,7 @@ import { useColumns } from '@/hooks/use-columns';
 import { type BreadcrumbItem } from '@/types'
 import ProductOperation from './_components/product-operation';
 import { formattedNumber } from '@/lib/utils';
+import Icon from '@/components/ui/icon';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -44,12 +45,17 @@ const Index = ({ products, pagination, default_currency }: any) => {
                                     alt="Profile picture"
                                     className="object-cover"
                                 />
-                                <AvatarFallback className="text-2xl">{"PI"}</AvatarFallback>
+                                <AvatarFallback className="text-2xl">
+                                    <Icon
+                                        name="PackageIcon"
+                                        weight='duotone'
+                                    />
+                                </AvatarFallback>
                             </Avatar>
                         </div>
-                        <div className="flex flex-col gap-2">
-                            <div className="capitalize text-base ">{row.title}</div>
-                            <div className="capitalize">
+                        <div className="flex flex-col">
+                            <div className="capitalize text-base font-medium">{row.title}</div>
+                            <div className="capitalize text-muted-foreground">
                                 {`${default_currency} ${formattedNumber(row.sale_price, 2)}`}
                             </div>
                         </div>

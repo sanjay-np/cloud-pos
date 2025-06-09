@@ -14,6 +14,7 @@ import { useColumns } from "@/hooks/use-columns";
 
 import { type BreadcrumbItem } from "@/types"
 import { BrandColumnProps, type BrandIndexProps } from "./_components/brand";
+import Icon from "@/components/ui/icon";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -43,10 +44,15 @@ const Index = ({ brands, pagination }: BrandIndexProps) => {
                                     alt="Profile picture"
                                     className="object-cover"
                                 />
-                                <AvatarFallback className="text-2xl">{"BL"}</AvatarFallback>
+                                <AvatarFallback className="text-2xl">
+                                    <Icon
+                                        name="ArchiveIcon"
+                                        weight="duotone"
+                                    />
+                                </AvatarFallback>
                             </Avatar>
                         </div>
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col">
                             <div className="capitalize text-base">{row.name}</div>
                             <div className="capitalize text-gray-500">{row.description}</div>
                         </div>

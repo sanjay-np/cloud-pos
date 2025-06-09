@@ -16,6 +16,7 @@ import { useColumns } from "@/hooks/use-columns";
 
 import { type BreadcrumbItem } from "@/types";
 import { type EmployeeColumnProps, type EmployeeIndexProps } from "./_components/employee";
+import Icon from "@/components/ui/icon";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -40,13 +41,18 @@ const Index = ({ employees, pagination }: EmployeeIndexProps) => {
                     return (
                         <div className="flex gap-3 items-center w-[300px]">
                             <div>
-                                <Avatar className={`size-16 transition-colors`}>
+                                <Avatar className={`size-14 transition-colors`}>
                                     <AvatarImage
                                         src={row.avatar_url as string | undefined}
                                         alt="Profile picture"
                                         className="object-cover"
                                     />
-                                    <AvatarFallback className="text-2xl">{"EP"}</AvatarFallback>
+                                    <AvatarFallback className="text-2xl">
+                                        <Icon
+                                            name="UserIcon"
+                                            weight="duotone"
+                                        />
+                                    </AvatarFallback>
                                 </Avatar>
                             </div>
                             <div className="">

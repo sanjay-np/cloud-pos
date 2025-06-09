@@ -15,6 +15,7 @@ import { useColumns } from "@/hooks/use-columns";
 
 import { type BreadcrumbItem } from "@/types";
 import { CategoryColumnProps, type CategoryIndexProps } from "./_components/category";
+import Icon from "@/components/ui/icon";
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -47,10 +48,15 @@ const Index = ({ categories, parentCategories, pagination }: CategoryIndexProps)
                                     alt="Profile picture"
                                     className="object-cover"
                                 />
-                                <AvatarFallback className="text-2xl">{":("}</AvatarFallback>
+                                <AvatarFallback className="text-2xl">
+                                    <Icon
+                                        name="FolderIcon"
+                                        weight="duotone"
+                                    />
+                                </AvatarFallback>
                             </Avatar>
                         </div>
-                        <div className="">
+                        <div className="flex flex-col">
                             <div className="capitalize text-base">{row.name}</div>
                             <p className="text-muted-foreground">{row.description}</p>
                         </div>

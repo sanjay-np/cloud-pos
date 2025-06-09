@@ -34,16 +34,24 @@ const Index = ({ expenses, pagination }: any) => {
                 accessorKey: "date",
                 header: "Date",
                 cell: ({ row }) => <div className="capitalize">{format(row.getValue("date"), 'PPP')}</div>,
+                size: 130
             },
             {
                 accessorKey: "title",
                 header: "Title",
-                cell: ({ row }) => <div className="capitalize">{row.getValue("title")}</div>,
+                accessorFn: (row) => (
+                    <div className="flex flex-col">
+                        <div className="capitalize text-base ">{row.title}</div>
+                        <div className="text-muted-foreground">{row.description}</div>
+                    </div>
+                ),
+                cell: (info) => info.getValue()
             },
             {
                 accessorKey: "amount",
                 header: "Amount",
                 cell: ({ row }) => <div className="capitalize">{`${default_currency} ${formattedNumber(row.getValue("amount"))}`}</div>,
+                size: 140
             }
         ]
     })
