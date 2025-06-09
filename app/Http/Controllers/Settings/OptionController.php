@@ -71,7 +71,8 @@ class OptionController extends Controller
     {
         $invoiceSettings = $this->model->query()
             ->whereCategory('invoiceSettings')
-            ->get()?->pluck('meta_value', 'meta_key')
+            ->get()
+            ?->pluck('meta_value', 'meta_key')
             ->toArray();
         return Inertia::render("settings/options/invoice/index", [
             'invoiceSettings' => $invoiceSettings
