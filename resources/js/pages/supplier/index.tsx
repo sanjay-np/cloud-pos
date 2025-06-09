@@ -32,7 +32,7 @@ const Index = ({ suppliers, brands, pagination }: SupplierIndexProps) => {
                 header: "Supplier",
                 accessorFn: (row) => (
                     <div className="flex flex-col">
-                        <div className="capitalize text-base">{row.name}</div>
+                        <div className="capitalize text-base font-medium">{row.name}</div>
                         <div className="text-muted-foreground">{row.contact_person} ({row.phone})</div>
                     </div>
                 ),

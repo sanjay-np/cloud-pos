@@ -66,7 +66,7 @@ export default function AppTable({
                                     return (
                                         <TableHead
                                             key={header.id}
-                                            className="border-r border-border last:border-r-0 px-3"
+                                            className="border-r border-border last:border-r-0 px-3 font-semibold"
                                             style={{
                                                 width: header.getSize() !== 150 ? `${header.getSize()}px` : undefined,
                                                 minWidth: header.getSize() !== 150 ? `${header.getSize()}px` : undefined,

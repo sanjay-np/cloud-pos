@@ -31,7 +31,7 @@ const Index = ({ attributes, pagination }: AttributePageProps) => {
                 accessorKey: "name",
                 header: "Attribute Name",
                 size: 150,
-                cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("name")}</div>
+                cell: ({ row }) => <div className="capitalize text-base font-medium">{row.getValue("name")}</div>
             },
             {
                 accessorKey: "attributes",

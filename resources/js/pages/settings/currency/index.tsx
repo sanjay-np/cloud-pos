@@ -36,7 +36,7 @@ const Index = ({ currencies, pagination }: CurrencyIndexProps) => {
                 id: 'name',
                 accessorKey: 'name',
                 header: 'Currency Name',
-                cell: ({ row }) => <div className="capitalize">{row.getValue('name')}</div>,
+                cell: ({ row }) => <div className="capitalize text-base font-medium">{row.getValue('name')}</div>,
             },
             {
                 id: 'label',

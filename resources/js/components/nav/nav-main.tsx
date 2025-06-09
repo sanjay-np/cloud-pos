@@ -26,7 +26,7 @@ export function NavMain({ menuItems = [] }: { menuItems: NavGroup[] }) {
                         <SidebarMenuItem>
                             <SidebarMenuButton
                                 tooltip={menuItem.title}
-                                className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 font-medium hover:bg-white rounded-sm"
+                                className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 font-semibold rounded-sm"
                                 asChild
                             >
                                 {!menuItem.isGroup ? (
@@ -57,7 +57,7 @@ export function NavMain({ menuItems = [] }: { menuItems: NavGroup[] }) {
                                             {menuItem.items?.map((subItem) => (
                                                 <SidebarMenuSubItem key={subItem.title}>
                                                     <SidebarMenuSubButton
-                                                        className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 font-medium hover:bg-white rounded-sm"
+                                                        className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 font-semibold rounded-sm"
                                                         asChild
                                                     >
                                                         <Link href={subItem.url} prefetch>

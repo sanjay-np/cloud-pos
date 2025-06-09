@@ -42,7 +42,7 @@ const Index = ({ expenses, pagination }: ExpenseIndexProps) => {
                 header: "Title",
                 accessorFn: (row) => (
                     <div className="flex flex-col">
-                        <div className="capitalize text-base ">{row.title}</div>
+                        <div className="capitalize text-base font-medium">{row.title}</div>
                         <div className="text-muted-foreground">{row.description}</div>
                     </div>
                 ),

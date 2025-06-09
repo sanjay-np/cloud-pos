@@ -57,7 +57,7 @@ const Index = ({ categories, parentCategories, pagination }: CategoryIndexProps)
                             </Avatar>
                         </div>
                         <div className="flex flex-col">
-                            <div className="capitalize text-base">{row.name}</div>
+                            <div className="capitalize text-base font-medium">{row.name}</div>
                             <p className="text-muted-foreground">{row.description}</p>
                         </div>
                     </div>

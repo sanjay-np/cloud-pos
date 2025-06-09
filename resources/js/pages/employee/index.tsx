@@ -56,7 +56,7 @@ const Index = ({ employees, pagination }: EmployeeIndexProps) => {
                                 </Avatar>
                             </div>
                             <div className="">
-                                <div className="capitalize text-md ">{row.name}</div>
+                                <div className="capitalize text-base font-medium">{row.name}</div>
                                 <div className="capitalize text-gray-500">{row.phone}</div>
                             </div>
                         </div>

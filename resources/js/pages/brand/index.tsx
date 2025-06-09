@@ -53,7 +53,7 @@ const Index = ({ brands, pagination }: BrandIndexProps) => {
                             </Avatar>
                         </div>
                         <div className="flex flex-col">
-                            <div className="capitalize text-base">{row.name}</div>
+                            <div className="capitalize text-base font-medium">{row.name}</div>
                             <div className="capitalize text-gray-500">{row.description}</div>
                         </div>
                     </div>
