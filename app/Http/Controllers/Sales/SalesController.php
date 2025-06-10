@@ -11,9 +11,12 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Services\SaleService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class SalesController extends Controller
 {
@@ -23,7 +26,7 @@ class SalesController extends Controller
     ) {}
 
 
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $sales = $this->model
             ->with('customer:id,name')
@@ -47,19 +50,26 @@ class SalesController extends Controller
     }
 
 
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): RedirectResponse
     {
-        $item = $this->model->create($request->getRequested());
-        if ($item) {
-            $this->service->createSaleDetail($request->getRequestedProducts(), $item->id);
-            $this->service->createSalePayment($request->getRequestedPayment(), $item->id);
-            event(new SaleCreated($item));
+        DB::beginTransaction();
+        try {
+            $item = $this->model->create($request->getRequested());
+            if ($item) {
+                $this->service->createSaleDetail($request->getRequestedProducts(), $item->id);
+                $this->service->createSalePayment($request->getRequestedPayment(), $item->id);
+                event(new SaleCreated($item));
+            }
+            DB::commit();
             return to_route('sales.pos');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
         }
     }
 
 
-    public function show(int $id)
+    public function show(int $id): Sale
     {
         Product::$disabledAppends = true;
         $item = $this->model->with('details.product:id,title')->findOrFail($id);
@@ -80,28 +90,37 @@ class SalesController extends Controller
     }
 
 
-    public function update(UpdateRequest $request, int $id)
+    public function update(UpdateRequest $request, int $id): RedirectResponse
     {
-        $item = $this->model->findOrFail($id)->update($request->getRequested());
-        if ($item) {
-            $this->service->updateSaleDetail($request->getRequestedProducts(), $id);
-            $this->service->updateSalePayment($request->getRequestedPayment(), $id);
-            event(new SaleCreated($item));
+        DB::beginTransaction();
+        try {
+            $item = $this->model->findOrFail($id)->update($request->getRequested());
+            if ($item) {
+                $this->service->updateSaleDetail($request->getRequestedProducts(), $id);
+                $this->service->updateSalePayment($request->getRequestedPayment(), $id);
+                event(new SaleCreated($item));
+            }
+            DB::commit();
             return to_route('sales.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
         }
     }
 
 
-    public function destroy(int $id)
+    public function destroy(int $id): RedirectResponse
     {
-        $item = $this->model->findOrFail($id)->delete();
-        if ($item) {
+        try {
+            $this->model->findOrFail($id)->delete();
             return to_route('sales.index');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
     }
 
 
-    public function pos()
+    public function pos(): Response
     {
         $customers = Customer::query()
             ->select(['id', 'name'])
@@ -117,13 +136,14 @@ class SalesController extends Controller
         ]);
     }
 
-    public function addPayment(PaymentRequest $request, int $id)
+
+    public function addPayment(PaymentRequest $request, int $id): RedirectResponse
     {
         try {
             $this->service->createSalePayment($request->getRequested(), $id);
             return to_route('sales.index');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
+            return back()->with('error', $e->getMessage());
         }
     }
 }

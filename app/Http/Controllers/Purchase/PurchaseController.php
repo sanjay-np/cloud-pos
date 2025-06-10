@@ -10,9 +10,12 @@ use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\Supplier;
 use App\Services\PurchaseService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class PurchaseController extends Controller
 {
@@ -22,7 +25,7 @@ class PurchaseController extends Controller
     ) {}
 
 
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $purchases = $this->model->query()
             ->with([
@@ -49,18 +52,25 @@ class PurchaseController extends Controller
     }
 
 
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): RedirectResponse
     {
-        $item = $this->model->create($request->getRequested());
-        if ($item) {
-            $this->service->createPurchaseDetail($request->getRequestedProducts(), $item->id);
-            $this->service->createPurchasePayment($request->getRequestedPayment(), $item->id);
+        DB::beginTransaction();
+        try {
+            $item = $this->model->create($request->getRequested());
+            if ($item) {
+                $this->service->createPurchaseDetail($request->getRequestedProducts(), $item->id);
+                $this->service->createPurchasePayment($request->getRequestedPayment(), $item->id);
+            }
+            DB::commit();
             return to_route('purchases.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
         }
     }
 
 
-    public function show(int $id)
+    public function show(int $id): Purchase
     {
         Product::$disabledAppends = true;
         $item = $this->model->with('details.product:id,title')->findOrFail($id);
@@ -80,33 +90,42 @@ class PurchaseController extends Controller
     }
 
 
-    public function update(UpdateRequest $request, int $purchaseId)
+    public function update(UpdateRequest $request, int $purchaseId): RedirectResponse
     {
-        $item = $this->model->findOrFail($purchaseId)->update($request->getRequested());
-        if ($item) {
-            $this->service->updatePurchaseDetail($request->getRequestedProducts(), $purchaseId);
-            $this->service->updatePurchasePayment($request->getRequestedPayment(), $purchaseId);
+        DB::beginTransaction();
+        try {
+            $item = $this->model->findOrFail($purchaseId)->update($request->getRequested());
+            if ($item) {
+                $this->service->updatePurchaseDetail($request->getRequestedProducts(), $purchaseId);
+                $this->service->updatePurchasePayment($request->getRequestedPayment(), $purchaseId);
+            }
+            DB::commit();
             return to_route('purchases.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
         }
     }
 
 
-    public function destroy(int $id)
+    public function destroy(int $id): RedirectResponse
     {
-        $item = $this->model->findOrFail($id)->delete();
-        if ($item) {
+        try {
+            $this->model->findOrFail($id)->delete();
             return to_route('purchases.index');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getmessage());
         }
     }
 
 
-    public function addPayment(PaymentRequest  $request, int $id)
+    public function addPayment(PaymentRequest  $request, int $id): RedirectResponse
     {
         try {
             $this->service->createPurchasePayment($request->getRequested(), $id);
             return to_route('purchases.index');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
+            return back()->with('error', $e->getMessage());
         }
     }
 }

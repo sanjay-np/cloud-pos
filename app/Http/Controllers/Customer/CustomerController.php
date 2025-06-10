@@ -54,11 +54,12 @@ class CustomerController extends Controller
 
     public function update(UpdateRequest $request, int $id): RedirectResponse
     {
-        $item = $this->model->findOrFail($id)->update($request->getRequested());
-        if ($item) {
+        try {
+            $this->model->findOrFail($id)->update($request->getRequested());
             return to_route('customers.index');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
-        return back()->with('error', 'Something went wrong');
     }
 
 

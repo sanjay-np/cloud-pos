@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Brand\StoreRequest;
 use App\Http\Requests\Brand\UpdateRequest;
 use App\Models\Brand;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class BrandController extends Controller
 {
@@ -17,7 +19,7 @@ class BrandController extends Controller
     ) {}
 
 
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $brands = $this->model->query()
             ->select(['id', 'name', 'image', 'description'])
@@ -32,35 +34,41 @@ class BrandController extends Controller
     }
 
 
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): RedirectResponse
     {
-        $item = $this->model->create($request->getRequested());
-        if ($item) {
+        try {
+            $this->model->create($request->getRequested());
             return to_route('brands.index');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
     }
 
 
-    public function show($id)
+    public function show($id): Brand
     {
         return $this->model->findOrFail($id);
     }
 
 
-    public function update(UpdateRequest $request, $id)
+    public function update(UpdateRequest $request, $id): RedirectResponse
     {
-        $item = $this->model->findOrFail($id)->update($request->getRequested());
-        if ($item) {
+        try {
+            $this->model->findOrFail($id)->update($request->getRequested());
             return to_route('brands.index');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
     }
 
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
-        $item = $this->model->findOrFail($id)->delete();
-        if ($item) {
+        try {
+            $this->model->findOrFail($id)->delete();
             return to_route('brands.index');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
     }
 }
