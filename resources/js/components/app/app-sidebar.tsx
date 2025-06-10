@@ -20,6 +20,7 @@ import { navigationItems } from '@/lib/navigation';
 
 import { NavGroup } from '@/types';
 import { cn } from '@/lib/utils';
+import { NavUser } from '../nav/nav-user';
 
 export function AppSidebar() {
 
@@ -42,19 +43,19 @@ export function AppSidebar() {
     return (
         <Sidebar
             collapsible="icon"
+            variant="sidebar"
             className="overflow-hidden *:data-[sidebar=sidebar]:flex-row"
         >
             <Sidebar
                 collapsible="none"
-                className="w-[calc(var(--sidebar-width-icon)+16px)]! border-r"
+                className="w-[calc(var(--sidebar-width-icon))]! border-r"
             >
                 <SidebarHeader>
-                    <SidebarMenu>
+                    <SidebarMenu className="px-0 flex items-center justify-center">
                         <SidebarMenuItem>
                             <SidebarMenuButton
                                 size="lg"
                                 asChild
-                                className="md:h-8 md:p-0"
                             >
                                 <Link href="/dashboard" prefetch>
                                     <AppLogo />
@@ -67,13 +68,16 @@ export function AppSidebar() {
                 <SidebarContent>
                     <SidebarGroup>
                         <SidebarGroupContent className="px-1.5 md:px-0">
-                            <SidebarMenu>
+                            <SidebarMenu className='px-1'>
                                 {sideNav.map((menuItem, index) => {
                                     const isActive = activeItem.title === menuItem.title;
                                     return (
                                         <SidebarMenuItem key={index}>
                                             <SidebarMenuButton
-                                                className="px-2.5 md:px-2"
+                                                className={cn(
+                                                    "flex items-center justify-center rounded-md py-[18px] mb-2 cursor-pointer",
+                                                    isActive && "bg-white border"
+                                                )}
                                                 isActive={isActive}
                                                 tooltip={{
                                                     children: menuItem.title,
@@ -87,7 +91,10 @@ export function AppSidebar() {
                                                 <Icon
                                                     name={menuItem.icon}
                                                     weight="duotone"
-                                                    className="!size-5"
+                                                    className={cn(
+                                                        "!size-6 text-muted-foreground",
+                                                        isActive && "text-primary"
+                                                    )}
                                                 />
                                                 <span className='hidden'>{menuItem.title}</span>
                                             </SidebarMenuButton>
@@ -97,8 +104,55 @@ export function AppSidebar() {
                             </SidebarMenu>
                         </SidebarGroupContent>
                     </SidebarGroup>
+
+                    <SidebarGroup className='mt-auto'>
+                        <SidebarGroupContent className="px-1.5 md:px-0">
+                            <SidebarMenu className='px-1'>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        className={cn(
+                                            "flex items-center justify-center rounded-md py-[18px] mb-2 cursor-pointer",
+                                        )}
+                                        tooltip={{
+                                            children: "Support",
+                                            hidden: false,
+                                        }}
+                                    >
+                                        <Icon
+                                            name={"QuestionIcon"}
+                                            weight="duotone"
+                                            className={cn(
+                                                "!size-6 text-muted-foreground",
+                                            )}
+                                        />
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        className={cn(
+                                            "flex items-center justify-center rounded-md py-[18px] mb-2 cursor-pointer",
+                                        )}
+                                        tooltip={{
+                                            children: "Live Chat",
+                                            hidden: false,
+                                        }}
+                                    >
+                                        <Icon
+                                            name={"ChatsIcon"}
+                                            weight="duotone"
+                                            className={cn(
+                                                "!size-6 text-muted-foreground",
+                                            )}
+                                        />
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </SidebarMenu>
+                        </SidebarGroupContent>
+                    </SidebarGroup>
                 </SidebarContent>
+
                 <SidebarFooter>
+                    <NavUser />
                 </SidebarFooter>
             </Sidebar>
 
@@ -106,15 +160,15 @@ export function AppSidebar() {
                 collapsible="none"
                 className="hidden flex-1 md:flex"
             >
-                <SidebarHeader className="gap-3.5 border-b p-4">
-                    <div className="w-full flex items-center gap-2">
-                        {activeItem?.icon && (<Icon name={activeItem.icon} weight='duotone' />)}
+                <SidebarHeader className="gap-3.5 p-4">
+                    <div className="w-full flex gap-3 items-center text-md text-secondary-foreground bg-white border rounded-md py-1 px-2 shadow-xs">
+                        {activeItem?.icon && (<Icon name={activeItem.icon} weight='duotone' className="!size-5 text-muted-foreground" />)}
                         {activeItem?.title}
                     </div>
                 </SidebarHeader>
 
                 <SidebarContent>
-                    <SidebarGroup className="px-0">
+                    <SidebarGroup className="px-3">
                         <SidebarGroupContent>
                             {activeItem?.items && activeItem?.items.map((item, index) => {
                                 const subNavIsActive = item.url === url;
@@ -123,7 +177,7 @@ export function AppSidebar() {
                                         <Link
                                             href={item.url}
                                             className={cn(
-                                                "text-foreground w-full p-1 rounded-sm flex items-center gap-2 mb-1",
+                                                "text-foreground w-full py-1.5 px-2 rounded-md flex items-center gap-2.5 mb-1",
                                                 subNavIsActive && "text-primary bg-white border"
                                             )}
                                         >
@@ -132,7 +186,7 @@ export function AppSidebar() {
                                                     name={item.icon}
                                                     weight='duotone'
                                                     className={cn(
-                                                        "!size-5 text-gray-500",
+                                                        "!size-5 text-muted-foreground",
                                                         subNavIsActive && "text-primary"
                                                     )}
                                                 />

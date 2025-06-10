@@ -49,7 +49,7 @@ const Index = ({ employees, pagination }: EmployeeIndexProps) => {
                                     />
                                     <AvatarFallback className="text-2xl">
                                         <Icon
-                                            name="UserIcon"
+                                            name="UserSoundIcon"
                                             weight="duotone"
                                         />
                                     </AvatarFallback>

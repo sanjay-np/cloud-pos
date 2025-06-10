@@ -3,22 +3,27 @@ import { NavGroup, NavItem } from "@/types";
 const sidebarNav: NavGroup[] = [
     {
         id: "1",
-        title: "Dashboard",
-        icon: "GaugeIcon",
+        title: "Overview",
+        icon: "CommandIcon",
         isGroup: true,
         items: [
             {
                 title: 'Dashboard',
                 url: '/dashboard',
-                icon: "HouseSimpleIcon",
-            }
+                icon: "HouseIcon",
+            },
+            {
+                title: "Daily Overivew",
+                url: '/overview',
+                icon: "SquaresFourIcon",
+            },
         ],
         includeRoutes: ['dashboard']
     },
     {
         id: "2",
         title: "Operations",
-        icon: "MathOperationsIcon",
+        icon: "CardsThreeIcon",
         isGroup: true,
         items: [
             {
@@ -92,7 +97,7 @@ const sidebarNav: NavGroup[] = [
     {
         id: "4",
         title: "Users",
-        icon: "UsersThreeIcon",
+        icon: "UserCircleIcon",
         isGroup: true,
         items: [
             {

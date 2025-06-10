@@ -49,7 +49,7 @@ const Index = ({ customers, pagination }: CustomerIndexProps) => {
                                     />
                                     <AvatarFallback className="text-2xl">
                                         <Icon
-                                            name="UserGearIcon"
+                                            name="UserIcon"
                                             weight="duotone"
                                         />
                                     </AvatarFallback>
