@@ -15,6 +15,7 @@ export interface BaseNavGroup {
     title: string;
     icon: keyof typeof PhosphorIcons;
     items?: NavItem[];
+    includeRoutes: string[];
 }
 
 export interface GroupNav extends BaseNavGroup {

@@ -5,8 +5,15 @@ const sidebarNav: NavGroup[] = [
         id: "1",
         title: "Dashboard",
         icon: "GaugeIcon",
-        isGroup: false,
-        url: "/dashboard",
+        isGroup: true,
+        items: [
+            {
+                title: 'Dashboard',
+                url: '/dashboard',
+                icon: "HouseSimpleIcon",
+            }
+        ],
+        includeRoutes: ['dashboard']
     },
     {
         id: "2",
@@ -35,6 +42,12 @@ const sidebarNav: NavGroup[] = [
                 url: '/expenses',
             },
         ],
+        includeRoutes: [
+            'pos',
+            'purchases',
+            'sales',
+            'expenses',
+        ]
     },
     {
         id: "3",
@@ -68,6 +81,13 @@ const sidebarNav: NavGroup[] = [
                 icon: "TruckIcon",
             },
         ],
+        includeRoutes: [
+            'attributes',
+            'brands',
+            'categories',
+            'products',
+            'suppliers',
+        ]
     },
     {
         id: "4",
@@ -85,6 +105,10 @@ const sidebarNav: NavGroup[] = [
                 url: '/employees',
                 icon: "IdentificationBadgeIcon"
             }
+        ],
+        includeRoutes: [
+            'customers',
+            'employees',
         ]
     },
     {
@@ -103,6 +127,10 @@ const sidebarNav: NavGroup[] = [
                 url: '/settings/options/shop',
                 icon: "GearIcon",
             },
+        ],
+        includeRoutes: [
+            'settings',
+            'currency',
         ]
     }
 ]
